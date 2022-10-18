@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
@@ -49,7 +49,7 @@ function sendOk() {
 	                        <h3 class="text-center fw-bold">패스워드 재확인</h3>
 	                        
 			                <div class="d-grid">
-								<p class="form-control-plaintext text-center">정보보호를 위해 패스워드를 다시 한 번 입력해주세요.</p>
+								<p class="form-control-plaintext text-center">정보 보호를 위해 패스워드를 다시 한 번 입력해주세요.</p>
 			                </div>
 	                        
 	                        <div class="d-grid">
@@ -61,7 +61,7 @@ function sendOk() {
 	                            <input type="password" name="userPwd" class="form-control form-control-lg" placeholder="패스워드">
 	                        </div>
 	                        <div class="d-grid">
-	                            <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">확인 <i class="bi bi-check2"></i> </button>
+	                            <button type="button" class="btn btn-lg" onclick="sendOk();" style="background: #EDEEF7">확인 <i class="bi bi-check2"></i> </button>
 	                            <input type="hidden" name="mode" value="${mode}">
 	                        </div>
 	                    </form>

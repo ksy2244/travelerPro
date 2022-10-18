@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
@@ -47,7 +47,6 @@ function sendLogin() {
 <main>
 	<div class="container">
 		<div class="body-container">	
-
 	        <div class="row">
 	            <div class="col-md-6 offset-md-3">
 	                <div class="border mt-5 p-4">
@@ -68,7 +67,7 @@ function sendLogin() {
 	                            </div>
 	                        </div>
 	                        <div class="col-12">
-	                            <button type="button" class="btn btn-primary float-end" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
+	                            <button type="button" class="btn float-end" onclick="sendLogin();" style="background: #EDEEF7">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
 	                        </div>
 	                    </form>
 	                    <hr class="mt-4">

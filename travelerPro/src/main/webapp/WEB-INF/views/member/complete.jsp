@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>spring</title>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
+<jsp:include page="/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
@@ -20,7 +20,7 @@
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/layout/header.jsp"/>
 </header>
 
 <main>
@@ -38,7 +38,7 @@
 		                </div>
                         
                         <div class="d-grid">
-                            <button type="button" class="btn btn-lg btn-primary">확인 <i class="bi bi-check2"></i> </button>
+                            <button type="button" class="btn btn-lg" style="background: #EDEEF7">확인 <i class="bi bi-check2"></i> </button>
                         </div>
 	                </div>
 
@@ -50,10 +50,10 @@
 </main>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
+	<jsp:include page="/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
+<jsp:include page="/layout/staticFooter.jsp"/>
 
 </body>
 </html>
