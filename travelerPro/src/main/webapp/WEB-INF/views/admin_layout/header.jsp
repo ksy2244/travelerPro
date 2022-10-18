@@ -9,55 +9,29 @@
 
 
 
-<nav class="navbar navbar-expand-lg justify-content-end" style=" background: #B8B5FF; border: 30px solid #B8B5FF;">
+<nav class="navbar navbar-expand-lg justify-content-end" style=" background: #3C2317; border: 30px solid #3C2317">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#" style="font-family: 'GmarketSans'; font-size: 50px; margin-left: 300px;"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>
+    <a class="navbar-brand text-white" href="#" style="font-family: 'GmarketSans'; font-size: 50px; margin-left: 300px;"><i class="fa-regular fa-handshake">TRAVELER</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 350px;">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-           style="font-family: 'GmarketSans'; font-size: 25px; margin-right: 20px;">
-            더보기
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">1:1 문의</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">공지사항</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
-          </ul>
-        </li>
-        <c:if test="${empty sessionScope.member}">
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="javascript:dialogLogin();" title="로그인"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그인</a>
-        	</li>
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/member.do" title="회원가입"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">회원가입</a>
-        	</li>
-      	</c:if>
-      	<c:if test="${not empty sessionScope.member}">
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃" 
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
-        	</li>
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="#" title="마이페이지"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">마이페이지</a>
-        	</li>
-      	</c:if>
-      	</ul>
-      	<button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
-  			<i class="fa-solid fa-magnifying-glass fa-lg"></i>
-		</button>
-    </div>
-      	<c:if test="${sessionScope.member.userId == 'admin'}">
-			<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/admin/admin.do" title="관리자" style="margin-bottom: 50px;"
-           ><i class="fa-solid fa-gears fa-2x"></i></a>
+    	<c:if test="${sessionScope.member.userId == 'admin'}">
+	    	<ul class="navbar-nav mb-2 mb-lg-0">
+				<li class="nav-item">
+	          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/notice/list.do" title="공지관리"
+	          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">공지관리</a>
+	        	</li>
+	        	<li class="nav-item">
+	          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/" title="쿠폰관리"
+	          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">쿠폰관리</a>
+	        	</li>
+			</ul>
+	      	<button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
+	  			<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+			</button>
 		</c:if>
+    </div>
   </div>
 </nav>
 

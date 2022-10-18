@@ -1,5 +1,13 @@
 package com.admin;
 
-public class AdminDAO {
+import java.sql.Connection;
 
+
+
+import com.util.DBConn;
+
+public class AdminDAO {
+	private Connection conn = DBConn.getConnection();
+	
+	
 }
