@@ -36,7 +36,7 @@ function check() {
         return false;
     }
 
-    f.action = "${pageContext.request.contextPath}/sbbs/${mode}_ok.do";
+    f.action = "${pageContext.request.contextPath}/notice/write_ok.do"; 
 }
 
 <c:if test="${mode=='update'}">
@@ -60,7 +60,7 @@ function check() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-book-half"></i> IT 강좌 </h3>
+				<h3> 공지 작성 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -71,13 +71,6 @@ function check() {
 							<td class="table-light col-sm-2" scope="row">제 목</td>
 							<td>
 								<input type="text" name="subject" class="form-control" value="${dto.subject}">
-							</td>
-						</tr>
-	        
-						<tr>
-							<td class="table-light col-sm-2" scope="row">작성자명</td>
-	 						<td>
-								<p class="form-control-plaintext">${sessionScope.member.userName}</p>
 							</td>
 						</tr>
 	
