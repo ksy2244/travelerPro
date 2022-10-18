@@ -41,11 +41,11 @@
       	</c:if>
       	<c:if test="${not empty sessionScope.member}">
       		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link" href="#" title="로그아웃" 
+          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃" 
           		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
         	</li>
       		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link" href="#" title="마이페이지"
+          		<a class="nav-link fw-semibold text-white" href="#" title="마이페이지"
           		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">마이페이지</a>
         	</li>
       	</c:if>
@@ -60,19 +60,34 @@
 
 	<!-- Login Modal -->
 	<script type="text/javascript">
-		function dialogLogin() {
-		    $("form[name=modelLoginForm] input[name=userId]").val("");
-		    $("form[name=modelLoginForm] input[name=userPwd]").val("");
-		    
-			$("#loginModal").modal("show");	
-			
-		    $("form[name=modelLoginForm] input[name=userId]").focus();
-		}
+	function dialogLogin() {
+	    $("form[name=modelLoginForm] input[name=userId]").val("");
+	    $("form[name=modelLoginForm] input[name=userPwd]").val("");
+	    
+		$("#loginModal").modal("show");	
+		
+	    $("form[name=modelLoginForm] input[name=userId]").focus();
+	}
+
+	function sendModelLogin() {
+	    var f = document.modelLoginForm;
+		var str;
+		
+		str = f.userId.value;
+	    if(!str) {
+	        f.userId.focus();
+	        return;
+	    }
 	
-		function sendModelLogin() {
-		    f.action = "${pageContext.request.contextPath}/member/login.do";
-		    f.submit();
-		}
+	    str = f.userPwd.value;
+	    if(!str) {
+	        f.userPwd.focus();
+	        return;
+	    }
+	
+	    f.action = "${pageContext.request.contextPath}/member/login_ok.do";
+	    f.submit();
+	}
 	</script>
 	<div class="modal fade" id="loginModal" tabindex="-1"
 			data-bs-backdrop="static" data-bs-keyboard="false" 
