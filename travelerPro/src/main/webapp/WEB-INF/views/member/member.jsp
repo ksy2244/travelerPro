@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler</title>
+<title>travler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
@@ -165,11 +165,11 @@ function userIdCheck() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="fa-solid fa-map-location-dot"></i> ${title} </h3>
+				<h3> ${title} </h3>
 			</div>
 			
 		    <div class="alert" role="alert" style="background: #E4FBFF">
-		        traveler의 회원이 되시면 회원님만의 유익한 정보를 만날 수 있습니다.
+		        travler의 회원이 되시면 회원님만의 유익한 정보를 만날 수 있습니다.
 		    </div>
 			
 			<div class="body-main">
@@ -303,6 +303,9 @@ function userIdCheck() {
 				            <button type="button" name="sendButton" class="btn" onclick="memberOk();" style="background: #B8B5FF"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
 				            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';" style="background: #EDEEF7"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
+				        </div>
+				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				        	<button type="button" name="register" class="btn" onclick="" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i> 사업자 등록하기 </button>
 				        </div>
 				    </div>
 				

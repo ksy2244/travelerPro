@@ -33,8 +33,7 @@ public class MemberServlet extends TravelServlet {
 	}
 		
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String path = "/WEB-INF/views/member/login.jsp";
-		forward(req, resp, path);
+		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
 	protected void loginSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -80,7 +79,7 @@ public class MemberServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/");
 	}
 	protected void memberForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		forward(req, resp, "/WEB-INF/views/member/member.jsp");
 	}
 	protected void memberSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
