@@ -14,21 +14,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 350px;">
-    	<c:if test="${sessionScope.member.userId == 'admin'}">
-	    	<ul class="navbar-nav mb-2 mb-lg-0">
-				<li class="nav-item">
-	          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/notice/list.do" title="공지관리"
-	          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">공지관리</a>
-	        	</li>
-	        	<li class="nav-item">
-	          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/" title="쿠폰관리"
-	          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">쿠폰관리</a>
-	        	</li>
-			</ul>
-	      	<button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
-	  			<i class="fa-solid fa-magnifying-glass fa-lg"></i>
-			</button>
-		</c:if>
+	    <ul class="navbar-nav mb-2 mb-lg-0">
+			<li class="nav-item">
+	          	<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/notice/list.do" title="공지관리"
+	          	 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">공지관리</a>
+	        </li>
+	        <li class="nav-item">
+	          	<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/" title="쿠폰관리"
+	          	 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">쿠폰관리</a>
+	        </li>
+		</ul>
+	    <button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
+	  		<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+		</button>
     </div>
   </div>
 </nav>

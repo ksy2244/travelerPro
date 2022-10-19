@@ -120,9 +120,6 @@ public class NoticeServlet extends MyUploadServlet {
 	protected void writeSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		NoticeDAO dao = new NoticeDAO();
 		
-		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
 		String cp = req.getContextPath();
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			resp.sendRedirect(cp + "/notice/list.do");
@@ -140,11 +137,9 @@ public class NoticeServlet extends MyUploadServlet {
 			if(map != null) {
 				String saveFilename = map.get("saveFilename");
 				String originalFilename = map.get("originalFilename");
-				long size = p.getSize();
 				
 				dto.setSaveFilename(saveFilename);
 				dto.setOriginalFilename(originalFilename);
-				dto.setFileSize(size);
 			}
 			
 			dao.insertNotice(dto);
@@ -160,7 +155,7 @@ public class NoticeServlet extends MyUploadServlet {
 	
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		NoticeDAO dao = new NoticeDAO();
-		MyUtil util = new MyUtilBootstrap();
+		//MyUtil util = new MyUtilBootstrap();
 		
 		String cp = req.getContextPath();
 		
@@ -176,7 +171,7 @@ public class NoticeServlet extends MyUploadServlet {
 				return;
 			}
 			
-			dto.setContent(util.htmlSymbols(dto.getContent()));
+			//dto.setContent(util.htmlSymbols(dto.getContent()));
 			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
@@ -193,11 +188,52 @@ public class NoticeServlet extends MyUploadServlet {
 	}
 	
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		NoticeDAO dao = new NoticeDAO();
 		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		
+		try {
+			long noticeNum = Long.parseLong(req.getParameter("noticeNum"));
+			NoticeDTO dto = dao.readNotice(noticeNum);
+			
+			if(dto == null) {
+				resp.sendRedirect(cp+"/notice/list.do?page=" + page);
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("mode", "update");
+			
+			forward(req, resp, "/WEB-INF/views/notice/write.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp + "/notice/list.do?page=" + page);
 	}
 	
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		NoticeDAO dao = new NoticeDAO();
 		
+		String cp = req.getContextPath();
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp + "/notice/list.do");
+		}
+		
+		String page = req.getParameter("page");
+		
+		try {
+			NoticeDTO dto = new NoticeDTO();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	protected void deleteFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

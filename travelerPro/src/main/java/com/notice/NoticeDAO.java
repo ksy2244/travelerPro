@@ -206,7 +206,59 @@ public class NoticeDAO {
 	
 	
 	public void update(NoticeDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
 		
+		try {
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE notice SET subject=?, content=? "
+					+ " WHERE noticeNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getSubject());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setLong(3, dto.getNoticeNum());
+		
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			pstmt = null;
+			
+			sql = "UPDATE noticeFile SET saveFilename=?, originalFilename=? "
+					+ " WHERE noticeNum = ? ";
+			
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getSaveFilename());
+			pstmt.setString(2, dto.getOriginalFilename());
+			pstmt.setLong(3, dto.getNoticeNum());
+			
+			pstmt.executeUpdate();
+			
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e2) {
+			}
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e2) {
+			}
+		}
 	}
 	
 	public void deleteNotice(long noticeNum, String userId) throws SQLException {

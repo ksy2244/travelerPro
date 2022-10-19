@@ -45,12 +45,12 @@ function searchList() {
 							<tr>
 								<td>${dataCount - (page-1) * size - status.index}</td>
 								<td class="left">
-									<a href="${articleUrl}&num=${dto.noticeNum}" class="text-reset">${dto.subject}</a>
+									<a href="${articleUrl}&noticeNum=${dto.noticeNum}" class="text-reset">${dto.subject}</a>
 								</td>
 								<td>${dto.reg_date}</td>
 								<td>
 									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/notice/download.do?num=${dto.noticeNum}" class="text-reset"><i class="fa-solid fa-download"></i></a>
+										<a href="${pageContext.request.contextPath}/notice/download.do?noticeNum=${dto.noticeNum}" class="text-reset"><i class="fa-solid fa-download"></i></a>
 									</c:if>
 								</td>
 							</tr>

@@ -17,17 +17,7 @@
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
 
-<script type="text/javascript">
-<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
-	function deleteBoard() {
-	    if(confirm("게시글을 삭제 하시 겠습니까 ? ")) {
-		    let query = "num=${dto.num}&${query}";
-		    let url = "${pageContext.request.contextPath}/sbbs/delete.do?" + query;
-	    	location.href = url;
-	    }
-	}
-</c:if>
-</script>
+
 
 </head>
 <body>
@@ -56,9 +46,6 @@
 					
 					<tbody>
 						<tr>
-							<td width="50%">
-								이름 : ${dto.userName}
-							</td>
 							<td align="right">
 								${dto.reg_date}
 							</td>
@@ -74,7 +61,7 @@
 							<td colspan="2">
 								파&nbsp;&nbsp;일 : 
 								<c:if test="${not empty dto.saveFilename}">
-									<a href="${pageContext.request.contextPath}/sbbs/download.do?num=${dto.noticeNum}">${dto.originalFilename}</a>
+									<a href="${pageContext.request.contextPath}/notice/download.do?noticeNum=${dto.noticeNum}">${dto.originalFilename}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -85,24 +72,10 @@
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<c:choose>
-								<c:when test="${sessionScope.member.userId==dto.userId}">
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/sbbs/update.do?num=${dto.num}&page=${page}';">수정</button>
-								</c:when>
-								<c:otherwise>
-									<button type="button" class="btn btn-light" disabled="disabled">수정</button>
-								</c:otherwise>
-							</c:choose>
-					    	
-							<c:choose>
-					    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
-					    			<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
-					    		</c:when>
-					    		<c:otherwise>
-					    			<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
-					    		</c:otherwise>
-					    	</c:choose>
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
+							<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
 						</td>
+						
 						<td class="text-end">
 							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
 						</td>
