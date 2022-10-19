@@ -6,9 +6,9 @@ public class NoticeDTO {
 	private String content;
 	private String reg_date;
 	private int notice;
-	private long fileNum;
 	private String saveFilename;
 	private String originalFilename;
+	private long fileSize;
 	
 	public long getNoticeNum() {
 		return noticeNum;
@@ -40,12 +40,6 @@ public class NoticeDTO {
 	public void setNotice(int notice) {
 		this.notice = notice;
 	}
-	public long getFileNum() {
-		return fileNum;
-	}
-	public void setFileNum(long fileNum) {
-		this.fileNum = fileNum;
-	}
 	public String getSaveFilename() {
 		return saveFilename;
 	}
@@ -57,6 +51,12 @@ public class NoticeDTO {
 	}
 	public void setOriginalFilename(String originalFilename) {
 		this.originalFilename = originalFilename;
+	}
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
 
 }

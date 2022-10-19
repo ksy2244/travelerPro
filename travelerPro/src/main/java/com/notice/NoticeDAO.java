@@ -17,36 +17,21 @@ public class NoticeDAO {
 		String sql;
 		
 		try {
-			conn.setAutoCommit(false);
-			
-			sql = "INSERT INTO notice(noticeNum, subject, content, reg_date, notice) "
-					+ " VALUES(notice_seq.NEXTVAL, ?, ?, SYSDATE, 0)";
+			sql = "INSERT INTO notice(noticeNum, subject, content, reg_date, notice, "
+					+ " saveFilename, originalFilename, fileSize ) "
+					+ " VALUES(notice_seq.NEXTVAL, ?, ?, SYSDATE, 0, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getSubject());
 			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getSaveFilename());
+			pstmt.setString(4, dto.getOriginalFilename());
+			pstmt.setLong(5, dto.getFileSize());
 		
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			pstmt = null;
-			
-			sql = "INSERT INTO noticeFile(fileNum, noticeNum, saveFilename, originalFilename) VALUES (nFile_seq.NEXTVAL, notice_seq.CURRVAL, ?, ?)";
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, dto.getSaveFilename());
-			pstmt.setString(2, dto.getOriginalFilename());
-			
-			pstmt.executeUpdate();
-			
-			conn.commit();
 
 		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e2) {
-			}
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -55,11 +40,6 @@ public class NoticeDAO {
 					pstmt.close();
 				} catch (SQLException e) {
 				}
-			}
-			
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e2) {
 			}
 		}
 		
@@ -110,9 +90,8 @@ public class NoticeDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT n.noticeNum, subject, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, saveFilename "
-					+ " FROM notice n "
-					+ " JOIN noticeFile f ON n.noticeNum = f.noticeNum "
+			sql = "SELECT noticeNum, subject, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, saveFilename "
+					+ " FROM notice "
 					+ " ORDER BY noticeNum DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
@@ -161,10 +140,10 @@ public class NoticeDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT n.noticeNum, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, saveFilename, originalFilename "
-					+ " FROM notice n "
-					+ " JOIN noticeFile f ON n.noticeNum = f.noticeNum "
-					+ " WHERE n.noticeNum = ? ";
+			sql = "SELECT noticeNum, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, "
+					+ " saveFilename, originalFilename, fileSize "
+					+ " FROM notice "
+					+ " WHERE noticeNum = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -181,6 +160,7 @@ public class NoticeDAO {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setSaveFilename(rs.getString("saveFilename"));
 				dto.setOriginalFilename(rs.getString("originalFilename"));
+				dto.setFileSize(rs.getLong("fileSize"));
 			
 			}
 		} catch (Exception e) {
@@ -205,39 +185,27 @@ public class NoticeDAO {
 	}
 	
 	
-	public void update(NoticeDTO dto) throws SQLException {
+	public void updateNotice(NoticeDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
 			conn.setAutoCommit(false);
 			
-			sql = "UPDATE notice SET subject=?, content=? "
+			sql = "UPDATE notice SET subject=?, content=?, "
+					+ " saveFilename=?, originalFilename=?, fileSize=? "
 					+ " WHERE noticeNum = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getSubject());
 			pstmt.setString(2, dto.getContent());
-			pstmt.setLong(3, dto.getNoticeNum());
+			pstmt.setString(3, dto.getSaveFilename());
+			pstmt.setString(4, dto.getOriginalFilename());
+			pstmt.setLong(5, dto.getFileSize());
+			pstmt.setLong(6, dto.getNoticeNum());
 		
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			pstmt = null;
-			
-			sql = "UPDATE noticeFile SET saveFilename=?, originalFilename=? "
-					+ " WHERE noticeNum = ? ";
-			
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, dto.getSaveFilename());
-			pstmt.setString(2, dto.getOriginalFilename());
-			pstmt.setLong(3, dto.getNoticeNum());
-			
-			pstmt.executeUpdate();
-			
-			conn.commit();
 
 		} catch (SQLException e) {
 			try {
@@ -253,16 +221,32 @@ public class NoticeDAO {
 				} catch (SQLException e) {
 				}
 			}
-			
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e2) {
-			}
 		}
 	}
 	
-	public void deleteNotice(long noticeNum, String userId) throws SQLException {
+	public void deleteNotice(long noticeNum) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
 		
+		try {
+			sql = "DELETE FROM notice WHERE noticeNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, noticeNum);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 	}
-
 }

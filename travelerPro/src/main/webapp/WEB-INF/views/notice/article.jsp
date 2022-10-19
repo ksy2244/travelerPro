@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>notice</title>
 <jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
 
 <style type="text/css">
@@ -16,7 +16,17 @@
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
+<script type="text/javascript">
+function deleteBoard() {
+	if(confirm("게시글을 삭제 하시 겠습니까 ? ")) {
+		let query = "noticeNum=${dto.noticeNum}&${query}";
+		let url = "${pageContext.request.contextPath}/notice/delete.do?" + query;
+	    location.href = url;
+	}
+}
 
+</script>
 
 
 </head>
@@ -62,6 +72,7 @@
 								파&nbsp;&nbsp;일 : 
 								<c:if test="${not empty dto.saveFilename}">
 									<a href="${pageContext.request.contextPath}/notice/download.do?noticeNum=${dto.noticeNum}">${dto.originalFilename}</a>
+									(<fmt:formatNumber value="${dto.fileSize/1024}" pattern="#,##0.00"/> kb)
 								</c:if>
 							</td>
 						</tr>
@@ -72,12 +83,12 @@
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
-							<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
+							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
+							<button type="button" class="btn" id="btn" onclick="deleteBoard();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
+							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>

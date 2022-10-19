@@ -1,6 +1,6 @@
 package com.util;
 
-public class MyUtilGeneral extends MyUtil{
+public class TravelUtilGeneral extends TravelUtil{
 	
 	/**
 	 * 페이징(paging) 처리(GET 방식)

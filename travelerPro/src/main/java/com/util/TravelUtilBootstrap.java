@@ -1,6 +1,6 @@
 package com.util;
 
-public class MyUtilBootstrap extends MyUtil {
+public class TravelUtilBootstrap extends TravelUtil {
 	/**
 	 * 페이징(paging) 처리(GET 방식) - 부트스트랩
 	 * 
