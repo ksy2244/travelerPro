@@ -1,0 +1,22 @@
+.menu{
+	width: 210px;
+	background: #E1E1E1;
+	border-right: 1px solid #ddd;
+	position:fixed;
+	height: 100%;
+	
+}
+.menu li {
+	list-style: none;
+}
+
+.menu li a {
+	height: 50px;
+	line-height: 30px;
+	display: block;
+	padding: 50px 10px;
+	font-size: 20px;
+	color: black;
+	text-decoration: none;
+	z-index: -999;
+}
