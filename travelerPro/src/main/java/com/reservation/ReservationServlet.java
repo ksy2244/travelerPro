@@ -25,20 +25,31 @@ public class ReservationServlet extends TravelServlet {
 		if (uri.indexOf("roomInfo.do") != -1) {
 			roomInfo(req, resp);
 		}
-		
+
 		else if (uri.indexOf("roomDetailInfo.do") != -1) {
 			roomDetailInfo(req, resp);
 		}
+
+		else if (uri.indexOf("reservation.do") != -1) {
+			reservation(req, resp);
+		}
 	}
 
-	// 예약 상세 화면
+	// 객실 화면
 	protected void roomInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
 	}
 
-	// 예약 상세 화면
-	protected void roomDetailInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	// 객실 상세 화면
+	protected void roomDetailInfo(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
+	}
+
+	// 예약 화면
+	protected void reservation(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/reservation/reservation.jsp");
 	}
 
 }
