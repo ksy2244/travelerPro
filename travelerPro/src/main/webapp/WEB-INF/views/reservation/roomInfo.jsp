@@ -127,7 +127,10 @@
 					<span style="color: purple">10% &nbsp;</span>100,000원
 				</p>
 				<!-- <p class="paymentRule">취소 및 환불 불가~</p> -->
-				<button class="reservationBtn">객실 예약</button>
+				<button type ="button" class="reservationBtn"  class="btn btn-primary"
+					data-bs-toggle="modal" data-bs-target="#exampleModal1">객실 예약</button>
+
+
 
 			</div>
 
@@ -138,11 +141,39 @@
 	</div>
 
 
+	<!-- 숙소 입력 확인 모달 -->
+	<div class="modal fade" id="exampleModal1" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel" style = "text-align:center; font-Size:60px; font-Size:500; font-weight:500">숙소 예약</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<p style ="font-Size:23px; font-weight: 400; text-align:center; background: #eee" >체크인 2022.10.19(수) ~ 체크아웃 2022.10.20(목) </p>
+				<p class = "eachRoomMoney">80,000원 </p>
+				<p class ="paymentRule" style= "font-weight: 400; font-Size:20px; float:bottom";>취소 및 환불 불가 </p>
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" style ="background: ">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
 	<!-- 카카오 지도 (마커 표시) -->
 	<div id="map" style="width: 1000px; height: 1000px; margin: auto"></div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c"></script>
-	
+
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -167,8 +198,8 @@
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);
 	</script>
-	
-	
+
+
 	<!-- AJAX로 수정해야 함 -->
 	<!--  부트스트랩  내비게이션 & 탭 -->
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -204,6 +235,7 @@
 			aria-labelledby="disabled-tab" tabindex="0">...</div>
 	</div>
 	<!--  부트스트랩  내비게이션 & 탭 -->
+
 
 
 

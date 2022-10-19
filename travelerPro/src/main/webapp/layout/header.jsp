@@ -32,11 +32,11 @@
         <c:if test="${empty sessionScope.member}">
         	<li class="nav-item">
           		<a class="nav-link fw-semibold text-white" href="javascript:dialogLogin();" title="로그인"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그인</a>
+          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px; width: 100px">로그인</a>
         	</li>
         	<li class="nav-item">
           		<a class="nav-link fw-semibold text-white" href="#" title="회원가입"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">회원가입</a>
+          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px; width: 100px">회원가입</a>
         	</li>
       	</c:if>
       	<c:if test="${not empty sessionScope.member}">
