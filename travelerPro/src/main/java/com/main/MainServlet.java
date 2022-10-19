@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.util.TravelServlet;
 
-@WebServlet("/main.do")
+@WebServlet("/main/main.do")
 public class MainServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
 
