@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import com.util.TravelServlet;
 
-@WebServlet("/member/*")
-public class MemberServlet extends TravelServlet {
+@WebServlet("/ceomember/*")
+public class CeoMemberServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -33,11 +33,10 @@ public class MemberServlet extends TravelServlet {
 	}
 		
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
 	protected void loginSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인 처리
+		
 		HttpSession session = req.getSession();
 
 		MemberDAO dao = new MemberDAO();
@@ -69,7 +68,7 @@ public class MemberServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
 	protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			//로그아웃
+			
 		HttpSession session = req.getSession();
 		String cp = req.getContextPath();
 
@@ -80,30 +79,10 @@ public class MemberServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/");
 	}
 	protected void memberForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 회원가입
-		req.setAttribute("title", "회원 가입");
-		req.setAttribute("mode", "member");
-		
 		forward(req, resp, "/WEB-INF/views/member/member.jsp");
-	
 	}
 	protected void memberSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 회원가입 처리
-		
 		
 	}
-	
-	protected void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 비밀번호
-	}
-	protected void pwdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 비밀번호 확인
-	}
-	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 회원정보 수정 완료
-	}
-	protected void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 아이디 중복 검사
-	}
-	
+
 }
