@@ -68,8 +68,8 @@ public class MemberDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO member(userId, userName, userPwd, register_date, modify_date, nickName, birth, email, tel, enabled) "
-					+ " VALUES (?, ?, ?, SYSDATE, SYSDATE, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1)";
+			sql = "INSERT INTO member(userId, userName, userPwd, register_date, nickName, birth, email, tel, enabled) "
+					+ " VALUES (?, ?, ?, SYSDATE, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1)";
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getUserId());
@@ -101,7 +101,7 @@ public class MemberDAO {
 		
 		try {
 			sb.append("SELECT userId, userName, userPwd,");
-			sb.append("      register_date, modify_date, nickName,  TO_CHAR(birth, 'YYYY-MM-DD') birth, ");
+			sb.append("      register_date, nickName,  TO_CHAR(birth, 'YYYY-MM-DD') birth, ");
 			sb.append("      email, tel, enabled, roll ");
 			sb.append("  FROM member");
 			sb.append("  WHERE userId = ?");
@@ -119,7 +119,6 @@ public class MemberDAO {
 				dto.setUserName(rs.getString("userName"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setRegister_date(rs.getString("register_date"));
-				dto.setModify_date(rs.getString("modify_date"));
 				dto.setNickName(rs.getString("nickName"));
 				dto.setBirth(rs.getString("birth"));
 				dto.setEmail(rs.getString("email"));
