@@ -6,7 +6,12 @@
 	float: left;
 	margin-left: 10px;
 	margin-right: 10px;
-	box-shadow: 2px 2px #ccc;
+	box-shadow: 3px 3px #ccc;
+}
+
+#coupon {
+	display: block;
+	border-bottom: none;
 }
 
 #color {
@@ -32,3 +37,5 @@
 #trbold {
 	border-bottom: 1px solid #3C2317;
 }
+
+

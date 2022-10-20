@@ -1,6 +1,7 @@
 package com.coupon;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.util.TravelServlet;
+import com.util.TravelUtil;
+import com.util.TravelUtilBootstrap;
 
 @WebServlet("/coupon/*")
 public class CouponServlet extends TravelServlet {
@@ -25,6 +28,8 @@ public class CouponServlet extends TravelServlet {
 			registerForm(req, resp);
 		} else if (uri.indexOf("register_ok.do") != -1) {
 			registerSubmit(req, resp);
+		} else if(uri.indexOf("article.do") != -1) {
+			article(req, resp);
 		} else if (uri.indexOf("update.do") != -1) {
 			updateForm(req, resp);
 		} else if (uri.indexOf("update_ok.do") != -1) {
@@ -36,20 +41,159 @@ public class CouponServlet extends TravelServlet {
 	}
 	
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		TravelUtil util = new TravelUtilBootstrap();
+		
+		String cp = req.getContextPath();
+		
+		try {
+			String page = req.getParameter("page");
+			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
+			
+			int dataCount = dao.dataCount();
+			
+			int size = 10;
+			int total_page = util.pageCount(dataCount, size);
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			List<CouponDTO> list = dao.listNotice(offset, size);
+			
+			String listUrl = cp + "/coupon/list.do";
+			String articleUrl = cp + "/coupon/article.do?page="+current_page;
+			
+			String paging = util.paging(current_page, total_page, listUrl);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("dataCount", dataCount);
+			req.setAttribute("articleUrl", articleUrl);
+			req.setAttribute("paging", paging);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		forward(req, resp, "/WEB-INF/views/coupon/list.jsp");
 	}
 	
 	protected void registerForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("mode", "write");
+		req.setAttribute("mode", "register");
 		req.setAttribute("title", "쿠폰 등록");
 		forward(req, resp, "/WEB-INF/views/coupon/register.jsp");
 	}
 	
 	protected void registerSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		
+		String cp = req.getContextPath();
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp + "/coupon/list.do");
+			return;
+		}
+		
+		try {
+			CouponDTO dto = new CouponDTO();
+			
+			dto.setCouponName(req.getParameter("couponName"));
+			dto.setContent(req.getParameter("content"));
+			
+			String couponRate = req.getParameter("couponRate");
+			if (couponRate == "") {
+				dto.setCouponRate(0);
+			} else {
+				dto.setCouponRate(Integer.parseInt("couponRate"));
+			}
+			
+			String couponPrice = req.getParameter("couponPrice");
+			if (couponPrice == "") {
+				dto.setCouponPrice(0);
+			} else {
+				dto.setCouponPrice(Integer.parseInt("couponPrice"));
+			}
+
+			dto.setStart_date(req.getParameter("start_date"));
+			dto.setEnd_date(req.getParameter("end_date"));
+			
+			dao.insertCoupon(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp + "/coupon/list.do");
+		
+	}
+	
+	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		
+		try {
+			long couponNum = Long.parseLong(req.getParameter("couponNum"));
+			
+			CouponDTO dto = dao.readNotice(couponNum);
+			
+			
+			if(dto == null) {
+				resp.sendRedirect(cp+"/coupon/list.do?page=" + page);
+				return;
+			}
+			
+			
+			dto.setContent(dto.getContent().replaceAll("\r\n", "<br>"));
+			
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			
+			forward(req, resp, "/WEB-INF/views/coupon/article.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/coupon/list.do?page="+page);
 		
 	}
 	
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		
+		try {
+			long couponNum = Long.parseLong(req.getParameter("couponNum"));
+			CouponDTO dto = dao.readNotice(couponNum);
+			if(dto == null) {
+				resp.sendRedirect(cp+"/coupon/list.do?page=" + page);
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("mode", "update");
+			req.setAttribute("title", "쿠폰 수정");
+			
+			forward(req, resp, "/WEB-INF/views/coupon/register.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/coupon/list.do?page"+page);
 		
 	}
 	

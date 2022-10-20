@@ -92,9 +92,7 @@ public class NoticeServlet extends FileUploadServlet {
 			
 			req.setAttribute("list", list);
 			req.setAttribute("page", current_page);
-			req.setAttribute("total_page", total_page);
 			req.setAttribute("dataCount", dataCount);
-			req.setAttribute("size", size);
 			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("paging", paging);
 		

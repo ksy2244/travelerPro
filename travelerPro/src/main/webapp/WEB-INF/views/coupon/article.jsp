@@ -16,12 +16,12 @@
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/coupon.css" type="text/css">
 <script type="text/javascript">
 function deleteBoard() {
-	if(confirm("게시글을 삭제하시겠습니까 ? ")) {
-		let query = "noticeNum=${dto.noticeNum}&${query}";
-		let url = "${pageContext.request.contextPath}/notice/delete.do?" + query;
+	if(confirm("쿠폰을 삭제하시겠습니까 ? ")) {
+		let query = "couponNum=${dto.couponNum}&page="+${page};
+		let url = "${pageContext.request.contextPath}/coupon/delete.do?page="+${page};
 	    location.href = url;
 	}
 }
@@ -40,7 +40,7 @@ function deleteBoard() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 공지사항 </h3>
+				<h3> 쿠폰 상세정보 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -49,7 +49,7 @@ function deleteBoard() {
 					<thead>
 						<tr>
 							<td colspan="2" align="center">
-								${dto.subject}
+								${dto.couponName}
 							</td>
 						</tr>
 					</thead>
@@ -57,7 +57,7 @@ function deleteBoard() {
 					<tbody>
 						<tr>
 							<td align="right">
-								${dto.reg_date}
+								사용기간 : ${dto.start_date} ~ ${dto.end_date}
 							</td>
 						</tr>
 						
@@ -68,14 +68,11 @@ function deleteBoard() {
 						</tr>
 						
 						<tr>
-							<td colspan="2">
-								파&nbsp;&nbsp;일 : 
-								<c:if test="${not empty dto.saveFilename}">
-									<a href="${pageContext.request.contextPath}/notice/download.do?noticeNum=${dto.noticeNum}">${dto.originalFilename}</a>
-									(<fmt:formatNumber value="${dto.fileSize/1024}" pattern="#,##0.00"/> kb)
-								</c:if>
+							<td align="left">
+								${dto.couponRate}, ${dto.couponPrice}
 							</td>
 						</tr>
+						
 
 					</tbody>
 				</table>
@@ -83,12 +80,12 @@ function deleteBoard() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
+							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/coupon/update.do?couponNum=${dto.couponNum}&page=${page}';">수정</button>
 							<button type="button" class="btn" id="btn" onclick="deleteBoard();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
+							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do?page=${page}';">리스트</button>
 						</td>
 					</tr>
 				</table>
