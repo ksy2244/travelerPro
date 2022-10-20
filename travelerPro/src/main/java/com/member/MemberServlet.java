@@ -119,7 +119,7 @@ public class MemberServlet extends TravelServlet {
 			dto.setUserId(req.getParameter("userId"));
 			dto.setUserPwd(req.getParameter("userPwd"));
 			dto.setUserName(req.getParameter("userName"));
-			dto.setUserName(req.getParameter("nickName"));
+			dto.setNickName(req.getParameter("nickName"));
 
 			String birth = req.getParameter("birth").replaceAll("(\\.|\\-|\\/)", "");
 			dto.setBirth(birth);

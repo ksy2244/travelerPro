@@ -68,8 +68,8 @@ public class MemberDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO member(userId, userName, userPwd, register_date, nickName, birth, email, tel, enabled) "
-					+ " VALUES (?, ?, ?, SYSDATE, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1)";
+			sql = "INSERT INTO member(userId, userName, userPwd, nickName, birth, email, tel, enabled) "
+					+ " VALUES (?, ?, ?, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1)";
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getUserId());
