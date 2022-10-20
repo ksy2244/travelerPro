@@ -120,7 +120,7 @@
 					객실를 위한 정보를 입력해주세요.</div>
 				<div class="card border-secondary mb-3" style="max-width: 100rem;">
 					<div class="card-header">
-						<h5><i class="fa-solid fa-hotel"></i>&nbsp; 호텔 스카이프 센트럴 명동점</h5>
+						<h5><i class="fa-solid fa-hotel"></i>&nbsp; ${dto.roomName}</h5>
 					</div>
 					<div class="card-body text-secondary">
 						<h5 class="card-title">[초강력 특가] 스탠다드 더블 + 2시 체크인</h5>
