@@ -22,8 +22,7 @@
 
 	<div class="body-title" style="text-align: center">
 		<h5>
-			<div class="col-auto me-auto">${dataCompanyCount}개(${page}/${total_page}
-				페이지)</div>
+			<div class="col-auto me-auto">${dataCompanyCount}개(${page}/${total_page}페이지)</div>
 		</h5>
 
 	</div>

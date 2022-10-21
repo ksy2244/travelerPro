@@ -7,16 +7,15 @@
 	height: 100px;
 }
 
-
 /* 인원수 */
 .headCount {
 	font-weight: 500;
-	font-size : 25px;
-	text-align:center;
+	font-size: 25px;
+	text-align: center;
 	font-size: 25px;
 	font: purple;
 	float: right;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 }
 
 /* 객실 정보 */
@@ -60,16 +59,15 @@
 	border: none;
 	border-radius: 12px;
 	font-size: 25px;
-	
 }
 
 /* 업체 캐러샐 */
-.roomImg{
+.roomImg {
 	width: 1500px;
 	height: 1000px;
 	margin: auto;
-    display: block;
-	margin-top:30px;
+	display: block;
+	margin-top: 30px;
 	overflow: hidden;
 }
 
@@ -104,22 +102,27 @@ img {
 	font-size: 25px;
 }
 
-.modalBox{
+.modalBox {
 	color: grey;
 	width: 600px;
-	height:300px;
+	height: 300px;
 }
 
 /* 객실 정보의 제목*/
-.roomInfoTitle{
+.roomInfoTitle {
 	font-size: 35px;
 	font-weight: 600;
 }
 
-
 /* 객실 정보의 내용*/
-.roomInfoContent{
+.roomInfoContent {
 	font-size: 30px;
 	font-weight: 400;
 }
 
+/* 주소 */
+.address{
+	color: #0067A3;
+	font-size: 28px;
+	font-weight: 500;
+}

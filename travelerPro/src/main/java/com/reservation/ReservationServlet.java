@@ -48,7 +48,31 @@ public class ReservationServlet extends TravelServlet {
 	// 객실 상세 화면
 	protected void roomDetailInfo(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
+
+		// 객실 목록에서 예약할 객실을 선택한 화면
+		ReservationDAO dao = new ReservationDAO();
+		String cp = req.getContextPath();
+
+		try {
+			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
+
+			// 게시물 가져오기
+			List<ReservationDTO> list = null;
+			list = dao.listSelectRoom(roomNum);
+
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
+
 	}
 
 	// 예약 화면
@@ -151,11 +175,11 @@ public class ReservationServlet extends TravelServlet {
 
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
-
 			// 게시물 가져오기
 			List<ReservationDTO> list = null;
 			list = dao.listRoom(companyNum);
-
+			
+			
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
 

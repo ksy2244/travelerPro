@@ -72,8 +72,6 @@ public class ReservationDAO {
 			sb.append(" FROM company");
 
 			pstmt = conn.prepareStatement(sb.toString());
-			
-		
 
 			rs = pstmt.executeQuery();
 
@@ -114,7 +112,7 @@ public class ReservationDAO {
 		return list;
 	}
 
-	// 객실 목록 
+	// 객실 목록
 	public List<ReservationDTO> listRoom(int companyNum) {
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 		PreparedStatement pstmt = null;
@@ -125,7 +123,6 @@ public class ReservationDAO {
 			sb.append(" SELECT companyNum, roomNum, roomName, roomInfo, price, discountRate, headCount ");
 			sb.append(" FROM room");
 			sb.append("  WHERE companyNum = ? ");
-			
 
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, companyNum);
@@ -395,4 +392,67 @@ public class ReservationDAO {
 
 		return result;
 	}
+
+	public List<ReservationDTO> listSelectRoom(int roomNum) {
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount, r.companyNum, "
+					+ " companyName, companyTel, companyInfo, amenities, guide, notice, checkInTime, checkOutTime, addr, addrDetail, zip ");
+			sb.append(" FROM room r");
+			sb.append(" LEFT OUTER JOIN company c ");
+			sb.append(" ON r.companyNum = c.companyNum ");
+			sb.append(" WHERE roomNum = ? ");
+
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, roomNum);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReservationDTO dto = new ReservationDTO();
+				dto.setRoomNum(rs.getInt("roomNum"));
+				dto.setRoomName(rs.getString("roomName"));
+				dto.setRoomInfo(rs.getString("roomInfo"));
+				dto.setRoomPrice(rs.getInt("price"));
+				dto.setDiscountRate(rs.getInt("discountRate"));
+				dto.setHeadCount(rs.getInt("headCount"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setCompanyTel(rs.getString("companyTel"));
+				dto.setCompanyInfo(rs.getString("companyInfo"));
+				dto.setAmenities(rs.getString("amenities"));
+				dto.setGuide(rs.getString("guide"));
+				dto.setNotice(rs.getString("notice"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setCheckOutTime(rs.getString("checkOutTime"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setAddrDetail(rs.getString("addrDetail"));
+				dto.setZip(rs.getInt("zip"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return list;
+	}
+
 }

@@ -12,7 +12,7 @@
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet"
-	href="../resources/style/reservation/reservationStyle.css"
+	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
 <link rel="import" href="map.html">
 </head>
@@ -91,8 +91,9 @@
 							<span style="color: purple">${dto.discountRate}% &nbsp;</span>${dto.roomPrice}원
 						<p>
 							<button class="reservationBtn"
-								onclick="location.href='${pageContext.request.contextPath}/reservation/roomDetailInfo.do'">객실
+								onclick="location.href='reservation/roomDetailInfo.do?companyNum=${dto.companyNum}&roomNum=${dto.roomNum}'">객실
 								선택</button>
+								
 						</p>
 
 					</div>
@@ -116,20 +117,20 @@
 		// 지도의 확대 레벨
 		};
 
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
 
-		// 마커가 표시될 위치입니다 
+		// 마커가 표시될 위치 설정
 		var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
 
-		// 마커를 생성합니다
+		// 마커를 생성
 		var marker = new kakao.maps.Marker({
 			position : markerPosition
 		});
 
-		// 마커가 지도 위에 표시되도록 설정합니다
+		// 마커를 지도 위에 표시되도록 설정
 		marker.setMap(map);
 
-		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+		// 지도 위의 마커를 제거하는 코드
 		// marker.setMap(null);
 	</script>
 	<footer>
