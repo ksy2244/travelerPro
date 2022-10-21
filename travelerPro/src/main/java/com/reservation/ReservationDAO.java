@@ -20,11 +20,11 @@ public class ReservationDAO {
 
 		try {
 			sql = "SELECT roomNum, roomName, roomInfo, price, discountRate, companyNum, headCount" + " FROM room"
-					+ " WHERE companyNum =1 ";
+					+ " WHERE companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
-			//pstmt.setInt(1, companyNum);
+			pstmt.setInt(1, companyNum);
 
 			rs = pstmt.executeQuery();
 
@@ -35,6 +35,7 @@ public class ReservationDAO {
 				dto.setRoomInfo(rs.getString("roomInfo"));
 				dto.setRoomPrice(rs.getInt("price"));
 				dto.setDiscountRate(rs.getInt("discountRate"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setHeadCount(rs.getInt("headCount"));
 
 			}
@@ -59,10 +60,57 @@ public class ReservationDAO {
 		return dto;
 	}
 
-//	public int dataCount() {
-	// TODO Auto-generated method stub
-	// return 0;
-//	}
+	public List<ReserveCompanyDTO> listCompany(int offset, int size) {
+		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			sb.append(" SELECT companyName, companyInfo, amenities, guide, checkintime, checkouttime, "
+					+ " notice, addr, addrdetail, zip ");
+			sb.append(" FROM company");
+
+			pstmt = conn.prepareStatement(sb.toString());
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReserveCompanyDTO dto = new ReserveCompanyDTO();
+
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setCompanyInfo(rs.getString("companyInfo"));
+				dto.setAmenities(rs.getString("amenities"));
+				dto.setGuide(rs.getString("guide"));
+				dto.setCheckintime(rs.getString("checkintime"));
+				dto.setCheckouttime(rs.getString("checkouttime"));
+				dto.setNotice(rs.getString("notice"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setAddrdetail(rs.getString("addrdetail"));
+				dto.setZip(rs.getInt("zip"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return list;
+	}
 
 	// 숙박 업체 목록 보기
 
@@ -73,7 +121,7 @@ public class ReservationDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount ");
+			sb.append(" SELECT companyNum, roomNum, roomName, roomInfo, price, discountRate, companyNum, headCount ");
 			sb.append(" FROM room");
 
 			pstmt = conn.prepareStatement(sb.toString());
@@ -83,11 +131,13 @@ public class ReservationDAO {
 			while (rs.next()) {
 				ReservationDTO dto = new ReservationDTO();
 
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
 				dto.setRoomInfo(rs.getString("roomInfo"));
 				dto.setRoomPrice(rs.getInt("price"));
 				dto.setDiscountRate(rs.getInt("discountRate"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setHeadCount(rs.getInt("headCount"));
 
 				list.add(dto);
@@ -148,19 +198,19 @@ public class ReservationDAO {
 
 		return result;
 	}
-	
-	// 검색에서의 데이터 개수
-		public int dataCount(String condition, String keyword) {
-			int result = 0;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql;
 
-			try {
-				sql = "SELECT NVL(COUNT(*), 0) FROM room  ";
-				if (condition.equals("all")) {
-					sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
-				}
+	// 검색에서의 데이터 개수
+	public int dataCount(String condition, String keyword) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM room  ";
+			if (condition.equals("all")) {
+				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
+			}
 //				} else if (condition.equals("reg_date")) {
 //					keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
 //					sql += " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
@@ -168,107 +218,244 @@ public class ReservationDAO {
 //					sql += " WHERE INSTR(" + condition + ", ?) >= 1 ";
 //				}
 
-				pstmt = conn.prepareStatement(sql);
-				
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, keyword);
+			if (condition.equals("all")) {
+				pstmt.setString(2, keyword);
+			}
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+
+	// 업체 리스트 - 검색에서의 데이터 개수
+	public int dataCompanyCount(String condition, String keyword) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM company  ";
+			if (condition.equals("all")) {
+				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
+			}
+//						} else if (condition.equals("reg_date")) {
+//							keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
+//							sql += " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
+//						} else {
+//							sql += " WHERE INSTR(" + condition + ", ?) >= 1 ";
+//						}
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, keyword);
+			if (condition.equals("all")) {
+				pstmt.setString(2, keyword);
+			}
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public List<ReservationDTO> listRoom(int offset, int size, String condition, String keyword) {
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount ");
+			sb.append(" FROM room ");
+
+			/*
+			 * if (condition.equals("all")) {
+			 * sb.append(" WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 "); } else
+			 * if (condition.equals("reg_date")) { keyword =
+			 * keyword.replaceAll("(\\-|\\/|\\.)", "");
+			 * sb.append(" WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ?"); } else {
+			 * sb.append(" WHERE INSTR(" + condition + ", ?) >= 1 "); }
+			 */
+			sb.append(" ORDER BY roomNum DESC ");
+			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
+
+			pstmt = conn.prepareStatement(sb.toString());
+
+			if (condition.equals("all")) {
 				pstmt.setString(1, keyword);
-				if (condition.equals("all")) {
-					pstmt.setString(2, keyword);
-				}
+				pstmt.setString(2, keyword);
+				pstmt.setInt(3, offset);
+				pstmt.setInt(4, size);
+			} else {
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, size);
+			}
 
-				rs = pstmt.executeQuery();
-				
-				if (rs.next()) {
-					result = rs.getInt(1);
-				}
+			rs = pstmt.executeQuery();
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-					}
-				}
+			while (rs.next()) {
+				ReservationDTO dto = new ReservationDTO();
 
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e) {
-					}
+				dto.setRoomNum(rs.getInt("roomNum"));
+				dto.setRoomName(rs.getString("roomName"));
+				dto.setRoomInfo(rs.getString("roomInfo"));
+				dto.setRoomPrice(rs.getInt("price"));
+				dto.setDiscountRate(rs.getInt("discountRate"));
+				dto.setHeadCount(rs.getInt("headCount"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e2) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e2) {
+				}
+			}
+		}
+
+		return list;
+	}
+
+	public ReserveCompanyDTO readCompany(int companyNum) {
+		ReserveCompanyDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT companyName, companyInfo, amenities, guide, checkintime, checkouttime, "
+					+ " notice, addr, addrdetail, zip " + " FROM company" + " WHERE companyNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, companyNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setCompanyInfo(rs.getString("companyInfo"));
+				dto.setAmenities(rs.getString("amenities"));
+				dto.setGuide(rs.getString("guide"));
+				dto.setCheckintime(rs.getString("checkintime"));
+				dto.setCheckouttime(rs.getString("checkouttime"));
+				dto.setNotice(rs.getString("notice"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setAddrdetail(rs.getString("addrdetail"));
+				dto.setZip(rs.getInt("zip"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
 				}
 			}
 
-			return result;
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 
-		public List<ReservationDTO> listRoom(int offset, int size, String condition, String keyword) {
-			List<ReservationDTO> list = new ArrayList<ReservationDTO>();
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			StringBuilder sb = new StringBuilder();
+		return dto;
+	}
 
-			try {
-				sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount ");
-				sb.append(" FROM room ");
-			
-				/*
-				if (condition.equals("all")) {
-					sb.append(" WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ");
-				} else if (condition.equals("reg_date")) {
-					keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-					sb.append(" WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ?");
-				} else {
-					sb.append(" WHERE INSTR(" + condition + ", ?) >= 1 ");
-				}
-				*/
-				sb.append(" ORDER BY roomNum DESC ");
-				sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
+	public int dataCompanyCount() {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
 
-				pstmt = conn.prepareStatement(sb.toString());
-				
-				if (condition.equals("all")) {
-					pstmt.setString(1, keyword);
-					pstmt.setString(2, keyword);
-					pstmt.setInt(3, offset);
-					pstmt.setInt(4, size);
-				} else {
-					pstmt.setString(1, keyword);
-					pstmt.setInt(2, offset);
-					pstmt.setInt(3, size);
-				}
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM company";
+			pstmt = conn.prepareStatement(sql);
 
-				rs = pstmt.executeQuery();
-				
-				while (rs.next()) {
-					ReservationDTO dto = new ReservationDTO();
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
 
-					dto.setRoomNum(rs.getInt("roomNum"));
-					dto.setRoomName(rs.getString("roomName"));
-					dto.setRoomInfo(rs.getString("roomInfo"));
-					dto.setRoomPrice(rs.getInt("price"));
-					dto.setDiscountRate(rs.getInt("discountRate"));
-					dto.setHeadCount(rs.getInt("headCount"));
-
-					list.add(dto);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e2) {
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e2) {
-					}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
 				}
 			}
 
-			return list;
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
+
+		return result;
+	}
 }

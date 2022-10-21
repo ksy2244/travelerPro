@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
@@ -23,7 +22,8 @@
 
 	<div class="body-title" style="text-align: center">
 		<h5>
-			<div class="col-auto me-auto">${dataCount}개(${page}/${total_page} 페이지)</div>
+			<div class="col-auto me-auto">${dataCompanyCount}개(${page}/${total_page}
+				페이지)</div>
 		</h5>
 
 	</div>
@@ -40,10 +40,9 @@
 						<div class="col-auto me-auto">
 							<p class="form-control-plaintext">
 								${dataCount}개(${page}/${total_page} 페이지)</p>
-						</div>							
+						</div>
 					</div>
-
-					<div class="row">
+				<div class="row">
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<div class="col-md-4 col-lg-3 p-1 item">
 								<div class="card-group" style="width: 1500px; margin: auto;">
@@ -53,10 +52,11 @@
 											src="${pageContext.request.contextPath}/resources/images/reservationImg/room.jpg"
 											class="card-img-top">
 										<div class="card-body">
-											<h5 class="card-title">${dto.roomName}</h5>
-											<p class="card-title">숙박업체 평점</p>
-											<p class="card-title">숙박업체의 각 객실의 최소값으로 수정</p>
-											<p class="card-title">허용 인원 ${dto.headCount}</p>
+											<h4 class="card-title">${dto.companyName}</h4>
+											<h5 class="card-title">${dto.companyInfo}</h5>
+											<h5 class="card-title">숙박업체 평점</h5>
+											<h5 class="card-title">숙박업체의 각 객실의 최소값으로 수정</h5>
+											<%-- <h5 class="card-title">허용 인원 ${dto.headCount}</h5> --%>
 
 										</div>
 									</div>

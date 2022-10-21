@@ -9,7 +9,7 @@ public class ReservationDTO {
 	private int discountRate; // 사업자 등록 번호
 	private int headCount; // 허용 인원수
 	private int companyNum;// 업체 번호
-	private int price;
+	private int price; // 객실 가격
 
 	public int getRoomNum() {
 		return roomNum;
@@ -58,7 +58,7 @@ public class ReservationDTO {
 	public void setHeadCount(int headCount) {
 		this.headCount = headCount;
 	}
-	
+
 	public int getCompanyNum() {
 		return companyNum;
 	}
