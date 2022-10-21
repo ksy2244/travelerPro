@@ -6,18 +6,37 @@ public class CeoMemberDTO {
 	private String userPwd;
 	private String reg_date;
 	private String nickName;
+	private String birth;
 	private int enabled;
 	private int roll;
-	private String email;
-	private String tel;
-	private int companyNum;
+	private String email, email1, email2;
+	private String tel,tel1,tel2,tel3;
+	private String bizNum,bizNum1,bizNum2,bizNum3 ;
 	
 	
-	public int getCompanyNum() {
-		return companyNum;
+	public String getBizNum() {
+		return bizNum;
 	}
-	public void setCompanyNum(int companyNum) {
-		this.companyNum = companyNum;
+	public void setBizNum(String bizNum) {
+		this.bizNum = bizNum;
+	}
+	public String getBizNum1() {
+		return bizNum1;
+	}
+	public void setBizNum1(String bizNum1) {
+		this.bizNum1 = bizNum1;
+	}
+	public String getBizNum2() {
+		return bizNum2;
+	}
+	public void setBizNum2(String bizNum2) {
+		this.bizNum2 = bizNum2;
+	}
+	public String getBizNum3() {
+		return bizNum3;
+	}
+	public void setBizNum3(String bizNum3) {
+		this.bizNum3 = bizNum3;
 	}
 	public String getUserId() {
 		return userId;
@@ -73,4 +92,42 @@ public class CeoMemberDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+	
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getEmail2() {
+		return email2;
+	}
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+	public String getTel1() {
+		return tel1;
+	}
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+	public String getEmail1() {
+		return email1;
+	}
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+	public String getTel2() {
+		return tel2;
+	}
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+	public String getTel3() {
+		return tel3;
+	}
+	public void setTel3(String tel3) {
+		this.tel3 = tel3;
+	}
+	
 }

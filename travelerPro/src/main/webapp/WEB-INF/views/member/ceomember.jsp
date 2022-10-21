@@ -20,6 +20,27 @@
 function memberOk() {
 	const f = document.memberForm;
 	let str;
+	
+	str = f.biznum1.value;
+    if( !/^\d{3}$/.test(str) ) {
+        alert("사업자등록번호를 입력하세요. ");
+        f.biznum1.focus();
+        return;
+    }
+
+    str = f.biznum2.value;
+    if( !/^\d{2}$/.test(str) ) {
+        alert("숫자만 가능합니다. ");
+        f.biznum2.focus();
+        return;
+    }
+
+    str = f.biznum3.value;
+    if( !/^\d{5}$/.test(str) ) {
+    	alert("숫자만 가능합니다. ");
+        f.biznum3.focus();
+        return;
+    }
 
 	str = f.userId.value;
 	if( !/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
@@ -169,12 +190,35 @@ function userIdCheck() {
 			</div>
 			
 		    <div class="alert" role="alert" style="background: #E4FBFF">
-		        travler의 회원이 되시면 회원님만의 유익한 정보를 만날 수 있습니다.
+		        travler의 고객이 사장님의 고객입니다.
 		    </div>
 			
 			<div class="body-main">
 				
 				<form name="memberForm" method="post">
+				
+				
+				    <div class="row mb-3">
+				        <label class="col-sm-2 col-form-label" for="biznum1">사업자등록번호</label>
+				        <div class="col-sm-10 row">
+							<div class="col-sm-3 pe-2">
+								<input type="text" name="bizNum1" id="bizNum1" class="form-control" value="${dto.bizNum1}" maxlength="3">
+							</div>
+							<div class="col-sm-1 px-1" style="width: 2%;">
+								<p class="form-control-plaintext text-center">-</p>
+							</div>
+							<div class="col-sm-3 px-1">
+								<input type="text" name="bizNum2" id="bizNum2" class="form-control" value="${dto.bizNum2}" maxlength="2">
+							</div>
+							<div class="col-sm-1 px-1" style="width: 2%;">
+								<p class="form-control-plaintext text-center">-</p>
+							</div>
+							<div class="col-sm-3 ps-1">
+								<input type="text" name="bizNum3" id="bizNum3" class="form-control" value="${dto.bizNum3}" maxlength="5">
+							</div>
+				        </div>
+				    </div>
+			
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label" for="userId">아이디</label>
 						<div class="col-sm-10 userId-box">
@@ -213,7 +257,7 @@ function userIdCheck() {
 				    </div>
 				 
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="userName">이름</label>
+				        <label class="col-sm-2 col-form-label" for="userName">대표자명</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="userName" id="userName" class="form-control" value="${dto.userName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
@@ -222,7 +266,7 @@ function userIdCheck() {
 				    </div>
 				    
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="nickName">닉네임</label>
+				        <label class="col-sm-2 col-form-label" for="nickName">업체명</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
@@ -305,7 +349,7 @@ function userIdCheck() {
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
 				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				        	<button type="button" name="register" class="btn" onclick="" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i><a href="${pageContext.request.contextPath}/member/ceomember.do">사업자 등록하기 </a></button>
+				
 				        </div>
 				    </div>
 				
