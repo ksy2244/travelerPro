@@ -44,18 +44,16 @@ public class MemberServlet extends TravelServlet {
 		}
 	}
 
-	private void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인
+	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
-
-	private void loginSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인 처리
+	protected void loginSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		HttpSession session = req.getSession();
 
 		MemberDAO dao = new MemberDAO();
 		String cp = req.getContextPath();
-
+		
 		if (req.getMethod().equalsIgnoreCase("GET")) {
 			resp.sendRedirect(cp + "/");
 			return;
@@ -81,9 +79,8 @@ public class MemberServlet extends TravelServlet {
 
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
-
-	private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그아웃
+	protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			
 		HttpSession session = req.getSession();
 		String cp = req.getContextPath();
 

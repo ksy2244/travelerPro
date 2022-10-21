@@ -104,20 +104,22 @@ public class CouponServlet extends TravelServlet {
 			dto.setCouponName(req.getParameter("couponName"));
 			dto.setContent(req.getParameter("content"));
 			
+
 			String couponRate = req.getParameter("couponRate");
-			if (couponRate == "") {
+			if (couponRate.equals("")) {
 				dto.setCouponRate(0);
 			} else {
-				dto.setCouponRate(Integer.parseInt("couponRate"));
+				dto.setCouponRate(Integer.parseInt(couponRate));
 			}
 			
 			String couponPrice = req.getParameter("couponPrice");
-			if (couponPrice == "") {
+			if (couponPrice.equals("")) {
 				dto.setCouponPrice(0);
 			} else {
-				dto.setCouponPrice(Integer.parseInt("couponPrice"));
+				dto.setCouponPrice(Integer.parseInt(couponPrice));
 			}
-
+			
+			
 			dto.setStart_date(req.getParameter("start_date"));
 			dto.setEnd_date(req.getParameter("end_date"));
 			
@@ -148,7 +150,6 @@ public class CouponServlet extends TravelServlet {
 				resp.sendRedirect(cp+"/coupon/list.do?page=" + page);
 				return;
 			}
-			
 			
 			dto.setContent(dto.getContent().replaceAll("\r\n", "<br>"));
 			

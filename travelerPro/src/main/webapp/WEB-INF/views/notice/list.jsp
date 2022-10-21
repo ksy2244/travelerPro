@@ -14,6 +14,21 @@
 .body-container {
 	max-width: 800px;
 }
+.basic {
+	background-color: #F5EFE6;
+}
+.btn:hover{background-color:#D9D2CC;}
+.bold {
+	background-color: #3C2317;
+}
+
+.bold:hover{background-color:#804A30;}
+.trbold {
+	border-bottom: 2px solid #3C2317;
+}
+.write-form tr:first-child {
+	border-top: 2px solid #3C2317; 
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
@@ -58,10 +73,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
+						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/write.do';">공지 작성</button>
+						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/write.do';">공지 작성</button>
 					</div>
 				</div>
 

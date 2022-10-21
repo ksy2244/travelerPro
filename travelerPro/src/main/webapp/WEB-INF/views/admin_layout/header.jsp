@@ -7,6 +7,18 @@
 
 </style>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/menubar.css" type="text/css">
+
+<nav>
+   <ul class="menu">
+      <li><a class="nav-link fw-semibold" href="${pageContext.request.contextPath}/notice/list.do" title="공지관리">공지관리</a></li>
+      <li><a class="nav-link fw-semibold" href="${pageContext.request.contextPath}/coupon/list.do" title="쿠폰관리">쿠폰관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/ceo/paylist.do"></a></li>
+      <li><a href="${pageContext.request.contextPath}/ceo/reservation.do"></a></li>
+      <li><a href="${pageContext.request.contextPath}/ceo/room.do"></a></li>
+   </ul>
+</nav>
+
 <nav class="navbar navbar-expand-lg justify-content-end" style=" background: #3C2317; border: 30px solid #3C2317">
   <div class="container-fluid">
     <a class="navbar-brand text-white" href="${pageContext.request.contextPath}/admin/admin.do" style="font-family: 'GmarketSans'; font-size: 50px; margin-left: 300px;"><i class="fa-regular fa-handshake">TRAVELER</i></a>
@@ -15,14 +27,6 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 350px;">
 	    <ul class="navbar-nav mb-2 mb-lg-0">
-			<li class="nav-item">
-	          	<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/notice/list.do" title="공지관리"
-	          	 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">공지관리</a>
-	        </li>
-	        <li class="nav-item">
-	          	<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/coupon/list.do" title="쿠폰관리"
-	          	 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 40px;">쿠폰관리</a>
-	        </li>
 		</ul>
 	    <button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
 	  		<i class="fa-solid fa-magnifying-glass fa-lg"></i>

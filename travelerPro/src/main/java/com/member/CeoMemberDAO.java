@@ -34,8 +34,7 @@ public class CeoMemberDAO {
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setRegister_date(rs.getString("register_date"));
-				dto.setModify_date(rs.getString("modify_date"));
+				dto.setReg_date(rs.getString("register_date"));
 				dto.setEmail(rs.getString("email"));
 				dto.setTel(rs.getString("tel"));
 				dto.setRoll(rs.getInt("roll"));
@@ -68,6 +67,7 @@ public class CeoMemberDAO {
 		String sql;
 		
 		try {
+			conn.setAutoCommit(false);
 			
 			sql = "INSERT INTO member(userId, userName, userPwd, nickName, birth, email, tel, enabled, roll) "
 					+ " VALUES (?, ?, ?, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1, 1)";

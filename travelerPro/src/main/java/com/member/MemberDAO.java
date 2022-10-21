@@ -34,7 +34,7 @@ public class MemberDAO {
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setRegister_date(rs.getString("register_date"));
+				dto.setReg_date(rs.getString("register_date"));
 				dto.setEmail(rs.getString("email"));
 				dto.setTel(rs.getString("tel"));
 				dto.setRoll(rs.getInt("roll"));
@@ -100,7 +100,7 @@ public class MemberDAO {
 		
 		try {
 			sb.append("SELECT userId, userName, userPwd,");
-			sb.append("      register_date, nickName,  TO_CHAR(birth, 'YYYY-MM-DD') birth, ");
+			sb.append("      reg_date, nickName,  TO_CHAR(birth, 'YYYY-MM-DD') birth, ");
 			sb.append("      email, tel, enabled, roll ");
 			sb.append("  FROM member");
 			sb.append("  WHERE userId = ?");
@@ -117,7 +117,7 @@ public class MemberDAO {
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
 				dto.setUserPwd(rs.getString("userPwd"));
-				dto.setRegister_date(rs.getString("register_date"));
+				dto.setReg_date(rs.getString("reg_date"));
 				dto.setNickName(rs.getString("nickName"));
 				dto.setBirth(rs.getString("birth"));
 				dto.setEmail(rs.getString("email"));

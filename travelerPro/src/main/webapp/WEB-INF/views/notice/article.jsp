@@ -14,6 +14,21 @@
 .body-container {
 	max-width: 800px;
 }
+.basic {
+	background-color: #F5EFE6;
+}
+.btn:hover{background-color:#D9D2CC;}
+.bold {
+	background-color: #3C2317;
+}
+
+.bold:hover{background-color:#804A30;}
+.trbold {
+	border-bottom: 2px solid #3C2317;
+}
+.write-form tr:first-child {
+	border-top: 2px solid #3C2317; 
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
@@ -83,12 +98,12 @@ function deleteBoard() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
-							<button type="button" class="btn" id="btn" onclick="deleteBoard();">삭제</button>
+							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
+							<button type="button" class="btn basic" onclick="deleteBoard();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
+							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>
