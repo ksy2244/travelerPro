@@ -96,8 +96,8 @@ public class CeoMemberServlet extends TravelServlet {
 
 	private void ceomemberForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 회원가입
-		req.setAttribute("title", "회원 가입");
-		req.setAttribute("mode", "member");
+		req.setAttribute("title", "사장님 회원 가입");
+		req.setAttribute("mode", "ceomember");
 
 		forward(req, resp, "/WEB-INF/views/member/ceomember.jsp");
 

@@ -140,11 +140,11 @@ function userIdCheck() {
 			let passed = data.passed;
 
 			if(passed === "true") {
-				let str = "<span style='color:blue; font-weight: bold;'>" + userId + "</span> 아이디는 사용가능 합니다.";
+				let str = "<span style='color:blue; font-weight: bold;'>" + userId + "</span> 아이디는 사용 가능 합니다.";
 				$(".userId-box").find(".help-block").html(str);
 				$("#userIdValid").val("true");
 			} else {
-				let str = "<span style='color:red; font-weight: bold;'>" + userId + "</span> 아이디는 사용할수 없습니다.";
+				let str = "<span style='color:red; font-weight: bold;'>" + userId + "</span> 아이디는 이미 등록되어 있습니다.";
 				$(".userId-box").find(".help-block").html(str);
 				$("#userId").val("");
 				$("#userIdValid").val("false");
@@ -305,7 +305,7 @@ function userIdCheck() {
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
 				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				        	<button type="button" name="register" class="btn" onclick="location.href='${pageContext.request.contextPath}/member/ceomember.do" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i>사업자 등록하기</button>
+				        	<button type="button" name="register" class="btn" onclick="location.href='${pageContext.request.contextPath}/member/ceomember.do'" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i>사업자 등록하기</button>
 				        </div>
 				    </div>
 				
