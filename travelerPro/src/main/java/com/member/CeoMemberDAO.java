@@ -69,17 +69,6 @@ public class CeoMemberDAO {
 		
 		try {
 			conn.setAutoCommit(false);
-			sql = " INSERT INTO company(businessnum)" 
-					+ " VALUES (?)";
-			
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, dto.getBizNum());
-			
-			pstmt.executeUpdate();
-			conn.commit();
-			pstmt.close();
-			pstmt = null;
 			
 			sql = "INSERT INTO member(userId, userName, userPwd, nickName, birth, email, tel, enabled, roll) "
 					+ " VALUES (?, ?, ?, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1, 1)";
@@ -95,28 +84,17 @@ public class CeoMemberDAO {
 			
 			pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (Exception e2) {
-			
-			}
-			e.printStackTrace();
-			throw e;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (Exception e2) {
-
-				}
+			if( pstmt != null) {
+				pstmt.close();
 			}
-		}
-
+		} 
+			
 	}
+
+	
 
 	public CeoMemberDTO readMember(String userId) {
 		// 아이디 검색
@@ -166,20 +144,8 @@ public class CeoMemberDAO {
 						dto.setTel3(ss[2]);
 					}
 				}
-				
 				dto.setEnabled(rs.getInt("enabled"));
 				dto.setRoll(rs.getInt("roll"));
-				
-				dto.setBizNum(rs.getString("tel"));
-				
-				if(dto.getBizNum() != null) {
-					String[] ss = dto.getBizNum().split("-");
-					if(ss.length == 3) {
-						dto.setBizNum1(ss[0]);
-						dto.setBizNum2(ss[1]);
-						dto.setBizNum3(ss[2]);
-					}
-				}
 			}
 			
 		} catch (Exception e) {

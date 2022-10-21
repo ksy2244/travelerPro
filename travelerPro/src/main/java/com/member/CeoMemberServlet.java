@@ -116,10 +116,6 @@ public class CeoMemberServlet extends TravelServlet {
 		String message = "";
 		try {
 			CeoMemberDTO dto = new CeoMemberDTO();
-			String bizNum1 = req.getParameter("bizNum1");
-			String bizNum2 = req.getParameter("bizNum2");
-			String bizNum3 = req.getParameter("bizNum3");
-			dto.setBizNum(bizNum1 + "-" + bizNum2 + "-" + bizNum3);
 
 			dto.setUserId(req.getParameter("userId"));
 			dto.setUserPwd(req.getParameter("userPwd"));
@@ -160,7 +156,7 @@ public class CeoMemberServlet extends TravelServlet {
 		req.setAttribute("title", "회원 가입");
 		req.setAttribute("mode", "member");
 		req.setAttribute("message", message);
-		forward(req, resp, "/WEB-INF/views/member/member.jsp");
+		forward(req, resp, "/WEB-INF/views/member/ceomember.jsp");
 	}
 
 	private void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

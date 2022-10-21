@@ -21,26 +21,6 @@ function memberOk() {
 	const f = document.memberForm;
 	let str;
 	
-	str = f.biznum1.value;
-    if( !/^\d{3}$/.test(str) ) {
-        alert("사업자등록번호를 입력하세요. ");
-        f.biznum1.focus();
-        return;
-    }
-
-    str = f.biznum2.value;
-    if( !/^\d{2}$/.test(str) ) {
-        alert("숫자만 가능합니다. ");
-        f.biznum2.focus();
-        return;
-    }
-
-    str = f.biznum3.value;
-    if( !/^\d{5}$/.test(str) ) {
-    	alert("숫자만 가능합니다. ");
-        f.biznum3.focus();
-        return;
-    }
 
 	str = f.userId.value;
 	if( !/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
@@ -196,28 +176,6 @@ function userIdCheck() {
 			<div class="body-main">
 				
 				<form name="memberForm" method="post">
-				
-				
-				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="biznum1">사업자등록번호</label>
-				        <div class="col-sm-10 row">
-							<div class="col-sm-3 pe-2">
-								<input type="text" name="bizNum1" id="bizNum1" class="form-control" value="${dto.bizNum1}" maxlength="3">
-							</div>
-							<div class="col-sm-1 px-1" style="width: 2%;">
-								<p class="form-control-plaintext text-center">-</p>
-							</div>
-							<div class="col-sm-3 px-1">
-								<input type="text" name="bizNum2" id="bizNum2" class="form-control" value="${dto.bizNum2}" maxlength="2">
-							</div>
-							<div class="col-sm-1 px-1" style="width: 2%;">
-								<p class="form-control-plaintext text-center">-</p>
-							</div>
-							<div class="col-sm-3 ps-1">
-								<input type="text" name="bizNum3" id="bizNum3" class="form-control" value="${dto.bizNum3}" maxlength="5">
-							</div>
-				        </div>
-				    </div>
 			
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label" for="userId">아이디</label>

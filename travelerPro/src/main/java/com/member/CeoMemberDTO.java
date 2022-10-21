@@ -11,33 +11,8 @@ public class CeoMemberDTO {
 	private int roll;
 	private String email, email1, email2;
 	private String tel,tel1,tel2,tel3;
-	private String bizNum,bizNum1,bizNum2,bizNum3 ;
 	
 	
-	public String getBizNum() {
-		return bizNum;
-	}
-	public void setBizNum(String bizNum) {
-		this.bizNum = bizNum;
-	}
-	public String getBizNum1() {
-		return bizNum1;
-	}
-	public void setBizNum1(String bizNum1) {
-		this.bizNum1 = bizNum1;
-	}
-	public String getBizNum2() {
-		return bizNum2;
-	}
-	public void setBizNum2(String bizNum2) {
-		this.bizNum2 = bizNum2;
-	}
-	public String getBizNum3() {
-		return bizNum3;
-	}
-	public void setBizNum3(String bizNum3) {
-		this.bizNum3 = bizNum3;
-	}
 	public String getUserId() {
 		return userId;
 	}
