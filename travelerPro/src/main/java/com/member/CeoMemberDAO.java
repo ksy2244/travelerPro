@@ -68,7 +68,6 @@ public class CeoMemberDAO {
 		String sql;
 		
 		try {
-			conn.setAutoCommit(false);
 			
 			sql = "INSERT INTO member(userId, userName, userPwd, nickName, birth, email, tel, enabled, roll) "
 					+ " VALUES (?, ?, ?, ?, TO_DATE(?,'YYYYMMDD'), ?, ?, 1, 1)";

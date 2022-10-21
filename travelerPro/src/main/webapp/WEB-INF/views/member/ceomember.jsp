@@ -52,14 +52,14 @@ function memberOk() {
 	
     str = f.userName.value;
     if( !/^[가-힣]{2,5}$/.test(str) ) {
-        alert("이름을 다시 입력하세요. ");
+        alert("대표자명을 다시 입력하세요. ");
         f.userName.focus();
         return;
     }
 
     str = f.birth.value;
     if( !str ) {
-        alert("생년월일를 입력하세요. ");
+        alert("개업일을 입력하세요. ");
         f.birth.focus();
         return;
     }
@@ -224,7 +224,7 @@ function userIdCheck() {
 				    </div>
 				    
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="nickName">업체명</label>
+				        <label class="col-sm-2 col-form-label" for="nickName">법인(업체)명</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
@@ -233,10 +233,10 @@ function userIdCheck() {
 				    </div>
 				 
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="birth">생년월일</label>
+				        <label class="col-sm-2 col-form-label" for="birth">개업일</label>
 				        <div class="col-sm-10">
 				            <input type="date" name="birth" id="birth" class="form-control" value="${dto.birth}" placeholder="생년월일">
-				            <small class="form-control-plaintext">생년월일은 2000-01-01 형식으로 입력합니다.</small>
+				            <small class="form-control-plaintext">개업일은 2000-01-01 형식으로 입력합니다.</small>
 				        </div>
 				    </div>
 				

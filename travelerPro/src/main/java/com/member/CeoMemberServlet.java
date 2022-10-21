@@ -154,7 +154,7 @@ public class CeoMemberServlet extends TravelServlet {
 		}
 
 		req.setAttribute("title", "회원 가입");
-		req.setAttribute("mode", "member");
+		req.setAttribute("mode", "ceomember");
 		req.setAttribute("message", message);
 		forward(req, resp, "/WEB-INF/views/member/ceomember.jsp");
 	}

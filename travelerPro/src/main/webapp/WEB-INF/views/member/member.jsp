@@ -305,7 +305,7 @@ function userIdCheck() {
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
 				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				        	<button type="button" name="register" class="btn" onclick="location.href='${pageContext.request.contextPath}/member/ceomember.do'" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i>사업자 등록하기</button>
+				        	<button type="button" name="register" class="btn" onclick="location.href='${pageContext.request.contextPath}/ceomember/ceomember.do'" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i>사업자 등록하기</button>
 				        </div>
 				    </div>
 				
