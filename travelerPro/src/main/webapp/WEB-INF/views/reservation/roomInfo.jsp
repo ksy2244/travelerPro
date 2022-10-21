@@ -70,78 +70,38 @@
 	</main>
 
 
-	<div class="card" style ="width:1500px; text-align:center; font-size:25px; font-weight:400; margin:auto; margin-top:20px; margin-bottom:20px">
+
+	<div class="card"
+		style="width: 1500px; text-align: center; font-size: 25px; font-weight: 400; margin: auto; margin-top: 20px; margin-bottom: 20px">
 		<div class="card-body">인기 시설 및 서비스</div>
 	</div>
+	<div class="row">
+		<c:forEach var="dto" items="${list}" varStatus="status">
+			<div class="card" style="width: 1500px; margin: auto">
+				<div class="card mb-3" style="width: 1485px; margin: auto">
+					<img
+						src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
+						class="card-img-top" alt="...">
+					<div class="card-body">
+						<p class="eachRoomName">${dto.roomName}</p>
+						<p class="eachRoomInfo">${dto.roomInfo}</p>
+						<p class="headCount">기준 ${dto.headCount}인 / 최대
+							${dto.headCount}인</p>
+						<p class="eachRoomMoney">
+							<span style="color: purple">${dto.discountRate}% &nbsp;</span>${dto.roomPrice}원
+						<p>
+							<button class="reservationBtn"
+								onclick="location.href='${pageContext.request.contextPath}/reservation/roomDetailInfo.do'">객실
+								선택</button>
+						</p>
 
-<div class="card" style ="width:1500px; margin:auto">
-	<div class="card mb-3" style="width: 1485px; margin: auto">
-		<img
-			src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
-			class="card-img-top" alt="...">
-		<div class="card-body">
-			<p class="eachRoomName">스탠다드</p>
-			<p class="eachRoomInfo">주차불가, ROOM UPGRADE 가능!!!</p>
-			<p class="headCount">기준 2인 / 최대 2인</p>
-			<p class="eachRoomMoney">
-				<span style="color: purple">10% &nbsp;</span>100,000원
-			<p>
-				<button class="reservationBtn"
-					onclick="location.href='${pageContext.request.contextPath}/reservation/roomDetailInfo.do'">객실
-					선택</button>
-			</p>
+					</div>
+				</div>
 
-		</div>
-	</div>
-	
-
-
-	<div class="card mb-3" style="width: 1485px; margin: auto">
-		<img
-			src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
-			class="card-img-top" alt="...">
-		<div class="card-body">
-			<p class="eachRoomName">스탠다드</p>
-			<p class="eachRoomInfo">주차불가, ROOM UPGRADE 가능!!!</p>
-			<p class="headCount">기준 2인 / 최대 2인</p>
-			<p class="eachRoomMoney">
-				<span style="color: purple">10% &nbsp;</span>100,000원
-			</p>
-			<p class="paymentRule">취소 및 환불 불가</p>
-			<p>
-				<button class="reservationBtn"
-					onclick="location.href='${pageContext.request.contextPath}/reservation/roomDetailInfo.do'">객실
-					선택</button>
-			</p>
-
-
-		</div>
+			</div>
+		</c:forEach>
 	</div>
 
-
-	<div class="card mb-3" style="width: 1485px; margin: auto">
-		<img
-			src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
-			class="card-img-top" alt="...">
-		<div class="card-body">
-			<p class="eachRoomName">스탠다드</p>
-			<p class="eachRoomInfo">주차불가, ROOM UPGRADE 가능!!!</p>
-			<p><span style ="background:#eee">인원</span>기준 2인 / 최대 2인</p>
-			<p><span style ="background:#eee">체크인</span>15:00</p>
-			<p><span style ="background:#eee">체크아웃</span>15:00</p>
-			
-			
-			<p class="eachRoomMoney">
-				<span style="color: purple">10% &nbsp;</span>100,000원
-			<p>
-				<button class="reservationBtn"
-					onclick="location.href='${pageContext.request.contextPath}/reservation/roomDetailInfo.do'">
-					객실 선택</button>
-			</p>
-
-		</div>
-	</div>
-</div>
 
 	<!-- 카카오 지도 (마커 표시) -->
 	<div id="map" style="width: 1000px; height: 1000px; margin: auto"></div>

@@ -12,7 +12,8 @@ public class ReserveCompanyDTO {
 	private String addr;
 	private String addrdetail;
 	private int zip;
-	private String companyNum;
+	private int companyNum;
+	
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -73,10 +74,10 @@ public class ReserveCompanyDTO {
 	public void setZip(int zip) {
 		this.zip = zip;
 	}
-	public String getCompanyNum() {
+	public int getCompanyNum() {
 		return companyNum;
 	}
-	public void setCompanyNum(String companyNum) {
+	public void setCompanyNum(int companyNum) {
 		this.companyNum = companyNum;
 	}
 	

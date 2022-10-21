@@ -42,22 +42,22 @@
 								${dataCount}개(${page}/${total_page} 페이지)</p>
 						</div>
 					</div>
-				<div class="row">
+					<div class="row">
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<div class="col-md-4 col-lg-3 p-1 item">
 								<div class="card-group" style="width: 1500px; margin: auto;">
 									<div class="card" style="margin: 10px;"
-										onclick="location.href='reservation/roomInfo.do?&companyNum=${dto.companyNum}'">
+										onclick="location.href='${articleUrl}&companyNum=${dto.companyNum}'">
 										<img
 											src="${pageContext.request.contextPath}/resources/images/reservationImg/room.jpg"
 											class="card-img-top">
 										<div class="card-body">
+											<h4 class="card-title">업체 번호${dto.companyNum}</h4>
+
 											<h4 class="card-title">${dto.companyName}</h4>
 											<h5 class="card-title">${dto.companyInfo}</h5>
 											<h5 class="card-title">숙박업체 평점</h5>
 											<h5 class="card-title">숙박업체의 각 객실의 최소값으로 수정</h5>
-											<%-- <h5 class="card-title">허용 인원 ${dto.headCount}</h5> --%>
-
 										</div>
 									</div>
 								</div>

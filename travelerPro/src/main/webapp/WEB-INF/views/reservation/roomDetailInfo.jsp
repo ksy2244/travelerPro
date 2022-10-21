@@ -78,7 +78,7 @@
 					&nbsp; <i class="fa-sharp fa-solid fa-door-closed"></i> &nbsp;객실 정보
 				</p>
 				<hr>
-				<p class="eachRoomName">스탠다드</p>
+				<p class="eachRoomName">${dto.roomName}</p>
 				<p class="eachRoomInfo">주차불가, ROOM UPGRADE 가능!!!</p>
 				<p class="roomInfoContent">
 					<span style="background-color: #eee; text-align: center">인원
