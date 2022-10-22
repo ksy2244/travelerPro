@@ -14,35 +14,14 @@
 .body-container {
 	max-width: 800px;
 }
-#table {
-	width: 380px;
-	height: 150px;
-	float: left;
-	margin-left: 10px;
-	margin-right: 10px;
-	box-shadow: 3px 3px #ccc;
-}
-.coupon {
-	display: block;
-	border-bottom: none;
-}
+
 .basic {
 	background-color: #F5EFE6;
 }
-.form tr:first-child {
-	border-top: 2px solid #3C2317; 
-}
+
 .btn:hover{background-color:#D9D2CC;}
-.bold {
-	background-color: #3C2317;
-}
-.bold:hover{background-color:#804A30;}
-.trbold {
-	border-bottom: 1px solid #3C2317;
-}
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/coupon.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
 function deleteCoupon() {
 	if(confirm("쿠폰을 삭제하시겠습니까 ? ")) {
@@ -93,7 +72,7 @@ function deleteCoupon() {
 						</tr>
 						
 						<tr>
-							<td align="left">
+							<td align="left" class="fw-bold">
 								<c:if test="${dto.couponRate==0}">
 									할인금액 : ${dto.couponPrice}원
 								</c:if>

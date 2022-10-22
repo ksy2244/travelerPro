@@ -12,26 +12,14 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1000px;
 }
+
 .basic {
 	background-color: #F5EFE6;
 }
-.btn:hover{background-color:#D9D2CC;}
-.bold {
-	background-color: #3C2317;
-}
-
-.bold:hover{background-color:#804A30;}
-.trbold {
-	border-bottom: 2px solid #3C2317;
-}
-.write-form tr:first-child {
-	border-top: 2px solid #3C2317; 
-}
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
 function deleteNotice() {
 	if(confirm("게시글을 삭제하시겠습니까 ? ")) {

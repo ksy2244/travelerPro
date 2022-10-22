@@ -41,14 +41,6 @@
 	background-color: #D9D2CC;
 }
 
-.bold {
-	background-color: #3C2317;
-}
-
-.bold:hover {
-	background-color: #804A30;
-}
-
 .trbold {
 	border-bottom: 1px solid #3C2317;
 }
@@ -84,9 +76,7 @@
 }
 
 </style>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/coupon.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
 <body>
 

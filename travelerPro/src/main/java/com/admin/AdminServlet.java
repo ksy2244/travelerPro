@@ -27,13 +27,20 @@ public class AdminServlet extends TravelServlet {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 
-		if(uri.indexOf("list.do") != -1) {
-			list(req, resp);
+		if(uri.indexOf("main.do") != -1) {
+			main(req, resp);
+		} else if(uri.indexOf("userlist.do") != -1) {
+			userlist(req, resp);
 		} 
 		
 	}
 	
-	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/admin/main.jsp");
+	}
+	
+	
+	protected void userlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		AdminDAO dao = new AdminDAO();
 		TravelUtil util = new TravelUtilBootstrap();
 		
