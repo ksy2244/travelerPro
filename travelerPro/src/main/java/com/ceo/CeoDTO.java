@@ -1,7 +1,7 @@
 package com.ceo;
 
 public class CeoDTO {
-	private String companyNum;
+	private int companyNum;
 	private String companyName;
 	private String companyTel;
 	private String companyInfo;
@@ -10,12 +10,19 @@ public class CeoDTO {
 	private int regionNum;
 	private String addr;
 	private String addrDetail;
+	private String zip;
 	private int approval;
+	private String checkinTime;
+	private String checkoutTime;
+	private String businessNum;
+	private String notice;
+	private String userId;
+	private String regionName;
 	
-	public String getCompanyNum() {
+	public int getCompanyNum() {
 		return companyNum;
 	}
-	public void setCompanyNum(String companyNum) {
+	public void setCompanyNum(int companyNum) {
 		this.companyNum = companyNum;
 	}
 	public String getCompanyName() {
@@ -66,12 +73,62 @@ public class CeoDTO {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 	public int getApproval() {
 		return approval;
 	}
 	public void setApproval(int approval) {
 		this.approval = approval;
 	}
+	public String getCheckinTime() {
+		return checkinTime;
+	}
+	public void setCheckinTime(String checkinTime) {
+		this.checkinTime = checkinTime;
+	}
+	public String getCheckoutTime() {
+		return checkoutTime;
+	}
+	public void setCheckoutTime(String checkoutTime) {
+		this.checkoutTime = checkoutTime;
+	}
+	public String getBusinessNum() {
+		return businessNum;
+	}
+	public void setBusinessNum(String businessNum) {
+		this.businessNum = businessNum;
+	}
+	public String getNotice() {
+		return notice;
+	}
+	public void setNotice(String notice) {
+		this.notice = notice;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getRegionName() {
+		return regionName;
+	}
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+	
+	
+
+	
+	
+	
+	
+	
 	
 	
 }

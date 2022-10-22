@@ -48,7 +48,6 @@
 <nav>
 	<ul class="menu">
 		<li><a href="${pageContext.request.contextPath}/ceo/recognition.do">업체승인받기</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/write.do">업체정보등록</a></li>
 		<li><a href="${pageContext.request.contextPath}/ceo/main.do">업체리스트</a></li>
 		<li><a href="${pageContext.request.contextPath}/ceo/paylist.do">매출리스트</a></li>
 		<li><a href="${pageContext.request.contextPath}/ceo/reservation.do">예약정보리스트</a></li>

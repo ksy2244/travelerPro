@@ -43,49 +43,50 @@ function companyOk() {
 				
 				<form name="companyForm" method="post">
 					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label" for="companyName">업체명</label>
+						<label class="col-sm-2  col-form-label" for="companyName">업체명</label>
 						<div class="col-sm-10 userId-box">
 							<div class="row">
 								<div class="col-5 pe-1">
-									<input type="text" name="companyName" id="companyName" class="form-control" placeholder="업체명">
+									${dto.companyName}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="businessNum">사업자번호</label>
+				        <label class="col-sm-2 col-form-label" for="companyNum">사업자번호</label>
 				        <div class="col-sm-10 row">
 							<div class="col-sm-3 pe-2">
-								<input type="text" name="businessNum1" id="businessNum1" class="form-control" value="" maxlength="3" placeholder="사업자번호">
-							</div>
+								${dto.businessNum}
+<%-- 							</div>
 							<div class="col-sm-1 px-1" style="width: 2%;">
 								<p class="form-control-plaintext text-center">-</p>
 							</div>
 							<div class="col-sm-3 px-1">
-								<input type="text" name="businessNum2" id="businessNum2" class="form-control" value="" maxlength="2">
+								<input type="text" name="companyNum2" id="companyNum2" class="form-control" value="${dto.tel2}" maxlength="2">
 							</div>
 							<div class="col-sm-1 px-1" style="width: 2%;">
 								<p class="form-control-plaintext text-center">-</p>
 							</div>
 							<div class="col-sm-3 ps-1">
-								<input type="text" name="businessNum3" id="businessNum3" class="form-control" value="" maxlength="5">
-							</div>
+								<input type="text" name="companyNum3" id="companyNum3" class="form-control" value="${dto.tel3}" maxlength="5">
+							</div> --%>
 				        </div>
+				    </div>
 				    </div>
 				    
 
 				 
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="userId">아이디</label>
+				        <label class="col-sm-2 pt-1 col-form-label" for="userId">아이디</label>
 				        <div class="col-sm-10">
-				            <input type="text" name="userId" id="userId" class="form-control" placeholder="아이디">
+				        	${dto.userId}
 				        </div>
 				    </div>
 				 
 				    <div class="row mb-3">
 				        <label class="col-sm-2 col-form-label" for="amenities">지역명</label>
 				        <div class="col-sm-10">
-				            <input type="text" name="regionName" id="regionName" class="form-control" placeholder="지역명">
+				           ${dto.regionNum == 1 ? "강원도":"다른지역" }
 				        </div>
 				    </div>
 
@@ -93,16 +94,7 @@ function companyOk() {
 				        <label class="col-sm-2 col-form-label" for="checkinTime">체크인시간</label>
 				        <div class="col-sm-10 row">
 							<div class="col-3 pe-0">
-								<select name="checkinTime" id="checkinTime" class="form-select" onchange="changeEmail();">
-									<option value="">선 택</option>
-									<option value="9시" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>9시</option>
-									<option value="10시" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>10시</option>
-									<option value="11시" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>11시</option>
-									<option value="12시" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>12시</option>
-									<option value="13시">13시</option>
-									<option value="14시">14시</option>
-									<option value="15시">15시</option>
-								</select>
+								${dto.checkinTime}
 							</div>
 						</div>
 					</div>
@@ -110,16 +102,7 @@ function companyOk() {
 				        <label class="col-sm-2 col-form-label" for="checkoutTime">체크아웃시간</label>
 				        <div class="col-sm-10 row">
 							<div class="col-3 pe-0">
-								<select name="checkoutTime" id="checkoutTime" class="form-select" onchange="changeEmail();">
-									<option value="">선 택</option>
-									<option value="9시" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>9시</option>
-									<option value="10시" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>10시</option>
-									<option value="11시" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>11시</option>
-									<option value="12시" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>12시</option>
-									<option value="1시">1시</option>
-									<option value="2시">2시</option>
-									<option value="3시">3시</option>
-								</select>
+								${dto.checkoutTime}
 							</div>
 						</div>
 					</div>
@@ -127,29 +110,16 @@ function companyOk() {
 				        <label class="col-sm-2 col-form-label" for="tel1">전화번호</label>
 				        <div class="col-sm-10 row">
 							<div class="col-sm-3 pe-2">
-								<input type="text" name="tel1" id="tel1" class="form-control" value="${dto.tel1}" maxlength="3">
-							</div>
-							<div class="col-sm-1 px-1" style="width: 2%;">
-								<p class="form-control-plaintext text-center">-</p>
-							</div>
-							<div class="col-sm-3 px-1">
-								<input type="text" name="tel2" id="tel2" class="form-control" value="${dto.tel2}" maxlength="4">
-							</div>
-							<div class="col-sm-1 px-1" style="width: 2%;">
-								<p class="form-control-plaintext text-center">-</p>
-							</div>
-							<div class="col-sm-3 ps-1">
-								<input type="text" name="tel3" id="tel3" class="form-control" value="${dto.tel3}" maxlength="4">
-							</div>
-				        </div>
+								${dto.companyTel}
+				        	</div>
+				    	</div>
 				    </div>
 				
 				    <div class="row mb-3">
 				        <label class="col-sm-2 col-form-label" for="zip">우편번호</label>
 				        <div class="col-sm-5">
 				       		<div class="input-group">
-				           		<input type="text" name="zip" id="zip" class="form-control" placeholder="우편번호" value="${dto.zip}" readonly="readonly">
-			           			<button class="btn btn-light" type="button" style="margin-left: 3px;" onclick="daumPostcode();">우편번호 검색</button>
+								${dto.zip}
 				           	</div>
 						</div>
 				    </div>
@@ -158,33 +128,33 @@ function companyOk() {
 				        <label class="col-sm-2 col-form-label" for="addr1">주소</label>
 				        <div class="col-sm-10">
 				       		<div>
-				           		<input type="text" name="addr1" id="addr1" class="form-control" placeholder="기본 주소" value="${dto.addr1}" readonly="readonly">
+				           		${dto.addr}
 				           	</div>
 				       		<div style="margin-top: 5px;">
-				       			<input type="text" name="addr2" id="addr2" class="form-control" placeholder="상세 주소" value="${dto.addr2}">
+				       			${dto.addrDetail}
 							</div>
 						</div>
 				    </div>
-					<div class="mb-3">
+					<div class="mt-10 mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">업체정보</label>
-					  <textarea class="form-control" name="companyInfo" id="companyInfo" rows="3"></textarea>
+					  <textarea class="form-control" name="companyInfo" id="companyInfo" rows="3">${dto.companyInfo}</textarea>
 					</div>
-					<div class="mb-3">
+					<div class="mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">서비스(편의시설)</label>
-					  <textarea class="form-control" name="amenities" id="amenities" rows="3"></textarea>
+					  <textarea class="form-control" name="amenities" id="amenities" rows="3">${dto.amenities}</textarea>
 					</div>
-					<div class="mb-3">
+					<div class="mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">안내</label>
-					  <textarea class="form-control" name="guide" id="guide" rows="3"></textarea>
+					  <textarea class="form-control" name="guide" id="guide" rows="3">${dto.guide}</textarea>
 					</div>
-					<div class="mb-3">
+					<div class="mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">예약공지</label>
-					  <textarea class="form-control" name="notice" id="notice" rows="3"></textarea>
+					  <textarea class="form-control" name="notice" id="notice" rows="3">${dto.notice}</textarea>
 					</div>
 
 				    <div class="row mb-3">
 				        <div class="text-center">
-				            <button type="button" name="sendButton" class="btn btn-primary" onclick="companyOk();"> <i class="bi bi-check2"></i>승인받기</button>
+				            <button type="button" name="sendButton" class="btn btn-primary" onclick="companyOk();"> <i class="bi bi-check2"></i>수정하기</button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
 				    </div>
