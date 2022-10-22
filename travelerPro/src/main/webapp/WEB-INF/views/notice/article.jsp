@@ -33,9 +33,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
 <script type="text/javascript">
-function deleteBoard() {
+function deleteNotice() {
 	if(confirm("게시글을 삭제하시겠습니까 ? ")) {
-		let query = "noticeNum=${dto.noticeNum}&${query}";
+		let query = "${query}&noticeNum=${dto.noticeNum}";
 		let url = "${pageContext.request.contextPath}/notice/delete.do?" + query;
 	    location.href = url;
 	}
@@ -98,8 +98,8 @@ function deleteBoard() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?noticeNum=${dto.noticeNum}&page=${page}';">수정</button>
-							<button type="button" class="btn basic" onclick="deleteBoard();">삭제</button>
+							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?page=${page}&noticeNum=${dto.noticeNum}';">수정</button>
+							<button type="button" class="btn basic" onclick="deleteNotice();">삭제</button>
 						</td>
 						
 						<td class="text-end">

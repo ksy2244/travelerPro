@@ -1,41 +1,83 @@
 @charset "UTF-8";
 
+.body-container {
+	max-width: 800px;
+}
+
 #table {
 	width: 380px;
-	height: 150px;
+	height: 140px;
 	float: left;
 	margin-left: 10px;
 	margin-right: 10px;
-	box-shadow: 3px 3px #ccc;
+	border: 1px solid #eee;
 }
 
-#coupon {
+.block {
 	display: block;
 	border-bottom: none;
 }
 
-#color {
+.basic {
 	background-color: #F5EFE6;
 }
 
-#form tr:first-child {
-	border-top: 2px solid #3C2317; 
+.form tr:first-child {
+	border-top: 2px solid #3C2317;
 }
 
-#btn {
-	background-color: #F5EFE6;
+.btn:hover {
+	background-color: #D9D2CC;
 }
 
-#btn:hover{background-color:#D9D2CC;}
-
-#bold {
+.bold {
 	background-color: #3C2317;
 }
 
-#bold:hover{background-color:#804A30;}
+.bold:hover {
+	background-color: #804A30;
+}
 
-#trbold {
+.trbold {
 	border-bottom: 1px solid #3C2317;
+}
+
+.box {
+	border: 2px solid #eee;
+	height: 60px;
+	width: 130px;
+	border-right: 7px solid black;
+	border-radius: 5px;
+}
+
+.text {
+	padding-top: 35px;
+}
+
+.text_color {
+	color: #787878;
+}
+
+#searchDate {
+	color: red;
+}
+
+.detail {
+	font-weight: bold;
+	font-size: 12px;
+	height: 47px;
+}
+
+.top {
+	margin-top: 10px;
+}
+
+.right {
+	float: right;
+}
+
+.col-end {
+	width: 95.89px; 
 }
 
 

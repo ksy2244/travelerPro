@@ -15,34 +15,16 @@
 .body-container {
 	max-width: 800px;
 }
-.table {
-	width: 380px;
-	height: 150px;
-	float: left;
-	margin-left: 10px;
-	margin-right: 10px;
-	box-shadow: 3px 3px #ccc;
-}
-
-.coupon {
-	display: block;
-	border-bottom: none;
-}
-
 .basic {
 	background-color: #F5EFE6;
 }
-
 .btn:hover{background-color:#D9D2CC;}
-
 .bold {
 	background-color: #3C2317;
 }
-
 .bold:hover{background-color:#804A30;}
-
 .trbold {
-	border-bottom: 1px solid #3C2317;
+	border-bottom: 2px solid #3C2317;
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
@@ -67,25 +49,30 @@ function sendOk() {
         return false;
     }
     
-    /*
-    if(f.chk_coupon.value === "couponRate"){
-    	str = f.couponRate.value.trim();
-    	if( !/^\d{1,3}$/.test(couponRate) ){
-    		alert("할인율을 입력하세요. ");
-    		f.couponRate.focus();
-            return false;
-    	}
-    } else if(f.chk_coupon.value === "couponPrice"){
-    	str = f.couponPrice.value.trim();
-    	if( !/^\d{1,5}$/.test(couponPrice) ){
-    		alert("할인가격을 입력하세요. ");
-    		f.couponPrice.focus();
-            return false;
+    if(f.couponRate.value === "0" && f.couponPrice.value === "0" || 
+    		f.couponRate.value === "" && f.couponPrice.value === "0" ||
+    		f.couponRate.value === "0" && f.couponPrice.value === ""){
+    	alert("할인율 혹은 할인가격을 입력하세요. ");
+        return false;
+    }
+    
+    let couponRate = parseInt(f.couponRate.value);
+    let couponPrice = parseInt(f.couponPrice.value);
+    if(couponPrice ===  0){
+    	if(couponRate < 1 || couponRate > 100){
+    		alert("할인율은 1%~100% 내에서 가능합니다.");
+        	f.couponRate.focus();
+            return false;	
     	}
     }
- 	*/
- 	
-   
+    
+    if(couponRate === 0){
+    	if(couponPrice < 1000 || couponPrice > 99999){
+    		alert("할인금액은 1000원~99999원 내에서 가능합니다.");
+        	f.couponPrice.focus();
+            return false;	
+    	}
+    }
     
     str = f.start_date.value.trim();
     if( !str ) {
@@ -112,9 +99,10 @@ function sendOk() {
     }
   
    	
-    if(! confirm('등록하시겠습니까?')){
+    if(! confirm('${submit}'+'하시겠습니까?')){
     	return false;
     }
+    
     f.action = "${pageContext.request.contextPath}/coupon/${mode}_ok.do"; 
     f.submit();
 }
@@ -158,61 +146,54 @@ $(function(){
 				<form name="couponForm" method="post">
 					<table class="table write-form mt-5">
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row">쿠폰명</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰명</td>
 							<td>
 								<input type="text" name="couponName" class="form-control" value="${dto.couponName}">
 							</td>
 						</tr>
 	
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row">쿠폰 내용</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 내용</td>
 							<td>
 								<textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row">할인 선택</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인 선택</td>
 							<td>
 								<input type="radio" name="chk_coupon" value="couponRate" checked="checked"> 할인율 
 								<input type="radio" name="chk_coupon" value="couponPrice"> 할인금액
 							</td>
 						</tr>
 						
-						<c:if test="${mode=='update'}">
-							<tr class="trbold">						
-								<td class="col-sm-2 text-center basic" scope="row">원 할인율 혹은 원 할인금액</td>
-								<td>
-									<div>${dto.couponPrice}</div>
-								</td>
-							</tr>
-						</c:if>
-						
-						<tr class="trbold" class="couponRate">						
-							<td class="col-sm-2 text-center basic" scope="row">할인율</td>
+						<tr class="trbold couponRate">						
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인율</td>
 							<td>
 								<input type="number" name="couponRate" class="form-control" value="0" min="0" max="100">
+								<small class="form-control-plaintext">할인율은 1% ~ 100% 내에서 입력 가능합니다.</small>
 							</td>
 						</tr>
 						
-						<tr class="trbold" class="couponPrice" style="display: none;">
-							<td class="col-sm-2 text-center basic" scope="row">할인금액</td>
+						<tr class="trbold couponPrice" style="display: none;">
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인금액</td>
 							<td>
 								<input type="number" name="couponPrice" class="form-control" value="0" min="0" max="99999">
+								<small class="form-control-plaintext">할인금액은 1,000원 ~ 99,000원 내에서 입력 가능합니다.</small>
 							</td>
 						</tr>
 						
 				        <tr class="trbold">
-				        	<td class="col-sm-2 text-center basic" scope="row">쿠폰 시작 일자</td>
+				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 시작 일자</td>
 				        	<td>
-				            	<input type="date" name="start_date" id="start_date" class="form-control" value="" placeholder="쿠폰 시작 일자">
+				            	<input type="date" name="start_date" id="start_date" class="form-control" placeholder="쿠폰 시작 일자">
 				            </td>
 				         </tr>
 				         
 				          <tr class="trbold">
-				        	<td class="col-sm-2 text-center basic" scope="row">쿠폰 만료 일자</td>
+				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 만료 일자</td>
 				        	<td>
-				            	<input type="date" name="end_date" id="end_date" class="form-control" value="" placeholder="쿠폰 마지막 일자">
+				            	<input type="date" name="end_date" id="end_date" class="form-control" placeholder="쿠폰 마지막 일자">
 				            </td>
 				         </tr>
 					
@@ -224,7 +205,10 @@ $(function(){
 								<button type="button" class="btn text-white bold" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn basic">다시입력</button>
 								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
-								
+								<c:if test="${mode=='update'}">
+									<input type="hidden" name="couponNum" value="${dto.couponNum}">
+									<input type="hidden" name="page" value="${page}">
+								</c:if>
 							</td>
 						</tr>
 					</table>
