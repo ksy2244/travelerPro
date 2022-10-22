@@ -18,6 +18,7 @@ public class AdminDTO {
 	private String userId;
 	private String businessNum;
 	private String userName;
+	private int roll;
 
 	public long getCompanyNum() {
 		return companyNum;
@@ -120,6 +121,12 @@ public class AdminDTO {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public int getRoll() {
+		return roll;
+	}
+	public void setRoll(int roll) {
+		this.roll = roll;
 	}
 	
 	

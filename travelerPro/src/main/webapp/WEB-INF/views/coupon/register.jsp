@@ -7,13 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>coupon</title>
+<title>traveler_manage</title>
 
 <jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1000px;
 }
 
 .basic {
