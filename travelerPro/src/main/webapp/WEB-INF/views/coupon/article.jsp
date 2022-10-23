@@ -31,6 +31,23 @@ function deleteCoupon() {
 	}
 }
 
+function ajaxFun(url, method, query, dataType, fn){
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success: function(data){
+			fn(data);
+		},
+		beforeSend: function(jpXHR){
+			jpXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR){
+			if(jaXHR)
+		}
+	})
+}
 </script>
 
 

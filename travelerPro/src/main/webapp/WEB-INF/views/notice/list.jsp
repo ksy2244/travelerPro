@@ -19,7 +19,7 @@
 	background-color: #F5EFE6;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#D9D2CC;} 
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
