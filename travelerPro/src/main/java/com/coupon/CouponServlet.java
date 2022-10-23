@@ -181,6 +181,23 @@ public class CouponServlet extends TravelServlet {
 			
 			dto.setContent(dto.getContent().replaceAll("\r\n", "<br>"));
 			
+			String end_date = dto.getEnd_date();
+			
+			end_date = end_date + " 00:00:00";
+			
+			
+			Date now = new Date(Calendar.getInstance().getTimeInMillis());
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			Date ed = sf.parse(end_date);
+	       
+	        long diff = ed.getTime() - now.getTime();
+	        long Day = diff/(24*60*60*1000);
+	        
+	        String searchDate = "쿠폰 만료일까지 " + Day +"일 남았습니다.";
+			
+			req.setAttribute("searchDate", searchDate);
+			
 			req.setAttribute("query", query);
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);

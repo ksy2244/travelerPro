@@ -8,13 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import com.member.MemberDAO;
 import com.member.MemberDTO;
-import com.member.SessionInfo;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
@@ -39,8 +36,9 @@ public class AdminServlet extends TravelServlet {
 			companyArticle(req, resp);
 		} else if(uri.indexOf("companyUpdate.do") != -1) {
 			companyUpdate(req, resp);
+		} else if(uri.indexOf("faq.do") != -1) {
+			faq(req, resp);
 		}
-		
 	}
 	
 	protected void main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -211,6 +209,10 @@ public class AdminServlet extends TravelServlet {
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
 		out.print(job.toString());
+	}
+	
+	protected void faq(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/admin/faq.jsp");
 	}
 
 }
