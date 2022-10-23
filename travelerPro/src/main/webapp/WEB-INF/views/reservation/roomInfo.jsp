@@ -15,6 +15,84 @@
 	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
 <link rel="import" href="map.html">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+<script>
+	//DatePicker 한글로 변환
+	$.datepicker.setDefaults({
+		dateFormat : 'yymmdd',
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ],
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ],
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년',
+
+	});
+
+	//Datepicker 적용할 id 가져오기, 지난 날짜 선택 불가하도록 설정 
+	$(function() {
+		$("#start_date").datepicker({
+			minDate : 0
+		});
+		$("#end_date").datepicker({
+			minDate : 0
+		});
+
+		$.datepicker.setDefaults({
+			dateFormat : 'yy-mm-dd' //input display format 변경
+		});
+
+		$('#start_date').datepicker('setDate', 'today'); // 시작일 초기값 오늘로 설정 
+
+		$('#end_date').datepicker('setDate', '+1D'); // 종료일 초기값 내일로 설정 
+	});
+</script>
+
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c">
+	
+</script>
+
+
+
+<style>
+.ui-datepicker {
+	font-size: 30px;
+	width: 600px;
+} /* jQuery UI datepicker 크기 조정  */
+.ui-datepicker-header {
+	background: #B8b5ff;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 200px;
+	font-size: 30px;
+	text-align: center;
+} /* jQuery UI 날짜 선택기 너비 */
+.ui-datepicker select.ui-datepicker-year {
+	width: 200px;
+	font-size: 30px;
+} /* jQuery UI 날짜 선택기 작게 */
+.ui-state-default.ui-state-highlight {
+	background: #E4FBFF;
+	border-color: #B8b5ff;
+}
+
+.ui-state.default.ui-state-active {
+	background: #B8b5ff;
+}
+</style>
+
 </head>
 <body>
 	<header>
@@ -67,6 +145,7 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
+
 	</main>
 
 
@@ -75,8 +154,29 @@
 		style="width: 1500px; text-align: center; font-size: 25px; font-weight: 400; margin: auto; margin-top: 20px; margin-bottom: 20px">
 		<div class="card-body">인기 시설 및 서비스</div>
 	</div>
+
+	<div class="card"
+		style="width: 1500px; text-align: center; font-size: 25px; font-weight: 400; margin: auto; margin-top: 20px; margin-bottom: 20px;">
+		<div class="card-body">
+			<form action="roomInfo.jsp" method="get">
+				<p style="font-size: 25px;">
+					시작일 <input type="text" id="start_date" name="start"> 종료일 <input
+						type="text" id="end_date" name="end">
+					<button class="reservationBtn" type="submit"
+						onclick="location.href='reservation/roomInfo.do?companyNum=${dto.companyNum}'">객실
+						선택</button>
+				</p>
+
+				<input type="submit">객실선택
+			</form>
+
+		</div>
+	</div>
+
+
 	<div class="row">
 		<c:forEach var="dto" items="${list}" varStatus="status">
+
 			<div class="card" style="width: 1500px; margin: auto">
 				<div class="card mb-3" style="width: 1485px; margin: auto">
 					<img
@@ -90,10 +190,14 @@
 						<p class="eachRoomMoney">
 							<span style="color: purple">${dto.discountRate}% &nbsp;</span>${dto.roomPrice}원
 						<p>
-							<button class="reservationBtn"
+
+
+							<button class="reservationBtn" type="submit"
 								onclick="location.href='reservation/roomDetailInfo.do?companyNum=${dto.companyNum}&roomNum=${dto.roomNum}'">객실
 								선택</button>
-								
+
+							<!-- 	&start_date=${start_date}&dateDto=${end_date} -->
+
 						</p>
 
 					</div>
@@ -106,9 +210,6 @@
 
 	<!-- 카카오 지도 (마커 표시) -->
 	<div id="map" style="width: 1000px; height: 1000px; margin: auto"></div>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c"></script>
-
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {

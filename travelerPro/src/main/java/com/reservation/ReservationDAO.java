@@ -12,8 +12,8 @@ public class ReservationDAO {
 	private Connection conn = DBConn.getConnection();
 
 	// 해당 숙박 업체 보기 (업체 상세)
-	public ReservationDTO readRoom(int companyNum) {
-		ReservationDTO dto = null;
+	public ReserveRoomDTO readRoom(int companyNum) {
+		ReserveRoomDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
@@ -21,6 +21,7 @@ public class ReservationDAO {
 		try {
 			sql = "SELECT roomNum, roomName, roomInfo, price, discountRate, companyNum, headCount" + " FROM room"
 					+ " WHERE companyNum = ? ";
+			// WHERE sold = 0; (판매 완료는 1)
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -29,7 +30,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				dto = new ReservationDTO();
+				dto = new ReserveRoomDTO();
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
 				dto.setRoomInfo(rs.getString("roomInfo"));
@@ -113,8 +114,8 @@ public class ReservationDAO {
 	}
 
 	// 객실 목록
-	public List<ReservationDTO> listRoom(int companyNum) {
-		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+	public List<ReserveRoomDTO> listRoom(int companyNum) {
+		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
@@ -129,7 +130,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ReservationDTO dto = new ReservationDTO();
+				ReserveRoomDTO dto = new ReserveRoomDTO();
 
 				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setRoomNum(rs.getInt("roomNum"));
@@ -393,8 +394,8 @@ public class ReservationDAO {
 		return result;
 	}
 
-	public List<ReservationDTO> listSelectRoom(int roomNum) {
-		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+	public List<ReserveRoomDTO> listSelectRoom(int roomNum) {
+		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
@@ -412,7 +413,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ReservationDTO dto = new ReservationDTO();
+				ReserveRoomDTO dto = new ReserveRoomDTO();
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
 				dto.setRoomInfo(rs.getString("roomInfo"));
@@ -454,5 +455,46 @@ public class ReservationDAO {
 
 		return list;
 	}
+
+	public void insertReservation(ReservationDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "INSERT INTO reservation ( reservationNum, start_date, end_date, realHeadCount, totalPrice, "
+					+ " checkInTime, checkOutTime, status, discountPrice, paymentPrice, userId, "
+					+ " reservation_date, couponPrice, realUserName, realUserTel) "
+					+ " VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ? ,SYSDATE, ?, ?, ?)";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, dto.getReservationNum());
+			pstmt.setString(2, dto.getStart_date());
+			pstmt.setString(3, dto.getEnd_date());
+			pstmt.setInt(4, dto.getRealHeadCount());
+			pstmt.setInt(5, dto.getTotalPrice());
+			pstmt.setString(6, dto.getCheckInTime());
+			pstmt.setString(7, dto.getCheckOutTime());
+			pstmt.setString(8, dto.getStatus());
+			pstmt.setInt(9, dto.getDiscountPrice());
+			pstmt.setInt(10, dto.getPaymentPrice());
+			pstmt.setString(11, dto.getUserId());
+			pstmt.setInt(12, dto.getCouponPrice());
+			pstmt.setString(13, dto.getRealUserName());
+			pstmt.setString(14, dto.getRealUserTel());
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		}
+
+	}
+
+	
 
 }
