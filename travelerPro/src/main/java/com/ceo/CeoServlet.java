@@ -1,25 +1,40 @@
 package com.ceo;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 
 @WebServlet("/ceo/*")
+@MultipartConfig
 public class CeoServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
+	private String pathname;
 
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 
 		String uri = req.getRequestURI();
+		
+		HttpSession session = req.getSession();
+		String root = session.getServletContext().getRealPath("/");
+		pathname = root + "uploads" + File.separator + "ceo";
 
 		// uri에 따른 작업 구분
 		if (uri.indexOf("main.do") != -1) {
@@ -36,6 +51,12 @@ public class CeoServlet extends TravelServlet {
 			recognition(req, resp);
 		} else if (uri.indexOf("article.do") != -1) {
 			article(req, resp);
+		} else if (uri.indexOf("update.do") != -1) {
+			update(req, resp);
+		} else if (uri.indexOf("update_ok.do") != -1) {
+			updateSubmit(req, resp);
+		} else if (uri.indexOf("delete.do") != -1) {
+			delete(req, resp);
 		}
 	}
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -82,6 +103,12 @@ public class CeoServlet extends TravelServlet {
 	protected void recognitionSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
 		String cp = req.getContextPath();
+		
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp + "/ceo/main.do");
+			return;
+		}
+
 		try {
 			CeoDTO dto = new CeoDTO();
 			dto.setCompanyName(req.getParameter("companyName"));
@@ -101,11 +128,81 @@ public class CeoServlet extends TravelServlet {
 			dto.setGuide(req.getParameter("guide"));
 			dto.setNotice(req.getParameter("notice"));
 			
+			Map<String,String[]> map = doFileUpload(req.getParts(),pathname);
+			if(map != null) {
+				String[] saveFiles = map.get("saveFilenames");
+				dto.setImageFiles(saveFiles);
+			}
+			
 			dao.insertCeo(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(req.getParameter("regionName"));
+			System.out.println(req.getParameter("companyName"));
 		}
 		resp.sendRedirect(cp+"/ceo/main.do");
+	}
+	private Map<String, String[]> doFileUpload(Collection<Part> parts, String pathname2) {
+		Map<String, String[]> map = null;
+		try {
+			File f = new File(pathname2);
+			if (!f.exists()) { 
+				f.mkdirs();
+			}
+
+			String original, save, ext;
+			List<String> listOriginal = new ArrayList<String>();
+			List<String> listSave = new ArrayList<String>();
+
+			for (Part p : parts) {
+				String contentType = p.getContentType();
+
+				if (contentType != null) { 
+					original = getOriginalFilename(p);
+					if (original == null || original.length() == 0) {
+						continue;
+					}
+
+					ext = original.substring(original.lastIndexOf("."));
+					save = String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS", Calendar.getInstance());
+					save += System.nanoTime();
+					save += ext;
+
+					String fullpath = pathname2 + File.separator + save;
+					p.write(fullpath);
+
+					listOriginal.add(original);
+					listSave.add(save);
+				}
+			}
+
+			if (listOriginal.size() != 0) {
+				String[] originals = listOriginal.toArray(new String[listOriginal.size()]);
+				String[] saves = listSave.toArray(new String[listSave.size()]);
+
+				map = new HashMap<>();
+
+				map.put("originalFilenames", originals);
+				map.put("saveFilenames", saves);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+	private String getOriginalFilename(Part p) {
+		try {
+			for (String s : p.getHeader("content-disposition").split(";")) {
+				if (s.trim().startsWith("filename")) {
+					return s.substring(s.indexOf("=") + 1).trim().replace("\"", "");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 	protected void payList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		forward(req, resp, "/WEB-INF/views/ceo/paylist.jsp");
@@ -117,8 +214,8 @@ public class CeoServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/ceo/reservation.jsp");
 	}
 	protected void recognition(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
 		req.setAttribute("mode", "recognition");
+		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
 	}
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
@@ -128,14 +225,18 @@ public class CeoServlet extends TravelServlet {
 		String query = "page="+page;
 		try {
 			int num = Integer.parseInt(req.getParameter("companyNum"));
+			String test = req.getParameter("test");
 			CeoDTO dto = dao.readCto(num);
 			if(dto == null) {
 				resp.sendRedirect(cp + "/ceo/main.do?"+query);
 			}
+			List<CeoDTO> listFile = dao.listPhotoFile(num);
 			
 			req.setAttribute("dto", dto);
+			req.setAttribute("test", test);
 			req.setAttribute("page", page);
 			req.setAttribute("query", query);
+			req.setAttribute("listFile", listFile);
 			
 			forward(req, resp, "/WEB-INF/views/ceo/article.jsp");
 			return;
@@ -145,6 +246,47 @@ public class CeoServlet extends TravelServlet {
 		}
 		resp.sendRedirect(cp + "/ceo/main.do?" + query);
 	}
-	
+	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+	}
+	protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("mode", "update");
+		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
+	}
+	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CeoDAO dao = new CeoDAO();
+		String cp = req.getContextPath();
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp + "/ceo/main.do");
+			return;
+		}
+		String page = req.getParameter("page");
+		try {
+			CeoDTO dto = new CeoDTO();
+			
+			dto.setCompanyName(req.getParameter("companyName"));
+			dto.setBusinessNum(req.getParameter("businessNum1")+"-"+req.getParameter("businessNum2")+"-"+req.getParameter("businessNum3"));
+			dto.setUserId(req.getParameter("userId"));
+			if(req.getParameter("regionName").equals("강원도")) {
+				dto.setRegionNum(1);
+			}
+			dto.setCheckinTime(req.getParameter("checkinTime"));
+			dto.setCheckoutTime(req.getParameter("checkoutTime"));
+			dto.setCompanyTel(req.getParameter("tel1")+"-"+req.getParameter("tel2")+"-"+req.getParameter("tel3"));
+			dto.setZip(req.getParameter("zip"));
+			dto.setAddr(req.getParameter("addr1"));
+			dto.setAddrDetail(req.getParameter("addr2"));
+			dto.setCompanyInfo(req.getParameter("companyInfo"));
+			dto.setAmenities(req.getParameter("amenities"));
+			dto.setGuide(req.getParameter("guide"));
+			dto.setNotice(req.getParameter("notice"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp.sendRedirect(cp+"/ceo/main.do?page="+page);
+	}
 
 }

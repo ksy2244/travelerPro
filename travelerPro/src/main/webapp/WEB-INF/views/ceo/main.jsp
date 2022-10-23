@@ -37,6 +37,7 @@
 							<th class ="companyTel">업체 전화번호</th>
 							<th class="addr1">주소</th>
 							<th class="approval">관리자 승인 여부</th>
+							<th class="roomgo">객실등록</th>
 						</tr>
 					</thead>
 					
@@ -50,6 +51,9 @@
 								<td>${dto.companyTel}</td>
 								<td>${dto.addr}</td>
 								<td>${dto.approval == 0 ? "대기중" : "승인완료" }</td>
+								<%-- <c:if test="${dto.approval ==1}"> --%>
+								<td><button class="submit" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실등록</button></td>
+								<%-- </c:if> --%>
 							</tr>
 						</c:forEach>
 					</tbody>

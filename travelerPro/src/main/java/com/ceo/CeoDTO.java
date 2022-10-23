@@ -19,6 +19,10 @@ public class CeoDTO {
 	private String userId;
 	private String regionName;
 	
+	private long fileNum;
+	private String imageFilename;
+	private String[] imageFiles;
+	
 	public int getCompanyNum() {
 		return companyNum;
 	}
@@ -120,6 +124,24 @@ public class CeoDTO {
 	}
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
+	}
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	public String[] getImageFiles() {
+		return imageFiles;
+	}
+	public void setImageFiles(String[] imageFiles) {
+		this.imageFiles = imageFiles;
 	}
 	
 	

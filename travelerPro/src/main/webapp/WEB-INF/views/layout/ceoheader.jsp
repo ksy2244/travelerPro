@@ -51,7 +51,6 @@
 		<li><a href="${pageContext.request.contextPath}/ceo/main.do">업체리스트</a></li>
 		<li><a href="${pageContext.request.contextPath}/ceo/paylist.do">매출리스트</a></li>
 		<li><a href="${pageContext.request.contextPath}/ceo/reservation.do">예약정보리스트</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/room.do">객실등록</a></li>
 	</ul>
 </nav>
 
