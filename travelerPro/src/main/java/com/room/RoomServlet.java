@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import com.util.FileManager;
 import com.util.FileUploadServlet;
-//import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
 
