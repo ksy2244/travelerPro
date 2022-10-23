@@ -98,7 +98,7 @@ public class CeoDAO {
 		try {
 			sql = "SELECT companyNum, companyName, companyTel,addr,approval "
 					+ " FROM company"
-					+ " ORDER BY businessNum DESC"
+					+ " ORDER BY companyNum DESC"
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			pstmt = conn.prepareStatement(sql);
 			
@@ -275,6 +275,7 @@ public class CeoDAO {
 			sql = "UPDATE company SET companyName=?, companyTel=?, companyInfo=?, amenities=?, guide=?, regionNum=?, "
 			+ " checkinTime=?, checkoutTime=?, addr=?, addrDetail=?, zip=?, notice=?, businessNum=?"
 			+ " WHERE companyNum = ?";
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getCompanyName());
 			pstmt.setString(2, dto.getCompanyTel());
@@ -289,19 +290,49 @@ public class CeoDAO {
 			pstmt.setString(11, dto.getZip());
 			pstmt.setString(12, dto.getNotice());
 			pstmt.setString(13, dto.getBusinessNum());
+			pstmt.setInt(14, dto.getCompanyNum());
 			
 			pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = null;
 			
-			if(dto.getImageFiles() != null) {
-				sql = "";/*"INSERT INTO "*/
+			if(dto.getImageFiles() !=null) {
+				sql = "INSERT INTO companyFile(fileNum,imageFilename,companyNum) "
+						+ " VALUES(companyFile_seq.NEXTVAL,?,?)";
+				pstmt = conn.prepareStatement(sql);
+				
+				for(int i=0; i<dto.getImageFiles().length;i++) {
+					pstmt.setString(1, dto.getImageFiles()[i]);
+					pstmt.setInt(2, dto.getCompanyNum());
+					
+					pstmt.executeUpdate();
+					
+				}
 			}
-			
-		/*	sql = "UPDATE companyFile SET "*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+	public void deletePhoto(int num) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "DELETE FROM companyFile WHERE num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
 			if (pstmt != null) {
 				try {

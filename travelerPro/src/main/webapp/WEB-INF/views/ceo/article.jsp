@@ -166,7 +166,7 @@ function imageViewer(src) {
 				        <div class="text-center">
 						<%-- 	<c:choose> --%>
 								<%-- <c:when test="${sessionScope.member.userId==dto.userId}"> --%>
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ceo/update.do?num=${dto.companyNum}&page=${page}';">수정</button>
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ceo/update.do?companyNum=${dto.companyNum}&page=${page}';">수정</button>
 <%-- 								</c:when>
 								<c:otherwise>
 									<button type="button" class="btn btn-primary" disabled="disabled">수정</button>

@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import com.util.TravelServlet;
 import com.util.TravelUtil;
+import com.util.TravelUtilBootstrap;
 
 @WebServlet("/ceo/*")
 @MultipartConfig
@@ -61,7 +62,7 @@ public class CeoServlet extends TravelServlet {
 	}
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
-		TravelUtil util = new TravelUtil();
+		TravelUtil util = new TravelUtilBootstrap();
 		
 		String cp = req.getContextPath();
 		
@@ -112,6 +113,9 @@ public class CeoServlet extends TravelServlet {
 		try {
 			CeoDTO dto = new CeoDTO();
 			dto.setCompanyName(req.getParameter("companyName"));
+			dto.setBusinessNum1(req.getParameter("businessNum1"));
+			dto.setBusinessNum2(req.getParameter("businessNum2"));
+			dto.setBusinessNum3(req.getParameter("businessNum3"));
 			dto.setBusinessNum(req.getParameter("businessNum1")+"-"+req.getParameter("businessNum2")+"-"+req.getParameter("businessNum3"));
 			dto.setUserId(req.getParameter("userId"));
 			if(req.getParameter("regionName").equals("강원도")) {
@@ -119,6 +123,9 @@ public class CeoServlet extends TravelServlet {
 			}
 			dto.setCheckinTime(req.getParameter("checkinTime"));
 			dto.setCheckoutTime(req.getParameter("checkoutTime"));
+			dto.setCompanyTel1(req.getParameter("tel1"));
+			dto.setCompanyTel2(req.getParameter("tel2"));
+			dto.setCompanyTel3(req.getParameter("tel3"));
 			dto.setCompanyTel(req.getParameter("tel1")+"-"+req.getParameter("tel2")+"-"+req.getParameter("tel3"));
 			dto.setZip(req.getParameter("zip"));
 			dto.setAddr(req.getParameter("addr1"));
@@ -251,8 +258,43 @@ public class CeoServlet extends TravelServlet {
 		
 	}
 	protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("mode", "update");
-		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
+		CeoDAO dao = new CeoDAO();
+		String cp = req.getContextPath();
+		String page = req.getParameter("page");
+		
+		try {
+			int num = Integer.parseInt(req.getParameter("companyNum"));
+			CeoDTO dto = dao.readCto(num);
+			
+			List<CeoDTO> listFile = dao.listPhotoFile(num);
+			
+			String [] bnum = dto.getBusinessNum().split("-");
+			dto.setBusinessNum1(bnum[0]);
+			dto.setBusinessNum2(bnum[1]);
+			dto.setBusinessNum3(bnum[2]);
+			String [] t = dto.getCompanyTel().split("-");
+			dto.setCompanyTel1(t[0]);
+			dto.setCompanyTel2(t[1]);
+			dto.setCompanyTel3(t[2]);
+			
+			
+			/*
+			 * if(dto == null) { resp.sendRedirect(cp+"/ceo/main.do?page=" +page); return; }
+			 */
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("listFile", listFile);
+			req.setAttribute("mode", "update");
+			
+			forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(req.getParameter("companyNum"));
+		}
+		
+		resp.sendRedirect(cp+"/ceo/main.do?page="+page);
 	}
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
@@ -266,6 +308,7 @@ public class CeoServlet extends TravelServlet {
 		try {
 			CeoDTO dto = new CeoDTO();
 			
+			dto.setCompanyNum(Integer.parseInt(req.getParameter("companyNum")));
 			dto.setCompanyName(req.getParameter("companyName"));
 			dto.setBusinessNum(req.getParameter("businessNum1")+"-"+req.getParameter("businessNum2")+"-"+req.getParameter("businessNum3"));
 			dto.setUserId(req.getParameter("userId"));
@@ -282,6 +325,14 @@ public class CeoServlet extends TravelServlet {
 			dto.setAmenities(req.getParameter("amenities"));
 			dto.setGuide(req.getParameter("guide"));
 			dto.setNotice(req.getParameter("notice"));
+			
+			Map<String, String[]> map = doFileUpload(req.getParts(), pathname);
+			if (map != null) {
+				String[] saveFiles = map.get("saveFilenames");
+				dto.setImageFiles(saveFiles);
+			}
+			
+			dao.updateCeo(dto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

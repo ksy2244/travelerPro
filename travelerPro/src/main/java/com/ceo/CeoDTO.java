@@ -4,6 +4,9 @@ public class CeoDTO {
 	private int companyNum;
 	private String companyName;
 	private String companyTel;
+	private String companyTel1;
+	private String companyTel2;
+	private String companyTel3;
 	private String companyInfo;
 	private String amenities;
 	private String guide;
@@ -15,6 +18,9 @@ public class CeoDTO {
 	private String checkinTime;
 	private String checkoutTime;
 	private String businessNum;
+	private String businessNum1;
+	private String businessNum2;
+	private String businessNum3;
 	private String notice;
 	private String userId;
 	private String regionName;
@@ -22,6 +28,7 @@ public class CeoDTO {
 	private long fileNum;
 	private String imageFilename;
 	private String[] imageFiles;
+	
 	
 	public int getCompanyNum() {
 		return companyNum;
@@ -142,6 +149,42 @@ public class CeoDTO {
 	}
 	public void setImageFiles(String[] imageFiles) {
 		this.imageFiles = imageFiles;
+	}
+	public String getCompanyTel1() {
+		return companyTel1;
+	}
+	public void setCompanyTel1(String companyTel1) {
+		this.companyTel1 = companyTel1;
+	}
+	public String getCompanyTel2() {
+		return companyTel2;
+	}
+	public void setCompanyTel2(String companyTel2) {
+		this.companyTel2 = companyTel2;
+	}
+	public String getCompanyTel3() {
+		return companyTel3;
+	}
+	public void setCompanyTel3(String companyTel3) {
+		this.companyTel3 = companyTel3;
+	}
+	public String getBusinessNum1() {
+		return businessNum1;
+	}
+	public void setBusinessNum1(String businessNum1) {
+		this.businessNum1 = businessNum1;
+	}
+	public String getBusinessNum2() {
+		return businessNum2;
+	}
+	public void setBusinessNum2(String businessNum2) {
+		this.businessNum2 = businessNum2;
+	}
+	public String getBusinessNum3() {
+		return businessNum3;
+	}
+	public void setBusinessNum3(String businessNum3) {
+		this.businessNum3 = businessNum3;
 	}
 	
 	

@@ -51,9 +51,16 @@
 								<td>${dto.companyTel}</td>
 								<td>${dto.addr}</td>
 								<td>${dto.approval == 0 ? "대기중" : "승인완료" }</td>
-								<%-- <c:if test="${dto.approval ==1}"> --%>
-								<td><button class="submit" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실등록</button></td>
-								<%-- </c:if> --%>
+								<c:choose>
+									<c:when test="${dto.approval ==1}">
+									<td>
+										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실등록</button>
+									</td>
+									</c:when>
+									<c:otherwise>
+										<td>승인을 기다려주세요</td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 						</c:forEach>
 					</tbody>
