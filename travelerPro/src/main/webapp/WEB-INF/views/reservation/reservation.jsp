@@ -16,6 +16,9 @@
 }
 </style>
 
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <script type="text/javascript">
 	function realUserOk() {
 		const f = document.reservationForm;
@@ -29,7 +32,7 @@
 		}
 
 		str = f.realUserTel.value;
-		if (!str) {
+		if (!/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/.test(str))
 			alert("전화번호를 입력하세요. ");
 			f.realUserTel.focus();
 			return;
@@ -56,7 +59,7 @@
 				<div class="alert" role="alert" style="background: #E4FBFF">
 					객실 예매를 위한 정보를 입력해주세요.</div>
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<div class="card border-secondary mb-3" style="max-width: 100rem; ">
+					<div class="card border-secondary mb-3" style="max-width: 100rem;">
 						<div class="card-header">
 							<h5>
 								<i class="fa-solid fa-hotel"></i>&nbsp;${dto.companyName}&nbsp;
@@ -66,8 +69,9 @@
 							<h5 class="card-title">객실 타입 ${dto.roomName}</h5>
 							<p class="card-text">
 							<p>${dto.roomInfo}</p>
-							<p>체크인 {체크인 날짜} ${dto.checkInTime}&nbsp;|&nbsp;체크아웃 {체크아웃 날짜}
-								${dto.checkOutTime}
+							<p>체크인
+								${dateDto.start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
+								${dateDto.end_date}&nbsp;${dto.checkOutTime}
 						</div>
 
 					</div>
@@ -127,6 +131,9 @@
 								onclick="realUserOk();" style="background: #B8B5FF">
 								${mode=="reservation"?"예약 ":""} <i class="bi bi-check2"></i> 예약
 							</button>
+
+							<button type="button" name="sendButton" class="btn"
+								onclick="requestPay();">결제</button>
 						</div>
 					</div>
 

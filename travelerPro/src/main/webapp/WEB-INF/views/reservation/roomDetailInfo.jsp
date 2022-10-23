@@ -133,11 +133,11 @@
 
 								<p class="roomInfoContent">
 									<span style="background-color: #eee; text-align: center">체크인
-									</span> ${dto.checkInTime}
+									</span> ${dateDto.start_date} ${dto.checkInTime}
 								</p>
 								<p class="roomInfoContent">
 									<span style="background-color: #eee; text-align: center">체크아웃
-									</span> ${dto.checkOutTime}
+									</span> ${dateDto.end_date} ${dto.checkOutTime}
 								</p>
 
 								<p class="roomInfoContent">각 객실에 대한 예약 공지</p>
@@ -172,10 +172,11 @@
 										aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
+
 									<p
 										style="font-Size: 23px; font-weight: 400; text-align: center; background: #eee">체크인
-										2022.10.19(수) ${modalDto.checkInTime} ~ 체크아웃 2022.10.20(목)
-										${modalDto.checkOutTime}</p>
+										${dateDto.start_date}&nbsp;${modalDto.checkInTime} ~ 체크아웃
+										${dateDto.end_date}&nbsp;${modalDto.checkOutTime}</p>
 									<p class="eachRoomMoney">${dto.price}</p>
 									<p class="paymentRule"
 										style="font-weight: 400; font-Size: 20px; float: bottom">취소
@@ -187,8 +188,8 @@
 										data-bs-dismiss="modal">Close</button>
 									<button type="button" class="btn btn-primary"
 										style="background: purple"
-							onclick="location.href='${pageContext.request.contextPath}/reservation/reservation.do?companyNum=${modalDto.companyNum}&roomNum=${modalDto.roomNum}'">숙소예매</button>
-																	</div>
+										onclick="location.href='${pageContext.request.contextPath}/reservation/reservation.do?companyNum=${modalDto.companyNum}&roomNum=${modalDto.roomNum}'">숙소예매</button>
+								</div>
 							</div>
 						</div>
 					</div>

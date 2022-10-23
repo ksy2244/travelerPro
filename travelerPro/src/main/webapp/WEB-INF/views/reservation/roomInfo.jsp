@@ -158,21 +158,19 @@
 	<div class="card"
 		style="width: 1500px; text-align: center; font-size: 25px; font-weight: 400; margin: auto; margin-top: 20px; margin-bottom: 20px;">
 		<div class="card-body">
-			<form action="roomInfo.jsp" method="get">
+			<form action="roomInfo.do" method="get">
 				<p style="font-size: 25px;">
-					시작일 <input type="text" id="start_date" name="start"> 종료일 <input
-						type="text" id="end_date" name="end">
-					<button class="reservationBtn" type="submit"
-						onclick="location.href='reservation/roomInfo.do?companyNum=${dto.companyNum}'">객실
-						선택</button>
-				</p>
+					<input type="hidden" value="${companyNum}" name="companyNum">
 
-				<input type="submit">객실선택
-			</form>
+					시작일 <input type="text" id="start_date" name="start_date">
+					종료일 <input type="text" id="end_date" name="end_date">
+				</p>
+			
+			<button class="reservationBtn" type="submit">날짜 선택</button>
+</form>
 
 		</div>
 	</div>
-
 
 	<div class="row">
 		<c:forEach var="dto" items="${list}" varStatus="status">
@@ -190,14 +188,9 @@
 						<p class="eachRoomMoney">
 							<span style="color: purple">${dto.discountRate}% &nbsp;</span>${dto.roomPrice}원
 						<p>
-
-
 							<button class="reservationBtn" type="submit"
-								onclick="location.href='reservation/roomDetailInfo.do?companyNum=${dto.companyNum}&roomNum=${dto.roomNum}'">객실
-								선택</button>
-
-							<!-- 	&start_date=${start_date}&dateDto=${end_date} -->
-
+								onclick="location.href='reservation/roomDetailInfo.do?companyNum=${dto.companyNum}&roomNum=${dto.roomNum}&start_date=${start_date}&end_date=${end_date}'">
+								객실 선택</button>
 						</p>
 
 					</div>
@@ -217,20 +210,15 @@
 			level : 3
 		// 지도의 확대 레벨
 		};
-
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-
 		// 마커가 표시될 위치 설정
 		var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-
 		// 마커를 생성
 		var marker = new kakao.maps.Marker({
 			position : markerPosition
 		});
-
 		// 마커를 지도 위에 표시되도록 설정
 		marker.setMap(map);
-
 		// 지도 위의 마커를 제거하는 코드
 		// marker.setMap(null);
 	</script>
