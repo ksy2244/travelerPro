@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler_manage</title>
-<jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
 .body-container {
@@ -32,6 +32,8 @@
 .basic {
 	background-color: #F5EFE6;
 }
+
+.basic:hover{background-color:#D9D2CC;}
 
 .form tr:first-child {
 	border-top: 2px solid #3C2317;
@@ -81,7 +83,7 @@
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/admin_layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
 </header>
 	
 <main>
@@ -129,7 +131,7 @@
 				</c:forEach>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+					${dataCount == 0 ? "등록된 쿠폰이 없습니다." : paging}
 				</div>
 
 				<div class="row board-list-footer">
@@ -147,9 +149,9 @@
 </main>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/admin_layout/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/admin_layout/staticFooter.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 </body>
 </html>

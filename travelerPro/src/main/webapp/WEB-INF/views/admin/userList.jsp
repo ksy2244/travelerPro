@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler_manage</title>
-<jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
 .body-container {
@@ -19,7 +19,7 @@
 	background-color: #F5EFE6;
 }
 
-.btn:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#D9D2CC;}
 
 .title {
 	border-bottom: 2px solid #B4CDE6;
@@ -31,7 +31,7 @@
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/admin_layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
 </header>
 	
 <main>
@@ -49,8 +49,8 @@
 								<th>닉네임</th>
 								<th>가입일</th>
 								<th>생년월일</th>
-								<th>이메일</th>
 								<th>전화번호</th>
+								<th>이메일</th>
 								<th>구분</th>
 								
 							</tr>
@@ -66,10 +66,10 @@
         						<td>${dto.tel}</td>
 								<td>${dto.email}</td>
 								<c:if test="${dto.roll==0}">
-									<td>일반 회원</td>
+									<td>일반 회원 <i class="fa-regular fa-user"></i></td>
 								</c:if>
 								<c:if test="${dto.roll==1}">
-									<td>업체 회원</td>
+									<td>업체 회원 <i class="fa-solid fa-house-user"></i></td>
 								</c:if>
 							</tr>
 						</c:forEach>
@@ -77,7 +77,7 @@
 				</table>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+					${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 				</div>
 				
 			</div>
@@ -105,9 +105,9 @@
 </main>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/admin_layout/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/admin_layout/staticFooter.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 </body>
 </html>

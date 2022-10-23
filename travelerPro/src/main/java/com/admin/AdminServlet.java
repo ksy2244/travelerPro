@@ -1,6 +1,7 @@
 package com.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import com.member.MemberDAO;
 import com.member.MemberDTO;
@@ -34,6 +37,8 @@ public class AdminServlet extends TravelServlet {
 			companyList(req, resp);
 		} else if(uri.indexOf("companyArticle.do") != -1) {
 			companyArticle(req, resp);
+		} else if(uri.indexOf("companyUpdate.do") != -1) {
+			companyUpdate(req, resp);
 		}
 		
 	}
@@ -158,6 +163,14 @@ public class AdminServlet extends TravelServlet {
 				return;
 			}
 			
+			if(dto.getCheckInTime().contains("시")) {
+				dto.setCheckInTime(dto.getCheckInTime().replaceAll("시", ":00"));
+			}
+			
+			if(dto.getCheckOutTime().contains("시")) {
+				dto.setCheckOutTime(dto.getCheckOutTime().replaceAll("시", ":00"));
+			}
+			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			req.setAttribute("query", query);
@@ -171,6 +184,33 @@ public class AdminServlet extends TravelServlet {
 	
 		resp.sendRedirect(cp + "/admin/companyList.do?" + query);
 	
+	}
+	
+	protected void companyUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AdminDAO dao = new AdminDAO();
+		
+		String state = "false";
+		
+		try {
+			AdminDTO dto = new AdminDTO();
+			
+			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
+			dto.setApproval(Integer.parseInt(req.getParameter("approval")));
+			
+			dao.updateCompany(dto);
+			
+			state = "true";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject job = new JSONObject();
+		job.put("state", state);
+		
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(job.toString());
 	}
 
 }

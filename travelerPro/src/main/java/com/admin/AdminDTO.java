@@ -14,11 +14,12 @@ public class AdminDTO {
 	private String addrDetail;
 	private String zip;
 	private String notice;
-	private String approval;
+	private int approval;
 	private String userId;
 	private String businessNum;
 	private String userName;
 	private int roll;
+	private String tel;
 
 	public long getCompanyNum() {
 		return companyNum;
@@ -98,10 +99,10 @@ public class AdminDTO {
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
-	public String getApproval() {
+	public int getApproval() {
 		return approval;
 	}
-	public void setApproval(String approval) {
+	public void setApproval(int approval) {
 		this.approval = approval;
 	}
 	public String getUserId() {
@@ -127,6 +128,12 @@ public class AdminDTO {
 	}
 	public void setRoll(int roll) {
 		this.roll = roll;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	
 	

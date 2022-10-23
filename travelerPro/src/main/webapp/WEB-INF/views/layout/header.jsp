@@ -55,7 +55,7 @@
 		</button>
     </div>
       	<c:if test="${sessionScope.member.userId == 'admin'}">
-			<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/admin/admin.do" title="관리자" style="margin-bottom: 50px;"
+			<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/admin/main.do" title="관리자" style="margin-bottom: 50px;"
            ><i class="fa-solid fa-gears fa-2x"></i></a>
 		</c:if>
   </div>

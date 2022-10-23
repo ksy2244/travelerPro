@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coupon.CouponDTO;
 import com.member.MemberDTO;
 import com.util.DBConn;
 
@@ -46,23 +47,6 @@ public class AdminDAO {
 				dto.setEmail(rs.getString("email"));
 				dto.setTel(rs.getString("tel"));
 				dto.setBirth(rs.getString("birth"));
-				
-				if(dto.getTel() != null) {
-					String[] ss = dto.getTel().split("-");
-					if(ss.length == 3) {
-						dto.setTel1(ss[0]);
-						dto.setTel2(ss[1]);
-						dto.setTel3(ss[2]);
-					}
-				}
-				dto.setEmail(rs.getString("email"));
-				if(dto.getEmail() != null) {
-					String[] ss = dto.getEmail().split("@");
-					if(ss.length == 2) {
-						dto.setEmail1(ss[0]);
-						dto.setEmail2(ss[1]);
-					}
-				}
 	
 				list.add(dto);
 			}
@@ -173,8 +157,8 @@ public class AdminDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT companyNum, companyName, companyTel, companyInfo, amenities,"
-					+ " guide, regionNum, checkInTime, checkOutTime, addr, addrDetail, notice, businessNum, m.userName "
+			sql = "SELECT companyNum, companyName, companyInfo, amenities,"
+					+ " guide, regionNum, checkInTime, checkOutTime, addr, addrDetail, notice, businessNum, approval, m.userName, m.tel "
 					+ " FROM company c "
 					+ " JOIN member m ON c.userId = m.userId "
 					+ " WHERE (approval = 0 OR approval = 1) AND companyNum = ?";
@@ -190,7 +174,6 @@ public class AdminDAO {
 				
 				dto.setCompanyNum(rs.getLong("companyNum"));
 				dto.setCompanyName(rs.getString("companyName"));
-				dto.setCompanyTel(rs.getString("companyTel"));
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
@@ -201,7 +184,9 @@ public class AdminDAO {
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setNotice(rs.getString("notice"));
 				dto.setBusinessNum(rs.getString("businessNum"));
+				dto.setApproval(rs.getInt("approval"));
 				dto.setUserName(rs.getString("userName"));
+				dto.setTel(rs.getString("tel"));
 				
 			}
 			
@@ -241,7 +226,7 @@ public class AdminDAO {
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setCompanyTel(rs.getString("companyTel"));
 				dto.setBusinessNum(rs.getString("businessNum"));
-				dto.setApproval(rs.getString("approval"));
+				dto.setApproval(rs.getInt("approval"));
 				dto.setUserName(rs.getString("userName"));
 				
 				list.add(dto);
@@ -293,5 +278,33 @@ public class AdminDAO {
 		}
 		
 		return result;
+	}
+	
+	public void updateCompany(AdminDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE company SET approval = ? "
+					+ " WHERE companyNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getApproval());
+			pstmt.setLong(2, dto.getCompanyNum());
+
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 	}
 }

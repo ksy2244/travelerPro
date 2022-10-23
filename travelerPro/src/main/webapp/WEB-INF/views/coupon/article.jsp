@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler_manage</title>
-<jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
 .body-container {
@@ -19,7 +19,7 @@
 	background-color: #F5EFE6;
 }
 
-.btn:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#D9D2CC;}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
@@ -38,7 +38,7 @@ function deleteCoupon() {
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/admin_layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
 </header>
 	
 <main>
@@ -72,12 +72,12 @@ function deleteCoupon() {
 						</tr>
 						
 						<tr>
-							<td align="left" class="fw-bold">
+							<td align="left">
 								<c:if test="${dto.couponRate==0}">
-									할인금액 : ${dto.couponPrice}원
+									할인금액 : <span class="fw-bold"> ${dto.couponPrice}원</span>
 								</c:if>
 								<c:if test="${dto.couponPrice==0}">
-									할인율 : ${dto.couponRate}%
+									할인율 : <span class="fw-bold">${dto.couponRate}%</span>
 								</c:if>
 							</td>
 						</tr>
@@ -105,9 +105,9 @@ function deleteCoupon() {
 </main>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/admin_layout/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/admin_layout/staticFooter.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 </body>
 </html>
