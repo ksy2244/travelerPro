@@ -67,6 +67,7 @@ public class MemberServlet extends TravelServlet {
 			SessionInfo info = new SessionInfo();
 			info.setUserId(dto.getUserId());
 			info.setUserName(dto.getUserName());
+			info.setUserRoll(dto.getRoll());
 
 			session.setAttribute("member", info);
 

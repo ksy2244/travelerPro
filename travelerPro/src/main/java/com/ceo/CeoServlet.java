@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.member.SessionInfo;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
@@ -63,17 +64,27 @@ public class CeoServlet extends TravelServlet {
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
 		TravelUtil util = new TravelUtilBootstrap();
-		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		String cp = req.getContextPath();
 		
+		if (info == null) {
+			
+			resp.sendRedirect(cp + "/member/login.do");
+			return;
+		}
+		
+		
 		try {
+			CeoDTO dto = new CeoDTO();
 			String page = req.getParameter("page");
+			 dto.setUserId(info.getUserId());
 			int current_page = 1;
 			if(page != null) {
 				current_page = Integer.parseInt(page);
 			}
 			
-			int dataCount = dao.dataCount();
+			int dataCount = dao.dataCount(dto.getUserId());
 			int size = 5;
 			int total_page = util.pageCount(dataCount, size);
 			if(current_page > total_page) {
@@ -83,7 +94,7 @@ public class CeoServlet extends TravelServlet {
 			
 			int offset = (current_page -1) *size;
 			if(offset <0) offset = 0;
-			List<CeoDTO> list =dao.listCeo(offset, size);
+			List<CeoDTO> list =dao.listCeo(offset, size,dto.getUserId());
 			String listUrl = cp + "/ceo/main.do";
 			String articleUrl = cp + "/ceo/article.do?page=" + current_page;
 			String paging = util.paging(current_page, total_page, listUrl);

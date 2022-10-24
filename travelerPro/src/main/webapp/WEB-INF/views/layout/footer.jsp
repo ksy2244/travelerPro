@@ -20,8 +20,10 @@
         <li class="nav-item"><a class="text-reset" href="#">소비자 분쟁해결 기준</a></li>
         <li class="nav-item"><span>&nbsp;&middot;&nbsp;</span></li>
         <li class="nav-item"><a class="text-reset" href="#">개인정보취급방침</a></li>
-        <li class="nav-item"><span>&nbsp;&middot;&nbsp;</span></li>
-        <li class="nav-item"><a class="text-reset" href="#">고객센터</a></li>
+        <c:if test="${sessionScope.member.userRoll == 1 }">
+	        <li class="nav-item"><span>&nbsp;&middot;&nbsp;</span></li>
+	        <li class="nav-item"><a class="text-reset" href="${pageContext.request.contextPath}/ceo/main.do">숙박업체</a></li>
+        </c:if>
         <li class="nav-item"><span>&nbsp;&nbsp;© TRAVELER Corp.</span></li>
     </ul>
     <br>
