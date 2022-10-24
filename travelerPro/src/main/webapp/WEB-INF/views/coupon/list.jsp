@@ -7,22 +7,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>coupon</title>
-<jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
+<title>traveler_manage</title>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1000px;
+}
+
+#table {
+	width: 400px;
+	height: 140px;
+	float: left;
+	margin-left: 60px;
+	margin-right: 10px;
+	border: 1px solid #eee;
+}
+
+.block {
+	display: block;
+	border-bottom: none;
+}
+
+.basic {
+	background-color: #F5EFE6;
+}
+
+.basic:hover{background-color:#D9D2CC;}
+
+.form tr:first-child {
+	border-top: 2px solid #3C2317;
+}
+
+.btn:hover {
+	background-color: #D9D2CC;
+}
+
+.trbold {
+	border-bottom: 1px solid #3C2317;
+}
+
+.box {
+	border: 2px solid #eee;
+	height: 60px;
+	width: 130px;
+	border-right: 7px solid black;
+	border-radius: 5px;
+}
+
+.text {
+	padding-top: 35px;
+}
+
+.text_color {
+	color: #787878;
+}
+
+#searchDate {
+	color: red;
+}
+
+.detail {
+	font-weight: bold;
+	font-size: 12px;
+	height: 47px;
+}
+
+.top {
+	margin-top: 10px;
 }
 
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/coupon.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/admin_layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
 </header>
 	
 <main>
@@ -34,34 +95,51 @@
 			
 			<div class="body-main">
 				<c:forEach var="dto" items="${list}">
-				<table class="table table-hover board-list" id="table">
-					<tbody>
-							<tr>
-								<td class="fst-italic lh-lg coupon">${dto.couponName}</td>
-								<td class="fst-italic fw-bolder lh-lg fs-2 coupon">
-									<c:if test="${dto.couponRate==0}">
-										<a href="${articleUrl}&couponNum=${dto.couponNum}" class="text-reset">${dto.couponPrice}원</a>
-									</c:if>
-									<c:if test="${dto.couponPrice==0}">
-										<a href="${articleUrl}&couponNum=${dto.couponNum}" class="text-reset">${dto.couponRate}%</a>
-									</c:if>
-								</td>
-								<td id="coupon">${dto.start_date} ~ ${dto.end_date}</td>
-							</tr>
-					</tbody>
-				</table>
+					<table class="table table-hover board-list" id="table">
+						<tbody>
+								<tr>
+									<td class="fw-bolder lh-lg fs-4">
+										<c:if test="${dto.couponRate==0}">
+											<div class="box top">
+												<span class="text-reset text">${dto.couponPrice}</span>
+												<span class="fs-6">원</span>
+											</div>
+										</c:if>
+										<c:if test="${dto.couponPrice==0}">
+											<div class="box top">
+												<span class="text-reset text">${dto.couponRate}</span>
+												<span class="fs-6">%</span>
+											</div>
+										</c:if>
+									</td>
+									<td class="p-1 block fs-6">${dto.couponName}</td>
+									<td class="p-0 block text_color">${dto.start_date} ~ ${dto.end_date}</td>
+									<td class="p-2 block" id="searchDate">
+										<c:choose>
+											<c:when test="${searchDate=='쿠폰 만료일까지 0일 남았습니다.'}">
+												쿠폰이 오늘 만료됩니다.
+											</c:when>
+											<c:otherwise>
+												${searchDate}
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td class="p-2 block detail"><a href="${articleUrl}&couponNum=${dto.couponNum}" class="text-reset text">쿠폰 상세 정보 보기 ></a></td>												
+								</tr>
+						</tbody>
+					</table>
 				</c:forEach>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+					${dataCount == 0 ? "등록된 쿠폰이 없습니다." : paging}
 				</div>
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">새로고침</button>
+						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/coupon/register.do';">쿠폰 등록</button>
+						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/register.do';">쿠폰 등록</button>
 					</div>
 				</div>
 
@@ -71,9 +149,9 @@
 </main>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/admin_layout/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/admin_layout/staticFooter.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 </body>
 </html>

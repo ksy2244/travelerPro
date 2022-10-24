@@ -21,9 +21,7 @@
 	</header>
 
 	<div class="body-title" style="text-align: center">
-		<h5>
-			<div class="col-auto me-auto">${dataCompanyCount}개(${page}/${total_page}페이지)</div>
-		</h5>
+		<h5>${dataCompanyCount}개(${page}/${total_page}페이지)</h5>
 
 	</div>
 
@@ -75,10 +73,16 @@
 
 
 
-	<footer>
-		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-	</footer>
+</body>
 
-	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
+
+
+
+
+<footer>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+</footer>
+
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 </body>
 </html>

@@ -1,144 +1,70 @@
 package com.reservation;
 
 public class ReservationDTO {
-	// 객실 테이블
-	private int roomNum; // 객실 번호
-	private String roomName; // 객실 이름
-	private String roomInfo; // 객실 정보
-	private int roomPrice; // 객실 가격
-	private int discountRate; // 사업자 등록 번호
-	private int headCount; // 허용 인원수
-	private int companyNum;// 업체 번호
-	private int price; // 객실 가격
-	private String companyName;
-	private String companyTel;
-	private String companyInfo;
-	private String amenities;
-	private String  guide;
-	private String notice;
-	private String checkInTime;
-	private String checkOutTime;
-	private String addr;
-	private String addrDetail;
-	private int zip;
-	/*SELECT roomNum, roomName, roomInfo, price, discountRate, headCount, r.companyNum, 
-companyName, companyTel, comPanyInfo, amenities, guide, notice, checkInTime, checkOutTime, addr, addrDetail, zip
-FROM room r
-LEFT OUTER JOIN company c
-ON r.companyNum = c.companyNum
-WHERE r.companyNum = 17;
-	 * 
-	 * */
-	public int getRoomNum() {
-		return roomNum;
+	private long reservationNum; // 예약 번호
+	private String start_date; // 시작일
+	private String end_date; // 종료일
+	private int realHeadCount; // 예약한 인원수
+	private int totalPrice; // 총금액
+	private String reservation_date;
+	private String checkInTime; // 체크인 시간
+	private String checkOutTime; // 체크아웃 시간
+	private String status; // 예약 현황
+	private int discountPrice; // 할인금액
+	private int paymentPrice; // 지불 금액
+	private String userId; // 사용자
+	private int couponPrice; // 쿠폰 가격
+	private String realUserName; // 실제 사용자 이름
+	private String realUserTel; // 실제 사용자 전화번호
+	private int roomNum;
+	private int companyNum;
+
+	public long getReservationNum() {
+		return reservationNum;
+	}
+	
+	public void setReservationNum(long reservationNum) {
+		this.reservationNum = reservationNum;
 	}
 
-	public void setRoomNum(int roomNum) {
-		this.roomNum = roomNum;
+	public String getStart_date() {
+		return start_date;
 	}
 
-	public String getRoomName() {
-		return roomName;
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
 	}
 
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public String getEnd_date() {
+		return end_date;
 	}
 
-	public String getRoomInfo() {
-		return roomInfo;
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
 	}
 
-	public void setRoomInfo(String roomInfo) {
-		this.roomInfo = roomInfo;
+	public int getRealHeadCount() {
+		return realHeadCount;
 	}
 
-	public int getRoomPrice() {
-		return roomPrice;
+	public void setRealHeadCount(int realHeadCount) {
+		this.realHeadCount = realHeadCount;
 	}
 
-	public void setRoomPrice(int roomPrice) {
-		this.roomPrice = roomPrice;
+	public int getTotalPrice() {
+		return totalPrice;
 	}
 
-	public int getDiscountRate() {
-		return discountRate;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
-	public void setDiscountRate(int discountRate) {
-		this.discountRate = discountRate;
+	public String getReservation_date() {
+		return reservation_date;
 	}
 
-	public int getHeadCount() {
-		return headCount;
-	}
-
-	public void setHeadCount(int headCount) {
-		this.headCount = headCount;
-	}
-
-	public int getCompanyNum() {
-		return companyNum;
-	}
-
-	public void setCompanyNum(int companyNum) {
-		this.companyNum = companyNum;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getCompanyTel() {
-		return companyTel;
-	}
-
-	public void setCompanyTel(String companyTel) {
-		this.companyTel = companyTel;
-	}
-
-	public String getCompanyInfo() {
-		return companyInfo;
-	}
-
-	public void setCompanyInfo(String companyInfo) {
-		this.companyInfo = companyInfo;
-	}
-
-	public String getAmenities() {
-		return amenities;
-	}
-
-	public void setAmenities(String amenities) {
-		this.amenities = amenities;
-	}
-
-	public String getGuide() {
-		return guide;
-	}
-
-	public void setGuide(String guide) {
-		this.guide = guide;
-	}
-
-	public String getNotice() {
-		return notice;
-	}
-
-	public void setNotice(String notice) {
-		this.notice = notice;
+	public void setReservation_date(String reservation_date) {
+		this.reservation_date = reservation_date;
 	}
 
 	public String getCheckInTime() {
@@ -157,28 +83,76 @@ WHERE r.companyNum = 17;
 		this.checkOutTime = checkOutTime;
 	}
 
-	public String getAddr() {
-		return addr;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getAddrDetail() {
-		return addrDetail;
+	public int getDiscountPrice() {
+		return discountPrice;
 	}
 
-	public void setAddrDetail(String addrDetail) {
-		this.addrDetail = addrDetail;
+	public void setDiscountPrice(int discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 
-	public int getZip() {
-		return zip;
+	public int getPaymentPrice() {
+		return paymentPrice;
 	}
 
-	public void setZip(int zip) {
-		this.zip = zip;
+	public void setPaymentPrice(int paymentPrice) {
+		this.paymentPrice = paymentPrice;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getCouponPrice() {
+		return couponPrice;
+	}
+
+	public void setCouponPrice(int couponPrice) {
+		this.couponPrice = couponPrice;
+	}
+
+	public String getRealUserName() {
+		return realUserName;
+	}
+
+	public void setRealUserName(String realUserName) {
+		this.realUserName = realUserName;
+	}
+
+	public String getRealUserTel() {
+		return realUserTel;
+	}
+
+	public void setRealUserTel(String realUserTel) {
+		this.realUserTel = realUserTel;
+	}
+
+	public int getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
+
+	public int getCompanyNum() {
+		return companyNum;
+	}
+
+	public void setCompanyNum(int companyNum) {
+		this.companyNum = companyNum;
 	}
 	
 	

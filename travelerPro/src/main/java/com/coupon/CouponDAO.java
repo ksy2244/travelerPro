@@ -84,7 +84,7 @@ private Connection conn = DBConn.getConnection();
 		return result;
 	}
 	
-	public List<CouponDTO> listNotice(int offset, int size){
+	public List<CouponDTO> listCoupon(int offset, int size){
 		List<CouponDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -139,7 +139,7 @@ private Connection conn = DBConn.getConnection();
 		return list;
 	}
 	
-	public CouponDTO readNotice(long noticeNum) {
+	public CouponDTO readCoupon(long couponNum) {
 		CouponDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -153,7 +153,7 @@ private Connection conn = DBConn.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, noticeNum);
+			pstmt.setLong(1, couponNum);
 			
 			rs = pstmt.executeQuery();
 			
@@ -172,13 +172,27 @@ private Connection conn = DBConn.getConnection();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		
 		return dto;
 	}
 	
 	
-	public void updateNotice(CouponDTO dto) throws SQLException {
+	public void updateCoupon(CouponDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
@@ -189,17 +203,30 @@ private Connection conn = DBConn.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, dto.getCouponNum());
+			pstmt.setString(1, dto.getCouponName());
+			pstmt.setInt(2, dto.getCouponRate());
+			pstmt.setInt(3, dto.getCouponPrice());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setString(5, dto.getStart_date());
+			pstmt.setString(6, dto.getEnd_date());
+			pstmt.setLong(7, dto.getCouponNum());
 			
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 	
-	public void deleteNotice(long noticeNum) throws SQLException {
+	public void deleteCoupon(long couponNum) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
@@ -208,13 +235,47 @@ private Connection conn = DBConn.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setLong(1, noticeNum);
+			pstmt.setLong(1, couponNum);
 			
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
+	
+	public void deleteDate(long couponNum) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "DELETE FROM coupon WHERE couponNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, couponNum);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+
 }

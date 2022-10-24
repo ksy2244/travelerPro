@@ -1,6 +1,9 @@
 package com.coupon;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
+
 
 @WebServlet("/coupon/*")
 public class CouponServlet extends TravelServlet {
@@ -64,12 +68,34 @@ public class CouponServlet extends TravelServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			List<CouponDTO> list = dao.listNotice(offset, size);
+			List<CouponDTO> list = dao.listCoupon(offset, size);
 			
 			String listUrl = cp + "/coupon/list.do";
 			String articleUrl = cp + "/coupon/article.do?page="+current_page;
 			
 			String paging = util.paging(current_page, total_page, listUrl);
+			
+			String end_date = null;
+			for(CouponDTO dto : list) {
+				end_date = dto.getEnd_date();
+			}
+			
+			req.setAttribute("end_date", end_date);
+			
+			end_date = end_date + " 00:00:00";
+			
+			
+			Date now = new Date(Calendar.getInstance().getTimeInMillis());
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			Date ed = sf.parse(end_date);
+	       
+	        long diff = ed.getTime() - now.getTime();
+	        long Day = diff/(24*60*60*1000);
+	        
+	        String searchDate = "쿠폰 만료일까지 " + Day +"일 남았습니다.";
+			
+			req.setAttribute("searchDate", searchDate);
 			
 			req.setAttribute("list", list);
 			req.setAttribute("page", current_page);
@@ -84,6 +110,7 @@ public class CouponServlet extends TravelServlet {
 	}
 	
 	protected void registerForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("submit", "등록");
 		req.setAttribute("mode", "register");
 		req.setAttribute("title", "쿠폰 등록");
 		forward(req, resp, "/WEB-INF/views/coupon/register.jsp");
@@ -139,11 +166,12 @@ public class CouponServlet extends TravelServlet {
 		String cp = req.getContextPath();
 		
 		String page = req.getParameter("page");
+		String query = "page="+page;
 		
 		try {
 			long couponNum = Long.parseLong(req.getParameter("couponNum"));
 			
-			CouponDTO dto = dao.readNotice(couponNum);
+			CouponDTO dto = dao.readCoupon(couponNum);
 			
 			
 			if(dto == null) {
@@ -153,7 +181,24 @@ public class CouponServlet extends TravelServlet {
 			
 			dto.setContent(dto.getContent().replaceAll("\r\n", "<br>"));
 			
+			String end_date = dto.getEnd_date();
 			
+			end_date = end_date + " 00:00:00";
+			
+			
+			Date now = new Date(Calendar.getInstance().getTimeInMillis());
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			Date ed = sf.parse(end_date);
+	       
+	        long diff = ed.getTime() - now.getTime();
+	        long Day = diff/(24*60*60*1000);
+	        
+	        String searchDate = "쿠폰 만료일까지 " + Day +"일 남았습니다.";
+			
+			req.setAttribute("searchDate", searchDate);
+			
+			req.setAttribute("query", query);
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			
@@ -176,12 +221,13 @@ public class CouponServlet extends TravelServlet {
 		
 		try {
 			long couponNum = Long.parseLong(req.getParameter("couponNum"));
-			CouponDTO dto = dao.readNotice(couponNum);
+			CouponDTO dto = dao.readCoupon(couponNum);
 			if(dto == null) {
 				resp.sendRedirect(cp+"/coupon/list.do?page=" + page);
 				return;
 			}
 			
+			req.setAttribute("submit", "수정");
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			req.setAttribute("mode", "update");
@@ -194,15 +240,65 @@ public class CouponServlet extends TravelServlet {
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/coupon/list.do?page"+page);
+		resp.sendRedirect(cp+"/coupon/list.do?page="+page);
 		
 	}
 	
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		
+		String cp = req.getContextPath();
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp+"/coupon/list.do");
+			return;
+		}
+		
+		String page = req.getParameter("page");
+		
+		try {
+			CouponDTO dto = new CouponDTO();
+			
+			dto.setCouponNum(Long.parseLong(req.getParameter("couponNum")));
+			dto.setCouponName(req.getParameter("couponName"));
+			dto.setContent(req.getParameter("content"));
+			dto.setCouponRate(Integer.parseInt(req.getParameter("couponRate")));
+			dto.setCouponPrice(Integer.parseInt(req.getParameter("couponPrice")));
+			dto.setStart_date(req.getParameter("start_date"));
+			dto.setEnd_date(req.getParameter("end_date"));
+			
+			dao.updateCoupon(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/coupon/list.do?page="+page);
 		
 	}
 	
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CouponDAO dao = new CouponDAO();
+		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		String query = "page=" + page;
+		
+		try {
+			long couponNum = Long.parseLong(req.getParameter("couponNum"));
+			CouponDTO dto = dao.readCoupon(couponNum);
+			if (dto == null) {
+				resp.sendRedirect(cp+"/coupon/list.do?" + query);
+				return;
+			}
+			
+			dao.deleteCoupon(couponNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp + "/coupon/list.do?" + query);
 		
 	}
 }

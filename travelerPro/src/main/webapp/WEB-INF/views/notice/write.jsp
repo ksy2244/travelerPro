@@ -7,20 +7,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>notice</title>
-<jsp:include page="/WEB-INF/views/admin_layout/staticHeader.jsp"/>
+<title>traveler_manage</title>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
 .body-container {
-	max-width: 850px;
+	max-width: 1000px;
+}
+
+.basic {
+	background-color: #F5EFE6;
+}
+
+.basic:hover{background-color:#D9D2CC;}
+
+.bold {
+	background-color: #3C2317;
+}
+
+.bold:hover{background-color:#804A30;}
+
+.trbold {
+	border-bottom: 1px solid #3C2317;
+}
+
+.write-form tr:first-child {
+	border-top: 2px solid #3C2317;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/board2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources_admin/css/notice.css" type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
 function check() {
-    const f = document.boardForm;
+    const f = document.noticeForm;
 	let str;
 	
     str = f.subject.value.trim();
@@ -54,7 +72,7 @@ function check() {
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/admin_layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
 </header>
 	
 <main>
@@ -65,32 +83,32 @@ function check() {
 			</div>
 			
 			<div class="body-main">
-				<form name="boardForm" method="post" enctype="multipart/form-data"
+				<form name="noticeForm" method="post" enctype="multipart/form-data" 
 					onsubmit="return submitContents(this);">
-					<table class="table write-form mt-5" id="form">
-						<tr id="trbold">
-							<td class="col-sm-2 text-center" scope="row" id="color">제 목</td>
+					<table class="table write-form mt-5">
+						<tr class="trbold">
+							<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">제 목</td>
 							<td>
 								<input type="text" name="subject" class="form-control" value="${dto.subject}">
 							</td>
 						</tr>
 	
-						<tr id="trbold">
-							<td class="col-sm-2 text-center" scope="row" id="color">내 용</td>
+						<tr class="trbold">
+							<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">내 용</td>
 							<td>
 								<textarea name="content" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
-						<tr id="trbold">
-							<td class="col-sm-2 text-center" id="color">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+						<tr class="trbold">
+							<td class="col-sm-2 text-center" style="background-color: #F5EFE6">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 							<td> 
 								<input type="file" name="selectFile" class="form-control">
 							</td>
 						</tr>
 						<c:if test="${mode=='update'}">
-							<tr id="trbold">
-								<td class="col-sm-2 text-center" id="color" scope="row">첨부된 파일</td>
+							<tr class="trbold">
+								<td class="col-sm-2 text-center" style="background-color: #F5EFE6" scope="row">첨부된 파일</td>
 								<td> 
 									<p class="form-control-plaintext">
 										<c:if test="${not empty dto.saveFilename}">
@@ -107,9 +125,9 @@ function check() {
 					<table class="table table-borderless">
 	 					<tr>
 							<td class="text-center">
-								<button type="submit" class="btn text-white" id="bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn" id="btn">다시입력</button>
-								<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="submit" class="btn text-white bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="reset" class="btn basic">다시입력</button>
+								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="noticeNum" value="${dto.noticeNum}">
 									<input type="hidden" name="page" value="${page}">
@@ -153,9 +171,9 @@ function setDefaultFont() {
 </script>
 
 <footer>
-	<jsp:include page="/WEB-INF/views/admin_layout/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
 
-<jsp:include page="/WEB-INF/views/admin_layout/staticFooter.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 </body>
 </html>

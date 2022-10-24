@@ -32,29 +32,37 @@
 				<table class="table table-hover board-list">
 					<thead class="table-light">
 						<tr>
-							<th class="num">번호</th>
-							<th class="subject">업체명</th>
-							<th class ="tel">업체 전화번호</th>
-							<th class ="region">지역명</th>
-							<th class="name">주소</th>
-							<th class="date">관리자 승인 여부</th>
+							<th class="companyNum">번호</th>
+							<th class="companyName">업체명</th>
+							<th class ="companyTel">업체 전화번호</th>
+							<th class="addr1">주소</th>
+							<th class="approval">관리자 승인 여부</th>
+							<th class="roomgo">객실등록</th>
 						</tr>
 					</thead>
 					
 					<tbody>
-						<%-- <c:forEach var="dto" items="${list}" varStatus="status"> --%>
+						<c:forEach var="dto" items="${list}" varStatus="status"> 
 							<tr>
-								<td><%-- ${dataCount - (page-1) * size - status.index} --%>1</td>
+								<td> ${dto.companyNum}</td>
 								<td class="left">
-									<a href="${articleUrl}&num=${dto.num}" class="text-reset"><%-- ${dto.subject} --%>쌍용호텔</a>
-									<%-- <c:if test="${dto.replyCount!=0}">(${dto.replyCount})</c:if> --%>
+									<a href="${articleUrl}&companyNum=${dto.companyNum}" class="text-reset">${dto.companyName}</a>
 								</td>
-								<td>043-444-3333</td>
-								<td>강원도</td>
-								<td>강원도 강릉시 창해로 307</td>
-								<td>대기중</td>
+								<td>${dto.companyTel}</td>
+								<td>${dto.addr}</td>
+								<td>${dto.approval == 0 ? "대기중" : "승인완료" }</td>
+								<c:choose>
+									<c:when test="${dto.approval ==1}">
+									<td>
+										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실등록</button>
+									</td>
+									</c:when>
+									<c:otherwise>
+										<td>승인을 기다려주세요</td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
-						<%-- </c:forEach> --%>
+						</c:forEach>
 					</tbody>
 				</table>
 				
@@ -64,10 +72,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/ceomain.do';">새로고침</button>
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/write.do';">업체등록하러가기</button>
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/recognition.do';">업체등록하러가기</button>
 					</div>
 				</div>
 			</div>
