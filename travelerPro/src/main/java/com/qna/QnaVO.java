@@ -1,12 +1,14 @@
-package com.QnA;
+package com.qna;
 
-public class QmemberDTO {
+public class QnaVO {
 	private long questionNum;
 	private String subject;
 	private String content;
 	private String reg_date;
 	private String userId;
-	private long categoryNum;
+	private int categoryNum;
+	
+	
 	public long getQuestionNum() {
 		return questionNum;
 	}
@@ -37,13 +39,11 @@ public class QmemberDTO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public long getCategoryNum() {
+	public int getCategoryNum() {
 		return categoryNum;
 	}
-	public void setCategoryNum(long categoryNum) {
+	public void setCategoryNum(int categoryNum) {
 		this.categoryNum = categoryNum;
 	}
-	
-	
 	
 }
