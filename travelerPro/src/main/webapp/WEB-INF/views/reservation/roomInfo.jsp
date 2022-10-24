@@ -160,7 +160,7 @@
 		<div class="card-body">
 			<form action="roomInfo.do" method="get">
 				<p style="font-size: 25px;">
-					<input type="hidden" value="${companyNum}" name="companyNum">
+					<input type="hidden" value="${roomDto.companyNum}" name="companyNum">
 
 					시작일 <input type="text" id="start_date" name="start_date">
 					종료일 <input type="text" id="end_date" name="end_date">

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,8 +22,9 @@ import com.util.TravelUtilBootstrap;
 @WebServlet("/reservation/*")
 public class ReservationServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
-	 // 체크인/체크아웃 날짜를 전달하기 위한 객체
-	ReservationDTO dateDto = new ReservationDTO();
+	// 체크인/체크아웃 날짜를 전달하기 위한 객체
+	ReserveRoomDTO roomDto = new ReserveRoomDTO();
+	ReservationDTO dto = new ReservationDTO();
 
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,40 +53,9 @@ public class ReservationServlet extends TravelServlet {
 		}
 
 		// 예약 완료 화면
-		else if (uri.indexOf("reservation_ok.do") != -1) {
+		else if (uri.indexOf("reservationDetail.do") != -1) {
 			reservationSubmit(req, resp);
 		}
-	}
-
-	// 객실 상세 화면
-	protected void roomDetailInfo(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
-		// 객실 목록에서 예약할 객실을 선택한 화면
-		ReservationDAO dao = new ReservationDAO();
-		String cp = req.getContextPath();
-		try {
-			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
-
-			// 게시물 가져오기
-			List<ReserveRoomDTO> list = null;
-			list = dao.listSelectRoom(roomNum);
-
-			// JSP로 전달할 속성
-			req.setAttribute("list", list);
-			req.setAttribute("dateDto", dateDto);
-			req.setAttribute("mode", "reservation");
-
-			// 포워딩
-			forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
-			return;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
-
 	}
 
 	protected void companyList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -187,17 +159,18 @@ public class ReservationServlet extends TravelServlet {
 			List<ReserveRoomDTO> list = null;
 
 			list = dao.listRoom(companyNum);
-			
+			roomDto.setCompanyNum(companyNum);
+
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-			dateDto.setStart_date(start_date);
-			dateDto.setEnd_date(end_date);
-			
+			roomDto.setStart_date(start_date);
+			roomDto.setEnd_date(end_date);
+
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
-			req.setAttribute("companyNum", companyNum);
+			req.setAttribute("roomDto", roomDto);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
@@ -211,25 +184,55 @@ public class ReservationServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/reservation/companyList.do?");
 	}
 
-
-	private void reservationForm(HttpServletRequest req, HttpServletResponse resp)
+	// 객실 상세 화면
+	protected void roomDetailInfo(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		// 객실 목록에서 예약할 객실을 선택한 화면
 		ReservationDAO dao = new ReservationDAO();
+
 		String cp = req.getContextPath();
 		try {
-			int roomNum = Integer.parseInt(req.getParameter("roomNum")); // 게시물가져오기
+			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
+			roomDto.setRoomNum(roomNum);
+
 			List<ReserveRoomDTO> list = null;
 			list = dao.listSelectRoom(roomNum);
 
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
+			req.setAttribute("roomDto", roomDto);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
+
+	}
+
+	// 예약 폼 화면
+	private void reservationForm(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		ReservationDAO dao = new ReservationDAO();
+		String cp = req.getContextPath();
+		try {
+			// 게시물가져오기
+			List<ReserveRoomDTO> list = null;
+			list = dao.listSelectRoom(roomDto.getRoomNum());
+
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
 			req.setAttribute("title", "예약");
 			req.setAttribute("list", list);
-			req.setAttribute("mode", "reservation");
-			req.setAttribute("dateDto", dateDto);
+			req.setAttribute("roomDto", roomDto);
+
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/reservation.jsp");
-
 			return;
 
 		} catch (Exception e) {
@@ -244,11 +247,11 @@ public class ReservationServlet extends TravelServlet {
 	protected void reservationSubmit(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ReservationDAO dao = new ReservationDAO();
+
 		String cp = req.getContextPath();
 		String message = "";
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("reservation");
-		ReservationDTO dto = new ReservationDTO();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		if (req.getMethod().equalsIgnoreCase("GET")) {
 			resp.sendRedirect(cp + "/");
@@ -257,31 +260,42 @@ public class ReservationServlet extends TravelServlet {
 
 		try {
 
-			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
-			// 게시물 가져오기
 			List<ReserveRoomDTO> list = null;
-			list = dao.listSelectRoom(roomNum);
+			list = dao.listSelectRoom(roomDto.getRoomNum());
+			dto.setRoomNum(roomDto.getRoomNum());
 
-			// JSP로 전달할 속성
-			req.setAttribute("list", list);
+			int companyNum =roomDto.getCompanyNum();
+			int roomNum  = roomDto.getRoomNum();
+			
+			dto.setCompanyNum(companyNum);
+			dto.setRoomNum(roomNum);
+			
+			// 예약 번호 = 오늘날짜 + 업체 번호 + 객실 번호
+			LocalDate now = LocalDate.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd"); // now.format(formatter);
+			String today = now.format(formatter);
 
-			dto.setReservationNum(Integer.parseInt((req.getParameter("roomNum"))));
-			dto.setStart_date(req.getParameter("start_date"));
-			dto.setEnd_date(req.getParameter("end_date"));
-			dto.setRealHeadCount((Integer.parseInt(req.getParameter("realHeadCount"))));
-			dto.setTotalPrice((Integer.parseInt(req.getParameter("totalPrice"))));
-			dto.setCheckInTime(req.getParameter("checkInTime"));
-			dto.setCheckOutTime(req.getParameter("checkOutTime"));
-			dto.setStatus(req.getParameter("status"));
-			dto.setDiscountPrice((Integer.parseInt(req.getParameter("discountPrice"))));
-			dto.setPaymentPrice((Integer.parseInt(req.getParameter("paymentPrice"))));
-			dto.setUserId(info.getUserId());
-			dto.setReservation_date((req.getParameter("reservation_date").replaceAll("(\\.|\\-|\\/)", "")));
-			dto.setCouponPrice((Integer.parseInt(req.getParameter("couponPrice"))));
-			dto.setRealUserName(req.getParameter("realUserName"));
-			dto.setRealUserTel(req.getParameter("realUserTel"));
+			
+			String reservationCode = today + Integer.toString(companyNum) + Integer.toString(roomNum);
+
+			long reservationNum = Long.parseLong(reservationCode);
+			dto.setReservationNum(reservationNum);
+			
+			dto.setStart_date(roomDto.getStart_date()); // 사용자가 선택한 날짜로 이용 시작일
+			dto.setEnd_date(roomDto.getEnd_date()); // 사용자가 선택한 날짜로 이용 종료일
+
+			// dto.setTotalPrice(roomDto.getPrice() * (100 - roomDto.getDiscountRate()));
+
+			// dto.setPaymentPrice(roomDto.getPrice()); // 결제 금액
+
+			dto.setUserId(info.getUserId()); // 로그인한 아이디
+
+			dto.setRealUserName(req.getParameter("realUserName")); // 이용자 이름
+			dto.setRealUserTel(req.getParameter("realUserTel")); // 이용자 전화번호
 
 			dao.insertReservation(dto);
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
 
 			forward(req, resp, "/WEB-INF/views/reservation/reservation.jsp");
 			return;
@@ -303,10 +317,9 @@ public class ReservationServlet extends TravelServlet {
 
 		req.setAttribute("title", "예약");
 		req.setAttribute("dto", dto);
-		req.setAttribute("dateDto", dateDto);
-		req.setAttribute("mode", "reservation");
+		req.setAttribute("roomDto", roomDto);
 		req.setAttribute("message", message);
-		forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
+		forward(req, resp, "/WEB-INF/views/reservation/reservationDetail.jsp");
 	}
 
 }

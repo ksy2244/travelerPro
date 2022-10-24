@@ -1,7 +1,7 @@
 package com.reservation;
 
 public class ReservationDTO {
-	private int reservationNum; // 예약 번호
+	private long reservationNum; // 예약 번호
 	private String start_date; // 시작일
 	private String end_date; // 종료일
 	private int realHeadCount; // 예약한 인원수
@@ -16,12 +16,14 @@ public class ReservationDTO {
 	private int couponPrice; // 쿠폰 가격
 	private String realUserName; // 실제 사용자 이름
 	private String realUserTel; // 실제 사용자 전화번호
+	private int roomNum;
+	private int companyNum;
 
-	public int getReservationNum() {
+	public long getReservationNum() {
 		return reservationNum;
 	}
 	
-	public void setReservationNum(int reservationNum) {
+	public void setReservationNum(long reservationNum) {
 		this.reservationNum = reservationNum;
 	}
 
@@ -136,5 +138,23 @@ public class ReservationDTO {
 	public void setRealUserTel(String realUserTel) {
 		this.realUserTel = realUserTel;
 	}
+
+	public int getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
+
+	public int getCompanyNum() {
+		return companyNum;
+	}
+
+	public void setCompanyNum(int companyNum) {
+		this.companyNum = companyNum;
+	}
+	
+	
 
 }

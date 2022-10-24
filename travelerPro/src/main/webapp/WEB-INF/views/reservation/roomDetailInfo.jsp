@@ -23,50 +23,57 @@
 
 
 	<main>
-
-		<div id="carouselExampleCaptions" class="carousel carousel-dark slide"
-			data-bs-ride="carousel">
-			<div class="carousel-indicators">
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="0" class="active" aria-current="true"
-					aria-label="Slide 1"></button>
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="1" aria-label="Slide 2"></button>
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="2" aria-label="Slide 3"></button>
+		<div class="container">
+			<div class="body-container">
+				<div class="body-title">
+					<h3>${title}</h3>
+					<div id="carouselExampleCaptions"
+						class="carousel carousel-dark slide" data-bs-ride="carousel">
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselExampleCaptions"
+								data-bs-slide-to="0" class="active" aria-current="true"
+								aria-label="Slide 1"></button>
+							<button type="button" data-bs-target="#carouselExampleCaptions"
+								data-bs-slide-to="1" aria-label="Slide 2"></button>
+							<button type="button" data-bs-target="#carouselExampleCaptions"
+								data-bs-slide-to="2" aria-label="Slide 3"></button>
+						</div>
+						<div class="carousel-inner" data-bs-interval="100"
+							style="text-align: right; font-family: 'GmarketSans'">
+							<div class="carousel-item active">
+								<img class="roomImg"
+									src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
+									class="d-block w-100 bestRegion" alt="...">
+								<div class="carousel-caption d-none d-md-block"></div>
+							</div>
+							<div class="carousel-item">
+								<img class="roomImg"
+									src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
+									class="d-block w-100 bestRegion" alt="...">
+								<div class="carousel-caption d-none d-md-block"></div>
+							</div>
+							<div class="carousel-item">
+								<img class="roomImg"
+									src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
+									class="d-block w-100 bestRegion" alt="...">
+								<div class="carousel-caption d-none d-md-block"></div>
+							</div>
+						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
 			</div>
-			<div class="carousel-inner" data-bs-interval="100"
-				style="text-align: right; font-family: 'GmarketSans'">
-				<div class="carousel-item active">
-					<img class="roomImg"
-						src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block"></div>
-				</div>
-				<div class="carousel-item">
-					<img class="roomImg"
-						src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block"></div>
-				</div>
-				<div class="carousel-item">
-					<img class="roomImg"
-						src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block"></div>
-				</div>
-			</div>
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
 		</div>
+
 	</main>
 
 
@@ -133,16 +140,16 @@
 
 								<p class="roomInfoContent">
 									<span style="background-color: #eee; text-align: center">체크인
-									</span> ${dateDto.start_date} ${dto.checkInTime}
+									</span> ${roomDto.start_date} ${dto.checkInTime}
 								</p>
 								<p class="roomInfoContent">
 									<span style="background-color: #eee; text-align: center">체크아웃
-									</span> ${dateDto.end_date} ${dto.checkOutTime}
+									</span> ${roomDto.end_date} ${dto.checkOutTime}
 								</p>
 
 								<p class="roomInfoContent">각 객실에 대한 예약 공지</p>
 
-
+									<input type ="hidden" name ="headCount">${dto.headCount}
 							</div>
 						</div>
 					</div>
@@ -175,8 +182,8 @@
 
 									<p
 										style="font-Size: 23px; font-weight: 400; text-align: center; background: #eee">체크인
-										${dateDto.start_date}&nbsp;${modalDto.checkInTime} ~ 체크아웃
-										${dateDto.end_date}&nbsp;${modalDto.checkOutTime}</p>
+										${roomDto.start_date}&nbsp;${modalDto.checkInTime} ~ 체크아웃
+										${roomDto.end_date}&nbsp;${modalDto.checkOutTime}</p>
 									<p class="eachRoomMoney">${dto.price}</p>
 									<p class="paymentRule"
 										style="font-weight: 400; font-Size: 20px; float: bottom">취소

@@ -10,6 +10,7 @@ import com.util.DBConn;
 
 public class ReservationDAO {
 	private Connection conn = DBConn.getConnection();
+	public List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 
 	// 해당 숙박 업체 보기 (업체 상세)
 	public ReserveRoomDTO readRoom(int companyNum) {
@@ -395,7 +396,7 @@ public class ReservationDAO {
 	}
 
 	public List<ReserveRoomDTO> listSelectRoom(int roomNum) {
-		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
+		// List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
@@ -433,8 +434,9 @@ public class ReservationDAO {
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
 
-				list.add(dto);
+				listSelectRoom.add(dto);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -453,7 +455,7 @@ public class ReservationDAO {
 			}
 		}
 
-		return list;
+		return listSelectRoom;
 	}
 
 	public void insertReservation(ReservationDTO dto) throws SQLException {
@@ -461,40 +463,78 @@ public class ReservationDAO {
 		String sql;
 
 		try {
+
 			sql = "INSERT INTO reservation ( reservationNum, start_date, end_date, realHeadCount, totalPrice, "
-					+ " checkInTime, checkOutTime, status, discountPrice, paymentPrice, userId, "
-					+ " reservation_date, couponPrice, realUserName, realUserTel) "
-					+ " VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ? ,SYSDATE, ?, ?, ?)";
+					+ " checkInTime, checkOutTime, status, paymentPrice, userId, realUserName, realUserTel) "
+					+ " VALUES( ?, ?, ?, 0, 0, 0, 0, 1, 0, ?,? , ?)";
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, dto.getReservationNum());
+			pstmt.setLong(1, dto.getReservationNum()); // 예약 번호
 			pstmt.setString(2, dto.getStart_date());
 			pstmt.setString(3, dto.getEnd_date());
-			pstmt.setInt(4, dto.getRealHeadCount());
-			pstmt.setInt(5, dto.getTotalPrice());
-			pstmt.setString(6, dto.getCheckInTime());
-			pstmt.setString(7, dto.getCheckOutTime());
-			pstmt.setString(8, dto.getStatus());
-			pstmt.setInt(9, dto.getDiscountPrice());
-			pstmt.setInt(10, dto.getPaymentPrice());
-			pstmt.setString(11, dto.getUserId());
-			pstmt.setInt(12, dto.getCouponPrice());
-			pstmt.setString(13, dto.getRealUserName());
-			pstmt.setString(14, dto.getRealUserTel());
-
+			pstmt.setString(4, dto.getUserId());
+			pstmt.setString(5, dto.getRealUserName());
+			pstmt.setString(6, dto.getRealUserTel());
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				pstmt.close();
+			pstmt.close();
+			pstmt = null;
+
+			sql = " UPDATE reservation SET " 
+					+ " realHeadCount = (SELECT headCount FROM room WHERE roomNum = ? ), "
+					+ " totalPrice =  (SELECT price FROM room WHERE roomNum = ?) " 
+					+ " WHERE reservationNum = ?  ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, dto.getRoomNum());
+			pstmt.setInt(2, dto.getRoomNum());
+			pstmt.setLong(3, dto.getReservationNum());
+
+			pstmt.executeUpdate();
+			pstmt.close();
+			pstmt = null;
+
+			sql = "  UPDATE reservation SET "
+					+ " checkInTime = (SELECT checkInTime FROM company WHERE companyNum = ?), "
+					+ " checkOutTime = (SELECT checkOutTime FROM company WHERE companyNum = ?) "
+					+ " WHERE reservationNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, dto.getCompanyNum());
+			pstmt.setInt(2, dto.getCompanyNum());
+			pstmt.setLong(3, dto.getReservationNum());
+			
+			pstmt.executeUpdate();
+			pstmt.close();
+			pstmt = null;
+
+		} catch (SQLException e) {
+
+			try {
+				conn.rollback();
+				throw e;
+			} catch (Exception e2) {
+
 			}
+
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e) {
+
+				}
+			}
+
+			try {
+			} catch (Exception e) {
+
+			}
+
 		}
-
 	}
-
-	
-
 }
