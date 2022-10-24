@@ -21,7 +21,11 @@ public class MainServlet extends TravelServlet {
       
       // 메인 화면
       if(uri.indexOf("main.do") != -1) {
+    	 
+    	  
          forward(req, resp, "/WEB-INF/views/main/main.jsp");
+		}
+    
       }
       
       // -- ** 더보기 ** -- 
@@ -52,9 +56,8 @@ public class MainServlet extends TravelServlet {
       
       
       
-   }
    
    
+}
    
 
-}

@@ -89,7 +89,7 @@ public class CeoDAO {
 		}
 		
 	}
-	public List<CeoDTO> listCeo(int offset,int size){
+	public List<CeoDTO> listCeo(int offset,int size,String id){
 		List<CeoDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -98,12 +98,14 @@ public class CeoDAO {
 		try {
 			sql = "SELECT companyNum, companyName, companyTel,addr,approval "
 					+ " FROM company"
+					+ " WHERE userId = ?"
 					+ " ORDER BY companyNum DESC"
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, offset);
-			pstmt.setInt(2, size);
+			pstmt.setString(1,id);
+			pstmt.setInt(2, offset);
+			pstmt.setInt(3, size);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -134,16 +136,17 @@ public class CeoDAO {
 		}
 		return list;
 	}
-	public int dataCount() {
+	public int dataCount(String id) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM company";
+			sql = "SELECT NVL(COUNT(*), 0) FROM company WHERE userId=?";
 			pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt(1);
