@@ -406,7 +406,7 @@ public class ReservationDAO {
 	}
 	
 	public List<ReserveRoomDTO> listSelectRoom(int roomNum) {
-		// List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
+		List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();

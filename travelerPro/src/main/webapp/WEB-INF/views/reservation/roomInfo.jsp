@@ -200,11 +200,6 @@
 							<hr>
 
 							<p class="roomInfoContent">
-								<span style="background-color: #eee; text-align: center">인원
-								</span>기준 ${roomDto.headCount}인 / 최대 ${roomDto.headCount}인
-							</p>
-
-							<p class="roomInfoContent">
 								<span style="background-color: #eee; text-align: center">체크인
 									시간 </span> ${companyDto.checkInTime}
 							</p>
@@ -242,6 +237,7 @@
 							<img
 								src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
 								class="card-img-top" alt="...">
+
 							<div class="card-body">
 								<p class="eachRoomName">${room.roomName}</p>
 								<p class="eachRoomInfo">${room.roomInfo}</p>
@@ -250,17 +246,22 @@
 									${room.headCount}최대 ${room.headCount}인</p>
 								<p class="eachRoomMoney">
 									<span style="color: purple">${room.discountRate}% &nbsp;</span>${room.roomPrice}원
-								<p>
-									<button class="reservationBtn" type="submit"
-										onclick="location.href='reservation/roomDetailInfo.do?companyNum=${company.companyNum}&roomNum=${company.roomNum}&start_date=${start_date}&end_date=${end_date}'">
-										객실 선택</button>
 								</p>
+
+								<form action="reservation.do" method="get">
+									<input type="hidden" value="${companyNum}" name="companyNum">
+									<input type="hidden" value="${room.roomNum}" name="roomNum">
+									<input type="hidden" value="${start_date}" name="start">
+									<input type="hidden" value="${end_date}" name="end">
+									<button class="reservationBtn" type="submit">날짜 선택</button>
+								</form>
 							</div>
 						</div>
 
 					</c:forEach>
 				</div>
 			</div>
+
 
 
 

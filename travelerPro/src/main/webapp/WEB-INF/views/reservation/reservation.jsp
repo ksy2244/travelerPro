@@ -61,23 +61,24 @@
 				</div>
 
 				<div class="alert" role="alert" style="background: #E4FBFF">
+
 					${roomDto.roomNum} 객실 예매를 위한 정보를 입력해주세요.</div>
-				<c:forEach var="dto" items="${list}" varStatus="status">
+				<c:forEach var="reserve" items="${list}" varStatus="status">
 					<div class="card border-secondary mb-3" style="max-width: 100rem;">
 						<div class="card-header">
 							<h5>
-								<i class="fa-solid fa-hotel"></i>&nbsp;${dto.companyName}&nbsp;
+								<i class="fa-solid fa-hotel"></i>&nbsp;${reserve.companyName}&nbsp;
 							</h5>
 						</div>
 						<div class="card-body text-secondary">
-							<h5 class="card-title">객실 타입 ${dto.roomName}  ${dto.roomNum}</h5>
+							<h5 class="card-title">객실 타입 ${reserve.roomName}</h5>
 							<p class="card-text">
-							<p>${dto.roomInfo}</p>
-							<p>체크인
-								${roomDto.start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
-								${roomDto.end_date}&nbsp;${dto.checkOutTime} 가격 ${dto.price} 할인율
-								${dto.discountRate}
-							<p> 기준 ${dto.headCount}인 최대 ${dto.headCount}인  </p>
+							<p>${reserve.roomInfo}</p>
+							<p>체크인 ${start}&nbsp;${reseve.checkInTime}&nbsp;|&nbsp;체크아웃
+								${end}&nbsp;${reserve.checkOutTime} 가격 ${reserve.roomPrice}</p>
+
+							<p>할인율 ${reserve.discountRate} 기준 ${reserve.headCount}인 최대
+								${reserve.headCount}인</p>
 						</div>
 
 					</div>
@@ -94,8 +95,6 @@
 							<p class="card-text">
 						</div>
 					</div>
-					<br>
-
 
 
 
