@@ -62,6 +62,7 @@ public class ReservationDAO {
 		return dto;
 	}
 
+	// 모든  업체 목록을 조회 (업체 리스트)
 	public List<ReserveCompanyDTO> listCompany(int offset, int size) {
 		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
 		PreparedStatement pstmt = null;
@@ -69,8 +70,8 @@ public class ReservationDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append(" SELECT companyNum, companyName, companyInfo, amenities, guide, checkintime, checkouttime, "
-					+ " notice, addr, addrdetail, zip ");
+			sb.append(" SELECT companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
+					+ " notice, addr, addrDetail, zip ");
 			sb.append(" FROM company");
 
 			pstmt = conn.prepareStatement(sb.toString());
@@ -84,11 +85,11 @@ public class ReservationDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				dto.setCheckintime(rs.getString("checkintime"));
-				dto.setCheckouttime(rs.getString("checkouttime"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setNotice(rs.getString("notice"));
 				dto.setAddr(rs.getString("addr"));
-				dto.setAddrdetail(rs.getString("addrdetail"));
+				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
 
 				list.add(dto);
@@ -114,7 +115,7 @@ public class ReservationDAO {
 		return list;
 	}
 
-	// 객실 목록
+	// 해당 업체의 객실 목록 (객실 정보)
 	public List<ReserveRoomDTO> listRoom(int companyNum) {
 		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
@@ -164,7 +165,7 @@ public class ReservationDAO {
 		return list;
 	}
 
-	// 객실
+	//
 	public int dataCountRoom() {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -306,16 +307,19 @@ public class ReservationDAO {
 
 		return result;
 	}
+	
 
+
+	//해당 업체의 업체 정보에 대한 정보를 가져온다.  (객실 상세 - 중앙 배치 )
 	public ReserveCompanyDTO readCompany(int companyNum) {
-		ReserveCompanyDTO dto = null;
+		ReserveCompanyDTO dto = new ReserveCompanyDTO();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 
 		try {
-			sql = "SELECT companyNum,companyName, companyInfo, amenities, guide, checkintime, checkouttime, "
-					+ " notice, addr, addrdetail, zip " + " FROM company" + " WHERE companyNum = ? ";
+			sql =  " SELECT companyNum,companyName, companyInfo, amenities, guide, checkintime, checkouttime, companyTel, "
+					+ " notice, addr, addrDetail, zip  FROM company  WHERE companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -324,18 +328,22 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				dto.setCompanyNum(rs.getInt(companyNum));
+				
+
+				dto.setCompanyNum(companyNum);
 
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				dto.setCheckintime(rs.getString("checkintime"));
-				dto.setCheckouttime(rs.getString("checkouttime"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setCheckOutTime(rs.getString("checkOutTime"));
+				dto.setCompanyTel(rs.getString("companyTel"));
 				dto.setNotice(rs.getString("notice"));
 				dto.setAddr(rs.getString("addr"));
-				dto.setAddrdetail(rs.getString("addrdetail"));
+				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
+			
 
 			}
 		} catch (SQLException e) {
@@ -358,6 +366,8 @@ public class ReservationDAO {
 
 		return dto;
 	}
+	
+
 
 	public int dataCompanyCount() {
 		int result = 0;
@@ -394,7 +404,7 @@ public class ReservationDAO {
 
 		return result;
 	}
-
+	
 	public List<ReserveRoomDTO> listSelectRoom(int roomNum) {
 		// List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
@@ -537,4 +547,6 @@ public class ReservationDAO {
 
 		}
 	}
+
+	
 }

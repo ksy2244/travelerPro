@@ -50,7 +50,6 @@
 											class="card-img-top">
 										<div class="card-body">
 											<h4 class="card-title">업체 번호${dto.companyNum}</h4>
-
 											<h4 class="card-title">${dto.companyName}</h4>
 											<h5 class="card-title">${dto.companyInfo}</h5>
 											<h5 class="card-title">숙박업체 평점</h5>

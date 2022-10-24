@@ -6,13 +6,14 @@ public class ReserveCompanyDTO {
 	private String companyInfo;
 	private String amenities;
 	private String guide;
-	private String checkintime;
-	private String checkouttime;
+	private String checkInTime;
+	private String checkOutTime;
 	private String notice;
 	private String addr;
-	private String addrdetail;
+	private String addrDetail;
 	private int zip;
 	private int companyNum;
+	private String companyTel;
 	
 	public String getCompanyName() {
 		return companyName;
@@ -38,18 +39,21 @@ public class ReserveCompanyDTO {
 	public void setGuide(String guide) {
 		this.guide = guide;
 	}
-	public String getCheckintime() {
-		return checkintime;
+	public String getCheckInTime() {
+		return checkInTime;
 	}
-	public void setCheckintime(String checkintime) {
-		this.checkintime = checkintime;
+	public void setCheckInTime(String checkInTime) {
+		this.checkInTime = checkInTime;
 	}
-	public String getCheckouttime() {
-		return checkouttime;
+	public String getCheckOutTime() {
+		return checkOutTime;
 	}
-	public void setCheckouttime(String checkouttime) {
-		this.checkouttime = checkouttime;
+	
+	public void setCheckOutTime(String checkOutTime) {
+		this.checkOutTime = checkOutTime;
+		
 	}
+	
 	public String getNotice() {
 		return notice;
 	}
@@ -62,11 +66,11 @@ public class ReserveCompanyDTO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getAddrdetail() {
-		return addrdetail;
+	public String getAddrDetail() {
+		return addrDetail;
 	}
-	public void setAddrdetail(String addrdetail) {
-		this.addrdetail = addrdetail;
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
 	}
 	public int getZip() {
 		return zip;
@@ -80,5 +84,12 @@ public class ReserveCompanyDTO {
 	public void setCompanyNum(int companyNum) {
 		this.companyNum = companyNum;
 	}
+	public String getCompanyTel() {
+		return companyTel;
+	}
+	public void setCompanyTel(String companyTel) {
+		this.companyTel = companyTel;
+	}
+	
 	
 }

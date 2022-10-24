@@ -22,8 +22,7 @@ import com.util.TravelUtilBootstrap;
 @WebServlet("/reservation/*")
 public class ReservationServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
-	// 체크인/체크아웃 날짜를 전달하기 위한 객체
-	ReserveRoomDTO roomDto = new ReserveRoomDTO();
+
 	ReservationDTO dto = new ReservationDTO();
 
 	@Override
@@ -149,27 +148,57 @@ public class ReservationServlet extends TravelServlet {
 	protected void roomInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 숙박업체리스트에서 클릭한 화면
 		ReservationDAO dao = new ReservationDAO();
+
 		String cp = req.getContextPath();
 		req.setCharacterEncoding("utf8");
 		resp.setCharacterEncoding("utf8");
 
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
-			// 게시물 가져오기
-			List<ReserveRoomDTO> list = null;
 
-			list = dao.listRoom(companyNum);
+			System.out.println(companyNum + " dsdsddd");
+
+			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
+			ReserveRoomDTO roomDto = new ReserveRoomDTO();
+
+			// List<ReserveRoomDTO> seletctRoomList = null;
+			List<ReserveRoomDTO> roomList = null;
+
+			// 업체 정보 가져오기
+			companyDto = dao.readCompany(companyNum);
+
+			// 선택한 업체의 객실 정보
+			roomList = dao.listRoom(companyNum);
 			roomDto.setCompanyNum(companyNum);
 
+//			// 선택한 객실 번호를 통해 객실 정보, 해당 업체 정보 
+//			seletctRoomList = dao.listSelectRoom(companyNum);
+//			companyDto.setCompanyNum(companyNum);
+			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
+
+			roomDto.setStart_date(start_date);
+			roomDto.setEnd_date(end_date);
+
+			// 이용 시작일, 종료일 초기값 설정
+			if (start_date == null || end_date == null) {
+				LocalDate now = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // now.format(formatter);
+				start_date = now.format(formatter);
+				end_date = now.format(formatter);
+
+			}
+
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
 
 			// JSP로 전달할 속성
-			req.setAttribute("list", list);
+			req.setAttribute("companyNum", companyNum);
+			req.setAttribute("roomList", roomList);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
+			req.setAttribute("companyDto", companyDto);
 			req.setAttribute("roomDto", roomDto);
 
 			// 포워딩
@@ -190,6 +219,7 @@ public class ReservationServlet extends TravelServlet {
 
 		// 객실 목록에서 예약할 객실을 선택한 화면
 		ReservationDAO dao = new ReservationDAO();
+		ReserveRoomDTO roomDto = new ReserveRoomDTO();
 
 		String cp = req.getContextPath();
 		try {
@@ -198,10 +228,14 @@ public class ReservationServlet extends TravelServlet {
 
 			List<ReserveRoomDTO> list = null;
 			list = dao.listSelectRoom(roomNum);
+			
+			String start_date = req.getParameter("start_date");
+			String end_date =req.getParameter("end_date");
 
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
 			req.setAttribute("roomDto", roomDto);
+			req.setAttribute("end_date", end_date);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/roomDetailInfo.jsp");
@@ -221,6 +255,8 @@ public class ReservationServlet extends TravelServlet {
 		ReservationDAO dao = new ReservationDAO();
 		String cp = req.getContextPath();
 		try {
+			ReserveRoomDTO roomDto = new ReserveRoomDTO();
+
 			// 게시물가져오기
 			List<ReserveRoomDTO> list = null;
 			list = dao.listSelectRoom(roomDto.getRoomNum());
@@ -247,6 +283,7 @@ public class ReservationServlet extends TravelServlet {
 	protected void reservationSubmit(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ReservationDAO dao = new ReservationDAO();
+		ReserveRoomDTO roomDto = new ReserveRoomDTO();
 
 		String cp = req.getContextPath();
 		String message = "";
@@ -264,23 +301,22 @@ public class ReservationServlet extends TravelServlet {
 			list = dao.listSelectRoom(roomDto.getRoomNum());
 			dto.setRoomNum(roomDto.getRoomNum());
 
-			int companyNum =roomDto.getCompanyNum();
-			int roomNum  = roomDto.getRoomNum();
-			
+			int companyNum = roomDto.getCompanyNum();
+			int roomNum = roomDto.getRoomNum();
+
 			dto.setCompanyNum(companyNum);
 			dto.setRoomNum(roomNum);
-			
+
 			// 예약 번호 = 오늘날짜 + 업체 번호 + 객실 번호
 			LocalDate now = LocalDate.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd"); // now.format(formatter);
 			String today = now.format(formatter);
 
-			
 			String reservationCode = today + Integer.toString(companyNum) + Integer.toString(roomNum);
 
 			long reservationNum = Long.parseLong(reservationCode);
 			dto.setReservationNum(reservationNum);
-			
+
 			dto.setStart_date(roomDto.getStart_date()); // 사용자가 선택한 날짜로 이용 시작일
 			dto.setEnd_date(roomDto.getEnd_date()); // 사용자가 선택한 날짜로 이용 종료일
 
