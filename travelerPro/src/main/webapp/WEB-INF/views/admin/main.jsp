@@ -92,7 +92,7 @@
 					<div class="item item1" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">공지 관리</div>
 					<div class="item item2" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">쿠폰 관리</div>
 					<div class="item item3" onclick="location.href='${pageContext.request.contextPath}/admin/userList.do';">회원정보 확인</div>
-					<div class="item item4" onclick="location.href='${pageContext.request.contextPath}/faq/list.do';">faq 관리</div>
+					<div class="item item4" onclick="location.href='${pageContext.request.contextPath}/faq/tab.do';">faq 관리</div>
 					<div class="item item5"></div>
 					<div class="item item6" onclick="location.href='${pageContext.request.contextPath}/admin/companyList.do';">업체정보 확인 </div>
 			</div>

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coupon.CouponDTO;
 import com.member.MemberDTO;
 import com.util.DBConn;
 
@@ -25,7 +24,7 @@ public class AdminDAO {
 					+ " email, tel, TO_CHAR(birth, 'YYYY-MM-DD') birth"
 					+ " FROM member "
 					+ " WHERE roll = 0 OR roll = 1"
-					+ " ORDER BY roll DESC "
+					+ " ORDER BY roll, register_date DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -123,23 +122,7 @@ public class AdminDAO {
 				dto.setEmail(rs.getString("email"));
 				dto.setTel(rs.getString("tel"));
 				dto.setBirth(rs.getString("birth"));
-				
-				if(dto.getTel() != null) {
-					String[] ss = dto.getTel().split("-");
-					if(ss.length == 3) {
-						dto.setTel1(ss[0]);
-						dto.setTel2(ss[1]);
-						dto.setTel3(ss[2]);
-					}
-				}
-				dto.setEmail(rs.getString("email"));
-				if(dto.getEmail() != null) {
-					String[] ss = dto.getEmail().split("@");
-					if(ss.length == 2) {
-						dto.setEmail1(ss[0]);
-						dto.setEmail2(ss[1]);
-					}
-				}
+			
 			}
 			
 			
