@@ -105,4 +105,55 @@ public class MemberADAO {
 		return result;
 		
 	}
+	
+	public QnaVO readFaq(long questionNum) {
+		QnaVO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT questionNum, userId, subject, content, reg_date, categoryNum "
+					+ " FROM memberQ "
+					+ " WHERE questionNum = ?  ";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, questionNum);
+	
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new QnaVO();
+				
+				dto.setQuestionNum(rs.getLong("questionNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setCategoryNum(rs.getInt("categoryNum"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return dto;
+		
+	}
 }

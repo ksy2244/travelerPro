@@ -19,7 +19,32 @@
 	background-color: #F5EFE6;
 }
 
-.basic:hover{background-color:#D9D2CC;} 
+.basic:hover{background-color:#D9D2CC;}
+
+.title .qnum {
+	width: 110px;
+}
+
+.title .sub {
+	width: 40%;
+}
+
+.title .id {
+	width: 15%;
+}
+
+.title .day {
+	width: 15%;
+}
+
+.title .cat {
+	width: 15%;
+}
+
+.content {
+	font-style: italic;
+	font-size: 15px;
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
@@ -38,17 +63,40 @@
 			
 			<div class="body-main">
 				<table class="table table-hover board-list">
+					<thead>
+							<tr class="title">
+								<th class="qnum">문의번호</th>
+								<th class="sub">제목</th>
+								<th class="id">아이디</th>
+								<th class="day">작성일</th>
+								<th class="cat">카테고리</th>
+							</tr>
+					</thead>
+					
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<td>${dataCount - (page-1) * size - status.index}</td>
-								<td class="left">
+								<td class="qnum">${dataCount - (page-1) * size - status.index}</td>
+								<td class="sub">
 									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
 									<c:if test="${dto.gap<1}"><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></c:if>
 								</td>
-								<td>&nbsp;</td>
-								<td>${dto.userId}</td>
-								<td>${dto.reg_date}</td>
+								<td class="id">${dto.userId}</td>
+								<td class="day">${dto.reg_date}</td>
+								<td class="cat content">
+									<c:choose>
+										<c:when test="${dto.categoryNum == 1}">
+											회원/개인정보
+										</c:when>
+										<c:when test="${dto.categoryNum == 2}">
+											쿠폰
+										</c:when>
+										<c:when test="${dto.categoryNum == 3}">
+											환불
+										</c:when>
+										<c:otherwise>예약/결제</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

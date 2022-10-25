@@ -42,6 +42,8 @@ public class AnswerServlet extends TravelServlet {
 			faqDelete(req, resp);
 		} else if (uri.indexOf("qnaList.do") != -1) {
 			qnaList(req, resp);
+		} else if (uri.indexOf("qnaArticle.do") != -1) {
+			qnaArticle(req, resp);
 		}
 	}
 	
@@ -168,60 +170,6 @@ public class AnswerServlet extends TravelServlet {
 		
 	}
 	
-	protected void qnaList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		MemberADAO dao = new MemberADAO();
-		TravelUtil util = new TravelUtilBootstrap();
-		
-		String cp = req.getContextPath();
-		
-		try {
-			int current_page = 1;
-			
-			int dataCount = dao.qnaCount();
-			
-			int size = 10;
-			int total_page = util.pageCount(dataCount, size);
-			if(current_page > total_page) {
-				current_page = total_page;
-			}
-			
-			int offset = (current_page - 1) * size;
-			if(offset < 0) offset = 0;
-			
-			List<QnaVO> list = dao.qnaList(offset, size);
-			
-			String listUrl = cp + "/answer/qnaList.do";
-			
-			long gap;
-			Date curDate = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-			for (QnaVO dto : list) {
-				Date date = sdf.parse(dto.getReg_date());
-				gap = (curDate.getTime() - date.getTime()) / (1000*60*60*24); // 일자
-				//gap = (curDate.getTime() - date.getTime()) / (1000 * 60 * 60); // 시간
-				dto.setGap(gap);
-
-				dto.setReg_date(dto.getReg_date().substring(0, 10));
-			}
-			
-			String paging = util.paging(current_page, total_page, listUrl);
-			
-			req.setAttribute("list", list);
-			req.setAttribute("page", current_page);
-			req.setAttribute("total_page", total_page);
-			req.setAttribute("dataCount", dataCount);
-			req.setAttribute("size", size);
-			req.setAttribute("paging", paging);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
-		forward(req, resp, "/WEB-INF/views/answer/qnaList.jsp");
-	
-	}
-	
 	protected void faqDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		FaqDAO dao = new FaqDAO();
 		
@@ -245,5 +193,94 @@ public class AnswerServlet extends TravelServlet {
 		resp.sendRedirect(cp+"/answer/faq.do");
 		
 	}
+	
+	protected void qnaList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		TravelUtil util = new TravelUtilBootstrap();
+		
+		String cp = req.getContextPath();
+		
+		try {
+			int current_page = 1;
+			
+			int dataCount = dao.qnaCount();
+			
+			int size = 10;
+			int total_page = util.pageCount(dataCount, size);
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			List<QnaVO> list = dao.qnaList(offset, size);
+			
+			String listUrl = cp + "/answer/qnaList.do";
+			String articleUrl = cp + "/answer/qnaArticle.do?page=" + current_page;
+			
+			long gap;
+			Date curDate = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			for (QnaVO dto : list) {
+				Date date = sdf.parse(dto.getReg_date());
+				gap = (curDate.getTime() - date.getTime()) / (1000*60*60*24); // 일자
+				//gap = (curDate.getTime() - date.getTime()) / (1000 * 60 * 60); // 시간
+				dto.setGap(gap);
+
+				dto.setReg_date(dto.getReg_date().substring(0, 10));
+			}
+			
+			String paging = util.paging(current_page, total_page, listUrl);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("total_page", total_page);
+			req.setAttribute("dataCount", dataCount);
+			req.setAttribute("size", size);
+			req.setAttribute("paging", paging);
+			req.setAttribute("articleUrl", articleUrl);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		forward(req, resp, "/WEB-INF/views/answer/qnaList.jsp");
+	
+	}
+	
+	protected void qnaArticle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		String query = "page=" + page;
+		
+		try {
+			long questionNum = Long.parseLong(req.getParameter("questionNum"));
+			
+			QnaVO dto = dao.readFaq(questionNum);
+			if(dto == null) {
+				resp.sendRedirect(cp+"/answer/qnaList.do");
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("query", query);
+			
+			forward(req, resp, "/WEB-INF/views/answer/qnaArticle.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/answer/qnaList.do?page="+page);
+		
+	}
+	
 
 }
