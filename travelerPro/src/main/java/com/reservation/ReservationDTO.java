@@ -5,7 +5,7 @@ public class ReservationDTO {
 	private String start_date; // 시작일
 	private String end_date; // 종료일
 	private int realHeadCount; // 예약한 인원수
-	private int totalPrice; // 총금액
+	private int totalPrice; // 총금액 (할인 적용 X)
 	private String reservation_date;
 	private String checkInTime; // 체크인 시간
 	private String checkOutTime; // 체크아웃 시간

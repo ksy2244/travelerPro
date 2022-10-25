@@ -10,7 +10,7 @@ import com.util.DBConn;
 
 public class ReservationDAO {
 	private Connection conn = DBConn.getConnection();
-	public List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
+	// public List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 
 	// 해당 숙박 업체 보기 (업체 상세)
 	public ReserveRoomDTO readRoom(int companyNum) {
@@ -62,7 +62,7 @@ public class ReservationDAO {
 		return dto;
 	}
 
-	// 모든  업체 목록을 조회 (업체 리스트)
+	// 모든 업체 목록을 조회 (업체 리스트)
 	public List<ReserveCompanyDTO> listCompany(int offset, int size) {
 		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
 		PreparedStatement pstmt = null;
@@ -307,10 +307,8 @@ public class ReservationDAO {
 
 		return result;
 	}
-	
 
-
-	//해당 업체의 업체 정보에 대한 정보를 가져온다.  (객실 상세 - 중앙 배치 )
+	// 해당 업체의 업체 정보에 대한 정보를 가져온다. (객실 상세 - 중앙 배치 )
 	public ReserveCompanyDTO readCompany(int companyNum) {
 		ReserveCompanyDTO dto = new ReserveCompanyDTO();
 		PreparedStatement pstmt = null;
@@ -318,7 +316,7 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql =  " SELECT companyNum,companyName, companyInfo, amenities, guide, checkintime, checkouttime, companyTel, "
+			sql = " SELECT companyNum,companyName, companyInfo, amenities, guide, checkintime, checkouttime, companyTel, "
 					+ " notice, addr, addrDetail, zip  FROM company  WHERE companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -328,7 +326,6 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				
 
 				dto.setCompanyNum(companyNum);
 
@@ -343,7 +340,6 @@ public class ReservationDAO {
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
-			
 
 			}
 		} catch (SQLException e) {
@@ -366,8 +362,6 @@ public class ReservationDAO {
 
 		return dto;
 	}
-	
-
 
 	public int dataCompanyCount() {
 		int result = 0;
@@ -404,12 +398,12 @@ public class ReservationDAO {
 
 		return result;
 	}
-	
-	public List<ReserveRoomDTO> listSelectRoom(int roomNum) {
-		List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
+
+	public ReserveRoomDTO listSelectRoom(int roomNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
+		ReserveRoomDTO dto = new ReserveRoomDTO();
 
 		try {
 			sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount, r.companyNum, "
@@ -423,8 +417,7 @@ public class ReservationDAO {
 			pstmt.setInt(1, roomNum);
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				ReserveRoomDTO dto = new ReserveRoomDTO();
+			if (rs.next()) {
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
 				dto.setRoomInfo(rs.getString("roomInfo"));
@@ -444,7 +437,6 @@ public class ReservationDAO {
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
 
-				listSelectRoom.add(dto);
 			}
 
 		} catch (SQLException e) {
@@ -465,88 +457,69 @@ public class ReservationDAO {
 			}
 		}
 
-		return listSelectRoom;
+		return dto;
 	}
 
 	public void insertReservation(ReservationDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
-
+		ResultSet rs = null;
 		try {
 
-			sql = "INSERT INTO reservation ( reservationNum, start_date, end_date, realHeadCount, totalPrice, "
-					+ " checkInTime, checkOutTime, status, paymentPrice, userId, realUserName, realUserTel) "
-					+ " VALUES( ?, ?, ?, 0, 0, 0, 0, 1, 0, ?,? , ?)";
+			sql = " INSERT INTO reservation" + "(reservationNum, start_date, end_date, realHeadCount, totalPrice, "
+					+ " checkInTime, checkOutTime, status,  userId, paymentPrice, "
+					+ " discountPrice, realUserName, realUserTel) "
+					+ " VALUES( ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ? , ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, dto.getReservationNum()); // 예약 번호 (서블릿)
+			pstmt.setString(2, dto.getStart_date()); // 이용 시작일 (서블릿)
+			pstmt.setString(3, dto.getEnd_date()); // 이용 종료일 (서블릿)
+			pstmt.setInt(4, dto.getRealHeadCount()); // 허용 인원수 (select)
+			pstmt.setInt(5, dto.getTotalPrice()); // 총합계 (할인 적용 안 된 업체에서 등록된 비용) (select)
 
-			pstmt.setLong(1, dto.getReservationNum()); // 예약 번호
-			pstmt.setString(2, dto.getStart_date());
-			pstmt.setString(3, dto.getEnd_date());
-			pstmt.setString(4, dto.getUserId());
-			pstmt.setString(5, dto.getRealUserName());
-			pstmt.setString(6, dto.getRealUserTel());
-			pstmt.executeUpdate();
+			pstmt.setString(6, dto.getCheckInTime()); // 체크인 시간(서블릿)
+			pstmt.setString(7, dto.getCheckOutTime()); // 체크아웃 시간 (서블릿)
+			// 1
+			pstmt.setString(8, dto.getUserId()); // 사용자 아이디(서블릿)
+			pstmt.setInt(9, dto.getPaymentPrice()); // 지불할 금액 (할인 적용)
 
-			pstmt.close();
-			pstmt = null;
-
-			sql = " UPDATE reservation SET " 
-					+ " realHeadCount = (SELECT headCount FROM room WHERE roomNum = ? ), "
-					+ " totalPrice =  (SELECT price FROM room WHERE roomNum = ?) " 
-					+ " WHERE reservationNum = ?  ";
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, dto.getRoomNum());
-			pstmt.setInt(2, dto.getRoomNum());
-			pstmt.setLong(3, dto.getReservationNum());
+			pstmt.setInt(10, dto.getDiscountPrice()); // 할인율
+			pstmt.setString(11, dto.getRealUserName()); // 이용자 이름
+			pstmt.setString(12, dto.getRealUserTel()); // 이용자 전화번호
 
 			pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = null;
 
-			sql = "  UPDATE reservation SET "
-					+ " checkInTime = (SELECT checkInTime FROM company WHERE companyNum = ?), "
-					+ " checkOutTime = (SELECT checkOutTime FROM company WHERE companyNum = ?) "
-					+ " WHERE reservationNum = ? ";
-
+			sql = "INSERT INTO reservationDetail(reservationDetailNum, reservationNum, roomNum )" + " VALUES(?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, dto.getReservationNum());
+			pstmt.setLong(2, dto.getReservationNum());
+			pstmt.setInt(3, dto.getRoomNum());
 
-			pstmt.setInt(1, dto.getCompanyNum());
-			pstmt.setInt(2, dto.getCompanyNum());
-			pstmt.setLong(3, dto.getReservationNum());
-			
 			pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = null;
 
 		} catch (SQLException e) {
-
-			try {
-				conn.rollback();
-				throw e;
-			} catch (Exception e2) {
-
-			}
-
+			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
 
 			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (Exception e) {
-
+				} catch (SQLException e) {
 				}
 			}
-
-			try {
-			} catch (Exception e) {
-
-			}
-
 		}
+
 	}
 
-	
 }

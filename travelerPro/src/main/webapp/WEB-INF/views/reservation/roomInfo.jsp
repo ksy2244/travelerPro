@@ -251,8 +251,8 @@
 								<form action="reservation.do" method="get">
 									<input type="hidden" value="${companyNum}" name="companyNum">
 									<input type="hidden" value="${room.roomNum}" name="roomNum">
-									<input type="hidden" value="${start_date}" name="start">
-									<input type="hidden" value="${end_date}" name="end">
+									<input type="hidden" value="${start_date}" name=start_date>
+									<input type="hidden" value="${end_date}" name="end_date">
 									<button class="reservationBtn" type="submit">날짜 선택</button>
 								</form>
 							</div>

@@ -32,13 +32,15 @@
 		}
 
 		str = f.realUserTel.value;
-		if (!/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/.test(str)){
+		if (!/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/.test(str)) {
 			alert("전화번호를 입력하세요. ");
 			f.realUserTel.focus();
 			return;
 		}
 
-		f.action = "${pageContext.request.contextPath}/reservation/reservationDetail.do";
+		
+		// 결제 창 
+		f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
 		f.submit();
 	}
 </script>
@@ -52,8 +54,6 @@
 
 	<main>
 
-		<input type="hidden" value="${roomDto.roomNum}" name="roomNum">
-
 		<div class="container">
 			<div class="body-container">
 				<div class="body-title">
@@ -61,28 +61,30 @@
 				</div>
 
 				<div class="alert" role="alert" style="background: #E4FBFF">
-
-					${roomDto.roomNum} 객실 예매를 위한 정보를 입력해주세요.</div>
-				<c:forEach var="reserve" items="${list}" varStatus="status">
+					객실 예매를 위한 정보를 입력해주세요.</div>
 					<div class="card border-secondary mb-3" style="max-width: 100rem;">
 						<div class="card-header">
 							<h5>
-								<i class="fa-solid fa-hotel"></i>&nbsp;${reserve.companyName}&nbsp;
+								<i class="fa-solid fa-hotel"></i>&nbsp;
+								${dto.companyName}&nbsp;
 							</h5>
 						</div>
 						<div class="card-body text-secondary">
-							<h5 class="card-title">객실 타입 ${reserve.roomName}</h5>
+							<h5 class="card-title">객실 타입 ${dto.roomName}</h5>
 							<p class="card-text">
-							<p>${reserve.roomInfo}</p>
-							<p>체크인 ${start}&nbsp;${reseve.checkInTime}&nbsp;|&nbsp;체크아웃
-								${end}&nbsp;${reserve.checkOutTime} 가격 ${reserve.roomPrice}</p>
-
-							<p>할인율 ${reserve.discountRate} 기준 ${reserve.headCount}인 최대
-								${reserve.headCount}인</p>
+							<p>${dto.roomInfo}</p>
+							<p>체크인 ${start_date}&nbsp;${checkInTime}&nbsp;|&nbsp;체크아웃
+								${end_date}&nbsp;${checkOutTime} 가격 ${dto.roomPrice}</p>
+							<p>  할인율 ${dto.discountRate} 기준 ${dto.headCount}인 최대
+								${dto.headCount}인</p>
+								<p> 주소 ${addr} 기준 ${dto.addrDetail}인 최대
+								${dto.headCount}인</p>
 						</div>
 
 					</div>
 					<br>
+					
+				
 
 					<div class="card border-secondary mb-3" style="max-width: 100rem;">
 						<div class="card-header">
@@ -95,10 +97,7 @@
 							<p class="card-text">
 						</div>
 					</div>
-
-
-
-				</c:forEach>
+				
 				<div class="body-main">
 					<form name="reservationForm" method="post">
 						<div class="row mb-3">
@@ -126,22 +125,39 @@
 									class="form-control" placeholder="체크인시 필요한 전화번호입니다.">
 							</div>
 						</div>
-					</form>
 
-					<div class="row mb-3">
-						<div class="text-center">
-							<button type="button" name="sendButton" class="btn"
-								onclick="realUserOk();" style="background: #B8B5FF">
+						<div>
+							<input type="hidden" value="${dto.roomNum}" name="roomNum"> 
+							<input type="hidden" value="${start_date}" name="start_date"> 
+							<input type="hidden" value="${end_date}" name="end_date"> 
+							<input type="hidden" value="${dto.headCount}" name="headCount">
+							<input type="hidden" value="${dto.roomPrice}" name="totalPrice">
+							<input type="hidden" value="${dto.checkInTime}" name="checkInTime"> 
+							<input type="hidden" value="${dto.checkOutTime}" name="checkOutTime">
+							<input type="hidden" value="${dto.discountRate}" name="discountRate">
+							<input type="hidden" value="${dto.companyNum}" name="companyNum"> 
+							<input type="hidden" value="${dto.checkInTime}" name="checkInTime"> 
+							<input type="hidden" value="${dto.checkOutTime}" name="checkOutTime">
+
+							<button type="button" class="btn" onclick="realUserOk();"
+								style="background: #B8B5FF">
 								<i class="bi bi-check2"></i> 예약
 							</button>
+					
 
-							<button type="button" name="sendButton" class="btn"
-								onclick="requestPay();">결제</button>
-						</div>
-					</div>
-
+					<button type="button" name="sendButton" class="btn"
+						onclick="requestPay();">결제</button>
 				</div>
+				</form>
 			</div>
+			
+
+
+
+
+
+		</div>
+		</div>
 		</div>
 	</main>
 
