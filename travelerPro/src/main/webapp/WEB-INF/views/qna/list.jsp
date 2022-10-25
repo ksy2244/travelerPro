@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler_memberQnA</title>
-<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
@@ -54,7 +54,7 @@ function searchList() {
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/layout/header_qna.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
 	
 <main>

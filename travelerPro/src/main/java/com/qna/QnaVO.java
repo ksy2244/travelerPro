@@ -7,8 +7,14 @@ public class QnaVO {
 	private String reg_date;
 	private String userId;
 	private int categoryNum;
+	private long gap;
 	
-	
+	public long getGap() {
+		return gap;
+	}
+	public void setGap(long gap) {
+		this.gap = gap;
+	}
 	public long getQuestionNum() {
 		return questionNum;
 	}

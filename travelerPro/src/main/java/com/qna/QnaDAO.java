@@ -20,7 +20,7 @@ public class QnaDAO {
 		
 		try {
 			sql = " INSERT INTO memberQ(questionNum, subject, content, reg_date, userId, categoryNum "
-					+ " VALUES (qnaCategory_seq.NEXTVAL, ?, ?, SYSDATE, ?, ? ";
+					+ " VALUES (memberQ_seq.NEXTVAL, ?, ?, SYSDATE, ?, ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -135,7 +135,7 @@ public class QnaDAO {
 		
 	}
 	
-	public List<QnaVO> listBoard(int offset, int size) {
+	public List<QnaVO> listQna(int offset, int size) {
 		List<QnaVO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -188,7 +188,7 @@ public class QnaDAO {
 		return list;
 	}
 	
-	public List<QnaVO> listBoard(int offset, int size, String condition, String keyword) {
+	public List<QnaVO> listQna(int offset, int size, String condition, String keyword) {
 		List<QnaVO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -258,7 +258,7 @@ public class QnaDAO {
 		
 	}
 
-	public QnaVO readBoard(long questionNum) {
+	public QnaVO readQna(long questionNum) {
 		QnaVO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

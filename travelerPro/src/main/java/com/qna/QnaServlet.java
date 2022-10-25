@@ -98,7 +98,6 @@ public class QnaServlet extends TravelServlet {
 				keyword = URLDecoder.decode(keyword, "utf-8");
 			}
 
-			// 데이터 개수
 			int dataCount;
 			if(keyword.length() == 0) {
 				dataCount = dao.dataCount();
@@ -106,22 +105,20 @@ public class QnaServlet extends TravelServlet {
 				dataCount = dao.dataCount(condition, keyword);
 			}
 			
-			// 전체 페이지 수
 			int size = 5;
 			int total_page = util.pageCount(dataCount, size);
 			if(current_page > total_page) {
 				current_page = total_page;
 			}
 			
-			// 게시글 가져오기
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
 			List<QnaVO> list = null;
 			if(keyword.length() == 0) {
-				list = dao.listBoard(offset, size);
+				list = dao.listQna(offset, size);
 			} else {
-				list = dao.listBoard(offset, size, condition, keyword);
+				list = dao.listQna(offset, size, condition, keyword);
 			}
 			
 			String query = "";
@@ -129,7 +126,6 @@ public class QnaServlet extends TravelServlet {
 				query = "condition="+condition+"&keyword="+URLEncoder.encode(keyword, "utf-8");
 			}
 			
-			// 페이징
 			String listUrl = cp + "/qna/list.do";
 			String articleUrl = cp + "/qna/article.do?page="+current_page;
 			if(query.length() != 0) {
@@ -138,7 +134,6 @@ public class QnaServlet extends TravelServlet {
 			}
 			String paging = util.paging(current_page, total_page, listUrl);
 			
-			// 포워딩할 JSP에 넘길 속성
 			req.setAttribute("list", list);
 			req.setAttribute("page", current_page);
 			req.setAttribute("total_page", total_page);
@@ -157,12 +152,36 @@ public class QnaServlet extends TravelServlet {
 	}
 
 	protected void writeForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+				req.setAttribute("mode", "write");
+				forward(req, resp, "/WEB-INF/views/qna/write.jsp");
 	}
 
 	protected void writeSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		QnaDAO dao = new QnaDAO();
+		
+		String cp = req.getContextPath();
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp + "/qan/list.do");
+			return;
+		}
+		
+		try {
+			QnaVO dto = new QnaVO();
+			
+			dto.setSubject(req.getParameter("subject"));
+			dto.setContent(req.getParameter("content"));
+			dto.setUserId(req.getParameter("userId"));
+			dto.setCategoryNum(Integer.parseInt(req.getParameter("categoryNum")));
+			
+			dao.insertQna(dto);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp + "/qna/list.do");
 	}
+	
 
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -24,7 +24,7 @@
 	function deleteBoard() {
 		if (confirm("문의글을 삭제 하시 겠습니까 ? ")) {
 			let query = "num=${dto.num}&${query}";
-			let url = "${pageContext.request.contextPath}/sbbs/delete.do?"
+			let url = "${pageContext.request.contextPath}/qna/delete.do?"
 					+ query;
 			location.href = url;
 		}
@@ -64,13 +64,13 @@
 		});
 	}
 	
-// 페이징 처리
+
 $(function () {
 	listPage(1);
 });
 
-function listPage(page) { // 보드 서블릿의 
-	let url = "${pageContext.request.contextPath}/sbbs/listReply.do";
+function listPage(page) { 
+	let url = "${pageContext.request.contextPath}/qna/listReply.do";
 	let query = "num=${dto.num}&pageNo="+page;
 	let selector = "#listReply";
 	
@@ -94,7 +94,7 @@ $(function () {
 		}
 		content = encodeURIComponent(content); // 반드시 인코딩해야함
 		
-		let url = "${pageContext.request.contextPath}/sbbs/insertReply.do";
+		let url = "${pageContext.request.contextPath}/qna/insertReply.do";
 		let query = "num="+num+"&content="+content+"&answer=0"; 
 		
 		const fn = function(data){
@@ -122,7 +122,7 @@ $(function () {
 		let replyNum = $(this).attr("data-replyNum");
 		let page = $(this).attr("data-pageNo");
 		
-		let url= "${pageContext.request.contextPath}/sbbs/deleteReply.do";
+		let url= "${pageContext.request.contextPath}/qna/deleteReply.do";
 		let query = "replyNum="+replyNum;
 		
 		const fn = function (data) {
@@ -136,7 +136,7 @@ $(function () {
 	
 // 댓글별 답글 리스트 
 function listReplyAnswer(answer) {
-	let url = "${pageContext.request.contextPath}/sbbs/listReplyAnswer.do";
+	let url = "${pageContext.request.contextPath}/qna/listReplyAnswer.do";
 	let query = "answer="+answer;
 	let selector = "#listReplyAnswer" + answer;
 	
@@ -148,7 +148,7 @@ function listReplyAnswer(answer) {
 
 // 댓글별 답글 개수
 function countReplyAnswer(answer) {
-	let url = "${pageContext.request.contextPath}/sbbs/countReplyAnswer.do"; // 서블릿의 countReplyAnswer 주소로 
+	let url = "${pageContext.request.contextPath}/qna/countReplyAnswer.do"; // 서블릿의 countReplyAnswer 주소로 
 	let query = "answer="+answer;
 	
 	const fn = function (data) {
@@ -236,7 +236,7 @@ $(function () {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
+		<jsp:include page="/WEB-INF/views/layout/header.jsp" >
 	</header>
 
 	<main>
@@ -266,29 +266,30 @@ $(function () {
 							<tr>
 								<td colspan="2" valign="top" height="200">${dto.content}</td>
 							</tr>
-
+							<!-- 
 							<tr>
 								<td colspan="2">파&nbsp;&nbsp;일 : <c:if
 										test="${not empty dto.saveFilename}">
 										<a
-											href="${pageContext.request.contextPath}/sbbs/download.do?num=${dto.num}">${dto.originalFilename}</a>
+											href="${pageContext.request.contextPath}/qna/download.do?num=${dto.num}">${dto.originalFilename}</a>
 									(<fmt:formatNumber value="${dto.fileSize/1024}"
 											pattern="#,##0.00" /> kb)
 								</c:if>
 								</td>
 							</tr>
-
+ 							-->
+ 							
 							<tr>
 								<td colspan="2">이전글 : <c:if test="${not empty preReadDto}">
 										<a
-											href="${pageContext.request.contextPath}/sbbs/article.do?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
+											href="${pageContext.request.contextPath}/qna/article.do?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
 									</c:if>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">다음글 : <c:if test="${not empty nextReadDto}">
 										<a
-											href="${pageContext.request.contextPath}/sbbs/article.do?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
+											href="${pageContext.request.contextPath}/qna/article.do?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
 									</c:if>
 								</td>
 							</tr>
@@ -300,7 +301,7 @@ $(function () {
 							<td width="50%"><c:choose>
 									<c:when test="${sessionScope.member.userId==dto.userId}">
 										<button type="button" class="btn btn-light"
-											onclick="location.href='${pageContext.request.contextPath}/sbbs/update.do?num=${dto.num}&page=${page}';">수정</button>
+											onclick="location.href='${pageContext.request.contextPath}/qna/update.do?num=${dto.num}&page=${page}';">수정</button>
 									</c:when>
 									<c:otherwise>
 										<button type="button" class="btn btn-light"
@@ -319,7 +320,7 @@ $(function () {
 								</c:choose></td>
 							<td class="text-end">
 								<button type="button" class="btn btn-light"
-									onclick="location.href='${pageContext.request.contextPath}/sbbs/list.do?${query}';">리스트</button>
+									onclick="location.href='${pageContext.request.contextPath}/qna/list.do?${query}';">리스트</button>
 							</td>
 						</tr>
 					</table>
