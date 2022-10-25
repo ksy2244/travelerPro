@@ -123,10 +123,7 @@ $(function(){
 			$(".couponPrice").show(500);
 			$("input[name=couponRate]").val("0");
 		}
-		
-		
 	});
-	
 })
 
 
@@ -164,10 +161,20 @@ $(function(){
 						</tr>
 						
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인 선택</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인 방법</td>
 							<td>
-								<input type="radio" name="chk_coupon" value="couponRate" checked="checked"> 할인율 
-								<input type="radio" name="chk_coupon" value="couponPrice"> 할인금액
+								<div class="form-check">
+									  <input class="form-check-input" type="radio" name="chk_coupon" value="couponRate" id="flexRadioDefault2" checked>
+									  <label class="form-check-label" for="flexRadioDefault2">
+									   		할인율
+									  </label>
+								</div>
+								<div class="form-check">
+									  <input class="form-check-input" type="radio" name="chk_coupon" value="couponPrice" id="flexRadioDefault1">
+									  <label class="form-check-label" for="flexRadioDefault1">
+									    	할인금액
+									  </label>
+								</div>
 							</td>
 						</tr>
 						

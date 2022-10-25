@@ -20,7 +20,7 @@ public class MemberADAO {
 		String sql;
 		
 		try {
-			sql = "SELECT questionNum, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, userId, categoryNum "
+			sql = "SELECT questionNum, subject, content, reg_date, userId, categoryNum "
 					+ " FROM memberQ "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			

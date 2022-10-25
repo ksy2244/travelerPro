@@ -67,6 +67,7 @@ function sendOk() {
     
     f.action = "${pageContext.request.contextPath}/answer/${mode}_ok.do"; 
     f.submit();
+    
 }
 
 </script>
@@ -91,26 +92,26 @@ function sendOk() {
 						<tr class="trbold">
 							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">제목</td>
 							<td>
-								<input type="text" name="subject" class="form-control">
+								<input type="text" name="subject" class="form-control" value="${dto.subject}">
 							</td>
 						</tr>
 	
 						<tr class="trbold">
 							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">내용</td>
 							<td>
-								<textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 270px;"></textarea>
+								<textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
 						<tr class="trbold">
 							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">카테고리</td>
 							<td>
-								<select name="categoryNum" id="categoryNum">
-									<option value="1">회원/개인정보</option>
-									<option value="2">쿠폰</option>
-									<option value="3">환불</option>
-									<option value="4">예약/결제</option>
-								</select>
+								<select name="categoryNum" id="categoryNum" class="form-select" required aria-label="select example">
+								      <option value="1" ${dto.categoryNum== 1 ? "selected='selected' ":""}>회원/개인정보</option>
+								      <option value="2" ${dto.categoryNum== 2 ? "selected='selected' ":""}>쿠폰</option>
+								      <option value="3" ${dto.categoryNum== 3 ? "selected='selected' ":""}>환불</option>
+								      <option value="4" ${dto.categoryNum== 4 ? "selected='selected' ":""}>예약/결제</option>
+							    </select>
 							</td>
 						</tr>
 					
@@ -119,9 +120,12 @@ function sendOk() {
 					<table class="table table-borderless">
 	 					<tr>
 							<td class="text-center">
-								<button type="button" class="btn text-white bold" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="button" class="btn text-white bold" onclick="sendOk();">${mode=='faqUpdate'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn basic">다시입력</button>
-								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">${mode=='faqUpdate'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<c:if test="${mode=='faqUpdate'}">
+									<input type="hidden" name="faqNum" value="${dto.faqNum}">
+								</c:if>
 							</td>
 						</tr>
 					</table>

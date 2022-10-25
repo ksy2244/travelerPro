@@ -108,7 +108,7 @@ function check() {
 						</tr>
 						<c:if test="${mode=='update'}">
 							<tr class="trbold">
-								<td class="col-sm-2 text-center" style="background-color: #F5EFE6" scope="row">첨부된 파일</td>
+								<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">첨부된 파일</td>
 								<td> 
 									<p class="form-control-plaintext">
 										<c:if test="${not empty dto.saveFilename}">

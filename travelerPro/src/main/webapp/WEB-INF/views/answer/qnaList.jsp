@@ -44,7 +44,7 @@
 								<td>${dataCount - (page-1) * size - status.index}</td>
 								<td class="left">
 									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
-									
+									<c:if test="${dto.gap<1}"><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></c:if>
 								</td>
 								<td>&nbsp;</td>
 								<td>${dto.userId}</td>

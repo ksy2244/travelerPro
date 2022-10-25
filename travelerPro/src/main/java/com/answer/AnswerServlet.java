@@ -1,6 +1,8 @@
 package com.answer;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,12 +30,16 @@ public class AnswerServlet extends TravelServlet {
 			faq(req, resp);
 		} else if (uri.indexOf("faqList.do") != -1) {
 			faqList(req, resp);
-		} else if (uri.indexOf("faqContent.do") != -1) {
-			faqContent(req, resp);
 		} else if (uri.indexOf("faqWrite.do") != -1) {
 			faqWriteForm(req, resp);
 		} else if (uri.indexOf("faqWrite_ok.do") != -1) {
 			faqWriteSubmit(req, resp);
+		} else if (uri.indexOf("faqUpdate.do") != -1) {
+			faqUpdateForm(req, resp);
+		} else if (uri.indexOf("faqUpdate_ok.do") != -1) {
+			faqUpdateSubmit(req, resp);
+		} else if (uri.indexOf("faqDelete.do") != -1) {
+			faqDelete(req, resp);
 		} else if (uri.indexOf("qnaList.do") != -1) {
 			qnaList(req, resp);
 		}
@@ -45,21 +51,20 @@ public class AnswerServlet extends TravelServlet {
 	
 	protected void faqList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		FaqDAO dao = new FaqDAO();
-		List<FaqDTO> listAll = null;
+		List<FaqDTO> list = null;
 		try {
 			int categoryNum = Integer.parseInt(req.getParameter("categoryNum"));
 			
 			if(categoryNum == 0) {
-				listAll = dao.listFaq();
+				list = dao.listFaq();
+			} else {
+				list = dao.listFaq(categoryNum);
 			}
-			
-			List<FaqDTO> list = dao.listFaq(categoryNum);
 			
 			for(FaqDTO dto : list) {
 				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 			}
 			
-			req.setAttribute("listAll", listAll);
 			req.setAttribute("list", list);
 			req.setAttribute("categoryNum", categoryNum);
 				
@@ -73,32 +78,6 @@ public class AnswerServlet extends TravelServlet {
 		resp.sendError(400);
 		
 	} 
-	
-	protected void faqContent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		FaqDAO dao = new FaqDAO();
-		
-		try {
-			//int categoryNum = Integer.parseInt(req.getParameter("categoryNum"));
-			long faqNum = Long.parseLong(req.getParameter("faqNum"));
-			
-			
-			FaqDTO dto = dao.readFaq(faqNum);
-			
-			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
-			
-			req.setAttribute("dto", dto);
-			
-			forward(req, resp, "/WEB-INF/views/answer/faqList.jsp");
-			return;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		resp.sendError(400);
-		
-	}
-	
 	
 	protected void faqWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("submit", "등록");
@@ -132,6 +111,63 @@ public class AnswerServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/answer/faq.do");
 	}
 	
+	protected void faqUpdateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		FaqDAO dao = new FaqDAO();
+		
+		String cp = req.getContextPath();
+		
+		try {
+			long faqNum = Long.parseLong(req.getParameter("faqNum"));
+			FaqDTO dto = dao.readFaq(faqNum);
+			
+			if(dto == null) {
+				resp.sendRedirect(cp+"/answer/faq.do");
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("submit", "수정");
+			req.setAttribute("title", "faq 수정");
+			req.setAttribute("mode", "faqUpdate");
+			
+			forward(req, resp, "/WEB-INF/views/answer/faqWrite.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/answer/faq.do");
+		
+	}
+	
+	protected void faqUpdateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		FaqDAO dao = new FaqDAO();
+		
+		String cp = req.getContextPath();
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp+"/answer/faq.do");
+			return;
+		}
+		
+		try {
+			FaqDTO dto = new FaqDTO();
+			
+			dto.setFaqNum(Long.parseLong(req.getParameter("faqNum")));
+			dto.setSubject(req.getParameter("subject"));
+			dto.setContent(req.getParameter("content"));
+			dto.setCategoryNum(Integer.parseInt(req.getParameter("categoryNum")));
+			
+			dao.updateFaq(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/answer/faq.do");
+		
+	}
+	
 	protected void qnaList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberADAO dao = new MemberADAO();
 		TravelUtil util = new TravelUtilBootstrap();
@@ -156,6 +192,19 @@ public class AnswerServlet extends TravelServlet {
 			
 			String listUrl = cp + "/answer/qnaList.do";
 			
+			long gap;
+			Date curDate = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			for (QnaVO dto : list) {
+				Date date = sdf.parse(dto.getReg_date());
+				gap = (curDate.getTime() - date.getTime()) / (1000*60*60*24); // 일자
+				//gap = (curDate.getTime() - date.getTime()) / (1000 * 60 * 60); // 시간
+				dto.setGap(gap);
+
+				dto.setReg_date(dto.getReg_date().substring(0, 10));
+			}
+			
 			String paging = util.paging(current_page, total_page, listUrl);
 			
 			req.setAttribute("list", list);
@@ -171,6 +220,30 @@ public class AnswerServlet extends TravelServlet {
 	
 		forward(req, resp, "/WEB-INF/views/answer/qnaList.jsp");
 	
+	}
+	
+	protected void faqDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		FaqDAO dao = new FaqDAO();
+		
+		String cp = req.getContextPath();
+		
+		try {
+			long faqNum = Long.parseLong(req.getParameter("faqNum"));
+			
+			FaqDTO dto = dao.readFaq(faqNum);
+			if(dto == null) {
+				resp.sendRedirect(cp+"/answer/faq.do");
+				return;
+			}
+			
+			dao.deleteFaq(faqNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/answer/faq.do");
+		
 	}
 
 }

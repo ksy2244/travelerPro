@@ -99,7 +99,8 @@ public class FaqDAO {
 		
 		try {
 			sql = "SELECT faqNum, subject, content, categoryNum "
-					+ " FROM faq ";
+					+ " FROM faq "
+					+ " ORDER BY faqNum DESC ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -154,7 +155,6 @@ public class FaqDAO {
 			
 			pstmt.setLong(1, faqNum);
 	
-			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -186,6 +186,62 @@ public class FaqDAO {
 		
 		return dto;
 		
+	}
+	
+	public void updateFaq(FaqDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE faq SET subject = ?, content = ?, categoryNum = ? "
+					+ " WHERE faqNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getSubject());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getCategoryNum());
+			pstmt.setLong(4, dto.getFaqNum());
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+	}
+	
+	public void deleteFaq(long faqNum) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "DELETE FROM faq WHERE faqNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, faqNum);
+
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
 	}
 	
 	

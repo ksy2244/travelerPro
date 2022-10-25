@@ -42,15 +42,26 @@
 	width: 20px;
 	height: 20px;
 }
+
+#topButton {
+	position: fixed; 
+	right: 400px; 
+	bottom: 100px; 
+	display: none; 
+	z-index: 999;
+	width: 50px;
+	height: 50px;
+}
+
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
 function ajaxFun(url,method,query,dataType,fn) {
 	 $.ajax({
-	    type:method, //get, post
-	    url:url, //주소
-	    data:query, //서버에게 보내는 데이터
-	    dataType:dataType, // html json xml(데이터 타입, 생략하면 text)
+	    type:method, 
+	    url:url, 
+	    data:query, 
+	    dataType:dataType, 
 	    success: function(data){
 	       fn(data);
 	    },
@@ -68,40 +79,16 @@ function ajaxFun(url,method,query,dataType,fn) {
 }
 
 $(function(){
-	// 실행과 동시에 첫번째 탭에 출력할 내용
 	list(0);
 	
-    // 탭을 클릭할 때마다
     $("button[role='tab']").on("click", function(e){
 		var categoryNum = $(this).attr("aria-controls");
        	
 		list(categoryNum);
-		
     });
     
 });
 
-$(function(){
-		$("body").on("click", "#clickButton", function(){
-			const $div = $(this).closest("div");
-			
-			let isVisible = $div.is(":visible");
-			let faqNum = $(this).attr("data-faqNum");
-			let categoryNum = $(this).attr("data-categoryNum");
-			
-			if(isVisible){
-				$div.hide();
-			} else {
-				$div.show();
-				
-				list(categoryNum);
-				article(faqNum);
-			}	
-			
-
-		});
-	
-})
 
 function list(categoryNum){
 	let url = "${pageContext.request.contextPath}/answer/faqList.do";
@@ -115,19 +102,24 @@ function list(categoryNum){
 	ajaxFun(url, "get", query, "html", fn);
 }
 
-function article(faqNum){
-	let url = "${pageContext.request.contextPath}/answer/faqContent.do";
-	let query = "faqNum="+faqNum;
-	let selector = "#accordionFlushExample"+faqNum;
-	
-	const fn = function(data){
-		$(selector).html(data);
+$(function() {
+	$(window).scroll(function() {
+	    // top button controll
+	    if ($(this).scrollTop() > 50) {
+	        $('#topButton').fadeIn();
+	    } else {
+	        $('#topButton').fadeOut();
+	    }
+	});
+
+	$("#topButton").click(function() {   
+		   $('html, body').animate({
+		     scrollTop : 0    
+		    }, 200);          
+		    return false;
+	});
 		
-	};
-	
-	ajaxFun(url, "get", query, "html", fn);
-	
-}
+});
 
 </script>
 </head>
@@ -146,19 +138,19 @@ function article(faqNum){
 			
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-0" type="button" role="tab" aria-controls="0" aria-selected="true">전체</button>
+					<button class="nav-link active text-dark" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-0" type="button" role="tab" aria-controls="0" aria-selected="true">전체</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="1" aria-selected="true">회원/개인정보</button>
+					<button class="nav-link text-dark" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="1" aria-selected="true">회원/개인정보</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="2" aria-selected="true">쿠폰</button>
+					<button class="nav-link text-dark" id="tab-2" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="2" aria-selected="true">쿠폰</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">환불</button>
+					<button class="nav-link text-dark" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">환불</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#nav-4" type="button" role="tab" aria-controls="4" aria-selected="true">예약/결제</button>
+					<button class="nav-link text-dark" id="tab-4" data-bs-toggle="tab" data-bs-target="#nav-4" type="button" role="tab" aria-controls="4" aria-selected="true">예약/결제</button>
 				</li>
 			</ul>
 			
@@ -175,7 +167,7 @@ function article(faqNum){
 				</div>
 			</div>
 
-			<div class="row board-list-footer">
+			<div class="row board-list-footer" style="margin-top: 50px;">
 				<div class="col">
 					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">새로고침</button>
 				</div>
@@ -183,9 +175,9 @@ function article(faqNum){
 					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faqWrite.do';">faq 작성</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
+	<div id="topButton"><img src="${pageContext.request.contextPath}/resources/images/topbutton.png" style="width: 50px;"></div>
 </main>
 
 <footer>

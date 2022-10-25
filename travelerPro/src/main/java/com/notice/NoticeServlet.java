@@ -101,7 +101,6 @@ public class NoticeServlet extends FileUploadServlet {
 				dto.setReg_date(dto.getReg_date().substring(0, 10));
 			}
 			
-			
 			String listUrl = cp + "/notice/list.do";
 			String articleUrl = cp + "/notice/article.do?page=" + current_page;
 			String paging = util.paging(current_page, total_page, listUrl);
