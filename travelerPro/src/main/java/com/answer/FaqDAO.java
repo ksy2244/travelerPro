@@ -1,4 +1,4 @@
-package com.faq;
+package com.answer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,9 +28,16 @@ public class FaqDAO {
 			
 			pstmt.executeUpdate();
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
 		}
 	}
 	
@@ -64,6 +71,20 @@ public class FaqDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
 		}
 		
 		return list;
@@ -97,6 +118,20 @@ public class FaqDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
 		}
 		
 		return list;
@@ -133,6 +168,20 @@ public class FaqDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
 		}
 		
 		return dto;

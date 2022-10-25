@@ -88,8 +88,6 @@ $(function(){
 			let isVisible = $div.is(":visible");
 			let faqNum = $(this).attr("data-faqNum");
 			let categoryNum = $(this).attr("data-categoryNum");
-			alert(faqNum);
-			alert(categoryNum);
 			
 			if(isVisible){
 				$div.hide();
@@ -106,7 +104,7 @@ $(function(){
 })
 
 function list(categoryNum){
-	let url = "${pageContext.request.contextPath}/faq/list.do";
+	let url = "${pageContext.request.contextPath}/answer/faqList.do";
 	let query = "categoryNum="+categoryNum;
 	let selector = "#nav-"+categoryNum;
 	
@@ -118,7 +116,7 @@ function list(categoryNum){
 }
 
 function article(faqNum){
-	let url = "${pageContext.request.contextPath}/faq/listContent.do";
+	let url = "${pageContext.request.contextPath}/answer/faqContent.do";
 	let query = "faqNum="+faqNum;
 	let selector = "#accordionFlushExample"+faqNum;
 	
@@ -179,10 +177,10 @@ function article(faqNum){
 
 			<div class="row board-list-footer">
 				<div class="col">
-					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/faq/tab.do';">새로고침</button>
+					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">새로고침</button>
 				</div>
 				<div class="col text-end">
-					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/faq/write.do';">faq 작성</button>
+					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faqWrite.do';">faq 작성</button>
 				</div>
 			</div>
 

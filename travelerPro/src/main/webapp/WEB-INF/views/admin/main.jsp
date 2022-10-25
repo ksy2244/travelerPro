@@ -21,7 +21,7 @@
 }
 
 .box {
-	width: 1000px; height: 800px;
+	width: 900px; height: 800px;
 	margin: 50px;
 	
 	display: grid;
@@ -30,9 +30,6 @@
 	grid-template-rows: repeat(3,1fr); 
 	grid-template-columns: repeat(4,1fr);
 	grid-gap: 40px; /* 공백 주기 */
-	
-	
-	
 }
 
 .item {
@@ -204,14 +201,14 @@
 								신규 데이터가 없습니다.
 							</c:if>
 							<div class="blue">
-								<c:if test="${resultMember != 0}">
+								<c:if test="${resultNotice != 0}">
 									새로운 신규 데이터가 있습니다.
 								</c:if>
 							</div>
 						</div>
 					</div>
 					<div class="item item6">
-						<div class="more"><span class="font">faq 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/faq/tab.do';">자세히 보기 ></span></div>
+						<div class="more"><span class="font">faq 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">자세히 보기 ></span></div>
 					</div>
 			</div>
 		</div>

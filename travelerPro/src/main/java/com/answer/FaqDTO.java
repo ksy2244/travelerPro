@@ -1,4 +1,4 @@
-package com.faq;
+package com.answer;
 
 public class FaqDTO {
 	private long faqNum;

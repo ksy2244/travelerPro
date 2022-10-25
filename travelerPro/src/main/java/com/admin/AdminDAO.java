@@ -283,7 +283,7 @@ public class AdminDAO {
 
 			pstmt.executeUpdate();
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -305,7 +305,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*)"
 					+ " FROM member "
-					+ " WHERE register_date = SYSDATE ";
+					+ " WHERE TO_CHAR(register_date,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD') ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -385,7 +385,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*) "
 					+ " FROM coupon "
-					+ " WHERE end_date < SYSDATE ";
+					+ " WHERE TO_CHAR(end_date,'YYYY-MM-DD') < TO_CHAR(SYSDATE,'YYYY-MM-DD') ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -425,7 +425,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*) "
 					+ " FROM notice "
-					+ " WHERE reg_date = SYSDATE ";
+					+ " WHERE TO_CHAR(reg_date,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD') ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -455,6 +455,4 @@ public class AdminDAO {
 		return result;
 		
 	}
-	
-	
 }

@@ -190,8 +190,6 @@ public class NoticeDAO {
 		String sql;
 		
 		try {
-			conn.setAutoCommit(false);
-			
 			sql = "UPDATE notice SET subject=?, content=?, "
 					+ " saveFilename=?, originalFilename=?, fileSize=? "
 					+ " WHERE noticeNum = ? ";
@@ -208,10 +206,6 @@ public class NoticeDAO {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e2) {
-			}
 			e.printStackTrace();
 			throw e;
 		} finally {

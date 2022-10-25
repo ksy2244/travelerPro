@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import com.member.MemberDAO;
 import com.member.MemberDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
@@ -99,23 +98,9 @@ public class AdminServlet extends TravelServlet {
 			req.setAttribute("size", size);
 			req.setAttribute("paging", paging);
 	
-			
-			/*
-			 * 모달창 사용 시 필요한 데이터
-			String userId = null;
-			for(MemberDTO dto : list) {
-				userId = dto.getUserId();
-			}
-			
-			MemberDTO dto = dao.userRead(userId);
-			
-			req.setAttribute("dto", dto);
-			*/
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
 	
 		forward(req, resp, "/WEB-INF/views/admin/userList.jsp");
 	
