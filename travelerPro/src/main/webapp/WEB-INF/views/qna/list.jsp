@@ -54,7 +54,7 @@ function searchList() {
 <body>
 
 <header>
-	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header_qna.jsp"/>
 </header>
 	
 <main>
@@ -77,7 +77,7 @@ function searchList() {
 							<th class="subject">제목</th>
 							<th class="name">작성자</th>
 							<th class="date">작성일</th>
-							<th class="file">카테고리</th>
+							<th class="category">카테고리</th>
 						</tr>
 					</thead>
 					

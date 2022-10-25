@@ -35,6 +35,10 @@
 .board-list .file {
 	width: 50px; color: #787878;
 }
+
+.board-list .category {
+	width: 80px; color: #787878;
+}
 .board-list-footer {
 	padding-top: 7px; padding-bottom: 7px;
 }
