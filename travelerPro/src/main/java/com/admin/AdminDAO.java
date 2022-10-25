@@ -91,46 +91,23 @@ public class AdminDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		
 		return result;
-	}
-	
-	//모달창 사용 시 필요한 데이터
-	public MemberDTO userRead(String userId) {
-		MemberDTO dto = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-		
-		try {
-			sql = "SELECT userId, userName, email, tel, TO_CHAR(birth, 'YYYY-MM-DD') birth "
-					+ " FROM member "
-					+ " WHERE userId = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				dto = new MemberDTO();
-				
-				dto.setUserId(rs.getString("userId"));
-				dto.setUserName(rs.getString("userName"));
-				dto.setEmail(rs.getString("email"));
-				dto.setTel(rs.getString("tel"));
-				dto.setBirth(rs.getString("birth"));
-			
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return dto;
 	}
 	
 	public AdminDTO companyRead(long companyNum) {
@@ -176,6 +153,20 @@ public class AdminDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		
 		return dto;
@@ -258,6 +249,20 @@ public class AdminDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		
 		return result;
@@ -290,4 +295,166 @@ public class AdminDAO {
 			}
 		}
 	}
+	
+	public int plusMember(){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;	
+		
+		try {
+			sql = "SELECT COUNT(*)"
+					+ " FROM member "
+					+ " WHERE register_date = SYSDATE ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	public int plusCompany(){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;	
+		
+		try {
+			sql = "SELECT COUNT(*) "
+					+ " FROM company "
+					+ " WHERE approval = 0 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	public int plusCoupon(){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;	
+		
+		try {
+			sql = "SELECT COUNT(*) "
+					+ " FROM coupon "
+					+ " WHERE end_date < SYSDATE ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	public int plusNotice(){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;	
+		
+		try {
+			sql = "SELECT COUNT(*) "
+					+ " FROM notice "
+					+ " WHERE reg_date = SYSDATE ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	
 }

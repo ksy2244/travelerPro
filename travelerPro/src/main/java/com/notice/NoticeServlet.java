@@ -3,6 +3,8 @@ package com.notice;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +87,20 @@ public class NoticeServlet extends FileUploadServlet {
 			if(offset < 0) offset = 0;
 			
 			List<NoticeDTO> list = dao.listNotice(offset, size);
+			
+			long gap;
+			Date curDate = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			for (NoticeDTO dto : list) {
+				Date date = sdf.parse(dto.getReg_date());
+				gap = (curDate.getTime() - date.getTime()) / (1000*60*60*24); // 일자
+				//gap = (curDate.getTime() - date.getTime()) / (1000 * 60 * 60); // 시간
+				dto.setGap(gap);
+
+				dto.setReg_date(dto.getReg_date().substring(0, 10));
+			}
+			
 			
 			String listUrl = cp + "/notice/list.do";
 			String articleUrl = cp + "/notice/article.do?page=" + current_page;

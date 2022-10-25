@@ -55,8 +55,8 @@ function ajaxFun(url,method,query,dataType,fn) {
 	       fn(data);
 	    },
 	    beforeSend:function(jqXHR){
-	       jqXHR.setRequestHeader("AJAX",true);
-	    },
+	         jqXHR.setRequestHeader("AJAX",true);
+	      },
 	    error:function(jqXHR) {
 	       if(jqXHR.status === 400) {
 	          alert("요청 처리가 실패 했습니다");
@@ -71,11 +71,12 @@ $(function(){
 	// 실행과 동시에 첫번째 탭에 출력할 내용
 	list(0);
 	
-    // 탭을 클릭할 때 마다
+    // 탭을 클릭할 때마다
     $("button[role='tab']").on("click", function(e){
 		var categoryNum = $(this).attr("aria-controls");
        	
 		list(categoryNum);
+		
     });
     
 });
@@ -88,12 +89,14 @@ $(function(){
 			let faqNum = $(this).attr("data-faqNum");
 			let categoryNum = $(this).attr("data-categoryNum");
 			alert(faqNum);
+			alert(categoryNum);
+			
 			if(isVisible){
 				$div.hide();
 			} else {
 				$div.show();
 				
-				//답글 리스트
+				list(categoryNum);
 				article(faqNum);
 			}	
 			
@@ -121,9 +124,11 @@ function article(faqNum){
 	
 	const fn = function(data){
 		$(selector).html(data);
+		
 	};
-
+	
 	ajaxFun(url, "get", query, "html", fn);
+	
 }
 
 </script>

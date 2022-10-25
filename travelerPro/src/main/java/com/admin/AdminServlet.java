@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.member.MemberDAO;
 import com.member.MemberDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
@@ -40,6 +41,27 @@ public class AdminServlet extends TravelServlet {
 	}
 	
 	protected void main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AdminDAO dao = new AdminDAO();
+		
+		try {
+			
+			int resultMember = dao.plusMember();
+			req.setAttribute("resultMember", resultMember);
+			
+			int resultCompany = dao.plusCompany();
+			req.setAttribute("resultCompany", resultCompany);
+			
+			int resultCoupon = dao.plusCoupon();
+			req.setAttribute("resultCoupon", resultCoupon);
+			
+			int resultNotice = dao.plusNotice();
+			req.setAttribute("resultNotice", resultNotice);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		forward(req, resp, "/WEB-INF/views/admin/main.jsp");
 	}
 	

@@ -44,6 +44,7 @@
 								<td>${dataCount - (page-1) * size - status.index}</td>
 								<td class="left">
 									<a href="${articleUrl}&noticeNum=${dto.noticeNum}" class="text-reset">${dto.subject}</a>
+									<c:if test="${dto.gap<1}"><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 10px;"></c:if>
 								</td>
 								<td>${dto.reg_date}</td>
 								<td>

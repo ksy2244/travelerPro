@@ -84,26 +84,6 @@
 		</div>
 	</div>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">회원 상세정보</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-			<div>아이디 : ${dto.userId}</div>
-        	<div>이름 : ${dto.userName}</div>
-        	<div>이메일 : ${dto.email}</div>
-        	<div>전화번호 : ${dto.tel}</div>
-        	<div>생년월일 : ${dto.birth}</div>
-      </div>
-    </div>
-  </div>
-</div>
-</main>
-
 <footer>
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>

@@ -27,8 +27,8 @@
 	display: grid;
 	
 	/* 행열의 크기를 명시적으로 설정 */
-	grid-template-rows: repeat(4,1fr); 
-	grid-template-columns: repeat(3,1fr);
+	grid-template-rows: repeat(3,1fr); 
+	grid-template-columns: repeat(4,1fr);
 	grid-gap: 40px; /* 공백 주기 */
 	
 	
@@ -37,44 +37,108 @@
 
 .item {
 	border-radius: 7px;
+	border: 1px solid #ccc;
 	
 	/* 텍스트를 수직 가운데 보내려고 flex 사용 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: 'GmarketSans';
-	font-size: 30px;
-	font-weight: bold;
-	color: white;
+	
+	font-size: 15px;
 }
-
-.item1 {background: #3FB8AF;}
-.item1:hover {background: #2B807A;}
-.item2 {background: #7FC7AF;}
-.item2:hover {background: #5F9482;}
-.item3 {background: #DAD8A7;}
-.item3:hover {background: #DAC8A7;}
-.item4 {background: #FF9E9D;}
-.item4:hover {background: #EB9E9D;}
-.item5 {background: #FF3D7F;}
-.item5:hover {background: #E13D7F;}
-.item6 {background: #9fc3ea;}
-.item6:hover {background: #9FAFE0;}
 
 .item1 {
-	grid-column: 1/4; /* <start-line> / <end-line> */
+	grid-column: 1/span 2; /* <start-line> / <end-line> */
+	gird-row: 1/span 1;
 }
 .item2 {
-	grid-row: 2/4; /* <start-line> / <end-line> */
+	grid-column: 3/span 2;
+	grid-row: 1/span 1; /* <start-line> / <end-line> */
 }
 .item3 {
-	grid-column: 2/span 2; /* 2열부터 2칸 */
+	grid-column: 1/span 2;
+	grid-row: 2/span 1; 
 }
+
+.item4 {
+	grid-column: 3/span 2;
+	grid-row: 2/span 1; 
+}
+
+.item5 {
+	grid-column: 1/span 2;
+	grid-row: 3/span 1; 
+}
+
 .item6 {
-	grid-column: 1/span 3; /* 1열부터 3칸 */
+	grid-column: 3/span 2;
+	grid-row: 3/span 1;  /* 1열부터 3칸 */
 }
 
+.more {
+	width: 100%;
+	height: 50px;
+	background: #eee;
+}
 
+.font {
+	margin-left: 35px;
+	margin-top: 10px;
+	position: absolute; 
+	font-family: 맑은 고딕; 
+	font-size: 19px; 
+	font-weight: 400; 
+	margin-right: 3px;
+	color: #787878;
+}
+
+.left {
+	float: left;
+	font-weight: bold;
+	font-size: 19px; 
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+.right {
+	float: right;
+	font-size: 19px; 
+	margin-right: 30px;
+	margin-top: 10px;
+	color: #787878;
+}
+
+.plus {
+	font-weight: bold;
+	font-size: 15px;
+	color: #787878;
+	float: right;
+	margin-right: 30px;
+	margin-top: 15px;
+}
+
+.plus:hover {
+	text-decoration: underline;
+}
+
+.tr {
+	margin-top: 10px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	font-weight: bold;
+	color: #787878;
+	padding: 10px;
+}
+
+.content {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
+}
 </style>
 
 </head>
@@ -87,14 +151,68 @@
 <main>
 	<div class="container">
 		<div class="body-container">	
-			
 			<div class="body-main box">
-					<div class="item item1" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">공지 관리</div>
-					<div class="item item2" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">쿠폰 관리</div>
-					<div class="item item3" onclick="location.href='${pageContext.request.contextPath}/admin/userList.do';">회원정보 확인</div>
-					<div class="item item4" onclick="location.href='${pageContext.request.contextPath}/faq/tab.do';">faq 관리</div>
-					<div class="item item5"></div>
-					<div class="item item6" onclick="location.href='${pageContext.request.contextPath}/admin/companyList.do';">업체정보 확인 </div>
+					<div class="item item1">
+						<div class="more"><span class="font">서비스 정보</span></div>
+						<div class="left">서비스</div><span class="right">TRAVLER</span>
+						<br><br><br>
+						<div class="left">사이트 주소</div><span class="right">travelerPro/main.do</span>
+					</div>
+					<div class="item item2">
+						<div class="more"><span class="font">회원 정보 확인</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/admin/userList.do';">자세히 보기 ></span></div>
+						<div class="content">
+							<c:if test="${resultMember == 0}">
+								신규 데이터가 없습니다.
+							</c:if>
+							<div class="blue">
+								<c:if test="${resultMember != 0}">
+									새로운 신규 데이터가 있습니다.
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="item item3">
+						<div class="more"><span class="font">업체 정보 확인</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/admin/companyList.do';">자세히 보기 ></span></div>
+						<div class="content">
+							<c:if test="${resultCompany == 0}">
+								신규 데이터가 없습니다.
+							</c:if>
+							<div class="red">
+								<c:if test="${resultCompany != 0}">
+									승인되지 않은 신규 데이터가 있습니다.
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="item item4">
+						<div class="more"><span class="font">쿠폰 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">자세히 보기 ></span></div>
+						<div class="content">
+							<c:if test="${resultCoupon == 0}">
+								신규 데이터가 없습니다.
+							</c:if>
+							<div class="red">
+								<c:if test="${resultCoupon != 0}">
+									유효기간이 만료된 데이터가 있습니다.
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="item item5">
+						<div class="more"><span class="font">공지 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">자세히 보기 ></span></div>
+						<div class="content">
+							<c:if test="${resultNotice == 0}">
+								신규 데이터가 없습니다.
+							</c:if>
+							<div class="blue">
+								<c:if test="${resultMember != 0}">
+									새로운 신규 데이터가 있습니다.
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="item item6">
+						<div class="more"><span class="font">faq 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/faq/tab.do';">자세히 보기 ></span></div>
+					</div>
 			</div>
 		</div>
 	</div>

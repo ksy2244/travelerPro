@@ -70,7 +70,6 @@ public class FaqServlet extends TravelServlet {
 	} 
 	
 	protected void content(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 댓글의 답글 리스트:AJAX-Text
 		FaqDAO dao = new FaqDAO();
 		
 		try {

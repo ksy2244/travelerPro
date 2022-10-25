@@ -90,7 +90,7 @@ public class NoticeDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT noticeNum, subject, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, saveFilename "
+			sql = "SELECT noticeNum, subject, reg_date, saveFilename "
 					+ " FROM notice "
 					+ " ORDER BY noticeNum DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";

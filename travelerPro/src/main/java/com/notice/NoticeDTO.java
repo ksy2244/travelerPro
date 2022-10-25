@@ -9,6 +9,7 @@ public class NoticeDTO {
 	private String saveFilename;
 	private String originalFilename;
 	private long fileSize;
+	private long gap;
 	
 	public long getNoticeNum() {
 		return noticeNum;
@@ -57,6 +58,12 @@ public class NoticeDTO {
 	}
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
+	}
+	public long getGap() {
+		return gap;
+	}
+	public void setGap(long gap) {
+		this.gap = gap;
 	}
 
 }
