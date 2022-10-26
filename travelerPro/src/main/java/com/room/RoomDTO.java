@@ -6,14 +6,32 @@ public class RoomDTO {
 	private String roomInfo;
 	private int price;
 	private int discountRate;
-	private int companyNum;
+	private long companyNum;
 	private int headCount;
 	private String saveFilename;
-	private String originalFilename;
-	private long fileSize;
 	private int roomState;
+	private long fileNum;
+	private String imageFilename;
+	private String[] imageFiles; 
 	
-	
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	public String[] getImageFiles() {
+		return imageFiles;
+	}
+	public void setImageFiles(String[] imageFiles) {
+		this.imageFiles = imageFiles;
+	}
 	public int getRoomState() {
 		return roomState;
 	}
@@ -26,18 +44,7 @@ public class RoomDTO {
 	public void setSaveFilename(String saveFilename) {
 		this.saveFilename = saveFilename;
 	}
-	public String getOriginalFilename() {
-		return originalFilename;
-	}
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
-	}
-	public long getFileSize() {
-		return fileSize;
-	}
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
+	
 	public int getRoomNum() {
 		return roomNum;
 	}
@@ -68,7 +75,7 @@ public class RoomDTO {
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
 	}
-	public int getCompanyNum() {
+	public long getCompanyNum() {
 		return companyNum;
 	}
 	public void setCompanyNum(int companyNum) {

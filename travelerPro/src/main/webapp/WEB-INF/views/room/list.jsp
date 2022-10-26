@@ -24,7 +24,7 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 객실 관리 </h3>
+				<h3> 객실관리 :${companyName}</h3>
 			</div>
 			
 			<div class="body-main">
@@ -32,9 +32,13 @@
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<td>${dataCount - (page-1) * size - status.index}</td>
+								 
 								<td class="left">
-									<a href="${articleUrl}&roomNum=${dto.roomNum}" class="text-reset">${dto.roomInfo}</a>
+									<a href="${articleUrl}&roomNum=${dto.roomNum}" class="text-reset">객실명:${dto.roomName}</a>
+									
+								</td>
+								<td class="center">
+								<a>인원수 :${dto.headCount}</a>
 								</td>
 								
 								<td>
@@ -53,10 +57,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do';">새로고침</button>
+						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/write.do';">객실등록</button>
+						<button type="button" class="btn" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/write.do?companyNum=${companyNum}';">객실등록</button>
 					</div>
 				</div>
 

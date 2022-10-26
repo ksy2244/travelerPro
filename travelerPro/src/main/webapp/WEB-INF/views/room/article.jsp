@@ -82,12 +82,12 @@ function deleteroom() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?noticeNum=${dto.roomNum}&page=${page}';">수정</button>
+							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?roomNum=${dto.roomNum}&page=${page}&companyNum=${companyNum}';">수정</button>
 							<button type="button" class="btn basic"  onclick="deleteroom();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?${query}';">리스트</button>
+							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">리스트</button>
 						</td>
 					</tr>
 				</table>

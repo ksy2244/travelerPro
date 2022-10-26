@@ -138,13 +138,11 @@ function check() {
 							<td class="text-center">
 								<button type="submit" class="btn btn-dark" id="bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light" id="btn">다시입력</button>
-								<button type="button" class="btn btn-light" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="roomnum" value="${dto.roomNum}">
 									<input type="hidden" name="page" value="${page}">
-									<input type="hidden" name="fileSize" value="${dto.fileSize}">
-									<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
-									<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
+						
 								</c:if>
 							</td>
 						</tr>
