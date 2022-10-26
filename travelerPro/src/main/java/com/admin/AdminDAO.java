@@ -455,4 +455,44 @@ public class AdminDAO {
 		return result;
 		
 	}
+	
+	public int plusmemberQ(){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;	
+		
+		try {
+			sql = "SELECT COUNT(*) "
+					+ " FROM memberQ "
+					+ " WHERE TO_CHAR(reg_date,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD') ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
+		
+	}
 }

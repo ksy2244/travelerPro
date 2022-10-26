@@ -19,8 +19,8 @@ public class QnaDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO memberQ(questionNum, subject, content, reg_date, userId, categoryNum) "
-					+ " VALUES(memberQ_seq.NEXTVAL, ?, ?, SYSDATE, ?, ? ) ";
+			sql = "INSERT INTO memberQ(questionNum, subject, content, reg_date, userId, categoryNum, answer) "
+					+ " VALUES(memberQ_seq.NEXTVAL, ?, ?, SYSDATE, ?, ?, 0 ) ";
 			
 			pstmt = conn.prepareStatement(sql);
 			

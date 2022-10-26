@@ -56,6 +56,9 @@ public class AdminServlet extends TravelServlet {
 			int resultNotice = dao.plusNotice();
 			req.setAttribute("resultNotice", resultNotice);
 			
+			int resultmemberQ = dao.plusmemberQ();
+			req.setAttribute("resultmemberQ", resultmemberQ);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

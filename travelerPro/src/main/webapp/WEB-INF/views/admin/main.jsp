@@ -208,7 +208,17 @@
 						</div>
 					</div>
 					<div class="item item6">
-						<div class="more"><span class="font">faq 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">자세히 보기 ></span></div>
+						<div class="more"><span class="font">문의 관리</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/answer/qnaList.do';">자세히 보기 ></span></div>
+						<div class="content">
+							<c:if test="${resultCompany == 0}">
+								신규 데이터가 없습니다.
+							</c:if>
+							<div class="red">
+								<c:if test="${resultCompany != 0}">
+									처리되지 않은 신규 데이터가 있습니다.
+								</c:if>
+							</div>
+						</div>
 					</div>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ public class QnaVO {
 	private int categoryNum;
 	private long gap;
 	private String categoryName;
+	private int answer;
 	
 	
 	public String getCategoryName() {
@@ -58,6 +59,12 @@ public class QnaVO {
 	}
 	public void setCategoryNum(int categoryNum) {
 		this.categoryNum = categoryNum;
+	}
+	public int getAnswer() {
+		return answer;
+	}
+	public void setAnswer(int answer) {
+		this.answer = answer;
 	}
 	
 }
