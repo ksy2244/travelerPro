@@ -48,6 +48,18 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("reservation_ok.do") != -1) {
 			reservationSubmit(req, resp);
 		}
+
+		// 결제 테스트
+		else if (uri.indexOf("test.do") != -1) {
+			test(req, resp);
+		}
+	}
+
+	private void test(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		forward(req, resp, "/WEB-INF/views/reservation/test.jsp");
+		return;
+		
 	}
 
 	protected void companyList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -207,16 +219,23 @@ public class ReservationServlet extends TravelServlet {
 		try {
 
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
-			// int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
 
 			// 선택한 객실 정보 가져오기
 			ReserveRoomDTO dto = dao.listSelectRoom(roomNum);
+			
+			
+			int paymentPrice =0;
+			// 금액 게산 
+			int sale = (int)(dto.getRoomPrice() * (dto.getDiscountRate()/100.0));
+			
+			paymentPrice = dto.getRoomPrice() - sale ;
 
 			// JSP로 전달할 속성
 			req.setAttribute("dto", dto);
+			req.setAttribute("paymentPrice", paymentPrice);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
 
@@ -236,10 +255,8 @@ public class ReservationServlet extends TravelServlet {
 	protected void reservationSubmit(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ReservationDAO dao = new ReservationDAO();
-		// ReserveRoomDTO roomDto = new ReserveRoomDTO();
 		ReservationDTO dto = new ReservationDTO();
 
-		String cp = req.getContextPath();
 		String message = "";
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -264,15 +281,19 @@ public class ReservationServlet extends TravelServlet {
 			dto.setCheckInTime(req.getParameter("checkInTime"));
 			dto.setCheckOutTime(req.getParameter("checkOutTime"));
 			dto.setDiscountPrice(Integer.parseInt(req.getParameter("discountRate")));
-			dto.setPaymentPrice((dto.getTotalPrice()) * (100 - dto.getDiscountPrice()));
+			dto.setPaymentPrice(Integer.parseInt(req.getParameter("paymentPrice")));
 			dto.setUserId(info.getUserId());
 			dto.setRealUserName(req.getParameter("realUserName"));
 			dto.setRealUserTel(req.getParameter("realUserTel"));
 
 			dao.insertReservation(dto);
-			
+
+			// 선택한 객실 정보 가져오기
+			// roomDto = dao.listSelectRoom(roomNum);
+
 			// JSP로 전달할 속성
 			req.setAttribute("dto", dto);
+			// req.setAttribute("dto", dto);
 
 			forward(req, resp, "/WEB-INF/views/reservation/reservation_ok.jsp");
 			return;

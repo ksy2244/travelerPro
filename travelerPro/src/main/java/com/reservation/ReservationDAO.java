@@ -399,6 +399,7 @@ public class ReservationDAO {
 		return result;
 	}
 
+	//선택한 객실의 모든 정보
 	public ReserveRoomDTO listSelectRoom(int roomNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -460,6 +461,7 @@ public class ReservationDAO {
 		return dto;
 	}
 
+	// 예약 
 	public void insertReservation(ReservationDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
