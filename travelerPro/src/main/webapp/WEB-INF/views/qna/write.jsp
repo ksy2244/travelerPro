@@ -77,7 +77,7 @@ function check() {
 						<tr>
 							<td class="table-light col-sm-2" scope="row" >카테고리</td>
 							<td>
-								<select name="categoryNum" id="categoryNum">
+								<select name="categoryNum" id="categoryNum" class="form-select" required aria-label="select example">
 									<option value="1">회원/개인정보</option>
 									<option value="2">쿠폰</option>
 									<option value="3">환불</option>
@@ -89,7 +89,7 @@ function check() {
 						<tr>
 							<td class="table-light col-sm-2" scope="row">작성자명</td>
 	 						<td>
-								<p class="form-control-plaintext">${sessionScope.member.userName}</p>
+								<p class="form-control-plaintext">${sessionScope.member.userId}</p>
 							</td>
 						</tr>
 	

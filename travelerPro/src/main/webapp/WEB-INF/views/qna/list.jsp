@@ -86,21 +86,27 @@ function searchList() {
 							<tr>
 								<td>${dataCount - (page-1) * size - status.index}</td>
 								<td class="left">
-									<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</a>
+									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
 								</td>
+								
 								<td>${dto.userId}</td>
+								
 								<td>${dto.reg_date}</td>
-								<td>${dto.categoryNum}</td>
-							
-								<!-- 
-								<td>
 								
-									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/sbbs/download.do?num=${dto.num}" class="text-reset"><i class="bi bi-file-arrow-down"></i></a>
-									</c:if>
-								</td>
+								<c:if test ="${dto.categoryNum == 1}">
+									<td>회원/개인정보</td>
+								</c:if>
+								<c:if test ="${dto.categoryNum == 2}">
+									<td>쿠폰</td>
+								</c:if>
+								<c:if test ="${dto.categoryNum == 3}">
+									<td>환불</td>
+								</c:if>
+								<c:if test ="${dto.categoryNum == 4}">
+									<td>예약/결제</td>
+								</c:if>
 								
-								 -->
+					
 							</tr>
 						</c:forEach>
 					</tbody>

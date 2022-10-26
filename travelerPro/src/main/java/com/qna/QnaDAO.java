@@ -19,8 +19,8 @@ public class QnaDAO {
 		String sql;
 		
 		try {
-			sql = " INSERT INTO memberQ(questionNum, subject, content, reg_date, userId, categoryNum "
-					+ " VALUES (memberQ_seq.NEXTVAL, ?, ?, SYSDATE, ?, ? ";
+			sql = "INSERT INTO memberQ(questionNum, subject, content, reg_date, userId, categoryNum) "
+					+ " VALUES(memberQ_seq.NEXTVAL, ?, ?, SYSDATE, ?, ? ) ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -28,6 +28,7 @@ public class QnaDAO {
 			pstmt.setString(2, dto.getContent());
 			pstmt.setString(3, dto.getUserId());
 			pstmt.setInt(4, dto.getCategoryNum());
+			
 			
 			pstmt.executeUpdate();
 			
@@ -257,7 +258,43 @@ public class QnaDAO {
 		return list;
 		
 	}
+	
+	public List<QnaVO> listCategory(int offset, int size) {
+		List<QnaVO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = " SELECT categoryNum, categoryName "
+					+ " FROM qnacategory ";
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if( rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if( pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+				
+			
+		}
+		
+		
+		return list;
+	}
 
+	
 	public QnaVO readQna(long questionNum) {
 		QnaVO dto = null;
 		PreparedStatement pstmt = null;
@@ -265,16 +302,17 @@ public class QnaDAO {
 		String sql;
 		
 		try {
-			sql = " SELECT questionNum, subject, content, reg_date, q.userId, categoryNum, c.categoryName "
+			sql = " SELECT questionNum, subject, content, reg_date, q.userId, categoryNum "
 					+ " FROM memberQ q "
 					+ " JOIN member m ON q.userId = m.userId "
-					+ " JOIN qnaCategory c ON q.categoryNum = c.categoryNum "
 					+ " WHERE questionNum = ? ";
 			
+		
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, questionNum);
 			
 			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
 				dto = new QnaVO();
 				

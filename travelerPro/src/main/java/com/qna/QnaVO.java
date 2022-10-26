@@ -8,7 +8,15 @@ public class QnaVO {
 	private String userId;
 	private int categoryNum;
 	private long gap;
+	private String categoryName;
 	
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	public long getGap() {
 		return gap;
 	}

@@ -11,8 +11,9 @@
 	text-align: center;
 }
 .board-list .left {
-	text-align: left; padding-left: 5px; 
+	text-align: center; padding-left: 5px; 
 }
+
 
 .board-list .chk {
 	width: 40px; color: #787878;
