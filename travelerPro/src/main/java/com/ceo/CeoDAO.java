@@ -172,6 +172,43 @@ public class CeoDAO {
 
 		return result;
 	}
+	public int dataQnaCount(String id) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM reserveq"
+					+ " WHERE companyNum IN (SELECT companyNum from company where userId = ?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 	public CeoDTO readCto(int num) {
 		CeoDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -344,5 +381,183 @@ public class CeoDAO {
 				}
 			}
 		}
+	}
+	public  List<CeoDTO> listqna(int offset,int size,String id){
+		List<CeoDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT r.inquiryNum, r.content,r.reg_date,c.companyNum,nickName,companyName,answhether"
+					+ " FROM reserveq r "
+					+ " JOIN member m ON r.userId = m.userId "
+					+ " JOIN company c ON c.companyNum = r.companyNum "
+					+ " LEFT OUTER JOIN reservea a ON a.inquiryNum = r.inquiryNum"
+					+ " WHERE c.companyNum IN (SELECT companyNum from company where userId = ?) "
+					+ " ORDER BY inquiryNum DESC "
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			 pstmt.setInt(2, offset);
+			 pstmt.setInt(3, size);
+			 
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CeoDTO dto = new CeoDTO();
+				dto.setInquiryNum(rs.getInt("inquiryNum"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setNickName(rs.getString("nickName"));
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setAnswhether(rs.getInt("answhether"));
+				
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return list;
+	}
+	public CeoDTO readqna(int num) {
+		CeoDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT inquiryNum, r.content,r.reg_date,c.companyNum,nickName FROM reserveq r"
+					+ " JOIN company c ON c.companyNum = r.companyNum"
+					+ " JOIN member m ON r.userId = m.userId"
+					+ " WHERE c.companyNum = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new CeoDTO();
+				dto.setInquiryNum(rs.getInt("inquiryNum"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setNickName(rs.getString("nickName"));
+				
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return dto;
+	}
+	public void insertAnswer(CeoDTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO reservea(answerNum,content,reg_date,inquiryNum,companyNum,answhether)"
+					+ " VALUES(reservea_seq.NEXTVAL,?,SYSDATE,?,?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getContent());
+			pstmt.setInt(2, dto.getInquiryNum());
+			pstmt.setInt(3, dto.getCompanyNum());
+			pstmt.setInt(4, dto.getAnswhether());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if( pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+	}
+	public CeoDTO readAnswer(int num) {
+		CeoDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT answerNum,r.content,r.reg_date,r.inquiryNum,c.companyNum "
+					+ " FROM reservea r"
+					+ " JOIN reserveq e ON r.inquiryNum = e.inquiryNum"
+					+ " JOIN company c ON c.companyNum = r.companyNum"
+					+ " WHERE e.inquiryNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				dto = new CeoDTO();
+				dto.setAnswerNum(rs.getInt("answerNum"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setInquiryNum(rs.getInt("inquiryNum"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return dto;
 	}
 }

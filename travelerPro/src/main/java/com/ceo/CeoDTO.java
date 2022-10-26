@@ -29,6 +29,14 @@ public class CeoDTO {
 	private String imageFilename;
 	private String[] imageFiles;
 	
+	private int inquiryNum;
+	private String content;
+	private String reg_date;
+	private String nickName;
+	private int answerNum;
+	private int answhether;
+	
+	
 	
 	public int getCompanyNum() {
 		return companyNum;
@@ -185,6 +193,42 @@ public class CeoDTO {
 	}
 	public void setBusinessNum3(String businessNum3) {
 		this.businessNum3 = businessNum3;
+	}
+	public int getInquiryNum() {
+		return inquiryNum;
+	}
+	public void setInquiryNum(int inquiryNum) {
+		this.inquiryNum = inquiryNum;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public int getAnswerNum() {
+		return answerNum;
+	}
+	public void setAnswerNum(int answerNum) {
+		this.answerNum = answerNum;
+	}
+	public int getAnswhether() {
+		return answhether;
+	}
+	public void setAnswhether(int answhether) {
+		this.answhether = answhether;
 	}
 	
 	
