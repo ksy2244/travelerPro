@@ -20,7 +20,7 @@ public class MemberADAO {
 		String sql;
 		
 		try {
-			sql = "SELECT questionNum, subject, content, reg_date, userId, categoryNum "
+			sql = "SELECT questionNum, subject, content, reg_date, userId, categoryNum, answer "
 					+ " FROM memberQ "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
@@ -40,6 +40,7 @@ public class MemberADAO {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
+				dto.setAnswer(rs.getInt("answer"));
 				
 				list.add(dto);
 			}
@@ -106,14 +107,14 @@ public class MemberADAO {
 		
 	}
 	
-	public QnaVO readFaq(long questionNum) {
+	public QnaVO qnaRead(long questionNum) {
 		QnaVO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 		
 		try {
-			sql = "SELECT questionNum, userId, subject, content, reg_date, categoryNum "
+			sql = "SELECT questionNum, userId, subject, content, reg_date, categoryNum, answer "
 					+ " FROM memberQ "
 					+ " WHERE questionNum = ?  ";
 			
@@ -133,6 +134,7 @@ public class MemberADAO {
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
+				dto.setAnswer(rs.getInt("answer"));
 			}
 			
 		} catch (Exception e) {
@@ -148,6 +150,104 @@ public class MemberADAO {
 			if(rs != null) {
 				try {
 					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return dto;
+		
+	}
+	
+	public void insertQna(MemberADTO dto) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO memberA(answerNum, content, reg_date, questionNum) "
+					+ " VALUES(memberA_seq.NEXTVAL, ?, SYSDATE, ?) ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getContent());
+			pstmt.setLong(2, dto.getQuestionNum());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+	}
+	
+	public void updateAnswer(int answer, long questionNum) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE memberQ SET answer = ? WHERE questionNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, answer);
+			pstmt.setLong(2, questionNum);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+	}
+	
+	public MemberADTO qnaList(long questionNum) {
+		MemberADTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT * FROM "
+					+ " (SELECT * FROM memberA WHERE questionNum = ? ORDER BY reg_date DESC) "
+					+ " WHERE rownum = 1 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, questionNum);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new MemberADTO();
+				
+				dto.setAnswerNum(rs.getLong("answerNum"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setQuestionNum(rs.getLong("questionNum"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
 				} catch (Exception e2) {
 				}
 			}

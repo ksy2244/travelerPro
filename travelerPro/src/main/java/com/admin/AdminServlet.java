@@ -75,7 +75,11 @@ public class AdminServlet extends TravelServlet {
 		String cp = req.getContextPath();
 		
 		try {
+			String page = req.getParameter("page");
 			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
 			
 			int dataCount = dao.userDataCount();
 			
@@ -88,7 +92,8 @@ public class AdminServlet extends TravelServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			List<MemberDTO> list = dao.userList(offset, size);
+			
+			List<MemberDTO> list = dao.totalUserList(offset, size);
 			
 			String listUrl = cp + "/admin/userList.do";
 			
@@ -198,12 +203,10 @@ public class AdminServlet extends TravelServlet {
 		String state = "false";
 		
 		try {
-			AdminDTO dto = new AdminDTO();
+			long companyNum = Long.parseLong(req.getParameter("companyNum"));
+			int approval = Integer.parseInt(req.getParameter("approval"));
 			
-			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
-			dto.setApproval(Integer.parseInt(req.getParameter("approval")));
-			
-			dao.updateCompany(dto);
+			dao.updateCompany(approval, companyNum);
 			
 			state = "true";
 			

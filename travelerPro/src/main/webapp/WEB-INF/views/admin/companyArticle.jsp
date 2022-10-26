@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler_manage</title>
+<title>admin</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
@@ -22,19 +23,19 @@
 .basic:hover{background-color:#D9D2CC;}
 
 .blue {
-	background-color: #005691;
+	background-color: #1687A7;
 }
 
 .blue:hover {
-	background-color: #004C7D
+	background-color: #1673A7;
 }
 
 .black {
-	background-color: #393E46;
+	background-color: #276678;
 }
 
 .black:hover {
-	background-color: #393432;
+	background-color: #27525A;
 }
 
 .box {
@@ -123,7 +124,7 @@ $(function(){
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 업체 상세정보 </h3>
+				<h3> 업체 상세 정보 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -157,7 +158,7 @@ $(function(){
 						</tr>
 						
 						<tr>
-							<td colspan="2" valign="top" height="150">
+							<td colspan="2" valign="top" height="250">
 								<div class="fs-5 fw-bold">업체 정보(위치/교통)</div>
 								<br>
 								${dto.companyInfo}
@@ -165,7 +166,7 @@ $(function(){
 						</tr>
 						
 						<tr>
-							<td colspan="2" valign="top" height="150">
+							<td colspan="2" valign="top" height="250">
 								<div class="fs-5 fw-bold">시설/서비스</div>
 								<br>
 								${dto.amenities}
@@ -173,7 +174,7 @@ $(function(){
 						</tr>
 						
 						<tr>
-							<td colspan="2" valign="top" height="150">
+							<td colspan="2" valign="top" height="250">
 								<div class="fs-5 fw-bold">안내</div>
 								<br>
 								${dto.guide}

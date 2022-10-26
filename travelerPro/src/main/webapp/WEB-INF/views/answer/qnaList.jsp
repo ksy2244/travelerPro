@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler_manage</title>
+<title>admin</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
@@ -22,11 +23,11 @@
 .basic:hover{background-color:#D9D2CC;}
 
 .title .qnum {
-	width: 110px;
+	width: 90px;
 }
 
 .title .sub {
-	width: 40%;
+	width: 30%;
 }
 
 .title .id {
@@ -44,6 +45,14 @@
 .content {
 	font-style: italic;
 	font-size: 15px;
+}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
@@ -70,6 +79,7 @@
 								<th class="id">아이디</th>
 								<th class="day">작성일</th>
 								<th class="cat">카테고리</th>
+								<th>답변여부</th>
 							</tr>
 					</thead>
 					
@@ -97,6 +107,12 @@
 										<c:otherwise>예약/결제</c:otherwise>
 									</c:choose>
 								</td>
+								<c:if test="${dto.answer == 0}">
+									<td class="red">미완료</td>
+								</c:if>
+								<c:if test="${dto.answer == 1}">
+									<td class="blue">완료</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>

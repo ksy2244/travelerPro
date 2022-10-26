@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler_manage</title>
+<title>admin</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
 <style type="text/css">
@@ -55,7 +56,7 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 업체정보 확인 </h3>
+				<h3> 업체 정보 확인 </h3>
 			</div>
 			
 			<div class="body-main">

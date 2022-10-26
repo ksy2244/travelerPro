@@ -13,7 +13,7 @@ import com.util.DBConn;
 public class AdminDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public List<MemberDTO> userList(int offset, int size){
+	public List<MemberDTO> totalUserList(int offset, int size){
 		List<MemberDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -108,6 +108,122 @@ public class AdminDAO {
 		}
 		
 		return result;
+	}
+	
+	public List<MemberDTO> userList(int offset, int size){
+		List<MemberDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT userId, userName, TO_CHAR(register_date, 'YYYY-MM-DD') register_date, nickName, enabled, roll, "
+					+ " email, tel, TO_CHAR(birth, 'YYYY-MM-DD') birth"
+					+ " FROM member "
+					+ " WHERE roll = 0 "
+					+ " ORDER BY roll, register_date DESC "
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, size);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setReg_date(rs.getString("register_date"));
+				dto.setNickName(rs.getString("nickName"));
+				dto.setEnabled(rs.getInt("enabled"));
+				dto.setRoll(rs.getInt("roll"));
+				dto.setEmail(rs.getString("email"));
+				dto.setTel(rs.getString("tel"));
+				dto.setBirth(rs.getString("birth"));
+	
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	public List<MemberDTO> storeList(int offset, int size){
+		List<MemberDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT userId, userName, TO_CHAR(register_date, 'YYYY-MM-DD') register_date, nickName, enabled, roll, "
+					+ " email, tel, TO_CHAR(birth, 'YYYY-MM-DD') birth"
+					+ " FROM member "
+					+ " WHERE roll = 1 "
+					+ " ORDER BY roll, register_date DESC "
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, size);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setReg_date(rs.getString("register_date"));
+				dto.setNickName(rs.getString("nickName"));
+				dto.setEnabled(rs.getInt("enabled"));
+				dto.setRoll(rs.getInt("roll"));
+				dto.setEmail(rs.getString("email"));
+				dto.setTel(rs.getString("tel"));
+				dto.setBirth(rs.getString("birth"));
+	
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			if(rs != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return list;
 	}
 	
 	public AdminDTO companyRead(long companyNum) {
@@ -268,7 +384,7 @@ public class AdminDAO {
 		return result;
 	}
 	
-	public void updateCompany(AdminDTO dto) throws SQLException {
+	public void updateCompany(int approval, long companyNum) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
@@ -278,8 +394,8 @@ public class AdminDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, dto.getApproval());
-			pstmt.setLong(2, dto.getCompanyNum());
+			pstmt.setInt(1, approval);
+			pstmt.setLong(2, companyNum);
 
 			pstmt.executeUpdate();
 			
@@ -465,7 +581,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*) "
 					+ " FROM memberQ "
-					+ " WHERE TO_CHAR(reg_date,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD') ";
+					+ " WHERE answer = 0 ";
 			
 			pstmt = conn.prepareStatement(sql);
 			

@@ -5,7 +5,6 @@ public class MemberADTO {
 	private String content;
 	private String reg_date;
 	private long questionNum;
-	private long gap;
 	
 	public long getAnswerNum() {
 		return answerNum;
@@ -31,12 +30,4 @@ public class MemberADTO {
 	public void setQuestionNum(long questionNum) {
 		this.questionNum = questionNum;
 	}
-	public long getGap() {
-		return gap;
-	}
-	public void setGap(long gap) {
-		this.gap = gap;
-	}
-	
-	
 }

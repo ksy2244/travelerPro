@@ -1,6 +1,7 @@
 package com.answer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.qna.QnaVO;
 import com.util.TravelServlet;
@@ -44,6 +47,12 @@ public class AnswerServlet extends TravelServlet {
 			qnaList(req, resp);
 		} else if (uri.indexOf("qnaArticle.do") != -1) {
 			qnaArticle(req, resp);
+		} else if(uri.indexOf("qnaInsert.do") != -1) {
+			qnaInsert(req, resp);
+		} else if(uri.indexOf("answerUpdate.do") != -1) {
+			answerUpdate(req, resp);
+		} else if(uri.indexOf("qnaDto.do") != -1) {
+			qnaDto(req, resp);
 		}
 	}
 	
@@ -201,7 +210,11 @@ public class AnswerServlet extends TravelServlet {
 		String cp = req.getContextPath();
 		
 		try {
+			String page = req.getParameter("page");
 			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
 			
 			int dataCount = dao.qnaCount();
 			
@@ -215,6 +228,10 @@ public class AnswerServlet extends TravelServlet {
 			if(offset < 0) offset = 0;
 			
 			List<QnaVO> list = dao.qnaList(offset, size);
+			
+			for(QnaVO dto : list) {
+				dto.setContent(util.htmlSymbols(dto.getContent()));
+			}
 			
 			String listUrl = cp + "/answer/qnaList.do";
 			String articleUrl = cp + "/answer/qnaArticle.do?page=" + current_page;
@@ -261,7 +278,7 @@ public class AnswerServlet extends TravelServlet {
 		try {
 			long questionNum = Long.parseLong(req.getParameter("questionNum"));
 			
-			QnaVO dto = dao.readFaq(questionNum);
+			QnaVO dto = dao.qnaRead(questionNum);
 			if(dto == null) {
 				resp.sendRedirect(cp+"/answer/qnaList.do");
 				return;
@@ -279,6 +296,82 @@ public class AnswerServlet extends TravelServlet {
 		}
 		
 		resp.sendRedirect(cp+"/answer/qnaList.do?page="+page);
+		
+	}
+	
+	protected void qnaInsert(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		
+		String state = "false";
+		try {
+			MemberADTO dto = new MemberADTO();
+			
+			dto.setContent(req.getParameter("content"));
+			dto.setQuestionNum(Long.parseLong(req.getParameter("questionNum")));
+			
+			dao.insertQna(dto);
+			
+			state = "true";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject job = new JSONObject();
+		job.put("state", state);
+		
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(job.toString());
+	}
+	
+	protected void answerUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		
+		String state = "false";
+		
+		try {
+			long questionNum = Long.parseLong(req.getParameter("questionNum"));
+			int answer = Integer.parseInt(req.getParameter("answer"));
+			
+			dao.updateAnswer(answer, questionNum);
+			
+			state = "true";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject job = new JSONObject();
+		job.put("state", state);
+		
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(job.toString());
+		
+	}
+	
+	protected void qnaDto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		
+		try {
+			long questionNum = Long.parseLong(req.getParameter("questionNum"));
+			
+			MemberADTO dto = dao.qnaList(questionNum);
+			
+			if(dto != null) {
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			}
+			
+			req.setAttribute("dto", dto);
+			
+			forward(req, resp, "/WEB-INF/views/answer/qnaContent.jsp");
+			return;
+			
+		} catch (Exception e) {
+		}
+		
+		resp.sendError(400);
 		
 	}
 	
