@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -59,7 +61,7 @@ public class ReservationServlet extends TravelServlet {
 		// 포워딩
 		forward(req, resp, "/WEB-INF/views/reservation/test.jsp");
 		return;
-		
+
 	}
 
 	protected void companyList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -182,10 +184,14 @@ public class ReservationServlet extends TravelServlet {
 
 			// 이용 시작일, 종료일 초기값 설정
 			if (start_date == null || end_date == null) {
-				LocalDate now = LocalDate.now();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // now.format(formatter);
-				start_date = now.format(formatter);
-				end_date = now.format(formatter);
+
+				Calendar cal = Calendar.getInstance();
+				String format = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				start_date = sdf.format(cal.getTime());
+
+				cal.add(Calendar.DATE, +1); // 내일 날짜
+				end_date = sdf.format(cal.getTime());
 
 			}
 
@@ -225,13 +231,12 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 객실 정보 가져오기
 			ReserveRoomDTO dto = dao.listSelectRoom(roomNum);
-			
-			
-			int paymentPrice =0;
-			// 금액 게산 
-			int sale = (int)(dto.getRoomPrice() * (dto.getDiscountRate()/100.0));
-			
-			paymentPrice = dto.getRoomPrice() - sale ;
+
+			int paymentPrice = 0;
+			// 금액 게산
+			int sale = (int) (dto.getRoomPrice() * (dto.getDiscountRate() / 100.0));
+
+			paymentPrice = dto.getRoomPrice() - sale;
 
 			// JSP로 전달할 속성
 			req.setAttribute("dto", dto);

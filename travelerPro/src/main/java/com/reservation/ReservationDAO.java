@@ -10,7 +10,6 @@ import com.util.DBConn;
 
 public class ReservationDAO {
 	private Connection conn = DBConn.getConnection();
-	// public List<ReserveRoomDTO> listSelectRoom = new ArrayList<ReserveRoomDTO>();
 
 	// 해당 숙박 업체 보기 (업체 상세)
 	public ReserveRoomDTO readRoom(int companyNum) {

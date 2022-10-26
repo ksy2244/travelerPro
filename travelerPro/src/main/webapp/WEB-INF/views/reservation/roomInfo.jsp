@@ -263,8 +263,6 @@
 			</div>
 
 
-
-
 			<!-- 카카오 지도 (마커 표시) -->
 			<div id="map" style="width: 1000px; height: 1000px; margin: auto"></div>
 			<script>
