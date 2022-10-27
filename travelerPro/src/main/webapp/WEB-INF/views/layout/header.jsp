@@ -40,14 +40,22 @@
         	</li>
       	</c:if>
       	<c:if test="${not empty sessionScope.member}">
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃" 
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
-        	</li>
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="#" title="마이페이지"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">마이페이지</a>
-        	</li>
+      		
+        	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+           style="font-family: 'GmarketSans'; font-size: 30px; margin-right: 20px;">
+            <i class="bi bi-person-fill"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">내 정보 관리</a></li>
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">쿠폰 조회</a></li>
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">예약 내역</a></li>
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">나의 후기</a></li>
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
+            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">알림설정</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'GmarketSans';">로그아웃</a></li>
+          </ul>
+      
       	</c:if>
       	</ul>
       	<button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 6px;">
