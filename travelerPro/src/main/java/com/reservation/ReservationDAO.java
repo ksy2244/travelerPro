@@ -66,17 +66,21 @@ public class ReservationDAO {
 		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		StringBuilder sb = new StringBuilder();
+		String sql = null;
 
 		try {
-			sb.append(" SELECT companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
-					+ " notice, addr, addrDetail, zip ");
-			sb.append(" FROM company");
-
-			pstmt = conn.prepareStatement(sb.toString());
+			sql = " SELECT companyNum, companyName, companyInfo, "
+				+ " amenities, guide, checkInTime, checkOutTime, notice, addr, addrDetail, zip "
+				+ " FROM company "
+				+ " WHERE companyNum IN "
+				+ " (SELECT DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum)"
+				+ " ORDER BY companyName ";
+					
+			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
-
+			
+			
 			while (rs.next()) {
 				ReserveCompanyDTO dto = new ReserveCompanyDTO();
 				dto.setCompanyNum(rs.getInt("companyNum"));
