@@ -66,6 +66,7 @@ public class RoomServlet extends FileUploadServlet  {
 		try {
 			long companyNum=Long.parseLong(req.getParameter("companyNum"));
 			String page = req.getParameter("page");		
+			
 			int current_page = 1;
 			if(page != null) {
 				current_page = Integer.parseInt(page);
@@ -118,10 +119,10 @@ public class RoomServlet extends FileUploadServlet  {
 	protected void roomSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RoomDAO dao=new RoomDAO();
 		long companyNum=Long.parseLong(req.getParameter("companyNum"));
-		req.setAttribute("companyNum", companyNum);
+		//req.setAttribute("companyNum", companyNum);
 		String cp =req.getContextPath();
 		if(req.getMethod().equalsIgnoreCase("GET")) {		
-			resp.sendRedirect(cp + "/room/list.do? companyNum=" +companyNum);
+			resp.sendRedirect(cp + "/room/list.do");
 			return;
 		}
 		
@@ -135,7 +136,7 @@ public class RoomServlet extends FileUploadServlet  {
 			dto.setPrice(Integer.parseInt(req.getParameter("price")));
 			dto.setDiscountRate(Integer.parseInt(req.getParameter("discountRate")));
 			dto.setHeadCount(Integer.parseInt(req.getParameter("headCount")));		
-			dto.setCompanyNum(Integer.parseInt(req.getParameter("companyNum")));
+			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
 			
 			dao.insertRoom(dto);
 			
@@ -156,13 +157,13 @@ public class RoomServlet extends FileUploadServlet  {
 		String page=req.getParameter("page");
 		String query ="page=" + page;
 		long companyNum=Long.parseLong(req.getParameter("companyNum"));
-			//String query ="companyNum=" + companyNum;
+			
 		try {
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
 			
 			RoomDTO dto= dao.readRoom(roomNum);
 			if(dto == null) {
-				resp.sendRedirect(cp + "/room/list.do? companyNum=" +companyNum + "&roomNum=" +roomNum);
+				resp.sendRedirect(cp + "/room/list.do?companyNum=" +companyNum + "&roomNum=" +roomNum);
 				return; 
 			}
 			
@@ -193,7 +194,7 @@ public class RoomServlet extends FileUploadServlet  {
 			int roomNum=Integer.parseInt(req.getParameter("roomNum"));
 			RoomDTO dto =dao.readRoom(roomNum);
 			
-			//List<RoomDTO>listFile =dao.listPhotoFile(roomnum);
+			//List<RoomDTO>listFile =dao.listPhotoFile(num);
 			if(dto==null) {
 				resp.sendRedirect(cp+"/room/list.do?companyNum=" + companyNum);
 				return;
@@ -229,12 +230,13 @@ public class RoomServlet extends FileUploadServlet  {
 		try {
 			
 			RoomDTO dto=new RoomDTO();
+			dto.setRoomNum(Integer.parseInt(req.getParameter("roomNum")));
 			dto.setRoomName(req.getParameter("roomName"));
 			dto.setRoomInfo(req.getParameter("roomInfo"));
 			dto.setPrice(Integer.parseInt(req.getParameter("price")));
 			dto.setDiscountRate(Integer.parseInt(req.getParameter("discountRate")));
 			dto.setHeadCount(Integer.parseInt(req.getParameter("headCount")));
-			
+			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
 			
 			dao.updateroom(dto);
 		} catch (Exception e) {
@@ -255,6 +257,7 @@ public class RoomServlet extends FileUploadServlet  {
 		try {
 			Integer roomNum=Integer.parseInt(req.getParameter("roomNum"));
 			RoomDTO dto=dao.readRoom(roomNum);
+			
 			if (dto == null) {
 				resp.sendRedirect(cp + "/room/list.do?companyNum=" + companyNum +"&rommNum" +roomNum);
 				return;
@@ -262,7 +265,7 @@ public class RoomServlet extends FileUploadServlet  {
 			FileManager.doFiledelete(pathname, dto.getSaveFilename());
 
 			
-		
+			
 		
 			dao.updateroom(dto);
 
@@ -270,7 +273,7 @@ public class RoomServlet extends FileUploadServlet  {
 			req.setAttribute("page", page);
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("mode", "update");
-
+			req.setAttribute("roomNum", roomNum);
 			forward(req, resp, "/WEB-INF/views/room/write.jsp");
 			return;
 		} catch (Exception e) {
@@ -286,25 +289,27 @@ public class RoomServlet extends FileUploadServlet  {
 		String cp=req.getContextPath();
 		long companyNum=Long.parseLong(req.getParameter("companyNum"));
 		String page = req.getParameter("page");
-		String query = "page=" + page;
-		String test="test="+companyNum;
+		//String query = "page=" + page;
+		//String test="test="+companyNum;
 		
 		try {
 			int roomNum =Integer.parseInt(req.getParameter("roomNum"));
 			RoomDTO dto =dao.readRoom(roomNum);
 			if (dto == null) {
-				resp.sendRedirect(cp + "/room/list.do?" + query +test);
+				resp.sendRedirect(cp + "/room/list.do?" + companyNum);
 				return;
 			}
 			if(dto.getSaveFilename() != null && dto.getSaveFilename().length() != 0) {
 				FileManager.doFiledelete(pathname, dto.getSaveFilename());
 			}
-			dao.deleteRoom(roomNum);
 			
+			dao.deleteRoom(roomNum);
+			req.setAttribute("companyNum", companyNum);
+			req.setAttribute("page",page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		resp.sendRedirect(cp + "/room/list.do?" + query+test);
+		resp.sendRedirect(cp + "/room/list.do?companyNum=" + companyNum);
 	}
 	
 	

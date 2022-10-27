@@ -78,7 +78,7 @@ public class RoomDTO {
 	public long getCompanyNum() {
 		return companyNum;
 	}
-	public void setCompanyNum(int companyNum) {
+	public void setCompanyNum(long companyNum) {
 		this.companyNum = companyNum;
 	}
 	public int getHeadCount() {

@@ -35,7 +35,8 @@ function check() {
 		if( !confirm("파일을 삭제하시겠습니까 ?") ) {
 			return;
 		}
-		let url = "${pageContext.request.contextPath}/room/deleteFile.do?roomNum=" + roomNum + "&page=${page}";
+		let query ="roomNum=${dto.roomNum}&fileNum=" + fileNum + "&page=${page}";
+		let url = "${pageContext.request.contextPath}/room/deleteFile.do?" + query;
 		location.href = url;
 	}
 </c:if>
@@ -44,6 +45,34 @@ function check() {
 <style type="text/css">
 .body-container {
 	max-width: 1200px;
+}
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 65px);
+	grid-gap: 5px;
+}
+
+.img-grid .item {
+    object-fit: cover; /* 가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정 */
+    width: 65px;
+    height: 65px;
+	cursor: pointer;
+}
+
+.img-box {
+	max-width: 600px;
+
+	box-sizing: border-box;
+	display: flex; /* 자손요소를 flexbox로 변경 */
+	flex-direction: row; /* 정방향 수평나열 */
+	flex-wrap: nowrap;
+	overflow-x: auto;
+}
+.img-box img {
+	width: 65px; height: 65px;
+	margin-right: 5px;
+	flex: 0 0 auto;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -85,7 +114,7 @@ function check() {
 								<textarea name="roomInfo" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.roomInfo}</textarea>
 							</td>
 						</tr>
-						
+						 
 						<tr>
 							<td class="table-light col-sm-2" scope="row">가격</td>
 							<td>
@@ -108,28 +137,8 @@ function check() {
 								<input type="text" name="headCount" class="form-control" value="${dto.headCount}">
 							</td>
 						</tr>
-						
-						
-						<tr>
-							<td class="table-light col-sm-2">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
-							<td> 
-								<input type="file" name="selectFile" class="form-control">
-							</td>
-						</tr>
-						<c:if test="${mode=='update'}">
-							<tr>
-								<td class="table-light col-sm-2" scope="row">첨부된파일</td>
-								<td> 
-									<p class="form-control-plaintext">
-										<c:if test="${not empty dto.saveFilename}">
-											<a href="javascript:deleteFile('${dto.roomNum}');"><i class="bi bi-trash"></i></a>
-											${dto.originalFilename}
-										</c:if>
-										&nbsp;
-									</p>
-								</td>
-							</tr>
-						</c:if>
+										
+					
 						
 					</table>
 					
@@ -137,12 +146,12 @@ function check() {
 	 					<tr>
 							<td class="text-center">
 								<button type="submit" class="btn btn-dark" id="bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn btn-light" id="btn">다시입력</button>
+								<button type="reset" class="btn btn-primary">다시입력</button>
 								<button type="button" class="btn btn-light" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<input  type="hidden" name="companyNum" value="${companyNum}">
 								<c:if test="${mode=='update'}">
-									<input type="hidden" name="roomnum" value="${dto.roomNum}">
+									<input type="hidden" name="roomNum" value="${dto.roomNum}">
 									<input type="hidden" name="page" value="${page}">
-						
 								</c:if>
 							</td>
 						</tr>

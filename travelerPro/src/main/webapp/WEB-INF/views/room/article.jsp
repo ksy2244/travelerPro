@@ -12,9 +12,10 @@
 <script type="text/javascript">
 function deleteroom() {
 	if(confirm("객실을 삭제 하시 겠습니까 ? ")) {
-		let query = "roomNum=${dto.roomNum}&${query}";
+		let query = "companyNum=${companyNum}&roomNum=${dto.roomNum}&${query}";
 		let url = "${pageContext.request.contextPath}/room/delete.do?" + query;
 	    location.href = url;
+	    
 	}
 }
 
@@ -66,15 +67,7 @@ function deleteroom() {
 							</td>
 						</tr>
 						
-						<tr>
-							<td colspan="2">
-								파&nbsp;&nbsp;일 : 
-								<c:if test="${not empty dto.saveFilename}">
-									<a href="${pageContext.request.contextPath}/room/download.do?roomNum=${dto.roomNum}">${dto.originalFilename}</a>
-									(<fmt:formatNumber value="${dto.fileSize/1024}" pattern="#,##0.00"/> )
-								</c:if>
-							</td>
-						</tr>
+						
 
 					</tbody>
 				</table>

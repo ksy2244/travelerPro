@@ -24,7 +24,7 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 객실관리 :${companyName}</h3>
+				<h3> ${companyName}: 객실관리 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -40,12 +40,8 @@
 								<td class="center">
 								<a>인원수 :${dto.headCount}</a>
 								</td>
+							
 								
-								<td>
-									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/room/download.do?roomNum=${dto.roomNum}" class="text-reset"><i class="fa-solid fa-download"></i></a>
-									</c:if>
-								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

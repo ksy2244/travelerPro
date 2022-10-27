@@ -56,7 +56,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 		}
 	}
 }
-	public int dataCount(long companyNum) {//long companyNum을 넘어야 하는지 
+	public int dataCount(long companyNum) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -109,7 +109,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 			pstmt.setInt(3,dto.getPrice());
 			pstmt.setInt(4,dto.getDiscountRate());
 			pstmt.setInt(5,dto.getHeadCount());
-			
+			pstmt.setInt(6, dto.getRoomNum());
 			pstmt.executeUpdate();
 			pstmt.close();
 			pstmt =null;
@@ -149,15 +149,10 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 		ResultSet rs=null;
 		String sql;
 		
-		//companyNum이 같은 room만 가지고 와야한다.
+	
 		
 		try {
-			/*
-			sql = "SELECT roomNum, roomName, roomInfo, price, disCountRate, headCount "
-					+ " FROM room "
-					+ " ORDER BY roomNum DESC "
-					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
-			*/
+			
 			sql = "SELECT roomNum, roomName, roomInfo, price, disCountRate, headCount, companyNum "
 					+ " FROM room "
 					+ " WHERE companyNum=? "					
@@ -180,7 +175,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 				dto.setPrice(rs.getInt("price"));
 				dto.setDiscountRate(rs.getInt("discountRate"));
 				dto.setHeadCount(rs.getInt("headCount"));
-				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setCompanyNum(rs.getLong("companyNum"));
 				list.add(dto);
 			}
 		} catch (Exception e) {
@@ -206,7 +201,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 	
 
 	
-	public RoomDTO readRoom(int roomNum) {
+	public RoomDTO readRoom(int Num) {
 		RoomDTO dto =null;
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
@@ -219,8 +214,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, roomNum);
-			
+			pstmt.setInt(1, Num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -300,7 +294,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 					rs=pstmt.executeQuery();
 					while(rs.next()) {
 						companyDTO dto=new companyDTO();
-						dto.setCompanyNum(rs.getInt("companyNum"));
+						dto.setCompanyNum(rs.getLong("companyNum"));
 						dto.setCompanyName(rs.getString("companyName"));
 						list.add(dto);
 					}
@@ -333,8 +327,8 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 				while(rs.next()) {
 					RoomDTO dto=new RoomDTO();
 					
-					dto.setFileNum(rs.getInt("fileNum"));
-					dto.setRoomNum(rs.getInt("companyNum"));
+					dto.setFileNum(rs.getLong("fileNum"));
+					dto.setRoomNum(rs.getInt("roomNum"));
 					dto.setImageFilename(rs.getString("imageFileName"));
 					list.add(dto);
 					
