@@ -223,6 +223,7 @@ public class ReservationServlet extends TravelServlet {
 			throws ServletException, IOException {
 		ReservationDAO dao = new ReservationDAO();
 		try {
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
 
@@ -243,6 +244,7 @@ public class ReservationServlet extends TravelServlet {
 			req.setAttribute("paymentPrice", paymentPrice);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
+			req.setAttribute("companyNum", companyNum);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/reservation.jsp");
@@ -292,13 +294,12 @@ public class ReservationServlet extends TravelServlet {
 			dto.setRealUserTel(req.getParameter("realUserTel"));
 
 			dao.insertReservation(dto);
-
-			// 선택한 객실 정보 가져오기
-			// roomDto = dao.listSelectRoom(roomNum);
+			
+			ReserveRoomDTO sdto = dao.listSelectRoom(roomNum);
 
 			// JSP로 전달할 속성
 			req.setAttribute("dto", dto);
-			// req.setAttribute("dto", dto);
+			req.setAttribute("sdto", sdto);
 
 			forward(req, resp, "/WEB-INF/views/reservation/reservation_ok.jsp");
 			return;

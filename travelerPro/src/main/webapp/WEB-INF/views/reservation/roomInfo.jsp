@@ -223,9 +223,6 @@
 				</div>
 				<br>
 				<div style="width: 1500px">
-					<button type="button" class="reservationBtn" style="float: right;"
-						btn btn-primary" data-bs-toggle="modal"
-						data-bs-target="#exampleModal1">객실 예약</button>
 				</div>
 
 
