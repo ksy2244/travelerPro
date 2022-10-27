@@ -17,16 +17,16 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #276678;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#27525A;}
 
 .bold {
-	background-color: #3C2317;
+	background-color: #1687A7;
 }
 
-.bold:hover{background-color:#804A30;}
+.bold:hover{background-color:#1673A7;}
 
 .trbold {
 	border-bottom: 1px solid #3C2317;
@@ -90,21 +90,21 @@ function sendOk() {
 				<form name="faqForm" method="post">
 					<table class="table write-form mt-5">
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">제목</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">제목</td>
 							<td>
 								<input type="text" name="subject" class="form-control" value="${dto.subject}">
 							</td>
 						</tr>
 	
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">내용</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">내용</td>
 							<td>
 								<textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">카테고리</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">카테고리</td>
 							<td>
 								<select name="categoryNum" id="categoryNum" class="form-select" required aria-label="select example">
 								      <option value="1" ${dto.categoryNum== 1 ? "selected='selected' ":""}>회원/개인정보</option>
@@ -121,8 +121,8 @@ function sendOk() {
 	 					<tr>
 							<td class="text-center">
 								<button type="button" class="btn text-white bold" onclick="sendOk();">${mode=='faqUpdate'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn basic">다시입력</button>
-								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">${mode=='faqUpdate'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="reset" class="btn basic text-white">다시입력</button>
+								<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">${mode=='faqUpdate'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='faqUpdate'}">
 									<input type="hidden" name="faqNum" value="${dto.faqNum}">
 								</c:if>

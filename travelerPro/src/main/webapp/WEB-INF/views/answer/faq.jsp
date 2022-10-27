@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .title {
 	border-bottom: 2px solid #B4CDE6;
@@ -52,6 +52,10 @@
 	z-index: 999;
 	width: 50px;
 	height: 50px;
+}
+
+.plus {
+	background: #B4CDE6;
 }
 
 </style>
@@ -170,10 +174,10 @@ $(function() {
 
 			<div class="row board-list-footer" style="margin-top: 50px;">
 				<div class="col">
-					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">새로고침</button>
+					<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">새로고침</button>
 				</div>
 				<div class="col text-end">
-					<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faqWrite.do';">faq 작성</button>
+					<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faqWrite.do';">faq 작성</button>
 				</div>
 			</div>
 		</div>

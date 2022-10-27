@@ -17,19 +17,19 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
-}
-
-.basic:hover{background-color:#D9D2CC;}
-
-.blue {
 	background-color: #1687A7;
 }
 
-.blue:hover {
-	background-color: #1673A7;
+.basic:hover{background-color:#1673A7;}
+
+.blue {
+	background-color: #B4CDE6;
 }
 
+.blue:hover {
+	background-color: #B4B9D2;
+}
+ 
 .black {
 	background-color: #276678;
 }
@@ -194,7 +194,7 @@ $(function(){
 						</c:if>
 						
 						<td class="text-end">
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/admin/companyList.do?${query}';">리스트</button>
+							<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/admin/companyList.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>

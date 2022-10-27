@@ -8,6 +8,12 @@
 		<td width="100%">
 			<div class='answer'>A</div>
 			<div class='content'>${dto.content}</div>
-			<div class='date margin'>${dto.reg_date}</div>	
+			<div class='date margin'>${dto.reg_date}</div>
 		</td>
+	</tr>
+	<tr>
+		<td align='right'>
+			<button type="button" class="btn basic btnDelete" onclick="location.href='${pageContext.request.contextPath}/answer/qnaDelete.do?page=${page}&questionNum=${dto.questionNum}&answerNum=${dto.answerNum}';">삭제</button>
+		</td>
+	</tr>
 </table>

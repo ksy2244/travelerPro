@@ -31,10 +31,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .form tr:first-child {
 	border-top: 2px solid #3C2317;

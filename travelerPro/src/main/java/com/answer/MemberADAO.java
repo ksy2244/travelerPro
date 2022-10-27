@@ -159,11 +159,13 @@ public class MemberADAO {
 		
 	}
 	
-	public void insertQna(MemberADTO dto) throws SQLException {
+	public void insertQna(MemberADTO dto, QnaVO vo) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
+			conn.setAutoCommit(false);
+			
 			sql = "INSERT INTO memberA(answerNum, content, reg_date, questionNum) "
 					+ " VALUES(memberA_seq.NEXTVAL, ?, SYSDATE, ?) ";
 			
@@ -174,15 +176,40 @@ public class MemberADAO {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			pstmt = null;
+			
+			sql = "UPDATE memberQ SET answer = 1 WHERE questionNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, vo.getQuestionNum());
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			pstmt = null;
+			
+			conn.commit();
+			
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e2) {
+			}
 			e.printStackTrace();
 			throw e;
 		} finally {
 			if(pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (Exception e2) {
+				} catch (SQLException e) {
 				}
+			}
+			
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e2) {
 			}
 		}
 		
@@ -255,5 +282,58 @@ public class MemberADAO {
 		
 		return dto;
 		
+	}
+	
+	public void deleteAnswer(long answerNum, long questionNum) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			sql = "DELETE FROM memberA WHERE answerNum = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, answerNum);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			pstmt = null;
+			
+			sql = "UPDATE memberQ SET answer = 0 WHERE questionNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, questionNum);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			pstmt = null;
+			
+			conn.commit();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e2) {
+			}
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e2) {
+			}
+		}
 	}
 }

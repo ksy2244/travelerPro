@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .title .qnum {
 	width: 90px;
@@ -40,6 +40,10 @@
 
 .title .cat {
 	width: 15%;
+}
+
+.title {
+	background: #ced4da;
 }
 
 .content {
@@ -108,7 +112,7 @@
 									</c:choose>
 								</td>
 								<c:if test="${dto.answer == 0}">
-									<td class="red">미완료</td>
+									<td class="red">대기</td>
 								</c:if>
 								<c:if test="${dto.answer == 1}">
 									<td class="blue">완료</td>
@@ -124,7 +128,7 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/qnaList.do';">새로고침</button>
 					</div>
 				</div>
 

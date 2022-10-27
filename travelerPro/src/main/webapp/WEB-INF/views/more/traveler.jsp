@@ -22,6 +22,11 @@
 
 .basic:hover{background-color:#1673A7;}
 
+.title {
+	border-bottom: 2px solid #ced4da;
+	background: #ced4da;
+	
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
@@ -35,43 +40,48 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 공지 관리 </h3>
+				<h3> 회원 정보 확인 </h3>
 			</div>
 			
 			<div class="body-main">
 				<table class="table table-hover board-list">
+					<thead>
+							<tr class="title">
+								<th>아이디</th>
+								<th>닉네임</th>
+								<th>생년월일</th>
+								<th>전화번호</th>
+								<th>이메일</th>
+								<th>가입일</th>
+								<th>구분</th>
+								
+							</tr>
+					</thead>
+					
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<td>${dataCount - (page-1) * size - status.index}</td>
-								<td class="text-start">
-									<a href="${articleUrl}&noticeNum=${dto.noticeNum}" class="text-reset">${dto.subject}</a>
-									<c:if test="${dto.gap<1}"><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></c:if>
-								</td>
+								<td>${dto.userId}</td>
+								<td>${dto.nickName}</td>
+        						<td>${dto.birth}</td>
+        						<td>${dto.tel}</td>
+								<td>${dto.email}</td>
 								<td>${dto.reg_date}</td>
-								<td>
-									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/notice/download.do?noticeNum=${dto.noticeNum}" class="text-reset"><i class="fa-solid fa-download"></i></a>
-									</c:if>
-								</td>
+								<c:if test="${dto.roll==0}">
+									<td>일반 회원 <i class="fa-regular fa-user"></i></td>
+								</c:if>
+								<c:if test="${dto.roll==1}">
+									<td>업체 회원 <i class="fa-solid fa-house-user"></i></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 공지사항이 없습니다." : paging}
+					${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 				</div>
-
-				<div class="row board-list-footer">
-					<div class="col">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
-					</div>
-					<div class="col text-end">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/write.do';">공지 작성</button>
-					</div>
-				</div>
-
+				
 			</div>
 		</div>
 	</div>

@@ -17,14 +17,14 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .title {
-	border-bottom: 2px solid #B4CDE6;
-	background: #B4CDE6;
+	border-bottom: 2px solid #ced4da;
+	background: #ced4da;
 	
 }
 </style>
@@ -78,7 +78,7 @@
 					</tbody>
 				</table>
 				
-				<div class="page-navigation">
+				<div class="page-navigation"> 
 					${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
 				</div>
 				

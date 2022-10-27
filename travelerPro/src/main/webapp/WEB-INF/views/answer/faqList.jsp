@@ -18,10 +18,10 @@
 						<div class="accordion-body">${dto.content}</div>
 						<div class="row board-list-footer">
 							<div class="col">
-								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faqDelete.do?faqNum=${dto.faqNum}';">삭제</button>
+								<button type="button" class="btn plus text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faqDelete.do?faqNum=${dto.faqNum}';">삭제</button>
 							</div>
 							<div class="col text-end">
-								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/faqUpdate.do?faqNum=${dto.faqNum}';">수정</button>
+								<button type="button" class="btn plus text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faqUpdate.do?faqNum=${dto.faqNum}';">수정</button>
 							</div>
 						</div>
 					</div>

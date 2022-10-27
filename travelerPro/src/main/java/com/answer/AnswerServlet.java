@@ -49,10 +49,10 @@ public class AnswerServlet extends TravelServlet {
 			qnaArticle(req, resp);
 		} else if(uri.indexOf("qnaInsert.do") != -1) {
 			qnaInsert(req, resp);
-		} else if(uri.indexOf("answerUpdate.do") != -1) {
-			answerUpdate(req, resp);
 		} else if(uri.indexOf("qnaDto.do") != -1) {
 			qnaDto(req, resp);
+		} else if(uri.indexOf("qnaDelete.do") != -1) {
+			qnaDelete(req, resp);
 		}
 	}
 	
@@ -305,11 +305,14 @@ public class AnswerServlet extends TravelServlet {
 		String state = "false";
 		try {
 			MemberADTO dto = new MemberADTO();
+			QnaVO vo = new QnaVO();
 			
 			dto.setContent(req.getParameter("content"));
 			dto.setQuestionNum(Long.parseLong(req.getParameter("questionNum")));
 			
-			dao.insertQna(dto);
+			vo.setQuestionNum(Long.parseLong(req.getParameter("questionNum")));
+			
+			dao.insertQna(dto, vo);
 			
 			state = "true";
 			
@@ -323,36 +326,12 @@ public class AnswerServlet extends TravelServlet {
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
 		out.print(job.toString());
-	}
-	
-	protected void answerUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		MemberADAO dao = new MemberADAO();
-		
-		String state = "false";
-		
-		try {
-			long questionNum = Long.parseLong(req.getParameter("questionNum"));
-			int answer = Integer.parseInt(req.getParameter("answer"));
-			
-			dao.updateAnswer(answer, questionNum);
-			
-			state = "true";
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		JSONObject job = new JSONObject();
-		job.put("state", state);
-		
-		resp.setContentType("text/html;charset=utf-8");
-		PrintWriter out = resp.getWriter();
-		out.print(job.toString());
-		
 	}
 	
 	protected void qnaDto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberADAO dao = new MemberADAO();
+		
+		String page = req.getParameter("page");
 		
 		try {
 			long questionNum = Long.parseLong(req.getParameter("questionNum"));
@@ -364,6 +343,7 @@ public class AnswerServlet extends TravelServlet {
 			}
 			
 			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
 			
 			forward(req, resp, "/WEB-INF/views/answer/qnaContent.jsp");
 			return;
@@ -372,6 +352,34 @@ public class AnswerServlet extends TravelServlet {
 		}
 		
 		resp.sendError(400);
+		
+	}
+	
+	protected void qnaDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberADAO dao = new MemberADAO();
+		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		String query = "page=" + page;
+		
+		try {
+			long questionNum = Long.parseLong(req.getParameter("questionNum"));
+			long answerNum = Long.parseLong(req.getParameter("answerNum"));
+			
+			MemberADTO dto = dao.qnaList(questionNum);
+			if(dto == null) {
+				resp.sendRedirect(cp+"/answer/qnaList.do?"+query);
+				return;
+			}
+			
+			dao.deleteAnswer(answerNum, questionNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/answer/qnaList.do?"+query);
 		
 	}
 	

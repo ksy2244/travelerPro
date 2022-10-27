@@ -15,8 +15,40 @@ public class MoreServlet extends TravelServlet {
 
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		req.setCharacterEncoding("utf-8");
 		
+		String uri = req.getRequestURI();
+	
+		if(uri.indexOf("policy.do?category=service") != -1) {
+			service(req, resp);
+		} else if(uri.indexOf("policy.do?category=privacy") != -1) {
+			privacy(req, resp);
+		} else if(uri.indexOf("policy.do?category=e-commerce") != -1) {
+			eCommerce(req, resp);
+		} else if(uri.indexOf("policy.do?category=e-commerceCaution") != -1) {
+			caution(req, resp);
+		} 
+		
+	}
+	
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/more/service.jsp");
+		return;
+	}
+	
+	protected void privacy(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/more/privacy.jsp");
+		return;
+	}
+	
+	protected void eCommerce(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/more/eCommerce.jsp");
+		return;
+	}
+	
+	protected void caution(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/more/caution.jsp");
+		return;
 	}
 
 }

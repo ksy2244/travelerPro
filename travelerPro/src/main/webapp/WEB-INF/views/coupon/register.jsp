@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .bold {
 	background-color: #3C2317;
@@ -147,21 +147,21 @@ $(function(){
 				<form name="couponForm" method="post">
 					<table class="table write-form mt-5">
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰명</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">쿠폰명</td>
 							<td>
 								<input type="text" name="couponName" class="form-control" value="${dto.couponName}">
 							</td>
 						</tr>
 	
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 내용</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">쿠폰 내용</td>
 							<td>
 								<textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
 						<tr class="trbold">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인 방법</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">할인 방법</td>
 							<td>
 								<div class="form-check">
 									  <input class="form-check-input" type="radio" name="chk_coupon" value="couponRate" id="flexRadioDefault2" checked>
@@ -179,7 +179,7 @@ $(function(){
 						</tr>
 						
 						<tr class="trbold couponRate">						
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인율</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">할인율</td>
 							<td>
 								<input type="number" name="couponRate" class="form-control" value="0" min="0" max="100">
 								<small class="form-control-plaintext">할인율은 1% ~ 100% 내에서 입력 가능합니다.</small>
@@ -187,7 +187,7 @@ $(function(){
 						</tr>
 						
 						<tr class="trbold couponPrice" style="display: none;">
-							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">할인금액</td>
+							<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">할인금액</td>
 							<td>
 								<input type="number" name="couponPrice" class="form-control" value="0" min="0" max="99999">
 								<small class="form-control-plaintext">할인금액은 1,000원 ~ 99,000원 내에서 입력 가능합니다.</small>
@@ -195,14 +195,14 @@ $(function(){
 						</tr>
 						
 				        <tr class="trbold">
-				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 시작 일자</td>
+				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">쿠폰 시작 일자</td>
 				        	<td>
 				            	<input type="date" name="start_date" id="start_date" class="form-control" placeholder="쿠폰 시작 일자">
 				            </td>
 				         </tr>
 				         
 				          <tr class="trbold">
-				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #F5EFE6">쿠폰 만료 일자</td>
+				        	<td class="col-sm-2 text-center basic" scope="row" style="background-color: #f8f9fa">쿠폰 만료 일자</td>
 				        	<td>
 				            	<input type="date" name="end_date" id="end_date" class="form-control" placeholder="쿠폰 마지막 일자">
 				            </td>

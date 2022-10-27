@@ -17,11 +17,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
-	margin-top: 20px;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .box {
 	background: #eee;
@@ -57,6 +56,7 @@
 .content {
 	margin-top: 20px;
 	margin-left: 40px;
+	margin-right: 40px;
 	height: 250px;
 }
 
@@ -121,7 +121,7 @@ $(function(){
 
 function listAnswer(questionNum) {
 	   let url = "${pageContext.request.contextPath}/answer/qnaDto.do";
-	   let query = "questionNum="+questionNum;
+	   let query = "page="+${page}+"&questionNum="+questionNum;
 	   let selector = "#listReply";
 	   
 	   const fn = function(data) {
@@ -159,24 +159,7 @@ $(function(){
 	     ajaxFun(url,"post",query,"json",fn);
 	 });
 	
-	
-	$(".btnSendReply").click(function(){
-		let questionNum = "${dto.questionNum}";
-		
-		let url = "${pageContext.request.contextPath}/answer/answerUpdate.do";
-		let query = "questionNum="+questionNum+"&answer=1";
-		
-		const fn = function(data){
-			if(data.state==="true"){
-				console.log("성공");
-			} 
-		};
-		
-		ajaxFun(url,"post",query,"json",fn);
-		
-	});
 });
-
 
 </script>
 </head>
@@ -242,12 +225,12 @@ $(function(){
 								</tr>
 								<tr>
 								<c:if test="${dto.answer == 0 }">
-								   <td align='right'>
+								    <td align='right'>
 								        <button type='button' class='btn basic btnSendReply'>답변 등록</button>
 								    </td>
 								 </c:if>
 								<c:if test="${dto.answer == 1 }">
-								 <td align='right'>
+								 	<td align='right'>
 								        <button type='button' class='btn basic btnSendReply' disabled="disabled" style="border: none; background: #F5EFE6">답변 등록</button>
 								    </td>
 								    </c:if>

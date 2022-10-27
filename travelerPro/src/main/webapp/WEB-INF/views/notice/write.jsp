@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #F5EFE6;
+	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.basic:hover{background-color:#1673A7;}
 
 .bold {
 	background-color: #3C2317;
@@ -88,28 +88,28 @@ function check() {
 					onsubmit="return submitContents(this);">
 					<table class="table write-form mt-5">
 						<tr class="trbold">
-							<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">제 목</td>
+							<td class="col-sm-2 text-center" scope="row" style="background-color: #f8f9fa">제 목</td>
 							<td>
 								<input type="text" name="subject" class="form-control" value="${dto.subject}">
 							</td>
 						</tr>
 	
 						<tr class="trbold">
-							<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">내 용</td>
+							<td class="col-sm-2 text-center" scope="row" style="background-color: #f8f9fa">내 용</td>
 							<td>
 								<textarea name="content" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.content}</textarea>
 							</td>
 						</tr>
 						
 						<tr class="trbold">
-							<td class="col-sm-2 text-center" style="background-color: #F5EFE6">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+							<td class="col-sm-2 text-center" style="background-color: #f8f9fa">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 							<td> 
 								<input type="file" name="selectFile" class="form-control">
 							</td>
 						</tr>
 						<c:if test="${mode=='update'}">
 							<tr class="trbold">
-								<td class="col-sm-2 text-center" scope="row" style="background-color: #F5EFE6">첨부된 파일</td>
+								<td class="col-sm-2 text-center" scope="row" style="background-color: #f8f9fa">첨부된 파일</td>
 								<td> 
 									<p class="form-control-plaintext">
 										<c:if test="${not empty dto.saveFilename}">
