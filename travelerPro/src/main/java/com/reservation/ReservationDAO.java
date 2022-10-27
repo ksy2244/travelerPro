@@ -206,30 +206,17 @@ public class ReservationDAO {
 	}
 
 	// 검색에서의 데이터 개수
-	public int dataCount(String condition, String keyword) {
+	public int dataCount() {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM room  ";
-			if (condition.equals("all")) {
-				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
-			}
-//				} else if (condition.equals("reg_date")) {
-//					keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-//					sql += " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
-//				} else {
-//					sql += " WHERE INSTR(" + condition + ", ?) >= 1 ";
-//				}
-
+			sql = "SELECT NVL(COUNT(*), 0) FROM (SELECT  DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum)";
+			
+	
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, keyword);
-			if (condition.equals("all")) {
-				pstmt.setString(2, keyword);
-			}
 
 			rs = pstmt.executeQuery();
 
@@ -266,7 +253,7 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM company  ";
+			sql = "SELECT NVL(COUNT(*), 0) FROM (SELECT  DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum);SELECT NVL(COUNT(*), 0) FROM (SELECT  DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum);  ";
 			if (condition.equals("all")) {
 				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
 			}

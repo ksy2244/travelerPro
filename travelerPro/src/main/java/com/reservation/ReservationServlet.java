@@ -68,6 +68,7 @@ public class ReservationServlet extends TravelServlet {
 		// 숙박업체 리스트
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
+		
 
 		String cp = req.getContextPath();
 
@@ -77,7 +78,7 @@ public class ReservationServlet extends TravelServlet {
 			if (page != null) {
 				current_page = Integer.parseInt(page);
 			}
-
+			
 			// 검색
 			String condition = req.getParameter("condition");
 			String keyword = req.getParameter("keyword");
@@ -92,16 +93,20 @@ public class ReservationServlet extends TravelServlet {
 			}
 
 			// 전체 데이터 개수
-			int dataCompanyCount;
+			int dataCompanyCount = dao.dataCount();
+			
+			System.out.println(dataCompanyCount);
+
 			if (keyword.length() == 0) {
-				dataCompanyCount = dao.dataCompanyCount();
+				dataCompanyCount = dao.dataCount();
 			} else {
-				dataCompanyCount = dao.dataCompanyCount(condition, keyword);
+				//dataCompanyCount = dao.dataCompanyCount(condition, keyword);
 			}
 
 			// 전체 페이지 수
 			int size = 5;
 			int total_page = util.pageCount(dataCompanyCount, size);
+			System.out.println("dd"+total_page);
 			if (current_page > total_page) {
 				current_page = total_page;
 			}
