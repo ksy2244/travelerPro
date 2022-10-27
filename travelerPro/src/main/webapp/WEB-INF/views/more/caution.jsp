@@ -11,7 +11,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
 
-<style type="text/css"> 
+<style type="text/css">  
 .menu{
 	width: 400px;
 	position:fixed;
