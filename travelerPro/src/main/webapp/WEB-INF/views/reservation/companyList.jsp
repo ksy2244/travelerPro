@@ -11,7 +11,7 @@
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet"
-	href="../resources/style/reservation/reservationStyle.css"
+	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
 <link rel="import" href="map.html">
 </head>
@@ -70,18 +70,14 @@
 		</div>
 	</main>
 
+	<footer>
+		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+	</footer>
+
+	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 
 
-</body>
 
 
-
-
-
-<footer>
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
-</footer>
-
-<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 </body>
 </html>

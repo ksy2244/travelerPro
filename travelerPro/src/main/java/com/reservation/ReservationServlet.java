@@ -100,7 +100,7 @@ public class ReservationServlet extends TravelServlet {
 			}
 
 			// 전체 페이지 수
-			int size = 10;
+			int size = 5;
 			int total_page = util.pageCount(dataCompanyCount, size);
 			if (current_page > total_page) {
 				current_page = total_page;
@@ -294,7 +294,7 @@ public class ReservationServlet extends TravelServlet {
 			dto.setRealUserTel(req.getParameter("realUserTel"));
 
 			dao.insertReservation(dto);
-			
+
 			ReserveRoomDTO sdto = dao.listSelectRoom(roomNum);
 
 			// JSP로 전달할 속성

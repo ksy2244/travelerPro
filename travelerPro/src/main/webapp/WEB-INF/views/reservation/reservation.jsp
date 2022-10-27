@@ -9,6 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
 
 <style type="text/css">
 .body-container {
@@ -107,7 +110,7 @@
 
 				<div class="alert" role="alert" style="background: #E4FBFF">
 					객실 예매를 위한 정보를 입력해주세요.</div>
-				<div class="card border-secondary mb-3" style="max-width: 100rem;">
+				<div class="cardBox">
 					<div class="card-header">
 						<h5>
 							<i class="fa-solid fa-hotel"></i>&nbsp; ${dto.companyName}&nbsp;
@@ -195,14 +198,10 @@
 			</div>
 		</div>
 	</main>
+
 	<footer>
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	</footer>
 
 	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
-</body>
 </html>
-
-
-
-
