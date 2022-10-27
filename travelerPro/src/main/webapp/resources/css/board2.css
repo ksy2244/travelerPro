@@ -19,7 +19,7 @@
 	width: 40px; color: #787878;
 }
 .board-list .num {
-	width: 60px; color: #787878;
+	width: 80px; color: #787878;
 }
 .board-list .subject {
 	color: #787878;
@@ -28,7 +28,7 @@
 	width: 100px; color: #787878;
 }
 .board-list .date {
-	width: 100px; color: #787878;
+	width: 120px; color: #787878;
 }
 .board-list .hit {
 	width: 70px; color: #787878;
@@ -38,7 +38,7 @@
 }
 
 .board-list .category {
-	width: 80px; color: #787878;
+	width: 180px; color: #787878;
 }
 .board-list-footer {
 	padding-top: 7px; padding-bottom: 7px;
