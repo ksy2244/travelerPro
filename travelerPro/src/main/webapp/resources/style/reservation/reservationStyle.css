@@ -89,10 +89,10 @@
 }
 
 img {
-	width: 700px;
-	height: 500px;
 	vertical-align: bottom;
 	overflow: hidden;
+	object-fit:cover;
+	width: 100px;
 }
 
 /* 환불 규정 */
@@ -126,9 +126,5 @@ img {
 	font-size: 28px;
 	font-weight: 500;
 }
-
-
-
-
 
 

@@ -10,20 +10,12 @@
 }
 
 .regionImg {
-	width: 400px;
-	height: 500px;
+	width: 500px;
+	height: 600px;
 	filter: drop-shadow(5px 5px 5px grey);
 	border-radius: 3%
 }
 
-.title {
-	margin-right: 650px;
-	margin-top: 50px;
-	margin-bottom: 20px;
-	font-style: 맑은 고딕;
-	font-weight: bold;
-	font-size: 20px;
-}
 
 .regionName {
 	position: absolute;
@@ -36,13 +28,13 @@
 }
 
 .box {
-	width: 180px;
+	width: 200px;
 	height: 400px;
-	margin: 30px;
+	margin-left: 35px;
 	position: relative;
 	text-align: center;
 	float: left;
-	margin-left: 230px;
+	
 }
 
 .imageLayout {
@@ -60,8 +52,6 @@
 	margin: 20px;
 }
 
-
-
 .region {
 	position: absolute;
 	color: white;
@@ -71,9 +61,8 @@
 }
 
 .regionImg {
-	width: 400px;
-	height: 500px;
-	filter: drop-shadow(5px 5px 5px grey);
+	width: 200px;
+	height: 200px;
 	border-radius: 5%
 }
 
@@ -83,3 +72,11 @@
 	object-fit: cover;
 	overflow: hidden;
 }
+
+
+.carousel-inner > .item > img {
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 400px;
+ } 

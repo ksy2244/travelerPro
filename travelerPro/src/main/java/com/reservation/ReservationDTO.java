@@ -18,6 +18,24 @@ public class ReservationDTO {
 	private String realUserTel; // 실제 사용자 전화번호
 	private int roomNum;
 	private int companyNum;
+	private int headCount;
+	private String companyName;
+
+	public int getHeadCount() {
+		return headCount;
+	}
+
+	public void setHeadCount(int headCount) {
+		this.headCount = headCount;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
 	public long getReservationNum() {
 		return reservationNum;

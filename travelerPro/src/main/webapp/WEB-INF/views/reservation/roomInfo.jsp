@@ -14,6 +14,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
+	
 <link rel="import" href="map.html">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -223,9 +227,6 @@
 				</div>
 				<br>
 				<div style="width: 1500px">
-					<button type="button" class="reservationBtn" style="float: right;"
-						btn btn-primary" data-bs-toggle="modal"
-						data-bs-target="#exampleModal1">객실 예약</button>
 				</div>
 
 
@@ -291,7 +292,6 @@
 
 			<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 		</div>
-	</div>
 	</div>
 </body>
 </html>

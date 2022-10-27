@@ -7,8 +7,6 @@
 
 </style>
 
-
-
 <nav class="navbar navbar-expand-lg justify-content-end" style=" background: #B8B5FF; border: 30px solid #B8B5FF;">
   <div class="container-fluid">
     <a class="navbar-brand text-white" href="#" style="font-family: 'GmarketSans'; font-size: 50px; margin-left: 300px;"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>

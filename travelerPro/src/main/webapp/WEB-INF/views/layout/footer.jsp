@@ -7,7 +7,6 @@
 	color: gray;
 	margin-top: 200px;
 }
-
 </style>
 <div class="container-fluid footer">
     <ul class="nav justify-content-center p-3">

@@ -165,6 +165,7 @@ public class QnaDAO {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
 				
+				
 				list.add(dto);
 			}
 			
@@ -197,7 +198,7 @@ public class QnaDAO {
 		
 		try {
 			sql = " SELECT questionNum, subject, "
-					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, categoryNum "
+					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, categoryNum, "
 					+ " FROM memberQ q "
 					+ " JOIN member m ON q.userId = m.userId ";
 			if(condition.equals("all")) {
@@ -233,6 +234,7 @@ public class QnaDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
+	
 				
 				list.add(dto);
 			}
@@ -259,7 +261,7 @@ public class QnaDAO {
 		
 	}
 	
-	public List<QnaVO> listCategory(int offset, int size) {
+	public List<QnaVO> listCategory() {
 		List<QnaVO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -268,6 +270,18 @@ public class QnaDAO {
 		try {
 			sql = " SELECT categoryNum, categoryName "
 					+ " FROM qnacategory ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QnaVO dto = new QnaVO();
+				
+				dto.setCategoryNum(rs.getInt("categoryNum"));
+				dto.setCategoryName(rs.getString("categoryName"));
+				
+				list.add(dto);
+			}
 			
 			
 		} catch (Exception e) {
@@ -286,12 +300,9 @@ public class QnaDAO {
 				}
 			}
 			
-				
-			
 		}
-		
-		
 		return list;
+	
 	}
 
 	
@@ -345,6 +356,69 @@ public class QnaDAO {
 		return dto;
 	}
 	
+	public void updateQna(QnaVO dto) throws SQLException{
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE memberQ SET subject = ?, content = ?, categoryNum = ? "
+					+ " WHERE questionNum = ? AND userId = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getSubject());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getCategoryNum());
+			pstmt.setLong(4, dto.getQuestionNum());
+			pstmt.setString(5, dto.getUserId());
+			
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+			
+		} finally {
+			if( pstmt!=null ) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+	}
 	
+	public void deleteQna(long questionNum, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			if (userId.equals("admin")) {
+				sql = "DELETE FROM memberQ WHERE questionNum=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setLong(1, questionNum);
+
+				pstmt.executeUpdate();
+			} else {
+				sql = "DELETE FROM memberQ WHERE questionNum=? AND userId=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setLong(1, questionNum);
+				pstmt.setString(2, userId);
+
+				pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+
 	
 }

@@ -89,7 +89,7 @@ function searchList() {
 									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
 								</td>
 								
-								<td>${dto.userId}</td>
+								<td>${userId}</td>
 								
 								<td>${dto.reg_date}</td>
 								

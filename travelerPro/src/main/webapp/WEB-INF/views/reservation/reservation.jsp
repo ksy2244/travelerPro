@@ -9,6 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
 
 <style type="text/css">
 .body-container {
@@ -23,8 +26,6 @@
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
-
-
 <script>
 	var IMP = window.IMP;
 	IMP.init("인증키");
@@ -36,8 +37,8 @@
 	var milliseconds = today.getMilliseconds();
 	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-	 function requestPay() {
-		 const f = document.reservationForm;
+	function requestPay() {
+		const f = document.reservationForm;
 		let str;
 
 		str = f.realUserName.value;
@@ -52,39 +53,45 @@
 			alert("전화번호를 입력하세요. ");
 			f.realUserTel.focus();
 			return;
-		}		 
-		 
+		}
+		alert(f.realUserTel.value);
 		//결제 
 		let paymentPrice = "${paymentPrice}";
 		let subject = "${dto.companyName}(${dto.roomName})";
 		alert(paymentPrice);
 		paymentPrice = 100;
-        IMP.request_pay({
-            pg : 'html5_inicis.INIpayTest',
-            pay_method : 'card',
-            merchant_uid: "IMP"+makeMerchantUid, 
-            name : subject, //클라이언트에게 보여주는 상품 이름 
-            amount : paymentPrice, // 결제 금액 
-           	//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
-            buyer_name :  ${realUserName}, // 구매자 이름 
-            buyer_tel : ${realUserTel}, // 구매자 전화번호 
-            //buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
-            buyer_postcode : '123-456' //구매자 우편번호 
-        }, function (rsp) { // callback
-            if (rsp.success) {
-            	
-            	console.log(rsp);
-        		f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
-            	f.submit();
-              
-                
-            } else {
-                console.log(rsp);
-                alert("결제가 실패했습니다");
-            }
-        });
-    }
+		IMP.request_pay({
+			pg : 'html5_inicis.INIpayTest',
+			pay_method : 'card',
+			merchant_uid : "IMP" + makeMerchantUid,
+			name : subject, //클라이언트에게 보여주는 상품 이름 
+			amount : paymentPrice, // 결제 금액 
+			//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
+			buyer_name : f.realUserName.value, // 구매자 이름 
+			buyer_tel : f.realUserTel.value, // 구매자 전화번호 
+			//buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
+			buyer_postcode : '123-456' //구매자 우편번호 
+		}, function(rsp) { // callback
+			if (rsp.success) {
+				console.log(rsp);
+				alert("예매가 완료되었습니다!");
+				f.action = "${pageContext.request.contextPath}/reservation/main.do";
+				f.submit();
+
+			} else {
+				console.log(rsp);
+				alert("결제가 실패했습니다");
+			}
+		});
+
+	}
+	
+
+	
+	
 </script>
+
+
 </head>
 <body>
 
@@ -103,21 +110,22 @@
 
 				<div class="alert" role="alert" style="background: #E4FBFF">
 					객실 예매를 위한 정보를 입력해주세요.</div>
-				<div class="card border-secondary mb-3" style="max-width: 100rem;">
+				<div class="cardBox">
 					<div class="card-header">
 						<h5>
 							<i class="fa-solid fa-hotel"></i>&nbsp; ${dto.companyName}&nbsp;
 						</h5>
 					</div>
 					<div class="card-body text-secondary">
-						<h5 class="card-title">객실 타입 ${dto.roomName}</h5>
+						<h5 class="card-title">${dto.roomName}</h5>
 						<p class="card-text">
 						<p>${dto.roomInfo}</p>
-						<p>체크인 ${start_date}&nbsp;${checkInTime}&nbsp;|&nbsp;체크아웃
-							${end_date}&nbsp;${checkOutTime} 가격 ${dto.roomPrice}</p>
-						<p>할인율 ${dto.discountRate} 기준 ${dto.headCount}인 최대
+						<p>체크인 ${start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
+							${end_date}&nbsp;${dto.checkOutTime} 가격 ${dto.roomPrice}</p>
+						<p>할인율 ${dto.discountRate} 기준 ${dto.headCount}인
 							${dto.headCount}인</p>
-						<p>주소 ${addr} 기준 ${dto.addrDetail}인 최대 ${dto.headCount}인</p>
+						<p>지불 금액${paymentPrice}</p>
+						<p>주소 ${dto.addr} 기준 ${dto.addrDetail}인</p>
 					</div>
 
 				</div>
@@ -165,6 +173,7 @@
 							</div>
 						</div>
 
+
 						<div>
 							<input type="hidden" value="${dto.roomNum}" name="roomNum">
 							<input type="hidden" value="${start_date}" name="start_date">
@@ -181,7 +190,6 @@
 								name="checkInTime"> <input type="hidden"
 								value="${dto.checkOutTime}" name="checkOutTime">
 
-
 							<button type="button" name="sendButton" class="btn"
 								onclick="requestPay();">결제</button>
 						</div>
@@ -196,10 +204,4 @@
 	</footer>
 
 	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
-</body>
 </html>
-
-
-
-
-
