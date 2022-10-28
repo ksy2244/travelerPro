@@ -72,7 +72,7 @@ public class CeoServlet extends TravelServlet {
 			insertReply(req, resp);
 		} else if (uri.indexOf("listAnswer.do") != -1) {
 			listAnswer(req, resp);
-	}
+		}  
 }
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CeoDAO dao = new CeoDAO();
@@ -283,7 +283,36 @@ public class CeoServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/ceo/main.do?" + query);
 	}
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CeoDAO dao = new CeoDAO();
+
+		/*
+		 * HttpSession session = req.getSession(); SessionInfo info = (SessionInfo)
+		 * session.getAttribute("member");
+		 */
 		
+		String cp = req.getContextPath();
+		
+		String page = req.getParameter("page");
+		String query = "page=" + page;
+
+		try {
+			
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+			
+			CeoDTO dto = dao.readCto(companyNum);
+			
+			if(dto == null) {
+				resp.sendRedirect(cp + "/ceo/list.do?" + query);
+				return;
+			}
+			
+			
+			dao.deleteCompany(companyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		resp.sendRedirect(cp + "/ceo/list.do?" + query);
 		
 	}
 	protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -527,5 +556,6 @@ public class CeoServlet extends TravelServlet {
 		}
 		forward(req, resp, "/WEB-INF/views/ceo/listReply.jsp");
 	}
+	
 
 }

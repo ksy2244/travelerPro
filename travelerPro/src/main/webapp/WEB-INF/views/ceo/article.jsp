@@ -19,13 +19,13 @@
 <script type="text/javascript">
 /* <c:if test="${sessionScope.member.userId==dto.userId}"> */
 function deleteCeo() {
-  /*   if(confirm("해당업체를 삭제 하시 겠습니까 ? ")) { */
+     if(confirm("해당업체를 삭제 하시겠습니까 ? ")) {
 	    let query = "companyNum=${dto.companyNum}&page=${page}";
 	    let url = "${pageContext.request.contextPath}/ceo/delete.do?" + query;
     	location.href = url;
-   /*  } */
+     }
 }
-/* </c:if> */
+</c:if>
 
 function imageViewer(src) {
 	const $model = $("#myDialogModal .modal-body");

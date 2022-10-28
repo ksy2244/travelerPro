@@ -10,10 +10,9 @@
 }
 
 .regionImg {
-	width: 500px;
-	height: 600px;
+	height: 200px;
 	filter: drop-shadow(5px 5px 5px grey);
-	border-radius: 3%
+	border-radius: 5%
 }
 
 
@@ -60,11 +59,6 @@
 	color: white;
 }
 
-.regionImg {
-	width: 200px;
-	height: 200px;
-	border-radius: 5%
-}
 
 .bestRegion {
 	width: 300px;
@@ -79,4 +73,7 @@
       left: 0;
       min-width: 100%;
       min-height: 400px;
- } 
+ }
+ .region-container {
+ 	width: 100%;
+ }

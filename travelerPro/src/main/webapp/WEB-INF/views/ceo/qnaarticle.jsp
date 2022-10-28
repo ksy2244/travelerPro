@@ -13,6 +13,83 @@
 	cursor: pointer;
 
 }
+<style type="text/css">
+.body-container {
+	max-width: 1000px;
+}
+
+.basic {
+	background-color: #F5EFE6;
+	margin-top: 20px;
+}
+
+.basic:hover{background-color:#D9D2CC;}
+
+.box {
+	background: #eee;
+	border-radius: 3px;
+	border: 5px solid #eee;
+	font-size: 13px;
+	text-align: center;
+	color: #5D5D5D;
+}
+
+.content {
+	border-bottom: none;
+}
+
+.blue {
+	color: navy;
+	margin-left: 40px;
+}
+
+.question {
+	color: #B4CDE6;
+	font-size: 70px;
+	font-weight: 500;
+	padding: 0px;
+	margin-left: 40px;
+}
+
+.subject {
+	font-size: 25px;
+	margin-left: 25px;
+}
+
+.content {
+	margin-top: 20px;
+	margin-left: 40px;
+	height: 250px;
+}
+
+.id {
+	margin-left: 40px;
+	margin-top: 20px;
+	font-size: 15px;
+	margin-bottom: 30px;
+}
+
+.date {
+	color: #787878;
+}
+
+.answer {
+	margin-left: 40px;
+	font-size: 50px;
+	color: #628E90;
+	font-weight: 500;
+}
+
+.margin {
+	margin-left: 40px;
+	margin-bottom: 30px;
+}
+
+.reply-list {
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	padding: 20px;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -101,29 +178,21 @@ function listAnswer(companyNum) {
 			</div>
 			
 			<div class="body-main">
-				
 				<table class="table">
 					<tbody>
-						<tr>
-							<td width="50%">
-								닉네임 : ${dto.nickName}
+						<tr class="title">
+							<td colspan="2" align="left">
+								<span class="question">Q</span> <span class="subject">${dto.nickName}</span>
+								<div class="content">${dto.content}</div>
 							</td>
-							<td align="right">
-								${dto.reg_date}
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="2" valign="top" height="200" style="border-bottom: none;">
-								${dto.content}
-							</td>
+							<span class="date">${dto.reg_date}</span>
 						</tr>
 					</tbody>
 				</table>
 				
 				<table class="table table-borderless">
 					<tr>
-						<td class="text-end">
+						<td>
 							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/qna.do?${query}';">리스트</button>
 						</td>
 					</tr>

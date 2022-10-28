@@ -85,61 +85,49 @@
 		<div align="center" class="region-container">
 			<div class="traveleTitle" style="font-family: HallyM">지역별 여행
 				둘러보기!</div>
-			<div class="imageLayout">
-				<div>
-
-
-
-				<div>
-					<div class="box">
-						<img class="regionImg" src="resources/images/mainImg/busan.png">
-						<div class="regionName">
-							<i>제주도</i>
-						</div>
+		<!-- <div class="imageLayout">
+				<div class="box">
+					<img class="regionImg" src="resources/images/mainImg/busan.png">
+					<div class="regionName">
+						<i>제주도</i>
 					</div>
-
-
-					<div class="box">
-						<img class="regionImg" src="resources/images/mainImg/busan.png">
-						<div class="regionName">
-							<i>서울</i>
-						</div>
-					</div>
-
-					<div class="box">
-						<img class="regionImg" src="resources/images/mainImg/busan.png">
-						<div class="regionName">
-							<i>대전</i>
-						</div>
-					</div>
-
-					<div class="box">
-						<img class="regionImg" src="resources/images/mainImg/busan.png">
-						<div class="regionName">
-							<i>대구</i>
-						</div>
-					</div>
-
-					<div class="box">
-						<img class="regionImg" src="resources/images/mainImg/busan.png">
-						<div class="regionName">
-							<i>부산</i>
-						</div>
-					</div>
-					</div>
-
-
-
 				</div>
-			</div>
-		</div>
 
+
+				<div class="box">
+					<img class="regionImg" src="resources/images/mainImg/busan.png">
+					<div class="regionName">
+						<i>서울</i>
+					</div>
+				</div>
+
+				<div class="box">
+					<img class="regionImg" src="resources/images/mainImg/busan.png">
+					<div class="regionName">
+						<i>대전</i>
+					</div>
+				</div>
+
+				<div class="box">
+					<img class="regionImg" src="resources/images/mainImg/busan.png">
+					<div class="regionName">
+						<i>대구</i>
+					</div>
+				</div>
+
+				<div class="box">
+					<img class="regionImg" src="resources/images/mainImg/busan.png">
+					<div class="regionName">
+						<i>부산</i>
+					</div>
+				</div>
+			</div> -->
+			</div>
 	</main>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	</footer>
-
-	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
+		<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 </body>
 </html>

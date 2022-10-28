@@ -560,4 +560,28 @@ public class CeoDAO {
 		
 		return dto;
 	}
+	
+	public void deleteCompany(int num) {
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql="DELETE FROM company where companyNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+	}
 }

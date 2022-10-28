@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>CEOMain</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<style type="text/css">
+.btn {
+	color: white;
+}
+</style>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 </head>
 <body>
@@ -37,7 +42,7 @@
 							<th class ="companyTel">업체 전화번호</th>
 							<th class="addr1">주소</th>
 							<th class="approval">관리자 승인 여부</th>
-							<th class="roomgo">객실등록</th>
+							<th class="roomgo">객실관리</th>
 						</tr>
 					</thead>
 					
@@ -54,7 +59,7 @@
 								<c:choose>
 									<c:when test="${dto.approval ==1}">
 									<td>
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실등록</button>
+										<button type="submit" class="btn btn-dark" style="color: white;"   onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실관리</button>
 									</td>
 									</c:when>
 									<c:otherwise>
@@ -72,7 +77,7 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">새로고침</button>
+						<button type="button" class="btn btn-info" onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/recognition.do';">업체등록하러가기</button>
