@@ -50,7 +50,18 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("reservation_ok.do") != -1) {
 			reservationSubmit(req, resp);
 		}
-
+		
+//		// 리뷰 작성 화면 
+//		else if (uri.indexOf("review.do") != -1) {
+//			reservationSubmit(req, resp);
+//
+//		// 리뷰 완료 화면
+//		else if (uri.indexOf("review_ok.do") != -1) {
+//			reservationSubmit(req, resp);
+//		}
+//			
+//		
+		
 		// 결제 테스트
 		else if (uri.indexOf("test.do") != -1) {
 			test(req, resp);

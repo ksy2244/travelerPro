@@ -60,6 +60,19 @@
 
 		$('#end_date').datepicker('setDate', '+1D'); // 종료일 초기값 내일로 설정 
 	});
+	
+	
+	function dateBtn() {
+		const f = document.dateForm;
+		alert(hello);
+		alert(f.start_date.value);
+		if(f.start_date.value >= f.end_date.value){
+		
+			alert("이용 종료일이 이용 시작일 이후여야 합니다. ");
+			f.start_date.focus();
+		}
+	}
+
 </script>
 
 <script type="text/javascript"
@@ -169,7 +182,7 @@
 						<div
 							style="text-align: center; font-size: 25px; font-weight: 400; margin: auto; margin-top: 20px; margin-bottom: 20px;">
 							<div class="card-body">
-								<form action="roomInfo.do" method="get">
+								<form name = "dateForm" action="roomInfo.do" method="get">
 									<p style="font-size: 25px;">
 										<input type="hidden" value="${companyNum}" name="companyNum">
 
@@ -177,7 +190,7 @@
 										종료일 <input type="text" id="end_date" name="end_date">
 									</p>
 
-									<button class="reservationBtn" type="submit">날짜 선택</button>
+									<button class="dateBtn btn btn-danger" type="submit">날짜 선택</button>
 
 								</form>
 
@@ -254,7 +267,8 @@
 									<input type="hidden" value="${room.roomNum}" name="roomNum">
 									<input type="hidden" value="${start_date}" name=start_date>
 									<input type="hidden" value="${end_date}" name="end_date">
-									<button class="reservationBtn" type="submit">날짜 선택</button>
+									
+									<button class="dateBtn btn btn-danger" type="submit">날짜 선택</button>
 								</form>
 							</div>
 						</div>

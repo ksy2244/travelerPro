@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style type="text/css">
 @import url('https://webfontworld.github.io/hallym/Hallym.css');
-.container {
+.navContainer {
 	display: grid;
 	line-height: 1.0;
 	margin-left: 20px;
@@ -19,7 +19,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 10px;">
-     <div class="container" style="margin-right:10px;">
+     <div class="navContainer" style="margin-right:10px;">
     
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item dropdown">
