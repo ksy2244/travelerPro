@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #1687A7;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#1673A7;}
+.basic:hover{background-color:#7689A5;}
 
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
@@ -65,10 +65,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/write.do';">공지 작성</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/notice/write.do';">공지 작성</button>
 					</div>
 				</div>
 

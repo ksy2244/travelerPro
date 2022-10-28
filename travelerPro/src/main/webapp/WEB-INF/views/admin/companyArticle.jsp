@@ -17,25 +17,23 @@
 }
 
 .basic {
+	background-color: #6C757D;
+}
+
+.basic:hover{background-color:#7689A5;}
+
+.blue {
 	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#1673A7;}
-
-.blue {
-	background-color: #B4CDE6;
-}
-
-.blue:hover {
-	background-color: #B4B9D2;
-}
+.blue:hover{background-color:#1696A7;}
  
 .black {
 	background-color: #276678;
 }
 
 .black:hover {
-	background-color: #27525A;
+	background-color: #2D7A87;
 }
 
 .box {

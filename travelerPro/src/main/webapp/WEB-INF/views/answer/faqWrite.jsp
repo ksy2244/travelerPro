@@ -17,16 +17,17 @@
 }
 
 .basic {
-	background-color: #276678;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#27525A;}
+.basic:hover{background-color:#7689A5;}
+
 
 .bold {
 	background-color: #1687A7;
 }
 
-.bold:hover{background-color:#1673A7;}
+.bold:hover{background-color:#1696A7;}
 
 .trbold {
 	border-bottom: 1px solid #3C2317;

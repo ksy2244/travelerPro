@@ -13,7 +13,7 @@
 	</tr>
 	<tr>
 		<td align='right'>
-			<button type="button" class="btn basic btnDelete" onclick="location.href='${pageContext.request.contextPath}/answer/qnaDelete.do?page=${page}&questionNum=${dto.questionNum}&answerNum=${dto.answerNum}';">삭제</button>
+			<button type="button" class="btn basic btnDelete text-white" onclick="location.href='${pageContext.request.contextPath}/answer/qnaDelete.do?page=${page}&questionNum=${dto.questionNum}&answerNum=${dto.answerNum}';">삭제</button>
 		</td>
 	</tr>
 </table>

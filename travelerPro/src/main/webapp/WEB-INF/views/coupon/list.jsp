@@ -31,10 +31,10 @@
 }
 
 .basic {
-	background-color: #1687A7;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#1673A7;}
+.basic:hover{background-color:#7689A5;}
 
 .form tr:first-child {
 	border-top: 2px solid #3C2317;
@@ -137,10 +137,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">새로고침</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/register.do';">쿠폰 등록</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/coupon/register.do';">쿠폰 등록</button>
 					</div>
 				</div>
 

@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #1687A7;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#1673A7;}
+.basic:hover{background-color:#7689A5;}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
@@ -89,12 +89,12 @@ function deleteNotice() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?page=${page}&noticeNum=${dto.noticeNum}';">수정</button>
-							<button type="button" class="btn basic" onclick="deleteNotice();">삭제</button>
+							<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/notice/update.do?page=${page}&noticeNum=${dto.noticeNum}';">수정</button>
+							<button type="button" class="btn basic text-white" onclick="deleteNotice();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
+							<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>

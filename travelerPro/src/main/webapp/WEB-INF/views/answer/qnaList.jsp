@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #1687A7;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#1673A7;}
+.basic:hover{background-color:#7689A5;}
 
 .title .qnum {
 	width: 90px;

@@ -17,16 +17,16 @@
 }
 
 .basic {
+	background-color: #6C757D;
+}
+
+.basic:hover{background-color:#7689A5;}
+
+.bold {
 	background-color: #1687A7;
 }
 
-.basic:hover{background-color:#1673A7;}
-
-.bold {
-	background-color: #3C2317;
-}
-
-.bold:hover{background-color:#804A30;}
+.bold:hover{background-color:#1696A7;}
 
 .trbold {
 	border-bottom: 1px solid #3C2317;
@@ -127,8 +127,8 @@ function check() {
 	 					<tr>
 							<td class="text-center">
 								<button type="submit" class="btn text-white bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn basic">다시입력</button>
-								<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="reset" class="btn basic text-white">다시입력</button>
+								<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/notice/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="noticeNum" value="${dto.noticeNum}">
 									<input type="hidden" name="page" value="${page}">

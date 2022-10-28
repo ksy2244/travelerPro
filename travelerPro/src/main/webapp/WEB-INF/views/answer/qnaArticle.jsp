@@ -17,10 +17,10 @@
 }
 
 .basic {
-	background-color: #1687A7;
+	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#1673A7;}
+.basic:hover{background-color:#7689A5;}
 
 .box {
 	background: #eee;
@@ -87,6 +87,10 @@
 	border: 1px solid #ccc;
 	border-radius: 15px;
 	padding: 20px;
+}
+
+.write {
+	margin-top: 30px;
 }
 
 </style>
@@ -206,7 +210,7 @@ $(function(){
 				<table class="table table-borderless">
 					<tr>
 						<td>
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/answer/qnaList.do?${query}';">리스트</button>
+							<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/qnaList.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>
@@ -226,12 +230,12 @@ $(function(){
 								<tr>
 								<c:if test="${dto.answer == 0 }">
 								    <td align='right'>
-								        <button type='button' class='btn basic btnSendReply'>답변 등록</button>
+								        <button type='button' class='btn basic btnSendReply text-white write'>답변 등록</button>
 								    </td>
 								 </c:if>
 								<c:if test="${dto.answer == 1 }">
 								 	<td align='right'>
-								        <button type='button' class='btn basic btnSendReply' disabled="disabled" style="border: none; background: #F5EFE6">답변 등록</button>
+								        <button type='button' class='btn basic btnSendReply text-white write' disabled="disabled" style="border: none; background: #6C757D">답변 등록</button>
 								    </td>
 								    </c:if>
 								 </tr>
