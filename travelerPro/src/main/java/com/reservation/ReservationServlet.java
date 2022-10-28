@@ -50,22 +50,77 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("reservation_ok.do") != -1) {
 			reservationSubmit(req, resp);
 		}
-		
-//		// 리뷰 작성 화면 
-//		else if (uri.indexOf("review.do") != -1) {
-//			reservationSubmit(req, resp);
+
+		// 룸 정보 - 객실, 지도, 리뷰
+		else if (uri.indexOf("roomList.do") != -1) {
+			// 객실
+			roomList(req, resp);
+		}
+
+		else if (uri.indexOf("map.do") != -1) {
+			// 지도
+			map(req, resp);
+		}
+
+		else if (uri.indexOf("review.do") != -1) {
+			// 리뷰 보기 및 작성
+			review(req, resp);
+		}
 //
-//		// 리뷰 완료 화면
+//			리뷰 완료 화면
 //		else if (uri.indexOf("review_ok.do") != -1) {
 //			reservationSubmit(req, resp);
 //		}
 //			
 //		
-		
+
 		// 결제 테스트
 		else if (uri.indexOf("test.do") != -1) {
 			test(req, resp);
 		}
+	}
+
+	private void roomList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ReservationDAO dao = new ReservationDAO();
+
+		req.setCharacterEncoding("utf8");
+
+		try {
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+
+			List<ReserveRoomDTO> roomList = null;
+
+			// 선택한 업체의 객실 정보
+			roomList = dao.listRoom(companyNum);
+
+			// JSP로 전달할 속성
+			req.setAttribute("companyNum", companyNum);
+			req.setAttribute("roomList", roomList);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/reservation/roomList.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		resp.sendError(400);
+
+	}
+
+	private void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
+		return;
+
+	}
+
+	private void review(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		forward(req, resp, "/WEB-INF/views/reservation/review.jsp");
+		return;
+
 	}
 
 	private void test(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,7 +134,6 @@ public class ReservationServlet extends TravelServlet {
 		// 숙박업체 리스트
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
-		
 
 		String cp = req.getContextPath();
 
@@ -89,7 +143,7 @@ public class ReservationServlet extends TravelServlet {
 			if (page != null) {
 				current_page = Integer.parseInt(page);
 			}
-			
+
 			// 검색
 			String condition = req.getParameter("condition");
 			String keyword = req.getParameter("keyword");
@@ -105,19 +159,19 @@ public class ReservationServlet extends TravelServlet {
 
 			// 전체 데이터 개수
 			int dataCompanyCount = dao.dataCount();
-			
+
 			System.out.println(dataCompanyCount);
 
 			if (keyword.length() == 0) {
 				dataCompanyCount = dao.dataCount();
 			} else {
-				//dataCompanyCount = dao.dataCompanyCount(condition, keyword);
+				// dataCompanyCount = dao.dataCompanyCount(condition, keyword);
 			}
 
 			// 전체 페이지 수
 			int size = 5;
 			int total_page = util.pageCount(dataCompanyCount, size);
-			System.out.println("dd"+total_page);
+			System.out.println("dd" + total_page);
 			if (current_page > total_page) {
 				current_page = total_page;
 			}
@@ -174,7 +228,6 @@ public class ReservationServlet extends TravelServlet {
 
 		String cp = req.getContextPath();
 		req.setCharacterEncoding("utf8");
-		resp.setCharacterEncoding("utf8");
 
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
@@ -182,13 +235,10 @@ public class ReservationServlet extends TravelServlet {
 			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
 			ReserveRoomDTO roomDto = new ReserveRoomDTO();
 
-			List<ReserveRoomDTO> roomList = null;
-
 			// 업체 정보 가져오기
 			companyDto = dao.readCompany(companyNum);
 
 			// 선택한 업체의 객실 정보
-			roomList = dao.listRoom(companyNum);
 			roomDto.setCompanyNum(companyNum);
 
 			// 사용자가 입력한 시작일, 종료일 찾기
@@ -216,7 +266,6 @@ public class ReservationServlet extends TravelServlet {
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
-			req.setAttribute("roomList", roomList);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
 			req.setAttribute("companyDto", companyDto);
