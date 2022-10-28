@@ -66,12 +66,12 @@
 </header>
 	
 <main>
-	<nav>
+<nav>
 	<ul class="menu">
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=service">서비스 이용약관</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=privacy">개인정보 처리방침</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=e-commerce">전자금융거래 이용약관</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=e-commerceCaution">전자금융거래 이용자 유의사항</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/service.do">서비스 이용약관</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/privacy.do">개인정보 처리방침</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/e-commerce.do">전자금융거래 이용약관</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/e-commerceCaution.do">전자금융거래 이용자 유의사항</a></li>
 	</ul>
 </nav>
 <div class="body-container">	
@@ -83,7 +83,7 @@
 			<br>
 			<br>
 			1. 개인정보란 생존하는 개인에 관한 정보로서 당해 정보에 포함되어 있는 성명, 주민등록번호 등의 사항에 의하여 당해 개인을 식별할 수 있는 정보(당해 정보만으로는 특정 개인을 식별할 수 없더라도 다른 정보와 용이하게 결합하여 식별할 수 있는 것을 포함합니다.)를 말합니다.
-			2. ㈜야놀자(이하 `회사`라 함)는 귀하의 개인정보보호를 매우 중요시하며, 『개인정보보호법』상의 개인정보보호규정을 준수하고 있습니다. 회사는 개인정보처리방침을 통하여 귀하께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+			2. ㈜TRAVELER(이하 `회사`라 함)는 귀하의 개인정보보호를 매우 중요시하며, 『개인정보보호법』상의 개인정보보호규정을 준수하고 있습니다. 회사는 개인정보처리방침을 통하여 귀하께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
 			3. 개인정보처리방침은 정부의 법령이나 지침의 변경, 또는 보다 나은 서비스의 제공을 위하여 그 내용이 변경될 수 있습니다. 이 경우 회사는 웹 사이트에서 공지사항에 이를 올리거나 이메일을 통해서 공지하고 있습니다.
 			4. 회사는 개인정보처리방침을 사이트 첫 화면 또는 첫 화면과의 연결화면을 통해 공개함으로써 이용자가 언제나 용이하게 보실 수 있도록 조치하고 있습니다.
 			5. 회사는 개인정보처리방침의 지속적인 개선을 위하여 개인정보처리방침을 개정하는데 필요한 절차를 정하고 있습니다.
@@ -354,9 +354,9 @@
 			나. iOS ① 아이폰 설정 → ② 개인정보보호 → ③ 광고 → ④ 광고 추적 제한 ON/OFF
 			4. 고객(이용자) 피해구제 방법
 			본 데이터 정책에 대한 문의 또는 불만사항 등이 있으실 경우, 아래로 연락 주시면 적극적으로 대응 및 회신하겠습니다.
-			- 이름: 김창오(CPO)
+			- 이름: 김자바(CPO)
 			- 전화: 1644-1346
-			- 이메일: privacy@yanolja.com
+			- 이메일: privacy@traveler.com
 			<br>
 			<br>
 			제 10 조 (링크사이트)

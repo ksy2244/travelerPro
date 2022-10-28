@@ -19,13 +19,13 @@ public class MoreServlet extends TravelServlet {
 		
 		String uri = req.getRequestURI();
 	
-		if(uri.indexOf("policy.do?category=service") != -1) {
+		if(uri.indexOf("service.do") != -1) {
 			service(req, resp);
-		} else if(uri.indexOf("policy.do?category=privacy") != -1) {
+		} else if(uri.indexOf("privacy.do") != -1) {
 			privacy(req, resp);
-		} else if(uri.indexOf("policy.do?category=e-commerce") != -1) {
+		} else if(uri.indexOf("e-commerce.do") != -1) {
 			eCommerce(req, resp);
-		} else if(uri.indexOf("policy.do?category=e-commerceCaution") != -1) {
+		} else if(uri.indexOf("e-commerceCaution.do") != -1) {
 			caution(req, resp);
 		} 
 		

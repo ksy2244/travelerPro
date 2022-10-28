@@ -66,12 +66,12 @@
 </header>
 	
 <main>
-	<nav>
+<nav>
 	<ul class="menu">
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=service">서비스 이용약관</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=privacy">개인정보 처리방침</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=e-commerce">전자금융거래 이용약관</a></li>
-		<li><a href="${pageContext.request.contextPath}/more/policy.do?category=e-commerceCaution">전자금융거래 이용자 유의사항</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/service.do">서비스 이용약관</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/privacy.do">개인정보 처리방침</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/e-commerce.do">전자금융거래 이용약관</a></li>
+		<li><a href="${pageContext.request.contextPath}/more/e-commerceCaution.do">전자금융거래 이용자 유의사항</a></li>
 	</ul>
 </nav>
 <div class="body-container">	
