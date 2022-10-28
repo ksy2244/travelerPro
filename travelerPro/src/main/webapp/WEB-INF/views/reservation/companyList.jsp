@@ -41,12 +41,12 @@
 					</div>
 					<div class="row">
 						<c:forEach var="dto" items="${list}" varStatus="status">
-							<div class="col-md-4 col-lg-3 p-1 item">
+							<div class="col-md-4 col-lg-3 p-1 item"> 
 								<div class="card-group" style="width: 1500px; margin: auto;">
 									<div class="card" style="margin: 10px;"
 										onclick="location.href='${articleUrl}&companyNum=${dto.companyNum}'">
 										<img
-											src="${pageContext.request.contextPath}/resources/images/reservationImg/room.jpg"
+											src="${pageContext.request.contextPath}/resources/images/reservationImg/${dto.imageFileName}"
 											class="card-img-top">
 										<div class="card-body">
 											<h4 class="card-title">업체 번호${dto.companyNum}</h4>

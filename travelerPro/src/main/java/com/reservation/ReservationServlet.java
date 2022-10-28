@@ -66,13 +66,17 @@ public class ReservationServlet extends TravelServlet {
 			// 리뷰 보기 및 작성
 			review(req, resp);
 		}
-//
-//			리뷰 완료 화면
+		
+		else if (uri.indexOf("myReservation.do")!=-1) {
+			myReservation(req,resp);
+		}
+
+			// 리뷰 완료 화면
 //		else if (uri.indexOf("review_ok.do") != -1) {
 //			reservationSubmit(req, resp);
 //		}
 //			
-//		
+		
 
 		// 결제 테스트
 		else if (uri.indexOf("test.do") != -1) {
@@ -112,6 +116,13 @@ public class ReservationServlet extends TravelServlet {
 	private void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 포워딩
 		forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
+		return;
+
+	}
+	
+	private void myReservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		forward(req, resp, "/WEB-INF/views/reservation/myReservation.jsp");
 		return;
 
 	}
@@ -183,7 +194,7 @@ public class ReservationServlet extends TravelServlet {
 
 			List<ReserveCompanyDTO> list = null;
 			if (keyword.length() == 0) {
-				list = dao.listCompany(offset, size);
+				list = dao.listCompany();
 			} else {
 				// list = dao.listCompany(offset, size, condition, keyword);
 			}

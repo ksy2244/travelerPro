@@ -14,6 +14,7 @@ public class ReserveCompanyDTO {
 	private int zip;
 	private int companyNum;
 	private String companyTel;
+	private String imageFileName;
 	
 	public String getCompanyName() {
 		return companyName;
@@ -89,6 +90,12 @@ public class ReserveCompanyDTO {
 	}
 	public void setCompanyTel(String companyTel) {
 		this.companyTel = companyTel;
+	}
+	public String getImageFileName() {
+		return imageFileName;
+	}
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
 	}
 	
 	

@@ -62,20 +62,25 @@ public class ReservationDAO {
 	}
 
 	// 모든 업체 목록을 조회 (업체 리스트)
-	public List<ReserveCompanyDTO> listCompany(int offset, int size) {
+	public List<ReserveCompanyDTO> listCompany() {
 		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 
 		try {
-			sql = " SELECT companyNum, companyName, companyInfo, "
-				+ " amenities, guide, checkInTime, checkOutTime, notice, addr, addrDetail, zip "
-				+ " FROM company "
-				+ " WHERE companyNum IN "
-				+ " (SELECT DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum)"
-				+ " ORDER BY companyName ";
-					
+			sql = 	  " SELECT companyNum, companyName, companyInfo, amenities, guide, "
+					+ " checkInTime, checkOutTime, notice, addr, addrDetail, zip, "
+					+ " 	(SELECT imageFileName  "
+					+ "		 FROM (SELECT imageFileName, companyNum, fileNum FROM companyFile) "
+					+ "		 WHERE rownum =1)  AS imageFileName  "
+					+ " FROM company "
+					+ " WHERE companyNum IN "
+					+ " 					(SELECT DISTINCT c.companyNum "
+					+ "						 FROM company c, room r "
+					+ "						 WHERE c.companyNum = r.companyNum) "
+					+ " ORDER BY companyName ";
+				
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -94,6 +99,7 @@ public class ReservationDAO {
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
+				dto.setImageFileName(rs.getString("imageFileName"));
 
 				list.add(dto);
 			}

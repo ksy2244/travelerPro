@@ -12,6 +12,12 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
+	type="text/css">
 
 <style type="text/css">
 .body-container {
@@ -110,22 +116,19 @@
 
 				<div class="alert" role="alert" style="background: #E4FBFF">
 					객실 예매를 위한 정보를 입력해주세요.</div>
-				<div class="cardBox">
-					<div class="card-header">
-						<h5>
-							<i class="fa-solid fa-hotel"></i>&nbsp; ${dto.companyName}&nbsp;
-						</h5>
-					</div>
-					<div class="card-body text-secondary">
-						<h5 class="card-title">${dto.roomName}</h5>
+				<div class="shadowBox">
+					<div class ="shadowBoxContent" style ="padding: 40px">
+					<h4><i class="fa-solid fa-hotel"></i>&nbsp; ${dto.companyName}&nbsp;${dto.roomName}</h4>
 						<p class="card-text">
+						<p class="address" style ="font-size:20px;">
+								<i class="fa-solid fa-location-dot">&nbsp;</i>주소 ${dto.addr} 기준 ${dto.addrDetail}인</p>
 						<p>${dto.roomInfo}</p>
 						<p>체크인 ${start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
 							${end_date}&nbsp;${dto.checkOutTime} 가격 ${dto.roomPrice}</p>
 						<p>할인율 ${dto.discountRate} 기준 ${dto.headCount}인
 							${dto.headCount}인</p>
 						<p>지불 금액${paymentPrice}</p>
-						<p>주소 ${dto.addr} 기준 ${dto.addrDetail}인</p>
+						
 					</div>
 
 				</div>
@@ -190,8 +193,8 @@
 								name="checkInTime"> <input type="hidden"
 								value="${dto.checkOutTime}" name="checkOutTime">
 
-							<button type="button" name="sendButton" class="btn"
-								onclick="requestPay();">결제</button>
+							<button type="button" name="sendButton" class="dateBtn btn btn-danger"
+								onclick="requestPay();">예약</button>
 						</div>
 					</form>
 				</div>
