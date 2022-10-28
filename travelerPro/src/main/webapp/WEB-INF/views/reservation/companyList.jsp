@@ -46,7 +46,7 @@
 									<div class="card" style="margin: 10px;"
 										onclick="location.href='${articleUrl}&companyNum=${dto.companyNum}'">
 										<img
-											src="${pageContext.request.contextPath}/resources/images/reservationImg/${dto.imageFileName}"
+											src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
 											class="card-img-top">
 										<div class="card-body">
 											<h4 class="card-title">업체 번호${dto.companyNum}</h4>

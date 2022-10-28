@@ -519,5 +519,16 @@ public class ReservationDAO {
 		}
 
 	}
+	
+
+//	public List<ReservationDTO> myReservationList(int companyNum) {
+//		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String sql = null;
+//		return null;
+//		
+//		
+//	}
 
 }
