@@ -8,7 +8,33 @@
 <meta charset="UTF-8">
 <title>CEOMain</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<style type="text/css">
+.body-container {
+	width: 1000px;
+}
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
+
+.title {
+	border-bottom: 2px solid #ced4da;
+	background: #ced4da;
+}
+
+.page {
+	margin-bottom: 20px;
+}
+
+#point {
+	background-color: #FF5E00;
+}
+
+#point:hover{background-color:#FF9000;}
+</style>
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 </head>
 <body>
 <header>
@@ -19,19 +45,19 @@
 	<div class="container mt-3">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-house"></i> 예약정보 리스트 </h3>
+				<h3> 예약정보 리스트 </h3>
 			</div>
 			<div class="body-main">
 		        <div class="row board-list-header">
-		            <div class="col-auto me-auto">
+		            <div class="col-auto me-auto page">
 		            	${dataCount}개(${page}/${total_page} 페이지)
 		            </div>
 		            <div class="col-auto">&nbsp;</div>
 		        </div>				
 				
 				<table class="table table-hover board-list">
-					<thead class="table-light">
-						<tr>
+					<thead>
+						<tr class="title">
 							<th class="num">번호</th>
 							<th class="subject">업체명</th>
 							<th class ="tel">업체 전화번호</th>
@@ -64,10 +90,10 @@
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/ceomain.do';">새로고침</button>
+						<button type="button" class="btn text-white" id="basic" onclick="location.href='${pageContext.request.contextPath}/ceo/ceomain.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/write.do';">업체등록하러가기</button>
+						<button type="button" class="btn text-white" id="point" onclick="location.href='${pageContext.request.contextPath}/ceo/recognition.do';"><i class="fa-solid fa-shop-lock"></i>&nbsp;업체 등록</button>
 					</div>
 				</div>
 			</div>

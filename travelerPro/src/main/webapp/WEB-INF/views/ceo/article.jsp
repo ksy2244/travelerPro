@@ -35,7 +35,7 @@ function imageViewer(src) {
 	$("#myDialogModal").modal("show");
 }
 </script>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 </head>
 <body>
 <header>

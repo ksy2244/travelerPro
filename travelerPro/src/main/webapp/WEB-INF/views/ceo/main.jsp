@@ -9,11 +9,49 @@
 <title>CEOMain</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
-.btn {
-	color: white;
+.body-container {
+	width: 1000px;
+}
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
+
+.title {
+	border-bottom: 2px solid #ced4da;
+	background: #ced4da;
+}
+
+.page {
+	margin-bottom: 20px;
+}
+
+#point {
+	background-color: #FF5E00;
+}
+
+#point:hover{background-color:#FF9000;}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
+}
+
+.gray {
+	color: #787878;
+}
+
+.png {
+	width: 20px;
+	height: 20px;
 }
 </style>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 </head>
 <body>
 <header>
@@ -24,24 +62,24 @@
 	<div class="container mt-3">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-house"></i> 업체 리스트 </h3>
+				<h3> 업체 리스트 </h3>
 			</div>
 			<div class="body-main">
 		        <div class="row board-list-header">
-		            <div class="col-auto me-auto">
-		            	${dataCount}개(${page}/${total_page} 페이지)
+		            <div class="col-auto me-auto page">
+		            	${dataCount}개 (${page}/${total_page} 페이지)
 		            </div>
 		            <div class="col-auto">&nbsp;</div>
 		        </div>				
 				
 				<table class="table table-hover board-list">
-					<thead class="table-light">
-						<tr>
+					<thead>
+						<tr class="title">
 							<th class="companyNum">번호</th>
 							<th class="companyName">업체명</th>
-							<th class ="companyTel">업체 전화번호</th>
+							<th class ="companyTel">전화번호</th>
 							<th class="addr1">주소</th>
-							<th class="approval">관리자 승인 여부</th>
+							<th class="approval">승인 여부</th>
 							<th class="roomgo">객실관리</th>
 						</tr>
 					</thead>
@@ -55,15 +93,20 @@
 								</td>
 								<td>${dto.companyTel}</td>
 								<td>${dto.addr}</td>
-								<td>${dto.approval == 0 ? "대기중" : "승인완료" }</td>
+								<c:if test="${dto.approval == 0}">
+									<td class="red">대기</td>
+								</c:if>
+								<c:if test="${dto.approval == 1}">
+									<td class="blue">완료</td>
+								</c:if>
 								<c:choose>
 									<c:when test="${dto.approval ==1}">
 									<td>
-										<button type="submit" class="btn btn-dark" style="color: white;"   onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'">객실관리</button>
+										<a onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'"><img src="../resources/images/icon-plus.png" alt="상세 정보 확인" class="png"></a>
 									</td>
 									</c:when>
 									<c:otherwise>
-										<td>승인을 기다려주세요</td>
+										<td class="gray">승인을 기다려주세요</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -72,15 +115,15 @@
 				</table>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+					${dataCount == 0 ? "등록된 업체가 없습니다." : paging}
 				</div>
 
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-info" onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">새로고침</button>
+						<button type="button" class="btn text-white" id="basic" onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/recognition.do';">업체등록하러가기</button>
+						<button type="button" class="btn text-white" id="point" onclick="location.href='${pageContext.request.contextPath}/ceo/recognition.do';"><i class="fa-solid fa-shop-lock"></i>&nbsp;업체 등록</button>
 					</div>
 				</div>
 			</div>

@@ -3,15 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <table class='table table-borderless reply-list'>
-		<tr class='list-header'>
-			<td width='50%'>
-				<span class='bold'>답변내용</span>
-			</td>
-			<td width='50%' align='right'>
-				<span>${dto.reg_date}</span>
-			</td>
-		</tr>
-		<tr>
-			<td colspan='2' valign='top'>${dto.content}</td>
-		</tr>
+	<tr>
+		<td width="100%">
+			<div class='answer'>A</div>
+			<div class='content'>${dto.content}</div>
+			<div class='date margin'>${dto.reg_date}</div>
+		</td>
+	</tr>
 </table>

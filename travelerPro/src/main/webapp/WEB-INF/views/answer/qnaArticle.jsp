@@ -228,17 +228,17 @@ $(function(){
 									</td>
 								</tr>
 								<tr>
-								<c:if test="${dto.answer == 0 }">
-								    <td align='right'>
-								        <button type='button' class='btn basic btnSendReply text-white write'>답변 등록</button>
-								    </td>
-								 </c:if>
-								<c:if test="${dto.answer == 1 }">
-								 	<td align='right'>
-								        <button type='button' class='btn basic btnSendReply text-white write' disabled="disabled" style="border: none; background: #6C757D">답변 등록</button>
-								    </td>
-								    </c:if>
-								 </tr>
+									<c:if test="${dto.answer == 0 }">
+									    <td align='right'>
+									        <button type='button' class='btn basic btnSendReply text-white write'>답변 등록</button>
+									    </td>
+									 </c:if>
+									<c:if test="${dto.answer == 1 }">
+									 	<td align='right'>
+									        <button type='button' class='btn basic btnSendReply text-white write' disabled="disabled" style="border: none; background: #6C757D">답변 등록</button>
+									    </td>
+									</c:if>
+								</tr>
 							</table>
 						</form>
 					</div>

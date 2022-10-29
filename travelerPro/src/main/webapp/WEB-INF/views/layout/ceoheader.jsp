@@ -5,56 +5,81 @@
 <style type="text/css">
 @import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
 
+.menubar {
+	background-color: #343a40;
+	border: 30px solid #343a40;
+}
+
+.traveler {
+	font-family: 'GmarketSans'; 
+	font-size: 50px; 
+	margin-left: 300px; 
+	letter-spacing: 7px;
+}
+
+.navContainer {
+	display: grid;
+	line-height: 1.0;
+	margin-left: 20px;
+	float: right;
+}
+
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ceopage.css" type="text/css">
 
-
-<nav class="navbar navbar-expand-lg justify-content-end" style=" background: #BDBDBD; border: 20px solid #BDBDBD; z-index: 1; box-shadow: 5px 5px 5px 5px gray">
+<nav class="navbar navbar-expand-lg justify-content-end menubar">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="${pageContext.request.contextPath}/ceo/main.do" style="font-family: 'GmarketSans'; font-size: 30px; text-decoration: none;"><i class="bi bi-github">사장님 페이지</i></a>
+    <a class="navbar-brand text-white traveler" href="${pageContext.request.contextPath}/ceo/main.do"><i class="fa-regular fa-bookmark">TRAVELER</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 350px;">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <c:if test="${empty sessionScope.member}">
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="javascript:dialogLogin();" title="로그인"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그인</a>
-        	</li>
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/member.do" title="회원가입"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">회원가입</a>
-        	</li>
-        	<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/main/main.do" title="메인화면"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">메인화면가기</a>
-        	</li>
-      	</c:if>
-      	<c:if test="${not empty sessionScope.member}">
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃" 
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
-        	</li>
-      		<li class="nav-item fw-semibold text-white">
-          		<a class="nav-link fw-semibold text-white" href="#" title="마이페이지"
-          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">마이페이지</a>
-        	</li>
-      	</c:if>
-      	</ul>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 100px;">
+      <div class="navContainer" style="margin-right:10px;">
+	      <ul class="navbar-nav mb-2 mb-lg-0">
+		      <c:if test="${empty sessionScope.member}">
+			      	<li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="javascript:dialogLogin();" title="로그인"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그인</a>
+			        </li>
+			        <li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/member/member.do" title="회원가입"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">회원가입</a>
+			        </li>
+			        <li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/main/main.do" title="메인화면"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;"><i class="fa-solid fa-share"></i></a>
+			        </li>
+		      </c:if>
+		        
+		      <c:if test="${not empty sessionScope.member}">
+		      		<li class="nav-item dropdown">
+		          		<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+		          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-right: 20px; margin-top: 6px;">
+		            	업체 관리
+		         	 	</a>
+		          		<ul class="dropdown-menu">
+			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/recognition.do" style="font-family: 'GmarketSans';">승인 요청</a></li>
+			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/main.do" style="font-family: 'GmarketSans';">업체리스트</a></li>
+			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/paylist.do" style="font-family: 'GmarketSans';">매출리스트</a></li>
+			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/reservation.do" style="font-family: 'GmarketSans';">예약 정보</a></li>
+			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/qna.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
+		         	 	</ul>
+		        	</li>
+		        	
+			        <li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
+			        </li>
+			        <li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="*" title="마이페이지"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 150px;">마이페이지</a>
+			        </li>
+		      </c:if>
+	    	</ul>
+    	</div>
     </div>
   </div>
 </nav>
-<nav>
-	<ul class="menu">
-		<li><a href="${pageContext.request.contextPath}/ceo/recognition.do">업체승인받기</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/main.do">업체리스트</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/paylist.do">매출리스트</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/reservation.do">예약정보리스트</a></li>
-		<li><a href="${pageContext.request.contextPath}/ceo/qna.do">문의답변하기</a></li>
-	</ul>
-</nav>
-
 
 	<!-- Login Modal -->
 	<script type="text/javascript">

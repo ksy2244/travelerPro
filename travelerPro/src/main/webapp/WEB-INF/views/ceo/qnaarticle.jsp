@@ -13,17 +13,6 @@
 	cursor: pointer;
 
 }
-<style type="text/css">
-.body-container {
-	max-width: 1000px;
-}
-
-.basic {
-	background-color: #F5EFE6;
-	margin-top: 20px;
-}
-
-.basic:hover{background-color:#D9D2CC;}
 
 .box {
 	background: #eee;
@@ -59,10 +48,11 @@
 .content {
 	margin-top: 20px;
 	margin-left: 40px;
+	margin-right: 40px;
 	height: 250px;
 }
 
-.id {
+.nickName {
 	margin-left: 40px;
 	margin-top: 20px;
 	font-size: 15px;
@@ -90,6 +80,20 @@
 	border-radius: 15px;
 	padding: 20px;
 }
+
+.write {
+	margin-top: 30px;
+}
+
+.body-container {
+	width: 1000px;
+}
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -162,7 +166,7 @@ function listAnswer(companyNum) {
 }
 
 </script>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 </head>
 <body>
 <header>
@@ -174,18 +178,18 @@ function listAnswer(companyNum) {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-app"></i> 업체문의 </h3>
+				<h3> 업체 문의 </h3>
 			</div>
 			
-			<div class="body-main">
+			<div class="body-main reply-list">
 				<table class="table">
 					<tbody>
 						<tr class="title">
 							<td colspan="2" align="left">
 								<span class="question">Q</span> <span class="subject">${dto.nickName}</span>
 								<div class="content">${dto.content}</div>
+								<div class="nickName">${dto.nickName} <span class="date"> · ${dto.reg_date}</span></div>
 							</td>
-							<span class="date">${dto.reg_date}</span>
 						</tr>
 					</tbody>
 				</table>
@@ -193,7 +197,7 @@ function listAnswer(companyNum) {
 				<table class="table table-borderless">
 					<tr>
 						<td>
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/ceo/qna.do?${query}';">리스트</button>
+							<button type="button" class="btn text-white" id="basic" onclick="location.href='${pageContext.request.contextPath}/ceo/qna.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>
@@ -201,7 +205,7 @@ function listAnswer(companyNum) {
 				<div class="reply">
 					<form name="replyForm" method="post">
 						<div class='form-header'>
-							<span class="bold">문의답글</span><span> - 회원을 비방하거나 거짓정보를 유출하는 답글을 삼가해 주세요.</span>
+							<span class="bold">&nbsp;&nbsp;문의 답변</span><span> - 회원을 비방하거나 거짓정보를 유출하는 답변을 삼가해 주세요.</span>
 						</div>
 						
 						<table class="table table-borderless reply-form">
@@ -211,10 +215,10 @@ function listAnswer(companyNum) {
 								</td>
 							</tr>
 							<tr>
-							   <td align='right'>
-							        <button type='button' class='btn btn-light btnSendReply'>답글 하기</button>
+								<td align='right'>
+							        <button type='button' class='btn basic btnSendReply text-white' id="basic">답변 등록</button>
 							    </td>
-							 </tr>
+							</tr>
 						</table>
 					</form>
 					
