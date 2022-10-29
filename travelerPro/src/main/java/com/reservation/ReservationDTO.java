@@ -20,6 +20,9 @@ public class ReservationDTO {
 	private int companyNum;
 	private int headCount;
 	private String companyName;
+	private String roomName;
+	private String userName;
+	private String imageFileName;
 
 	public int getHeadCount() {
 		return headCount;
@@ -172,6 +175,32 @@ public class ReservationDTO {
 	public void setCompanyNum(int companyNum) {
 		this.companyNum = companyNum;
 	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+	
+
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	
 	
 

@@ -69,23 +69,18 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			
+
 			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
-				+ "  notice, addr, addrDetail, zip, mc.imageFileName "
-				+ " FROM company c  "
-				+ "  LEFT OUTER JOIN mainCompanyImage mc "
-				+ "  ON mc.companyNum = c.companyNum "
-				+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum"
-				+ "						   FROM company c, room r "
-				+ "                        WHERE c.companyNum = r.companyNum) ";
+					+ "  notice, addr, addrDetail, zip, mc.imageFileName " + " FROM company c  "
+					+ "  LEFT OUTER JOIN mainCompanyImage mc " + "  ON mc.companyNum = c.companyNum "
+					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum"
+					+ "						   FROM company c, room r "
+					+ "                        WHERE c.companyNum = r.companyNum) ";
 
-
-				
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
-			
-			
+
 			while (rs.next()) {
 				ReserveCompanyDTO dto = new ReserveCompanyDTO();
 				dto.setCompanyNum(rs.getInt("companyNum"));
@@ -220,8 +215,7 @@ public class ReservationDAO {
 
 		try {
 			sql = "SELECT NVL(COUNT(*), 0) FROM (SELECT  DISTINCT c.companyNum FROM company c, room r WHERE c.companyNum = r.companyNum)";
-			
-	
+
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -395,7 +389,7 @@ public class ReservationDAO {
 		return result;
 	}
 
-	//선택한 객실의 모든 정보
+	// 선택한 객실의 모든 정보
 	public ReserveRoomDTO listSelectRoom(int roomNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -457,7 +451,7 @@ public class ReservationDAO {
 		return dto;
 	}
 
-	// 예약 
+	// 예약
 	public void insertReservation(ReservationDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
@@ -519,16 +513,77 @@ public class ReservationDAO {
 		}
 
 	}
-	
 
-//	public List<ReservationDTO> myReservationList(int companyNum) {
-//		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		String sql = null;
-//		return null;
-//		
-//		
-//	}
+	// 나의 예약 내역 조회
+	public List<ReservationDTO> myReseravationList(String userId) {
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
+					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, roomName, c.companyName, m.userName, "
+					+ " 	paymentPrice, imageFileName "
+					+ " FROM reservation r "
+
+					+ " LEFT OUTER JOIN reservationDetail d " 
+					+ " ON r.reservationNum = d.reservationNum "
+
+					+ " LEFT OUTER JOIN room room " 
+					+ " ON room.roomNum = d.roomNum "
+
+					+ " LEFT OUTER JOIN company c " 
+					+ " ON c.companyNum = room.companyNum "
+
+					+ " LEFT OUTER JOIN member m " 
+					+ " ON m.userId = r.userId "
+
+					+ " LEFT OUTER JOIN mainCompanyImage mc " 
+					+ " ON mc.companyNum = c.companyNum "
+
+					+ " WHERE m.userId = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReservationDTO dto = new ReservationDTO();
+				dto.setStart_date(rs.getString("startDate"));
+				dto.setEnd_date(rs.getString("endDate"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setCheckOutTime(rs.getString("checkOutTime"));
+				dto.setReservation_date(rs.getString("RegDate"));
+				dto.setRoomName(rs.getString("roomName"));
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setPaymentPrice(rs.getInt("paymentPrice"));
+				dto.setImageFileName(rs.getString("imageFileName"));
+
+				list.add(dto);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return list;
+	}
 
 }
