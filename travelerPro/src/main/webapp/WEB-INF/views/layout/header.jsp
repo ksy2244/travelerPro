@@ -4,81 +4,120 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style type="text/css">
 @import url('https://webfontworld.github.io/hallym/Hallym.css');
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
 .navContainer {
 	display: grid;
 	line-height: 1.0;
 	margin-left: 20px;
 	float: right;
 }
+
+.traveler {
+	font-family: 'GmarketSans'; 
+	font-size: 45px; 
+	margin-left: 400px;
+	margin-top: 10px;
+	letter-spacing: 7px;
+	height: 65px;
+}
+
 </style>
 
 <nav class="navbar navbar-expand-lg justify-content-end bg-info fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#" style="font-family: 'HallymB'; font-size: 35px; margin-left: 50px;"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>
+    <a class="navbar-brand text-white traveler" href="${pageContext.request.contextPath}/"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 10px;">
-     <div class="navContainer" style="margin-right:10px;">
-    
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-           style="font-family: 'HallymM'; font-size: 25px; letter-spacing :1.5px;">
-            더보기
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" style="font-family: 'HallymM';">자주 묻는 질문 FAQ</a></li>
-            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'HallymB';">1:1 문의</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'HallymM';">공지사항</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'HallymM';">약관 및 정책</a></li>
-          </ul>
-        </li>
-        <c:if test="${empty sessionScope.member}">
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="javascript:dialogLogin();" title="로그인"
-          		 style="font-family: 'HallymM'; font-size: 25px;">로그인</a>
-        	</li>
-        	<li class="nav-item">
-          		<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/member/member.do" title="회원가입"
-          		 style="font-family: 'HallymM'; font-size: 25px;">회원가입</a>
-        	</li>
-      	</c:if>
-      	
-      	<c:if test="${not empty sessionScope.member}">
-      		
-        	<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-           style="font-family: 'HallymM'; font-size: 30px; ">
-            <i class="bi bi-person-fill"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">내 정보 관리</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">쿠폰 조회</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">예약 내역</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">나의 후기</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
-            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">알림설정</a></li>
-            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'HallymM';">로그아웃</a></li>
-          </ul>
-       
-      	</c:if>
-      	<li class="nav-item">
-      	 <button type="button" class="btn fw-semibold text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  			<i class="fa-solid fa-magnifying-glass fa-lg"></i>
-		</button>
-      	<c:if test="${sessionScope.member.userId == 'admin'}">
-			<a class="nav-link fw-semibold text-white" href="${pageContext.request.contextPath}/admin/main.do" title="관리자" style="margin-bottom: 50px;"
-           ><i class="fa-solid fa-gears fa-2x"></i></a>
-		</c:if>
-		</li>
-      	</ul>
-      	
-    </div>
-   
-  </div>
-  </div>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="margin-right: 10px;">
+	     <div class="navContainer" style="margin-right:10px;">
+	    
+	      <ul class="navbar-nav mb-2 mb-lg-0">
+	        <c:if test="${empty sessionScope.member}">
+		      	<li class="nav-item">
+		          		<a class="nav-link text-white" href="#" title=""
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">관광지</a>
+		        </li>
+		    	<li class="nav-item">
+		          		<a class="nav-link text-white" href="javascript:dialogLogin();" title="예약내역"
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">예약내역</a>
+		        </li>
+		        <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+		           style="font-family: 'GmarketSans'; font-size: 23px; letter-spacing :1.5px; margin-right: 45px;">
+		            더보기
+		          </a>
+		          <ul class="dropdown-menu">
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">공지사항</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
+		          </ul>
+		        </li>
+	        	<li class="nav-item">
+	          		<a class="nav-link text-white" href="javascript:dialogLogin();" title="로그인"
+	          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">로그인</a>
+	        	</li>
+	        	<li class="nav-item">
+	          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/member/member.do" title="회원가입"
+	          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 220px;">회원가입</a>
+	        	</li>
+	      	</c:if>
+	      	
+	      	<c:if test="${not empty sessionScope.member}">
+	      		<li class="nav-item">
+		          		<a class="nav-link text-white" href="#" title=""
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">관광지</a>
+		        </li>
+		    	<li class="nav-item">
+		          		<a class="nav-link text-white" href="#" title="예약내역"
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">예약내역</a>
+		        </li>
+		        <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+		           style="font-family: 'GmarketSans'; font-size: 23px; letter-spacing :1.5px; margin-right: 50px;">
+		            더보기
+		          </a>
+		          <ul class="dropdown-menu">
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">공지사항</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
+		          </ul>
+		        </li>	      		
+	        	<li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+		           style= "font-size: 30px; margin-right: 220px; padding: 0px;">
+	            		<i class="fa-regular fa-face-smile"></i>
+	          		</a>
+		          <ul class="dropdown-menu">
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">내 정보</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">쿠폰함</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">예약내역</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">나의 후기</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
+		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">알림설정</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'GmarketSans';">로그아웃</a></li>
+		          </ul>
+	      	</c:if>
+	      	</ul>     	
+	    </div>  
+	  </div>
+ 	</div>
 </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
