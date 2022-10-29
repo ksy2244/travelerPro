@@ -18,7 +18,6 @@
 	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
 	type="text/css">
 
-<link rel="import" href="map.html">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -74,9 +73,7 @@
 </script>
 
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c">
-	
-</script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
 
 
 <style>
@@ -126,7 +123,7 @@
 			if (tab == "1") {
 				url += "roomList.do?companyNum=${companyNum}";
 			} else if (tab == "2") {
-				url += "map.do?companyNum=${companyNum}";
+				url += "test.do?companyNum=${companyNum}";
 			} else {
 				url += "review.do?companyNum=${companyNum}";
 			}
@@ -278,6 +275,9 @@
 								aria-controls="1" aria-selected="true">객실정보</button>
 						</li>
 						<li class="nav-item" role="presentation">
+							<input type="hidden" value="${companyName}" name="companyName"> 
+							<input type="hidden" value="${address}" name="address"> 
+						
 							<button class="nav-link bg-info text-white h-100 p-3" id="tab-2" data-bs-toggle="tab"
 								data-bs-target="#nav-2" type="button" role="tab"
 								aria-controls="2" aria-selected="true">지도</button>

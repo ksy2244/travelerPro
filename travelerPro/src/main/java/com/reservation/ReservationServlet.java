@@ -118,9 +118,32 @@ public class ReservationServlet extends TravelServlet {
 
 	private void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 포워딩
-		forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
-		return;
+		req.setCharacterEncoding("utf8");
+		try {
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
+			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
+			ReserveRoomDTO roomDto = new ReserveRoomDTO();
+
+			ReservationDAO dao = new ReservationDAO();
+			companyDto = dao.readCompany(companyNum);
+			
+			String addr = companyDto.getAddr();
+			String addrDetail = companyDto.getAddrDetail();
+			String companyName = companyDto.getCompanyName();
+			
+			String address = addr +" " + addrDetail;
+			
+			req.setAttribute("address", address);
+			req.setAttribute("companyName", companyName);
+			
+
+
+			forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
+			return;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	private void myReservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -145,8 +168,6 @@ public class ReservationServlet extends TravelServlet {
 			System.out.println(info.getUserId());
 			list = dao.myReseravationList(info.getUserId());
 
-			
-			System.out.println("ff");
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
 
@@ -171,6 +192,8 @@ public class ReservationServlet extends TravelServlet {
 
 	private void test(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 포워딩
+		
+	
 		forward(req, resp, "/WEB-INF/views/reservation/test.jsp");
 		return;
 
@@ -290,6 +313,8 @@ public class ReservationServlet extends TravelServlet {
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
+		 
+			
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
