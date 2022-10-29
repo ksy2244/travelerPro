@@ -13,7 +13,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 1000px;
+	max-width: 1500px;
 }
 
 #table {
@@ -21,7 +21,7 @@
 	height: 140px;
 	float: left;
 	margin-left: 60px;
-	margin-right: 10px;
+	margin-right: 40px;
 	border: 1px solid #eee;
 }
 

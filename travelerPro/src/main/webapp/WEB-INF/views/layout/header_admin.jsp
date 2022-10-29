@@ -7,7 +7,7 @@
 
 .menubar {
 	background-color: #343a40;
-	border: 30px solid #343a40;
+	border: 25px solid #343a40;
 }
 
 .traveler {
