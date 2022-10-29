@@ -96,10 +96,15 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 업체의 객실 정보
 			roomList = dao.listRoom(companyNum);
+			String start_date = req.getParameter("start_date");
+			String end_date = req.getParameter("end_date");
+
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("roomList", roomList);
+			req.setAttribute("start_date", start_date);
+			req.setAttribute("end_date", end_date);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/roomList.jsp");
@@ -274,6 +279,9 @@ public class ReservationServlet extends TravelServlet {
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
+//			
+//			System.out.println(roomDto.getStart_date());
+//			System.out.println(roomDto.getEnd_date());
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);

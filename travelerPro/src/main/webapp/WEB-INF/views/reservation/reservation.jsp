@@ -123,11 +123,10 @@
 						<p class="address" style ="font-size:20px;">
 								<i class="fa-solid fa-location-dot">&nbsp;</i>주소 ${dto.addr} 기준 ${dto.addrDetail}인</p>
 						<p>${dto.roomInfo}</p>
-						<p>체크인 ${start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
-							${end_date}&nbsp;${dto.checkOutTime} 가격 ${dto.roomPrice}</p>
-						<p>할인율 ${dto.discountRate} 기준 ${dto.headCount}인
-							${dto.headCount}인</p>
-						<p>지불 금액${paymentPrice}</p>
+						<p>체크인 ${roomDto.start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
+							${end_date}&nbsp;${dto.checkOutTime}  </p>
+						<p> 기준 ${dto.headCount}인 ${dto.headCount}인 가격 ${dto.roomPrice}원&nbsp;할인율 ${dto.discountRate}% </p>
+						<p><i class="fa-solid fa-money-check"></i>&nbsp;지불 금액&nbsp;${paymentPrice}원</p>
 						
 					</div>
 
@@ -179,8 +178,8 @@
 
 						<div>
 							<input type="hidden" value="${dto.roomNum}" name="roomNum">
-							<input type="hidden" value="${start_date}" name="start_date">
-							<input type="hidden" value="${end_date}" name="end_date">
+						<%-- 	<input type="hidden" value="${start_date}" name="start_date">
+							<input type="hidden" value="${end_date}" name="end_date"> --%>
 							<input type="hidden" value="${dto.headCount}" name="headCount">
 							<input type="hidden" value="${dto.roomPrice}" name="roomPrice">
 							<input type="hidden" value="${paymentPrice}" name="paymentPrice">
@@ -192,6 +191,8 @@
 							<input type="hidden" value="${dto.checkInTime}"
 								name="checkInTime"> <input type="hidden"
 								value="${dto.checkOutTime}" name="checkOutTime">
+							<input type="hidden" value="${roomDto.start_date}" name="start_date" class="styleInput">
+							<input type="hidden" value="${roomDto.end_date}" name="end_date" class="styleInput">
 
 							<button type="button" name="sendButton" class="dateBtn btn btn-danger"
 								onclick="requestPay();">예약</button>
