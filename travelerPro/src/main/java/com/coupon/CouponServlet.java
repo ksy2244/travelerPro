@@ -59,7 +59,7 @@ public class CouponServlet extends TravelServlet {
 			
 			int dataCount = dao.dataCount();
 			
-			int size = 10;
+			int size = 12;
 			int total_page = util.pageCount(dataCount, size);
 			if(current_page > total_page) {
 				current_page = total_page;

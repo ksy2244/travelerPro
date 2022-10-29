@@ -16,6 +16,11 @@
 	max-width: 1500px;
 }
 
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
 #table {
 	width: 400px;
 	height: 140px;
@@ -38,10 +43,6 @@
 
 .form tr:first-child {
 	border-top: 2px solid #3C2317;
-}
-
-.btn:hover {
-	background-color: #D9D2CC;
 }
 
 .trbold {
@@ -162,12 +163,12 @@ function deleteCoupon() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn basic"onclick="location.href='${pageContext.request.contextPath}/coupon/update.do?page=${page}&couponNum=${dto.couponNum}';">수정</button>
-							<button type="button" class="btn basic"onclick="deleteCoupon();">삭제</button>
+							<button type="button" class="btn basic text-white"onclick="location.href='${pageContext.request.contextPath}/coupon/update.do?page=${page}&couponNum=${dto.couponNum}';">수정</button>
+							<button type="button" class="btn basic text-white"onclick="deleteCoupon();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn basic" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do?${query}';">리스트</button>
+							<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/coupon/list.do?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>

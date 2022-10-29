@@ -86,7 +86,7 @@
 }
 
 .body-container {
-	width: 1000px;
+	max-width: 1500px;
 }
 
 #basic {
@@ -94,6 +94,11 @@
 }
 
 #basic:hover{background-color:#7689A5;}
+
+#body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -177,7 +182,7 @@ function listAnswer(companyNum) {
 <main>
 	<div class="container">
 		<div class="body-container">	
-			<div class="body-title">
+			<div class="body-title" id="body-title">
 				<h3> 업체 문의 </h3>
 			</div>
 			

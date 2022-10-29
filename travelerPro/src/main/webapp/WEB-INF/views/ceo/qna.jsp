@@ -10,7 +10,12 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 .body-container {
-	width: 1000px;
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
 }
 
 #basic {

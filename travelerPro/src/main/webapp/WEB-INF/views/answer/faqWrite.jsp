@@ -13,7 +13,12 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 1000px;
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
 }
 
 .basic {

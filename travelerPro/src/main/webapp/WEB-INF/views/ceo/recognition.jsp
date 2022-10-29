@@ -12,8 +12,14 @@
 
 <style type="text/css">
 .body-container {
-	width: 1000px;
+	max-width: 1500px;
 }
+
+.body-title {
+	margin-top: 16px;
+	margin-bottom: 40px;
+}
+
 .img-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 65px);
@@ -62,6 +68,10 @@
 
 .gray {
 	color: #787878;
+}
+
+.alert {
+	margin-bottom: 40px;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

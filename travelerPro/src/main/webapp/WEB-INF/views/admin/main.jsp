@@ -23,7 +23,8 @@
 
 .box {
 	width: 900px; height: 800px;
-	margin: 50px;
+	margin-left: 250px;
+	margin-top: 60px;
 	
 	display: grid;
 	

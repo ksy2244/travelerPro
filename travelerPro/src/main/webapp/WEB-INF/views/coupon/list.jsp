@@ -16,12 +16,17 @@
 	max-width: 1500px;
 }
 
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
 #table {
-	width: 400px;
+	width: 30%;
 	height: 140px;
 	float: left;
-	margin-left: 60px;
-	margin-right: 40px;
+	margin-left: 20px;
+	margin-right: 20px;
 	border: 1px solid #eee;
 }
 
@@ -34,14 +39,12 @@
 	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#7689A5;}
+.basic:hover {
+	background-color: #7689A5;
+}
 
 .form tr:first-child {
 	border-top: 2px solid #3C2317;
-}
-
-.btn:hover {
-	background-color: #D9D2CC;
 }
 
 .trbold {

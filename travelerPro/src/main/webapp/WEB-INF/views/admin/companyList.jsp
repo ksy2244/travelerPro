@@ -16,6 +16,11 @@
 	max-width: 1500px;
 }
 
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
 .basic {
 	background-color: #1687A7;
 }
