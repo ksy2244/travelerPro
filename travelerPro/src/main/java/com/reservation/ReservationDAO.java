@@ -69,33 +69,21 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = 	"  SELECT c.companyNum, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_date, "
-					+ " 	r.checkInTime, r.checkOutTime, reservation_Date, roomName, c.companyName, m.userName, m.userId "
-					+ " 	totalPrice, imageFileName  "
-					+ " FROM reservation r "
-					+ " LEFT OUTER JOIN reservationDetail d "
-					+ " ON r.reservationNum = d.reservationNum "
-					+ " LEFT OUTER JOIN room room "
-					+ " ON room.roomNum = d.roomNum " 
-					+ " LEFT OUTER JOIN company c "
-					+ " ON c.companyNum = room.companyNum "
-					+ " LEFT OUTER JOIN member m "
-					+ " ON m.userId = r.userId "
-					+ " LEFT OUTER JOIN mainCompanyImage mc "
-					+ " ON mc.companyNum = c.companyNum "; 
+			
+			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
+				+ "  notice, addr, addrDetail, zip, mc.imageFileName "
+				+ " FROM company c  "
+				+ "  LEFT OUTER JOIN mainCompanyImage mc "
+				+ "  ON mc.companyNum = c.companyNum "
+				+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum"
+				+ "						   FROM company c, room r "
+				+ "                        WHERE c.companyNum = r.companyNum) ";
+
+
 				
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
-			
-			/*
-			대표 이미지 선정 뷰
-			CREATE OR REPLACE VIEW mainCompanyImage
-			AS (SELECT imageFileName, companyNum
-                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName, companyNum 
-                  FROM companyFile)
-                  WHERE rnum = 1);
-			 */
 			
 			
 			while (rs.next()) {
