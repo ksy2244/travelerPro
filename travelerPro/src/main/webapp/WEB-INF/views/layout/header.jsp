@@ -95,7 +95,7 @@
 	            		<i class="fa-regular fa-face-smile"></i>
 	          		</a>
 		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">내 정보</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwd.do?mode=update" style="font-family: 'GmarketSans';">내 정보</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupon.do" style="font-family: 'GmarketSans';">쿠폰함</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">예약내역</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">나의 후기</a></li>
