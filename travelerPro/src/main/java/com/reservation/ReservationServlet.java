@@ -34,6 +34,8 @@ public class ReservationServlet extends TravelServlet {
 
 		String uri = req.getRequestURI();
 
+		// 세션 정보
+
 		// 숙박업체 리스트 화면
 		if (uri.indexOf("companyList.do") != -1) {
 			companyList(req, resp);
@@ -83,6 +85,7 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("test.do") != -1) {
 			test(req, resp);
 		}
+
 	}
 
 	private void roomList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -184,6 +187,9 @@ public class ReservationServlet extends TravelServlet {
 
 	private void review(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 포워딩
+		int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+		req.setAttribute("companyNum", companyNum);
+
 		forward(req, resp, "/WEB-INF/views/reservation/review.jsp");
 		return;
 
@@ -201,8 +207,8 @@ public class ReservationServlet extends TravelServlet {
 		// 숙박업체 리스트
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
-		ReserveCompanyDTO dto  = new ReserveCompanyDTO();
- 
+		ReserveCompanyDTO dto = new ReserveCompanyDTO();
+
 		String cp = req.getContextPath();
 
 		try {
@@ -228,7 +234,6 @@ public class ReservationServlet extends TravelServlet {
 			// 전체 데이터 개수
 			int dataCompanyCount = dao.dataCount();
 
-
 			if (keyword.length() == 0) {
 				dataCompanyCount = dao.dataCount();
 			} else {
@@ -251,7 +256,7 @@ public class ReservationServlet extends TravelServlet {
 			List<ReserveCompanyDTO> list = null;
 			if (keyword.length() == 0) {
 				list = dao.listCompany();
-	
+
 			} else {
 				// list = dao.listCompany(offset, size, condition, keyword);
 			}
@@ -475,9 +480,7 @@ public class ReservationServlet extends TravelServlet {
 		int companyLikeCount = 0;
 
 		try {
-			System.out.println("insertCompanyLike~~");
 
-			
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
