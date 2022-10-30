@@ -17,14 +17,8 @@
 
 .body-title {
 	margin-top: 20px;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 }
-
-.basic {
-	background-color: #dc3545;
-}
-
-.basic:hover{background-color:#FA3545;}
 
 .subject {
 	font-size: 18px;
