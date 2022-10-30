@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>admin</title>
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
-<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .menu{
@@ -59,13 +59,13 @@
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
-<body>
+<body class="pt-5">
 
 <header>
-	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
 	
-<main>
+<main class="pt-5">
 <nav>
 	<ul class="menu">
 		<li><a href="${pageContext.request.contextPath}/more/service.do">서비스 이용약관</a></li>

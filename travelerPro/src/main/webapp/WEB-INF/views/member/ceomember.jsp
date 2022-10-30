@@ -12,7 +12,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1500px;
 }
 </style>
 
@@ -156,13 +156,13 @@ function userIdCheck() {
 }
 </script>
 </head>
-<body>
+<body class="pt-5">
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
 	
-<main>
+<main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
@@ -224,11 +224,11 @@ function userIdCheck() {
 				    </div>
 				    
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="nickName">법인(업체)명</label>
+				        <label class="col-sm-2 col-form-label" for="nickName">업체명</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
-				            		placeholder="닉네임">
+				            		placeholder="업체명">
 				        </div>
 				    </div>
 				 

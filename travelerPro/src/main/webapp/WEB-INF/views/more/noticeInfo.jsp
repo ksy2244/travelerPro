@@ -41,18 +41,15 @@
 	
 <main class="pt-5">
 	<div class="container">
+		<br><br>
 		<div class="body-container">	
-			<div class="body-title">
-				<h3> 공지사항 </h3>
-			</div>
-			
 			<div class="body-main">
 				<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/more/notice.do?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 				<table class="table">
 					<thead>
 						<tr>
 							<td colspan="2" align="center">
-								<div class="subject">${dto.subject}</div>
+								<div class="subject pt-3">${dto.subject}</div>
 							</td>
 						</tr>
 					</thead>		
@@ -64,7 +61,7 @@
 							</td>
 						</tr>				
 						<tr>
-							<td colspan="2" valign="top" height="200">
+							<td colspan="2" valign="top" height="200" class="pt-5 pb-5 px-3">
 								${dto.content}
 							</td>
 						</tr>				

@@ -91,15 +91,13 @@
 	
 <main class="pt-5">
 	<div class="container">
-		<div class="body-container">	
-			<div class="body-title">
-				<h3> 쿠폰 상세정보 </h3>
-			</div>
-			
+		<div class="body-container">
+			<br><br>
 			<div class="body-main">
 				<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/mypage/coupon.do?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>		
 				<table class="table table-borderless">
-					<thead>
+					<tbody>
+						<tr><td><br></td></tr>
 						<tr>
 							<td colspan="2" align="center" class="fw-bolder lh-lg fs-4">
 								<c:if test="${dto.couponRate==0}">
@@ -116,14 +114,14 @@
 								</c:if>
 							</td>
 						</tr>
-					</thead>
+					</tbody>
 					
 					<tbody>
 						<tr>
 							<td class="p-1 block fs-5 fw-bold" align="center">${dto.couponName}</td>
 							<td class="p-0 block text_color" align="center">${dto.start_date} ~ ${dto.end_date} |
 								<c:choose>
-									<c:when test="${searchDate=='쿠폰 만료일까지 0일 남았습니다.'}">
+									<c:when test="${searchDate=='쿠폰 만료일까지 1일 남았습니다.'}">
 										<span id="searchDate">쿠폰이 오늘 만료됩니다.</span>
 									</c:when>
 									<c:otherwise>

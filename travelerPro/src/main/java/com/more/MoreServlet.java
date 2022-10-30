@@ -52,6 +52,7 @@ public class MoreServlet extends FileUploadServlet {
 		} else if(uri.indexOf("download.do") != -1) {
 			download(req, resp);
 		}
+
 		
 	}
 	
@@ -200,6 +201,8 @@ public class MoreServlet extends FileUploadServlet {
 			out.print("<script>alert('파일 다운로드가 실패했습니다.');history.back();</script>");
 		}
 	}
+	
+	
 	
 	
 
