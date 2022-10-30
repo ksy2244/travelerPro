@@ -17,7 +17,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
 	type="text/css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/datePicker.css"
+	type="text/css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -27,19 +29,20 @@
 <script>
 	//DatePicker 한글로 변환
 	$.datepicker.setDefaults({
-		dateFormat : 'yymmdd',
-		prevText : '이전 달',
-		nextText : '다음 달',
-		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
-				'10월', '11월', '12월' ],
-		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-				'9월', '10월', '11월', '12월' ],
-		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-		showMonthAfterYear : true,
-		yearSuffix : '년',
+  		dateFormat: 'yy-mm-dd',
+  		prevText: '이전 달',
+  		nextText: '다음 달',
+  		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+  		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+  		dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+ 		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		showMonthAfterYear: true,
+  		yearSuffix: '년'
+	});
 
+	$(function () {
+  		$('.datepicker').datepicker();
 	});
 
 	//Datepicker 적용할 id 가져오기, 지난 날짜 선택 불가하도록 설정 
@@ -97,7 +100,7 @@
 		});
 	}
 
-	// 게시글 공감 여부
+	// 업체 찜
 	$(function(){
 		$(".btnSendCompanyLike").click(function(){
 			const $i = $(this).find("i");
@@ -108,10 +111,8 @@
 				return false;
 			}
 			
-			alert("ff")
 			let url = "${pageContext.request.contextPath}/reservation/insertCompanyLike.do";
 			let companyNum = "${companyNum}";
-			alert("fdddf")
 			
 			let query = "companyNum=" + companyNum + "&isNoLike=" + isNoLike;
 			
@@ -139,40 +140,6 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
 
-
-<style>
-.ui-datepicker {
-	font-size: 30px;
-	width: 600px;
-}
-
-/* jQuery UI datepicker 크기 조정  */
-.ui-datepicker-header {
-	background: #0dcaf0;
-}
-
-.ui-datepicker select.ui-datepicker-month {
-	width: 200px;
-	font-size: 30px;
-	text-align: center;
-} /* jQuery UI 날짜 선택기 너비 */
-.ui-datepicker select.ui-datepicker-year {
-	width: 200px;
-	font-size: 30px;
-} /* jQuery UI 날짜 선택기 작게 */
-.ui-state-default.ui-state-highlight {
-	background: #E4FBFF;
-	border-color: #B8b5ff;
-}
-
-.tabStyle {
-	background: blue;
-}
-
-.nav-tabs>.nav-item>.active {
-	background-color: white;
-}
-</style>
 <script type="text/javascript">
 	$(function() {
 		let u = "${pageContext.request.contextPath}/reservation/roomList.do?companyNum=${companyNum}";
@@ -200,6 +167,7 @@
 	});
 
 </script>
+
 
 </head>
 <body>
@@ -318,18 +286,19 @@
 							</p>
 
 							<p class="roomInfoContent">
-								<span style="background-color: #E4FBFF; text-align: center">체크아웃
-									시간 </span> ${companyDto.companyTel}
+								<span style="background-color: #E4FBFF; text-align: center">업체 전화번호
+								 </span> ${companyDto.companyTel}
 							</p>
 
 
 							<table>
 								<td colspan="2" class="text-center p-3">
 									<button type="button"
-										class="btn btn-outline-secondary btnSendCompanyLike" title="좋아요">
-										<i class="far fa-hand-point-up"
-											style="color: ${isUserLike?'blue':'black'}"></i>&nbsp;&nbsp;<span
-											id="companyLikeCount">${dto.companyLikeCount}</span>
+										class="btn btn-outline-secondary btnSendCompanyLike"
+										title="좋아요">
+										<img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class ="icon"> 
+										&nbsp;&nbsp;<span
+											id="companyLikeCount">${companyDto.pick}</span>
 									</button>
 								</td>
 							</table>
@@ -352,10 +321,7 @@
 								id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1"
 								type="button" role="tab" aria-controls="1" aria-selected="true">객실정보</button>
 						</li>
-						<li class="nav-item" role="presentation"><input type="hidden"
-							value="${companyName}" name="companyName"> <input
-							type="hidden" value="${address}" name="address">
-
+						<li class="nav-item" role="presentation">
 							<button class="nav-link bg-info text-white h-100 p-3" id="tab-2"
 								data-bs-toggle="tab" data-bs-target="#nav-2" type="button"
 								role="tab" aria-controls="2" aria-selected="true">지도</button></li>

@@ -125,7 +125,6 @@ public class ReservationServlet extends TravelServlet {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
 			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
-			ReserveRoomDTO roomDto = new ReserveRoomDTO();
 
 			ReservationDAO dao = new ReservationDAO();
 			companyDto = dao.readCompany(companyNum);
@@ -205,8 +204,6 @@ public class ReservationServlet extends TravelServlet {
 		ReserveCompanyDTO dto  = new ReserveCompanyDTO();
  
 		String cp = req.getContextPath();
-		int countPick =0;
-		int minPrice = 0;
 
 		try {
 			String page = req.getParameter("page");
