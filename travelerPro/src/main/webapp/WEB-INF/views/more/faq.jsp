@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
@@ -18,7 +18,7 @@
 
 .body-title {
 	margin-top: 20px;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 }
 
 .basic {

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap5/icon/bootstrap-icons.css" type="text/css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style2.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainLayout.css" type="text/css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 
