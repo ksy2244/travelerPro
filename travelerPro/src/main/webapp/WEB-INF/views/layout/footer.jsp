@@ -11,11 +11,6 @@
 	height: 450px;
 }
 
-.nav {
-	margin-left: 450px;
-	padding-top: 70px;
-}
-
 .nav-next {
 	margin-left: 450px;
 	padding-top: 30px;
@@ -42,7 +37,8 @@
 </style>
 <footer class="navbar-fixed-bottom" style="border-top: 1px soild #EAEAEA;">
 <div class="footer">
-    <ul class="nav">
+	<br><br>
+    <ul class="nav nav-next">
         <li class="nav-item"><a class="text-reset" href="#">TRAVELER 회사소개</a></li>
         <li class="nav-item"><span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span></li>
         <li class="nav-item"><a class="text-reset" href="${pageContext.request.contextPath}/more/policy.do?category=service">서비스 이용약관</a></li>

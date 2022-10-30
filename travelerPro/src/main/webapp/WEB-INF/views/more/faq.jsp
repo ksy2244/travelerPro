@@ -7,11 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>admin</title>
-<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
-<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp"/>
+<title>traveler</title>
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
 .body-container {
 	max-width: 1500px;
 }
@@ -67,10 +67,6 @@
 	background: #DEEBF0;
 }
 
-.nav {
-	margin-left: 0px;
-}
-
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <script type="text/javascript">
@@ -109,7 +105,7 @@ $(function(){
 
 
 function list(categoryNum){
-	let url = "${pageContext.request.contextPath}/answer/faqList.do";
+	let url = "${pageContext.request.contextPath}/more/faqList.do";
 	let query = "categoryNum="+categoryNum;
 	let selector = "#nav-"+categoryNum;
 	
@@ -141,17 +137,16 @@ $(function() {
 
 </script>
 </head>
-<body>
+<body class="pt-5">
 
 <header>
-	<jsp:include page="/WEB-INF/views/layout/header_admin.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
-	
-<main>
+<main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> FAQ 관리 </h3>
+				<h3> 자주 묻는 질문 FAQ </h3>
 			</div>
 			
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -182,15 +177,6 @@ $(function() {
 				<div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-tab-3">
 				</div>
 				<div class="tab-pane fade" id="nav-4" role="tabpanel" aria-labelledby="nav-tab-4">
-				</div>
-			</div>
-
-			<div class="row board-list-footer" style="margin-top: 50px;">
-				<div class="col">
-					<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faq.do';">새로고침</button>
-				</div>
-				<div class="col text-end">
-					<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/answer/faqWrite.do';">faq 작성</button>
 				</div>
 			</div>
 		</div>

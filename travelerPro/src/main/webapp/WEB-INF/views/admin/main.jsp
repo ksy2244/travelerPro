@@ -18,12 +18,10 @@
 }
 
 .body-container {
-	max-width: 1500px;
+	max-width: 1000px;
 }
 
 .box {
-	width: 900px; height: 800px;
-	margin-left: 250px;
 	margin-top: 60px;
 	
 	display: grid;
@@ -38,7 +36,7 @@
 	border-radius: 7px;
 	border: 1px solid #ccc;
 	
-	/* 텍스트를 수직 가운데 보내려고 flex 사용 */
+	height: 250px;
 	
 	font-size: 15px;
 }
@@ -89,18 +87,22 @@
 }
 
 .left {
-	float: left;
+	margin-left: 0px;
 	font-weight: bold;
 	font-size: 19px; 
+	
+}
+
+.start {
+	font-weight: bold;
+	font-size: 19px;
 	margin-left: 30px;
-	margin-top: 10px;
 }
 
 .right {
 	float: right;
 	font-size: 19px; 
 	margin-right: 30px;
-	margin-top: 10px;
 	color: #787878;
 }
 
@@ -153,9 +155,10 @@
 			<div class="body-main box">
 					<div class="item item1">
 						<div class="more"><span class="font">서비스 정보</span></div>
-						<div class="left">서비스</div><span class="right">TRAVLER</span>
-						<br><br><br>
-						<div class="left">사이트 주소</div><span class="right">travelerPro/main.do</span>
+						<br>
+						<span class="start">서비스</span><span class="right">TRAVLER</span>
+						<br><br>
+						<span class="start">사이트 주소</span><span class="right">travelerPro/main.do</span>
 					</div>
 					<div class="item item2">
 						<div class="more"><span class="font">회원 정보 확인</span><span class="plus" onclick="location.href='${pageContext.request.contextPath}/admin/userList.do';">자세히 보기 ></span></div>

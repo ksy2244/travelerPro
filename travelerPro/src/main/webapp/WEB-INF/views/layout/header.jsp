@@ -21,6 +21,10 @@
 	height: 65px;
 }
 
+.navbar {
+	border: none;
+}
+
 </style>
 
 <nav class="navbar navbar-expand-lg justify-content-end bg-info fixed-top">
@@ -48,7 +52,7 @@
 		            더보기
 		          </a>
 		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/faq.do" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">공지사항</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
@@ -79,7 +83,7 @@
 		            더보기
 		          </a>
 		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/faq.do" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">공지사항</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">약관 및 정책</a></li>

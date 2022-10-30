@@ -50,7 +50,8 @@ public class FaqDAO {
 		try {
 			sql = "SELECT faqNum, subject, content, categoryNum "
 					+ " FROM faq "
-					+ " WHERE categoryNum = ?";
+					+ " WHERE categoryNum = ? "
+					+ " ORDER BY faqNum DESC ";
 			
 			pstmt = conn.prepareStatement(sql);
 			

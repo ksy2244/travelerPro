@@ -70,7 +70,7 @@
     margin: 0 0 -15px 0;
     padding-bottom: 15px;
     display: inline-block;
-    border-bottom: 3px solid #7868E6;
+    border-bottom: 3px solid rgb(8, 121, 144);
 }
 
 /* 페이징 */
