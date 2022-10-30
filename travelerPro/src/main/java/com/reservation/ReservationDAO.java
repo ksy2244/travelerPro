@@ -523,28 +523,22 @@ public class ReservationDAO {
 		try {
 			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, roomName, c.companyName, m.userName, "
-					+ " 	paymentPrice, imageFileName "
-					+ " FROM reservation r "
+					+ " 	paymentPrice, imageFileName " + " FROM reservation r "
 
-					+ " LEFT OUTER JOIN reservationDetail d " 
-					+ " ON r.reservationNum = d.reservationNum "
+					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
 
-					+ " LEFT OUTER JOIN room room " 
-					+ " ON room.roomNum = d.roomNum "
+					+ " LEFT OUTER JOIN room room " + " ON room.roomNum = d.roomNum "
 
-					+ " LEFT OUTER JOIN company c " 
-					+ " ON c.companyNum = room.companyNum "
+					+ " LEFT OUTER JOIN company c " + " ON c.companyNum = room.companyNum "
 
-					+ " LEFT OUTER JOIN member m " 
-					+ " ON m.userId = r.userId "
+					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
 
-					+ " LEFT OUTER JOIN mainCompanyImage mc " 
-					+ " ON mc.companyNum = c.companyNum "
+					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
 
 					+ " WHERE m.userId = ? ";
 
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, userId);
 
 			rs = pstmt.executeQuery();
@@ -584,6 +578,97 @@ public class ReservationDAO {
 		}
 
 		return list;
+	}
+
+	public int countCompanyLike(int companyNum) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM pick WHERE companyNum=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public void deleteCompanyLike(int companyNum, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "DELETE FROM pick WHERE companyNum = ? AND userId = ?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, companyNum);
+			pstmt.setString(2, userId);
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+
+	}
+
+	public void insertCompanyLike(int companyNum, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "INSERT INTO pick(companyNum, userId) VALUES (?, ?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+			pstmt.setString(2, userId);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
 	}
 
 }

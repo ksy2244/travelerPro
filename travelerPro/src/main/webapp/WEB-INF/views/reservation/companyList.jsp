@@ -35,8 +35,7 @@
 				<div class="body-main">
 					<div class="row board-list-header">
 						<div class="col-auto me-auto">
-							<p class="form-control-plaintext">
-								${dataCount}개(${page}/${total_page} 페이지)</p>
+					
 						</div>
 					</div>
 					<div class="row">

@@ -1,6 +1,7 @@
 package com.reservation;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import com.member.SessionInfo;
 import com.util.TravelServlet;
@@ -71,11 +74,10 @@ public class ReservationServlet extends TravelServlet {
 			myReservation(req, resp);
 		}
 
-		// 리뷰 완료 화면
-//		else if (uri.indexOf("review_ok.do") != -1) {
-//			reservationSubmit(req, resp);
-//		}
-//			
+		else if (uri.indexOf("insertCompanyLike.do") != -1) {
+			// 공감 저장
+			insertCompanyLike(req, resp);
+		}
 
 		// 결제 테스트
 		else if (uri.indexOf("test.do") != -1) {
@@ -127,17 +129,15 @@ public class ReservationServlet extends TravelServlet {
 
 			ReservationDAO dao = new ReservationDAO();
 			companyDto = dao.readCompany(companyNum);
-			
+
 			String addr = companyDto.getAddr();
 			String addrDetail = companyDto.getAddrDetail();
 			String companyName = companyDto.getCompanyName();
-			
-			String address = addr +" " + addrDetail;
-			
+
+			String address = addr + " " + addrDetail;
+
 			req.setAttribute("address", address);
 			req.setAttribute("companyName", companyName);
-			
-
 
 			forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
 			return;
@@ -192,8 +192,7 @@ public class ReservationServlet extends TravelServlet {
 
 	private void test(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 포워딩
-		
-	
+
 		forward(req, resp, "/WEB-INF/views/reservation/test.jsp");
 		return;
 
@@ -313,8 +312,6 @@ public class ReservationServlet extends TravelServlet {
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-		 
-			
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
@@ -465,4 +462,50 @@ public class ReservationServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/reservation/reservation.jsp");
 	}
 
+	protected void insertCompanyLike(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		ReservationDAO dao = new ReservationDAO();
+
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String cp = req.getContextPath();
+
+		System.out.println("insertCompanyLike");
+		String state = "false";
+		int companyLikeCount = 0;
+
+		try {
+			System.out.println("insertCompanyLike~~");
+
+			
+			if (info == null) {
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+
+			String isNoLike = req.getParameter("isNoLike");
+
+			if (isNoLike.equals("true")) {
+				dao.insertCompanyLike(companyNum, info.getUserId()); // 공감
+			} else {
+				dao.deleteCompanyLike(companyNum, info.getUserId()); // 공감 취소
+			}
+
+			companyLikeCount = dao.countCompanyLike(companyNum);
+
+			state = "true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		JSONObject job = new JSONObject();
+		job.put("state", state);
+		job.put("companyLikeCount", companyLikeCount);
+
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(job.toString());
+	}
 }

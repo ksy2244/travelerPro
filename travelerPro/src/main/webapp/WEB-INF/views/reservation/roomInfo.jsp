@@ -70,6 +70,70 @@
 			f.start_date.focus();
 		}
 	}
+	
+	function ajaxFun(url, method, query, dataType, fn) {
+		$.ajax({
+			type:method,
+			url:url,
+			data:query,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend:function(jqXHR) {
+				jqXHR.setRequestHeader("AJAX", true);
+			},
+			error:function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert("요청 처리가 실패 했습니다.");
+					return false;
+				}
+		    	
+				//console.log(jqXHR.responseText);
+			}
+		});
+	}
+
+	// 게시글 공감 여부
+	$(function(){
+		$(".btnSendCompanyLike").click(function(){
+			const $i = $(this).find("i");
+			let isNoLike = $i.css("color") == "rgb(0, 0, 0)";
+			let msg = isNoLike ? "업체를 찜 하십겠습니까 ? " : "업체 찜을 취소하시겠습니까 ? ";
+
+			if(! confirm( msg )) {
+				return false;
+			}
+			
+			alert("ff")
+			let url = "${pageContext.request.contextPath}/reservation/insertCompanyLike.do";
+			let companyNum = "${companyNum}";
+			alert("fdddf")
+			
+			let query = "companyNum=" + companyNum + "&isNoLike=" + isNoLike;
+			
+			const fn = function(data){
+				let state = data.state;
+				if(state === "true") {
+					let color = "black";
+					if( isNoLike ) {
+						color = "blue";
+					}
+					$i.css("color", color);
+					
+					let count = data.boardLikeCount;
+					$("#companyLikeCount").text(count);
+				} else if(state === "liked") {
+					alert("찜은 한번만 가능합니다. !!!");
+				}
+			};
+			
+			ajaxFun(url, "post", query, "json", fn);
+		});
+	});
 </script>
 
 <script type="text/javascript"
@@ -104,9 +168,10 @@
 .tabStyle {
 	background: blue;
 }
-.nav-tabs > .nav-item > .active{
+
+.nav-tabs>.nav-item>.active {
 	background-color: white;
-}  
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -123,7 +188,7 @@
 			if (tab == "1") {
 				url += "roomList.do?companyNum=${companyNum}";
 			} else if (tab == "2") {
-				url += "test.do?companyNum=${companyNum}";
+				url += "map.do?companyNum=${companyNum}";
 			} else {
 				url += "review.do?companyNum=${companyNum}";
 			}
@@ -210,9 +275,10 @@
 							<div class="card-body">
 								<form name="dateForm" action="roomInfo.do" method="get">
 									<p style="font-size: 25px;">
-										<input type="hidden" value="${companyNum}" name="companyNum"> 시작일 
-										<input type="text" id="start_date" name="start_date" class="styleInput">종료일 
-										<input type="text" id="end_date" name="end_date" class="styleInput">
+										<input type="hidden" value="${companyNum}" name="companyNum">
+										시작일 <input type="text" id="start_date" name="start_date"
+											class="styleInput">종료일 <input type="text"
+											id="end_date" name="end_date" class="styleInput">
 									</p>
 
 									<button class="dateBtn btn btn-danger" type="submit">날짜
@@ -248,13 +314,25 @@
 							</p>
 							<p class="roomInfoContent">
 								<span style="background-color: #E4FBFF; text-align: center">체크아웃
-									 </span>&nbsp; ${companyDto.checkOutTime}
+								</span>&nbsp; ${companyDto.checkOutTime}
 							</p>
 
 							<p class="roomInfoContent">
 								<span style="background-color: #E4FBFF; text-align: center">체크아웃
 									시간 </span> ${companyDto.companyTel}
 							</p>
+
+
+							<table>
+								<td colspan="2" class="text-center p-3">
+									<button type="button"
+										class="btn btn-outline-secondary btnSendCompanyLike" title="좋아요">
+										<i class="far fa-hand-point-up"
+											style="color: ${isUserLike?'blue':'black'}"></i>&nbsp;&nbsp;<span
+											id="companyLikeCount">${dto.companyLikeCount}</span>
+									</button>
+								</td>
+							</table>
 
 							<hr>
 							<p class="roomInfoContent">${companyDto.notice}</p>
@@ -267,25 +345,24 @@
 				<br>
 				<div class="container mb-2 pt-3">
 
-					<ul class="nav nav-tabs nav-justified"" id="myTab" role="tablist" >
+					<ul class="nav nav-tabs nav-justified" " id="myTab" role="tablist">
 						<li class="nav-item" role="presentation">
-						
-							<button class="nav-link active  bg-info text-white h-100 p-3 h1" id="tab-1" data-bs-toggle="tab"
-								data-bs-target="#nav-1" type="button" role="tab"
-								aria-controls="1" aria-selected="true">객실정보</button>
+
+							<button class="nav-link active  bg-info text-white h-100 p-3 h1"
+								id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1"
+								type="button" role="tab" aria-controls="1" aria-selected="true">객실정보</button>
 						</li>
+						<li class="nav-item" role="presentation"><input type="hidden"
+							value="${companyName}" name="companyName"> <input
+							type="hidden" value="${address}" name="address">
+
+							<button class="nav-link bg-info text-white h-100 p-3" id="tab-2"
+								data-bs-toggle="tab" data-bs-target="#nav-2" type="button"
+								role="tab" aria-controls="2" aria-selected="true">지도</button></li>
 						<li class="nav-item" role="presentation">
-							<input type="hidden" value="${companyName}" name="companyName"> 
-							<input type="hidden" value="${address}" name="address"> 
-						
-							<button class="nav-link bg-info text-white h-100 p-3" id="tab-2" data-bs-toggle="tab"
-								data-bs-target="#nav-2" type="button" role="tab"
-								aria-controls="2" aria-selected="true">지도</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link  bg-info text-white h-100 p-3" id="tab-3" data-bs-toggle="tab"
-								data-bs-target="#nav-3" type="button" role="tab"
-								aria-controls="3" aria-selected="true">리뷰</button>
+							<button class="nav-link  bg-info text-white h-100 p-3" id="tab-3"
+								data-bs-toggle="tab" data-bs-target="#nav-3" type="button"
+								role="tab" aria-controls="3" aria-selected="true">리뷰</button>
 						</li>
 					</ul>
 

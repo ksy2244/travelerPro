@@ -80,8 +80,7 @@
 		}, function(rsp) { // callback
 			if (rsp.success) {
 				console.log(rsp);
-				alert("예매가 완료되었습니다!");
-				f.action = "${pageContext.request.contextPath}/reservation/main.do";
+				f.action = "'${pageContext.request.contextPath}/reservation/reservation_ok.do'";
 				f.submit();
 
 			} else {

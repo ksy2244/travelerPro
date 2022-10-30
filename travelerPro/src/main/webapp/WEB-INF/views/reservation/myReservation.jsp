@@ -44,6 +44,10 @@
 									<h5 class="card-title">${dto.checkOutTime}</h5>
 									<h5 class="card-title">${dto.end_date}</h5>
 									<h5 class="card-title">${dto.reservation_date}</h5>
+									<button type="button" name="sendButton"
+										class="dateBtn btn btn-danger"
+										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do'">나의
+										예약 내역</button>
 								</div>
 							</div>
 
