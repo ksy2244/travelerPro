@@ -34,13 +34,12 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 		pstmt=null;
 		
 		if(dto.getImageFiles() !=null) {
-			sql= "INSERT INTO roomFile(fileNum, imageFilename, roomNum) "
-					+ " VALUES(roomFile_seq.NEXTVAL,?,?) ";
+			sql= "INSERT INTO roomFile(fileNum, imageFilename, roomNum)"
+					+ "VALUES(roomFile_seq.NEXTVAL,?,room_seq.CURRVAL)";
 			pstmt=conn.prepareStatement(sql);
 			
 			for(int i=0; i<dto.getImageFiles().length; i++) {
 				pstmt.setString(1, dto.getImageFiles()[i]);
-				pstmt.setInt(2, dto.getRoomNum());
 				pstmt.executeUpdate();
 			}
 		}
@@ -63,9 +62,10 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 		String sql;
 		
 		try {
-			sql = "SELECT COUNT(*) FROM room";
+			sql = "SELECT COUNT(*) FROM room WHERE companyNum=?";
 			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, companyNum);
 			
 			rs = pstmt.executeQuery();
 			
@@ -120,7 +120,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 				pstmt =conn.prepareStatement(sql);
 				for(int i=0; i<dto.getImageFiles().length;i++) {
 					pstmt.setString(1, dto.getImageFiles()[i]);
-					pstmt.setLong(2, dto.getCompanyNum());
+					pstmt.setLong(2, dto.getRoomNum());
 					
 					pstmt.executeUpdate();
 					
@@ -201,7 +201,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 	
 
 	
-	public RoomDTO readRoom(int Num) {
+	public RoomDTO readRoom(int roomNum) {
 		RoomDTO dto =null;
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
@@ -214,7 +214,7 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, Num);
+			pstmt.setInt(1, roomNum);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -319,17 +319,19 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 			 ResultSet rs =null;
 			 String sql;
 			 try {
-				sql="SELECT fileNum,imageFileName,roomNum FROM roomFile WHRER roomNum=?";
+				sql="SELECT fileNum, imageFilename, roomNum FROM roomFile WHERE roomNum = ?";
 				pstmt =conn.prepareStatement(sql);
 				pstmt.setInt(1, num);
+				
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()) {
 					RoomDTO dto=new RoomDTO();
 					
 					dto.setFileNum(rs.getLong("fileNum"));
+					dto.setImageFilename(rs.getString("imageFilename"));
 					dto.setRoomNum(rs.getInt("roomNum"));
-					dto.setImageFilename(rs.getString("imageFileName"));
+					
 					list.add(dto);
 					
 				}
@@ -373,5 +375,44 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 					}
 				}
 			}
+		 }
+		 
+		
+		 public RoomDTO readPhotoFile(long fileNum) {
+			RoomDTO dto=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs= null;
+			String sql;
+			try {
+				sql= "SELECT fileNum,imageFilename, roomNum FROM roomFile WHERE fileNum= ?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setLong(1, fileNum);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dto =new RoomDTO();
+					dto.setFileNum(rs.getLong("fileNum"));
+					dto.setImageFilename(rs.getString("imageFilename"));
+					dto.setRoomNum(rs.getInt("roomNum"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+					}
+				}
+
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (Exception e) {
+					}
+				}
+			}
+			 return dto;
 		 }
 }

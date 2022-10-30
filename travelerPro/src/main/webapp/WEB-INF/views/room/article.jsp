@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 <script type="text/javascript">
 function deleteroom() {
 	if(confirm("객실을 삭제 하시 겠습니까 ? ")) {
@@ -44,7 +44,22 @@ function deleteroom() {
 					</thead>
 					
 					<tbody>
-						
+						<tr>
+							
+							<td colspan="2" style="border-bottom: none;">
+							
+								<div class="row row-cols-6 img-box">
+								이미지:
+									<c:forEach var="vo" items="${listFile}">
+										<div class="col p-1">
+											<img src="${pageContext.request.contextPath}/uploads/room/${vo.imageFilename}"
+												class="img-thumbnail w-100 h-100" style="max-height: 130px;"
+												onclick="imageViewer('${pageContext.request.contextPath}/uploads/room/${vo.imageFilename}');">
+										</div>
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
 						
 						<tr>
 							<td colspan="2" valign="top" height="200">
@@ -75,12 +90,12 @@ function deleteroom() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?roomNum=${dto.roomNum}&page=${page}&companyNum=${companyNum}';">수정</button>
-							<button type="button" class="btn basic"  onclick="deleteroom();">삭제</button>
+							<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?roomNum=${dto.roomNum}&page=${page}&companyNum=${companyNum}';">수정</button>
+							<button type="button" class="btn btn-primary"  onclick="deleteroom();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn basic"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">리스트</button>
+							<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">리스트</button>
 						</td>
 					</tr>
 				</table>

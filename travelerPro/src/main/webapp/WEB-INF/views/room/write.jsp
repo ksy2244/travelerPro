@@ -8,43 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<script type="text/javascript">
-function check() {
-    const f = document.boardForm;
-	let str;
-	
-    str = f.roomName.value.trim();
-    if(!str) {
-        alert("객실명을 입력하세요. ");
-        f.roomName.focus();
-        return false;
-    }
-
-    str = f.roomInfo.value.trim();
-    if(!str || str === "<p><br></p>") {
-        alert("객실정보를 입력하세요. ");
-        f.roomInfo.focus();
-        return false;
-    }
-
-    f.action = "${pageContext.request.contextPath}/room/${mode}_ok.do";
-}
-
-<c:if test="${mode=='update'}">
-	function deleteFile(num) {
-		if( !confirm("파일을 삭제하시겠습니까 ?") ) {
-			return;
-		}
-		let query ="roomNum=${dto.roomNum}&fileNum=" + fileNum + "&page=${page}";
-		let url = "${pageContext.request.contextPath}/room/deleteFile.do?" + query;
-		location.href = url;
-	}
-</c:if>
-</script>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <style type="text/css">
 .body-container {
-	max-width: 1200px;
+	max-width: 1500px;
 }
 .img-grid {
     display: grid;
@@ -74,7 +40,126 @@ function check() {
 	flex: 0 0 auto;
 	cursor: pointer;
 }
+
+.alert-info {
+	background: #D4F4FA;
+	color: black;
+}
+
+.basic {
+	background-color: #6C757D;
+}
+
+.basic:hover{background-color:#7689A5;}
+
+.bold {
+	background-color: #1687A7;
+}
+
+.bold:hover{background-color:#1696A7;}
+
+.gray {
+	color: #787878;
+}
+
+.alert {
+	margin-bottom: 40px;
+}
 </style>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+<script type="text/javascript">
+function check() {
+    const f = document.roomForm;
+	let str;
+	
+    str = f.roomName.value.trim();
+    if(!str) {
+        alert("객실명을 입력하세요. ");
+        f.roomName.focus();
+        return false;
+    }
+
+    str = f.roomInfo.value.trim();
+    if(!str || str === "<p><br></p>") {
+        alert("객실정보를 입력하세요. ");
+        f.roomInfo.focus();
+        return false;
+    }
+
+    f.action = "${pageContext.request.contextPath}/room/${mode}_ok.do";
+}
+
+$(function(){
+	var sel_files = [];
+	
+	$("body").on("click", ".body-main .img-add", function(event){
+		$("form[name=roomForm] input[name=selectFile]").trigger("click"); 
+	});
+	
+	$("form[name=roomForm] input[name=selectFile]").change(function(){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(file of sel_files) {
+				dt.items.add(file);
+			}
+			document.roomForm.selectFile.files = dt.files;
+			
+	    	return false;
+	    }
+	    
+	    const fileArr = Array.from(this.files);
+	
+		fileArr.forEach((file, index) => {
+			sel_files.push(file);
+			
+			const reader = new FileReader();
+			const $img = $("<img>", {class:"item img-item"});
+			$img.attr("data-filename", file.name);
+	        reader.onload = e => {
+	        	$img.attr("src", e.target.result);
+	        };
+	        
+	        reader.readAsDataURL(file);
+	        
+	        $(".img-grid").append($img);
+	    });
+		
+		let dt = new DataTransfer();
+		for(file of sel_files) {
+			dt.items.add(file);
+		}
+		document.roomForm.selectFile.files = dt.files;
+	});
+	
+	$("body").on("click", ".body-main .img-item", function(event) {
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ?")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+	    for(let i = 0; i < sel_files.length; i++) {
+	    	if(filename === sel_files[i].name){
+	    		sel_files.splice(i, 1);
+	    		break;
+			}
+	    }
+	
+		let dt = new DataTransfer();
+		for(file of sel_files) {
+			dt.items.add(file);
+		}
+		document.roomForm.selectFile.files = dt.files;
+		
+		$(this).remove();
+	});
+});
+
+
+</script>
+
+<jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 </head>
 <body>
 <header>
@@ -98,7 +183,7 @@ function check() {
 		        <i class="bi bi-person-check-fill"></i> 객실상세정보를 입력해 주세요
 		    </div>
 			<div class="body-main">
-				<form name="boardForm" method="post" enctype="multipart/form-data"
+				<form name="roomForm" method="post" enctype="multipart/form-data"
 					onsubmit="return submitContents(this);">
 					<table class="table  write-form mt-5">
 						<tr>
@@ -107,7 +192,8 @@ function check() {
 								<input type="text" name="roomName" class="form-control" value="${dto.roomName}">
 							</td>
 						</tr>
-	        
+	        		
+						
 						<tr>
 							<td class="table-light col-sm-2" scope="row">객실정보</td>
 							<td>
@@ -138,24 +224,42 @@ function check() {
 							</td>
 						</tr>
 										
-					
+						<tr>
+							<td class="table-light col-sm-2" scope="row">이미지</td>
+							<td>
+								<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
+								<input type="file" name="selectFile" accept="image/*" multiple="multiple" style="display: none;" class="form-control">
+							</td>
+						</tr>
+						
+						<c:if test="${mode=='update'}">
+							<tr>
+								<td class="table-light col-sm-2" scope="row">등록이미지</td>
+								<td> 
+									<div class="img-box">
+										<c:forEach var="vo" items="${listFile}">
+											<img src="${pageContext.request.contextPath}/uploads/room/${vo.imageFilename}"
+												onclick="deleteFile('${vo.fileNum}');">
+										</c:forEach>
+									</div>
+								</td>
+							</tr>
+						</c:if>
 						
 					</table>
 					
-					<table class="table table-borderless">
-	 					<tr>
-							<td class="text-center">
-								<button type="submit" class="btn btn-dark" id="bold">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn btn-primary">다시입력</button>
-								<button type="button" class="btn btn-light" id="btn" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+					<div class="row mb-3">
+				        <div class="text-center">
+								<button type="submit" class="btn btn-dark" id="bold" >${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="reset" class="btn btn-dark" id="bold">다시입력</button>
+								<button type="button" class="btn btn-dark" id="bold" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<input  type="hidden" name="companyNum" value="${companyNum}">
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="roomNum" value="${dto.roomNum}">
 									<input type="hidden" name="page" value="${page}">
 								</c:if>
-							</td>
-						</tr>
-					</table>
+					    </div>
+				    </div>
 				</form>
 			</div>
 		</div>

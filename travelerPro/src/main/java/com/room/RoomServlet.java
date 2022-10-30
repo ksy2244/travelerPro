@@ -2,8 +2,12 @@ package com.room;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,17 +15,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.member.SessionInfo;
 import com.util.FileManager;
-import com.util.FileUploadServlet;
+
+import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
 
 
 @WebServlet("/room/*")
 @MultipartConfig
-public class RoomServlet extends FileUploadServlet  {
+public class RoomServlet extends TravelServlet  {
 	private static final long serialVersionUID = 1L;
 	
 	private String pathname;
@@ -84,7 +90,7 @@ public class RoomServlet extends FileUploadServlet  {
 			if(offset < 0) offset = 0;
 			
 			List<RoomDTO> list = dao.listroom(offset, size, companyNum);
-			String listUrl = cp +"/room/list.do?companyNum=" +companyNum + "&page=" +current_page;
+			String listUrl = cp +"/room/list.do?companyNum=" +companyNum;
 			String articleUrl = cp + "/room/article.do?page=" +current_page + "&companyNum=" +companyNum ;
 			String paging = util.paging(current_page, total_page, listUrl);
 			
@@ -122,7 +128,7 @@ public class RoomServlet extends FileUploadServlet  {
 		//req.setAttribute("companyNum", companyNum);
 		String cp =req.getContextPath();
 		if(req.getMethod().equalsIgnoreCase("GET")) {		
-			resp.sendRedirect(cp + "/room/list.do");
+			resp.sendRedirect(cp + "/room/list.do?companyNum="+companyNum);
 			return;
 		}
 		
@@ -138,6 +144,11 @@ public class RoomServlet extends FileUploadServlet  {
 			dto.setHeadCount(Integer.parseInt(req.getParameter("headCount")));		
 			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
 			
+			Map<String, String[]>map=doFileUpload(req.getParts(),pathname);
+			if(map !=null) {
+				String[]saveFiles =map.get("saveFilenames");
+				dto.setImageFiles(saveFiles);
+			}
 			dao.insertRoom(dto);
 			
 			
@@ -146,7 +157,69 @@ public class RoomServlet extends FileUploadServlet  {
 		}
 		resp.sendRedirect(cp+ "/room/list.do?companyNum=" +companyNum);
 		
-		
+	}
+	
+	private Map<String, String[]> doFileUpload(Collection<Part> parts, String pathname2) {
+		Map<String, String[]> map = null;
+		try {
+			File f = new File(pathname2);
+			if (!f.exists()) { 
+				f.mkdirs();
+			}
+
+			String original, save, ext;
+			List<String> listOriginal = new ArrayList<String>();
+			List<String> listSave = new ArrayList<String>();
+
+			for (Part p : parts) {
+				String contentType = p.getContentType();
+
+				if (contentType != null) { 
+					original = getOriginalFilename(p);
+					if (original == null || original.length() == 0) {
+						continue;
+					}
+
+					ext = original.substring(original.lastIndexOf("."));
+					save = String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS", Calendar.getInstance());
+					save += System.nanoTime();
+					save += ext;
+
+					String fullpath = pathname2 + File.separator + save;
+					p.write(fullpath);
+
+					listOriginal.add(original);
+					listSave.add(save);
+				}
+			}
+
+			if (listOriginal.size() != 0) {
+				String[] originals = listOriginal.toArray(new String[listOriginal.size()]);
+				String[] saves = listSave.toArray(new String[listSave.size()]);
+
+				map = new HashMap<>();
+
+				map.put("originalFilenames", originals);
+				map.put("saveFilenames", saves);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+	private String getOriginalFilename(Part p) {
+		try {
+			for (String s : p.getHeader("content-disposition").split(";")) {
+				if (s.trim().startsWith("filename")) {
+					return s.substring(s.indexOf("=") + 1).trim().replace("\"", "");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 	
 	protected void ceoroomSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -166,11 +239,13 @@ public class RoomServlet extends FileUploadServlet  {
 				resp.sendRedirect(cp + "/room/list.do?companyNum=" +companyNum + "&roomNum=" +roomNum);
 				return; 
 			}
+			List<RoomDTO>listFile=dao.listphotoFile(roomNum);
 			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("query", query);
+			req.setAttribute("listFile", listFile);
 			
 			forward(req, resp, "/WEB-INF/views/room/article.jsp");
 			return;
@@ -221,7 +296,7 @@ public class RoomServlet extends FileUploadServlet  {
 		
 		String cp=req.getContextPath();
 		if(req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp + "/room/list.do" );
+			resp.sendRedirect(cp + "/room/list.do?companyNum="+companyNum );
 			return;
 		}
 		//String page =req.getParameter("page");
@@ -237,7 +312,11 @@ public class RoomServlet extends FileUploadServlet  {
 			dto.setDiscountRate(Integer.parseInt(req.getParameter("discountRate")));
 			dto.setHeadCount(Integer.parseInt(req.getParameter("headCount")));
 			dto.setCompanyNum(Long.parseLong(req.getParameter("companyNum")));
-			
+			Map<String , String[]>map =doFileUpload(req.getParts(), pathname);
+			if(map !=null) {
+				String[]saveFiles =map.get("saveFilenames");
+				dto.setImageFiles(saveFiles);
+			}
 			dao.updateroom(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,12 +341,20 @@ public class RoomServlet extends FileUploadServlet  {
 				resp.sendRedirect(cp + "/room/list.do?companyNum=" + companyNum +"&rommNum" +roomNum);
 				return;
 			}
-			FileManager.doFiledelete(pathname, dto.getSaveFilename());
-
 			
+		RoomDTO vo=dao.readPhotoFile(roomNum);
+				
+			
+			
+
+			if(vo!=null) {
+				FileManager.doFiledelete(pathname, dto.getSaveFilename());
+				//dao.deletePhoto(num);
+				//dao.updateroom(dto);
+			}
 			
 		
-			dao.updateroom(dto);
+			
 
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
@@ -284,6 +371,8 @@ public class RoomServlet extends FileUploadServlet  {
 	}
 	
 	
+	
+	
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RoomDAO dao =new RoomDAO(); 
 		String cp=req.getContextPath();
@@ -296,7 +385,7 @@ public class RoomServlet extends FileUploadServlet  {
 			int roomNum =Integer.parseInt(req.getParameter("roomNum"));
 			RoomDTO dto =dao.readRoom(roomNum);
 			if (dto == null) {
-				resp.sendRedirect(cp + "/room/list.do?" + companyNum);
+				resp.sendRedirect(cp + "/room/list.do?companyNum=" + companyNum);
 				return;
 			}
 			if(dto.getSaveFilename() != null && dto.getSaveFilename().length() != 0) {
