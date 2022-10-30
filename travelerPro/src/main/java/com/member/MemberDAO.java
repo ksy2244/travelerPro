@@ -173,8 +173,8 @@ public class MemberDAO {
 		
 
 		try {   
-			sql = "UPDATE member SET userName=?, userPwd=?, nickname=?, "
-					+" modify_date=SYSDATE, birth=TO_DATE(?,'YYYYMMDD'), "
+			sql = "UPDATE member SET userName=?, userPwd=?, nickName=?, "
+					+" birth=TO_DATE(?,'YYYYMMDD'), "
 					+ " email=?, tel=? WHERE userId=?";
 			pstmt = conn.prepareStatement(sql);
 			
