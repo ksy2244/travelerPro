@@ -13,6 +13,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
 <link rel="import" href="map.html">
 </head>
 <body>
@@ -49,10 +52,11 @@
 											class="card-img-top">
 										<div class="card-body">
 											<h4 class="card-title">업체 번호${dto.companyNum}</h4>
-											<h4 class="card-title">${dto.companyName}</h4>
 											<h5 class="card-title">${dto.companyInfo}</h5>
-											<h5 class="card-title">숙박업체 평점</h5>
-											<h5 class="card-title">숙박업체의 각 객실의 최소값으로 수정</h5>
+											<hr>
+											<h5 class="card-title"><img src="${pageContext.request.contextPath}/resources/images/icon/price.png" class ="icon">&nbsp;${dto.minPrice}원</h5>
+											<h5 class="card-title"><img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class ="icon">&nbsp;${dto.pick}</h5>
+											
 										</div>
 									</div>
 								</div>

@@ -202,8 +202,11 @@ public class ReservationServlet extends TravelServlet {
 		// 숙박업체 리스트
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
-
+		ReserveCompanyDTO dto  = new ReserveCompanyDTO();
+ 
 		String cp = req.getContextPath();
+		int countPick =0;
+		int minPrice = 0;
 
 		try {
 			String page = req.getParameter("page");
@@ -228,7 +231,6 @@ public class ReservationServlet extends TravelServlet {
 			// 전체 데이터 개수
 			int dataCompanyCount = dao.dataCount();
 
-			System.out.println(dataCompanyCount);
 
 			if (keyword.length() == 0) {
 				dataCompanyCount = dao.dataCount();
@@ -252,6 +254,7 @@ public class ReservationServlet extends TravelServlet {
 			List<ReserveCompanyDTO> list = null;
 			if (keyword.length() == 0) {
 				list = dao.listCompany();
+	
 			} else {
 				// list = dao.listCompany(offset, size, condition, keyword);
 			}

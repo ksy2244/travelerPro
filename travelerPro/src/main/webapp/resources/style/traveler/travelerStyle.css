@@ -8,20 +8,21 @@
 	box-shadow: 10px 10px 10px 10px #eee;
 	border-radius: 10px;
 	margin: 20px;
-	
 }
 
-
-.shadowBoxContent{
+.shadowBoxContent {
 	width: 500px;
 	height: 250px;
 	margin: 30px;
-	
-} 
+}
+
 .traveleTitle {
 	font-family: HallyM;
 	font-weigth: 500px;
-	size : 45px;
-	
+	size: 45px;
 }
 
+.icon {
+	width: 25px;
+	height: 25px
+}

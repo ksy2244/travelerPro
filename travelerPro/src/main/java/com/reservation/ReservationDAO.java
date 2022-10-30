@@ -70,12 +70,23 @@ public class ReservationDAO {
 
 		try {
 
-			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
-					+ "  notice, addr, addrDetail, zip, mc.imageFileName " + " FROM company c  "
-					+ "  LEFT OUTER JOIN mainCompanyImage mc " + "  ON mc.companyNum = c.companyNum "
-					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum"
-					+ "						   FROM company c, room r "
-					+ "                        WHERE c.companyNum = r.companyNum) ";
+			sql = "SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, " 
+				+ "	notice, addr, addrDetail, zip, mc.imageFileName, minPrice, "
+				+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick "
+				+ "	FROM company c  "
+				+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum "
+				+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum  "
+				+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum " 
+				+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum "
+				+ " FROM company c, room r  "
+				+ " WHERE c.companyNum = r.companyNum)";
+
+
+			// CREATE OR REPLACE VIEW companyPick AS
+			// (SELECT companyNum, COUNT(userId) AS pick FROM pick GROUP BY companyNum);
+			
+			//CREATE OR REPLACE VIEW companyPrice AS
+			// (SELECT companyNum, MIN(price) AS minPrice FROM room GROUP BY companyNum);
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -95,6 +106,8 @@ public class ReservationDAO {
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
 				dto.setImageFileName(rs.getString("imageFileName"));
+				dto.setMinPrice(rs.getInt("minPrice"));
+				dto.setPick(rs.getInt("pick"));
 
 				list.add(dto);
 			}

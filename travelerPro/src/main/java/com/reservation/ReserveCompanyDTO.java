@@ -15,6 +15,8 @@ public class ReserveCompanyDTO {
 	private int companyNum;
 	private String companyTel;
 	private String imageFileName;
+	private int pick;
+	private int minPrice;
 	
 	public String getCompanyName() {
 		return companyName;
@@ -96,6 +98,18 @@ public class ReserveCompanyDTO {
 	}
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
+	}
+	public int getPick() {
+		return pick;
+	}
+	public void setPick(int pick) {
+		this.pick = pick;
+	}
+	public int getMinPrice() {
+		return minPrice;
+	}
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
 	}
 	
 	
