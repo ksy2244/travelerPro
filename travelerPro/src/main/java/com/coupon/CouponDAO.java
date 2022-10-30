@@ -10,7 +10,7 @@ import java.util.List;
 import com.util.DBConn;
 
 public class CouponDAO {
-private Connection conn = DBConn.getConnection();
+	private Connection conn = DBConn.getConnection();
 	
 	public void insertCoupon(CouponDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
@@ -53,7 +53,7 @@ private Connection conn = DBConn.getConnection();
 		String sql;
 		
 		try {
-			sql = "SELECT COUNT(*) FROM notice";
+			sql = "SELECT COUNT(*) FROM coupon";
 			
 			pstmt = conn.prepareStatement(sql);
 			

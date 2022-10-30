@@ -55,22 +55,19 @@
 								<div class="subject">${dto.subject}</div>
 							</td>
 						</tr>
-					</thead>
-					
+					</thead>		
 					<tbody>
 						<tr>
 							<td align="right">
 								<span class="date">${dto.reg_date}</span> 
 								<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if>
 							</td>
-						</tr>
-						
+						</tr>				
 						<tr>
 							<td colspan="2" valign="top" height="200">
 								${dto.content}
 							</td>
-						</tr>
-						
+						</tr>				
 						<tr>
 							<td colspan="2">
 								<img src="${pageContext.request.contextPath}/resources/images/disk.gif" style="width: 15px;">&nbsp;
@@ -80,7 +77,6 @@
 								</c:if>
 							</td>
 						</tr>
-
 					</tbody>
 				</table>	
 			</div>

@@ -93,7 +93,7 @@ public class CouponServlet extends TravelServlet {
 	        long diff = ed.getTime() - now.getTime();
 	        long Day = diff/(24*60*60*1000);
 	        
-	        String searchDate = "쿠폰 만료일까지 " + Day +"일 남았습니다.";
+	        String searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
 			
 			req.setAttribute("searchDate", searchDate);
 			
@@ -194,7 +194,7 @@ public class CouponServlet extends TravelServlet {
 	        long diff = ed.getTime() - now.getTime();
 	        long Day = diff/(24*60*60*1000);
 	        
-	        String searchDate = "쿠폰 만료일까지 " + Day +"일 남았습니다.";
+	        String searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
 			
 			req.setAttribute("searchDate", searchDate);
 			
