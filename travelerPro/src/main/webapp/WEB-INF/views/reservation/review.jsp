@@ -48,7 +48,7 @@
 				const $tb = $(this).closest("table");
 				let content = $tb.find("textarea").val().trim();
 
-				//let content = $tb.find("textarea").val().trim();
+				var star = $("input:radio[name=reviewStar]:checked").val();
 
 				if (!content) {
 					$tb.find("textarea").focus();
@@ -62,7 +62,7 @@
 				// alert(url);
 							
 				let query = "companyNum=" + companyNum
-									+ "&content=" + content;
+									+ "&content=" + content + "&star=" + star;
 
 				const fn = function(data) {
 				$tb.find("textarea").val("");
@@ -91,7 +91,7 @@
 			let replyNum = $(this).attr("data-replyNum");
 			let page = $(this).attr("data-pageNo");
 
-			let url = "${pageContext.request.contextPath}/bbs/deleteReply.do";
+			let url = "${pageContext.request.contextPath}/review/deleteReview.do";
 			let query = "replyNum=" + replyNum;
 
 			const fn = function(data) {
@@ -103,30 +103,7 @@
 		});
 	});
 
-	// 답글 버튼(댓글별 답글 등록폼 및 답글리스트)
-	$(function() {
-		$("body").on("click", ".btnReviewAnswerLayout", function() {
-			const $trReplyAnswer = $(this).closest("tr").next();
-			// const $trReplyAnswer = $(this).parent().parent().next();
-			// const $answerList = $trReplyAnswer.children().children().eq(0);
-
-			let isVisible = $trReviewAnswer.is(':visible');
-			let ReviewNum = $(this).attr("data-ReviewNum");
-
-			if (isVisible) {
-				$trReviewAnswer.hide();
-			} else {
-				$trReviewAnswer.show();
-				/*    
-				// 답글 리스트
-				listReviewAnswer(replyNum); */
-
-				/* 	// 답글 개수
-					countReviewAnswer(replyNum); */
-			}
-		});
-
-	});
+	
 </script>
 
 </head>
@@ -150,18 +127,18 @@
 							<tr>
 								<td><textarea class='form-control' name="content"></textarea>
 								</td>
-								<span class="text-bold">별점을 선택해주세요</span>
-								<td><input type="radio" name="reviewStar" value="5"
-									id="rate1"><label for="rate1">★</label> <input
-									type="radio" name="reviewStar" value="4" id="rate2"><label
-									for="rate2">★</label> <input type="radio" name="reviewStar"
-									value="3" id="rate3"><label for="rate3">★</label> <input
-									type="radio" name="reviewStar" value="2" id="rate4"><label
-									for="rate4">★</label> <input type="radio" name="reviewStar"
-									value="1" id="rate5"><label for="rate5">★</label></td>
-
-
-								<div></div>
+								<td><span class="text-bold">별점을 선택해주세요</span></td>
+								<td>
+									<input type="radio" name="reviewStar" value="1" id="rate1">
+										<label for="rate1">★</label> 
+									<input type="radio" name="reviewStar" value="2" id="rate2">
+										<label for="rate2">★</label>
+									<input type="radio" name="reviewStar" value="3" id="rate3">
+										<label for="rate3">★</label> 
+									<input type="radio" name="reviewStar" value="4" id="rate4">
+										<label for="rate4">★</label> 
+									<input type="radio" name="reviewStar" value="5" id="rate5">
+										<label for="rate5">★</label></td>
 
 							</tr>
 							<tr>

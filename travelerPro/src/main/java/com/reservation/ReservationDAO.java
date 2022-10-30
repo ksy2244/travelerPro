@@ -497,11 +497,11 @@ public class ReservationDAO {
 			pstmt.close();
 			pstmt = null;
 
-			sql = "INSERT INTO reservationDetail(reservationDetailNum, reservationNum, roomNum )" + " VALUES(?, ?, ?)";
+			sql = "INSERT INTO reservationDetail(reservationDetailNum, reservationNum, roomNum )" 
+				+ " VALUES(reservationDetail_seq.NEXTVAL, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, dto.getReservationNum());
-			pstmt.setLong(2, dto.getReservationNum());
-			pstmt.setInt(3, dto.getRoomNum());
+			pstmt.setInt(2, dto.getRoomNum());
 
 			pstmt.executeUpdate();
 			pstmt.close();
