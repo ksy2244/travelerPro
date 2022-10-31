@@ -8,48 +8,103 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<title>traveler</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
 <link rel="import" href="map.html">
+<style type="text/css">
+.body-container {
+	max-width: 1500px;
+}
+
+.body-main {
+	max-width: 1000px;
+	margin-left: 150px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.list {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+
+.date {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+.gap {
+	margin-bottom: 100px; 
+}
+
+.body {
+	margin-left: 200px;
+}
+
+.company {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.rnum {
+	color: #787878;
+	font-size: 15px; 
+}
+
+.room {
+	color: #787878;
+	font-size: 16px;
+}
+
+.day {
+	color: #787878;
+	font-size: 15px;
+}
+
+</style>
 </head>
-<body>
+<body class="pt-5">
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 
-	<main>
+	<main class="pt-5"> 
 		<div class="container">
 			<div class="body-container">
 				<div class="body-title">
-					<i class="fa-solid fa-hotel"></i>&nbsp; 숙박 업체 리스트
+					<h3>예약 내역</h3>
 				</div>
 
 				<div class="body-main">
 					<div class="row">
 						<c:forEach var="dto" items="${list}" varStatus="status">
-							<div>
+							<div class="list">
+								<h5 class="card-title date pt-4 ps-5">${dto.reservation_date}</h5>
+								<hr class="pt-2">
+								<div class="rnum ps-5">숙소 예약번호 22042916021</div>
 								<img
 									src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
-									class="card-img-top">
-								<div class="card-body">
-									<h4 class="card-title">${dto.userName}님의이용정보</h4>
-									<h4 class="card-title">${dto.companyName}</h4>
-									<h4 class="card-title">${dto.roomName}</h4>
-									<h5 class="card-title">${dto.paymentPrice}</h5>
-									<h5 class="card-title">${dto.checkInTime}</h5>
-									<h5 class="card-title">${dto.start_date}</h5>
-									<h5 class="card-title">${dto.checkOutTime}</h5>
-									<h5 class="card-title">${dto.end_date}</h5>
-									<h5 class="card-title">${dto.reservation_date}</h5>
+									class="card-img-top ps-5 pt-4 img">
+								
+								<div class="body ps-5"> 
+									<div class="company">${dto.companyName}</div>
+									<div class="room">${dto.roomName}</div>
+									<div class="day">${dto.start_date} ~ ${dto.end_date}</div>
+									<div>체크인 ${dto.checkInTime} | 체크아웃 ${dto.checkOutTime}</div>
+									<br>
 									<button type="button" name="sendButton"
-										class="dateBtn btn btn-danger"
+										class="dateBtn btn btn-danger mb-5"
 										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">아직 연결 못해 ㅠ </button>
+								
 								</div>
 							</div>
-
+							<div class="gap"></div>
 						</c:forEach>
 					</div>
 

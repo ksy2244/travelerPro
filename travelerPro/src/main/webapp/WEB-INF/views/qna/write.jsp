@@ -20,12 +20,6 @@
 	margin-bottom: 40px;
 }
 
-.basic {
-	background: #dc3545;
-}
-
-.basic:hover {background: #F03545;}
-
 .side {
 	background: #E35D6A;
 }
@@ -111,7 +105,7 @@ function sendOk() {
 				     
 				    <div class="row mb-4">
 				        <div class="text-center">
-				            <button type="button" onclick="sendOk();" class="btn basic text-white">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+				            <button type="button" onclick="sendOk();" class="btn btn-danger text-white">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn side text-white">다시입력</button>
 								<button type="button" class="btn side text-white" onclick="location.href='${pageContext.request.contextPath}/qna/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">

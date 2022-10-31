@@ -128,3 +128,35 @@ img {
 }
 
 
+
+
+
+.body-container {
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.list {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+
+.date {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+.img {
+	float: left;
+}
+
+.body {
+	float: left;
+	display: inline-block;
+}
+
+

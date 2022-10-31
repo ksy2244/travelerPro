@@ -20,12 +20,6 @@
 	margin-bottom: 40px;
 }
 
-.basic {
-	background: #dc3545;
-}
-
-.basic:hover {background: #F03545;} 
-
 .title {
 	border-bottom: 2px solid #B4CDE6;
 	background: #B4CDE6;
@@ -174,7 +168,7 @@ td {
 
 				<div class="row board-list-footer">
 					<div class="col text-end">
-						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/qna/write.do';">문의 작성</button>
+						<button type="button" class="btn btn-danger text-white" onclick="location.href='${pageContext.request.contextPath}/qna/write.do';">문의 작성</button>
 					</div>
 				</div>
 

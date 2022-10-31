@@ -23,12 +23,6 @@ body {
 	max-width: 800px;
 }
 
-.basic {
-	background: #dc3545;
-}
-
-.basic:hover {background: #F03545;}
-
 .login {
 	background: white;
 	border-radius: 3px;
@@ -87,7 +81,7 @@ function sendLogin() {
 	                            </div>
 	                        </div>
 	                        <div class="col-12">
-	                            <button type="button" class="btn float-end basic text-white" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
+	                            <button type="button" class="btn float-end btn-danger text-white" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
 	                        </div>
 	                    </form>
 	                    <hr class="mt-4">

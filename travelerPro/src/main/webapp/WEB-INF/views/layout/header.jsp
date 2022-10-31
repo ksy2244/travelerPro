@@ -193,7 +193,7 @@
 	                            </div>
 	                        </div>
 	                        <div>
-	                            <button type="button" class="btn w-100 text-white" onclick="sendModelLogin();" style="background: #dc3545">Login</button>
+	                            <button type="button" class="btn w-100 text-white btn-danger" onclick="sendModelLogin();">Login</button>
 	                        </div>
 	                        <div>
 	                    		 <p class="form-control-plaintext text-center">

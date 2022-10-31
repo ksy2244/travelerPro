@@ -26,12 +26,6 @@
 
 .check:hover {background:#FE868F;}
 
-.basic {
-	background: #dc3545;
-}
-
-.basic:hover {background: #F03545;}
-
 .side {
 	background: #E35D6A;
 }
@@ -318,7 +312,7 @@ function userIdCheck() {
 				     
 				    <div class="row mb-4">
 				        <div class="text-center">
-				            <button type="button" name="sendButton" class="btn text-white basic" onclick="memberOk();"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
+				            <button type="button" name="sendButton" class="btn text-white btn-danger" onclick="memberOk();"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
 				            <button type="button" class="btn text-white side" onclick="location.href='${pageContext.request.contextPath}/';"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>

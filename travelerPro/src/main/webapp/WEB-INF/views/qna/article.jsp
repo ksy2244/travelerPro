@@ -20,18 +20,6 @@
 	margin-bottom: 40px;
 }
 
-.base {
-	background: #dc3545;
-}
-
-.base:hover {background: #F03545;}
-
-.basic {
-	background-color: #6C757D;
-}
-
-.basic:hover{background-color:#7689A5;}
-
 .box {
 	background: #eee;
 	border-radius: 3px;
@@ -152,7 +140,7 @@
 									</c:otherwise>
 								</c:choose>
 								<div class="id"><span class="date">${dto.reg_date}</span></div>
-								<div class="text-end pb-3"><button type="button" class="btn base text-white " onclick="deleteBoard();">삭제</button></div>
+								<div class="text-end pb-3"><button type="button" class="btn btn-danger text-white " onclick="deleteBoard();">삭제</button></div>
 							</td>
 						</tr>
 						</tbody>
