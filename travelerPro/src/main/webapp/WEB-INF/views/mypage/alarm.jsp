@@ -81,6 +81,65 @@
 .top {
 	margin-top: 10px;
 }
+
+.checkbox_container {
+
+	height: 30px;
+	line-height: 30px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding-left: 40px;
+	cursor: pointer;
+	display: block;
+	position: relative;
+	user-select: none;
+}
+
+.checkbox_container .checkbox_mark {
+	width: 30px;
+	height: 30px;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background-color: #eeeeee;
+	border-radius: 4px;
+}
+
+.checkbox_container:hover input ~ .checkbox_mark {
+	background-color: #cccccc;
+}
+
+.checkbox_container input:checked ~ .checkbox_mark {
+	background-color: #1DDBDE;
+}
+
+.checkbox_container input {
+	position: absolute;
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+
+.checkbox_container .checkbox_mark:after {
+	display: none;
+	content: "";
+	position: relative;
+}
+
+.checkbox_container input:checked ~ .checkbox_mark:after {
+	display: block;
+}
+
+.checkbox_container .checkbox_mark:after {
+	width: 4px;
+	height: 10px;
+	top: 7px;
+	left: 12px;
+	border-style: solid;
+	border-color: white;
+	border-width: 0 3px 3px 0;
+	transform: rotate(45deg);
+}
 </style>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/board2.css"
@@ -95,24 +154,55 @@
 	<main class="pt-5">
 		<div class="container">
 			<div class="body-container">
+				
 				<div class="body-title">
 					<h3>알림</h3>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label" for="agree">약관 동의</label>
-					<div class="col-sm-8" style="padding-top: 5px;">
-						<input type="checkbox" id="agree" name="agree"
-							class="form-check-input" checked="checked"
-							style="margin-left: 0;"
-							onchange="form.sendButton.disabled = !checked"> <label
-							class="form-check-label"> <a href="#"
-							class="text-decoration-none">이용약관</a>에 동의합니다.
-						</label>
-					</div>
-				</div>
+				<div class="body-main">
+				<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
+					type="checkbox" checked="checked"> <span
+					class="checkbox_mark"></span>
+					
+				</label>
+				<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
+				
+				<label class="checkbox_container"> 푸시알림 <input
+					type="checkbox" checked="checked"> <span
+					class="checkbox_mark"></span>
+				</label> <label class="checkbox_container"> 이메일 <input
+					type="checkbox"> <span class="checkbox_mark"></span>
+				</label> <label class="checkbox_container"> SMS <input
+					type="checkbox"> <span class="checkbox_mark"></span>
+				</label>
 
+				</div>
 			</div>
 		</div>
+
+		<div class="text-center mb-2 p-2">
+		
+		<button type="button" class="btn btn-primary btnDialog3">변경</button>
+		
+			<div class="modal fade" id="myDialogModal3" tabindex="-1" 
+		aria-labelledby="myDialogModalLabel3" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림 수신정보가 수정되었습니다.</h6>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+        		<p>• 일시 : </p>
+        		<p>• 수신거절 : </p>
+        		<p>• 수신동의 : </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+		</div>
+
 
 	</main>
 
@@ -122,4 +212,26 @@
 
 	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 </body>
+
+<script type="text/javascript">
+$(function(){
+	$(".btnClose").click(function(){
+		$("#myDialogModal2").modal("hide");
+	});
+});
+
+$(function(){
+	$(".btnDialog3").click(function(){
+		$("#myDialogModal3").modal("show");
+	});
+});
+
+$(function(){
+	$(".btnDialog4").click(function(){
+		$("#myDialogModal4").modal("show");
+	});
+});
+
+
+</script>
 </html>
