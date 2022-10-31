@@ -41,48 +41,40 @@
 	}
 
 	//리뷰 등록
-	$(function() {
-		$(".btnSendReview")
-				.click(
-						function() {
-							let companyNum = "${companyNum}";
-							//alert(companyNum);
+	$(function() { $(".btnSendReview").click(
+		function() {
+		let companyNum = "${companyNum}";
+				
+		const $tb = $(this).closest("table");
+		let content = $tb.find("textarea").val().trim();
 
-							const $tb = $(this).closest("table");
-							let content = $tb.find("textarea").val().trim();
+		var star = $("input:radio[name=reviewStar]:checked").val();
 
-							var star = $("input:radio[name=reviewStar]:checked")
-									.val();
+		if (!content) {
+			$tb.find("textarea").focus();
+				return false;
+		}
 
-							if (!content) {
-								$tb.find("textarea").focus();
-								return false;
-							}
+		content = encodeURIComponent(content);
+							
+		let url = "${pageContext.request.contextPath}/review/insertReview.do";
 
-							content = encodeURIComponent(content);
-							// alert(content);
+		let query = "companyNum=" + companyNum + "&content=" + content + "&star=" + star;
 
-							let url = "${pageContext.request.contextPath}/review/insertReview.do";
-							// alert(url);
+		const fn = function(data) {
+			$tb.find("textarea").val("");
 
-							let query = "companyNum=" + companyNum
-									+ "&content=" + content + "&star=" + star;
+			let state = data.state;					
 
-							const fn = function(data) {
-								$tb.find("textarea").val("");
+			if (state === "true") {
+				listPage(1);
+			} else if (state === "false") {
+				alert("댓글을 추가 하지 못했습니다.");
+			}
+		};
 
-								let state = data.state;
-								// alert(state);
-
-								if (state === "true") {
-									//listPage(1);
-								} else if (state === "false") {
-									alert("댓글을 추가 하지 못했습니다.");
-								}
-							};
-
-							ajaxFun(url, "post", query, "json", fn);
-						});
+		ajaxFun(url, "post", query, "json", fn);
+		});
 	});
 
 	// 페이징 처리
@@ -101,29 +93,27 @@
 		ajaxFun(url, "get", query, "html", fn);
 	}
 
-	
-	
 	// 댓글 삭제
-	$(function() {
-		$("body").on("click",".deleteReview",
+	$(function() {$("body").on("click",".deleteReview",
 			function() {
 				if (!confirm("게시물을 삭제하시겠습니까 ? ")) {
 					return false;
-				}
+			}
 
-		let replyNum = $(this).attr("data-reviewNum");
+		let reviewNum = $(this).attr("data-reviewNum");
 		let page = $(this).attr("data-pageNo");
+		alert(reviewNum);
 
 		let url = "${pageContext.request.contextPath}/review/deleteReview.do";
 		let query = "reviewNum=" + reviewNum;
 
 		const fn = function(data) {
-		// let state = data.state;
+			let state = data.state;
 			listPage(page);
 		};
 
-							ajaxFun(url, "post", query, "json", fn);
-						});
+		ajaxFun(url, "post", query, "json", fn);
+		});
 	});
 
 	$(function() {

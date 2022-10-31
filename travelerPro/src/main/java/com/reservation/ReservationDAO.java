@@ -323,8 +323,10 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = " SELECT companyNum,companyName, companyInfo, amenities, guide, checkintime, checkouttime, companyTel, "
-					+ " notice, addr, addrDetail, zip  FROM company  WHERE companyNum = ? ";
+			sql = 	" SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+					+ " checkintime, checkouttime, companyTel, "
+					+ " notice, addr, addrDetail, zip , pick FROM company c " 
+					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -347,6 +349,7 @@ public class ReservationDAO {
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
+				dto.setPick(rs.getInt("pick"));
 
 			}
 		} catch (SQLException e) {
