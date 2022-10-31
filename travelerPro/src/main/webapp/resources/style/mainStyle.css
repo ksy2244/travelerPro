@@ -1,14 +1,150 @@
 @charset "UTF-8";
 
-.title {
+*{
+	padding: 0;
+	margin: 0;
+}
+.map-image {
+	float: left;
+}
+.api-list {
+	/* float: right; */
+}
+.map-image img {
+	width: 500px;
+	height: 500px;
+}
+.api-container {
+	width: 100%;
+	height: 1000px;
+}
+.container {
+	width: 100%;
+}
+/* .body-img {
+	width: 100%;
+}
+.body-img img{
+	width: 100%;
+	height: 600px;
+} */
+/* #carouselExampleCaptions {
+	height: 500px;
+} */
+
+/* .title {
 	margin-right: 650px;
 	margin-top: 50px;
 	margin-bottom: 20px;
 	font-style: 맑은 고딕;
 	font-weight: bold;
 	font-size: 20px;
+} */
+
+*, ::after, ::before { box-sizing: border-box; }
+
+/* body {
+	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	font-size: 14px;
+	color: #222;
+} */
+.body-container img{
+	width: 100%;
+	height: 600px;
+}
+.body-container {
+	width:100%;
+	max-width: 1500px;
 }
 
+.search-container {
+	max-width: 1500px;
+	/* position: relative; */
+}
+
+/* http://kenwheeler.github.io/slick/ */
+.page-wrapper {
+	width: 100%;
+	/* position: relative; */
+/* 	position: absolute;
+	right: 0;
+	top: 50px; */
+}
+
+.post-slider {
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+}
+.post-slider .silder-title {
+	text-align: center;
+	margin:30px auto;
+	position: relative;
+}
+.post-slider .next {
+	position: absolute;
+	top:  50%;
+	right: 30px;
+	font-size: 2em;
+	cursor: pointer;
+}
+.post-slider .prev {
+	position: absolute;
+	top:  50%;
+	left: 30px;
+	font-size: 2em;
+	cursor: pointer;
+}
+.post-slider .post-wrapper {
+	width: 700px;
+	height: 400px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 10px 0;
+ 	position: absolute;
+	right: 0;
+	
+}
+.post-slider .post-wrapper .post {
+	display: inline-block;
+	background: white;
+	border-radius: 5px;
+}
+.post-slider .post-wrapper .post:first-child {
+	margin-left: 5px;
+}
+
+.post-slider .post-wrapper .post .slider-image>img {
+	width: 280px;
+	height: 300px;
+	margin-left: 10px; margin-right: 10px;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.post-slider .post-wrapper .post .post-info {
+	padding: 5px;
+}
+.post-slider .post-wrapper .post .post-info .post-subject {
+	color: #777;
+}
+.post-slider .post-wrapper .post .post-info .post-link {
+	cursor: pointer;
+}
+.post-slider .post-wrapper .post .post-info .post-link:hover {
+	color: #0d6efd;
+}
+
+/* main {
+	background: lightblue;
+} */
+/* #carouselExampleCaptions {
+	margin-top: 50px;
+	text-align: center;
+	width: 100%;
+	
+	
+}
 .regionImg {
 	height: 200px;
 	filter: drop-shadow(5px 5px 5px grey);
@@ -63,7 +199,7 @@
 .bestRegion {
 	width: 300px;
 	height: 700px;
-	object-fit: cover;
+	object-fit: fill;
 	overflow: hidden;
 }
 
@@ -71,9 +207,9 @@
 .carousel-inner > .item > img {
       top: 0;
       left: 0;
-      min-width: 100%;
+      min-width: 50%;
       min-height: 400px;
  }
  .region-container {
  	width: 100%;
- }
+ } */
