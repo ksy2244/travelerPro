@@ -21,6 +21,27 @@
 .container {
 	width: 100%;
 }
+
+header {
+	position: relative;
+}
+.image-wrap {
+	width: 100%;
+	
+}
+.header-image img{
+	width: 100%;
+	vertical-align: middle;
+
+}
+.image-text p{
+	position: absolute;
+	top: 200px;
+	left: 300px;
+	font-size: 25px;
+	color: white;
+	display: inline-block;
+}
 /* .body-img {
 	width: 100%;
 }
@@ -53,8 +74,10 @@
 	height: 600px;
 }
 .body-container {
-	width:100%;
-	max-width: 1500px;
+	/* width:100%;
+	max-width: 1500px; */
+	margin: 0 auto;
+	overflow: hidden;
 }
 
 .search-container {

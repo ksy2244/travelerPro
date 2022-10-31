@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/slick/slick-theme.css"/>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/slick/slick.js"></script>
 <style type="text/css">
@@ -181,63 +181,45 @@ $(function(){
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 	<main class="container">
-<!-- 		<div class="body-img">
-			
-		</div> -->
 		<div class="body-container">
-			<img alt="" src="resources/images/eximage.jpg">
-	 		<%-- <div id="carouselExampleCaptions"
-				class="carousel slide body-container" data-bs-ride="carousel">
-				<c:forEach var="i" begin="0" end="21">
-					<div class="carousel-indicators">
-						<button type="button" data-bs-target="#carouselExampleCaptions"
-							data-bs-slide-to="i" class="active" aria-current="true"
-							aria-label="Slide i"></button>
-						<button type="button" data-bs-target="#carouselExampleCaptions"
-							data-bs-slide-to="1" aria-label="Slide 2"></button>
-						<button type="button" data-bs-target="#carouselExampleCaptions"
-							data-bs-slide-to="2" aria-label="Slide 3"></button>
-					</div>
-				</c:forEach> 
-				<div class="carousel-inner"
-					style="text-align: right; font-family: 'HallymM'">
-	 				<div class="carousel-item active">
-						<img src="resources/images/mainImg/bokcheon.png"
-							class="d-block w-100 bestRegion" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h1>북촌 한옥마을</h1>
-							<h5 style="font-family: 'GmarketSans';">한국의 전통가옥과 서울의 모던한
-								건축물이 함께 어우러져 조화를 이루는 독특한 풍경을 감상할 수 있는 북촌 한옥마을</h5>
-						</div> 
-					</div>
-					<div class="carousel-item">
-						<img src="resources/images/mainImg/busan.png"
-							class="d-block w-100 bestRegion" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h1>부산 해운대</h1>
-							<h5>부산의 야경을 있는 그대로 확인 할 수 있는 해운대</h5>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img src="resources/images/mainImg/Gyeongbokgung.png"
-							class="d-block w-100 bestRegion" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h1>경복궁</h1>
-							<h5>고즈넉한 분위기와 호젓함을 경험할 수 있는 경복궁</h5>
-						</div>
-					</div> 
-	 			</div>
-				<button class="carousel-control-prev" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
-			</div> --%>
+			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+			  <div class="carousel-indicators">
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  </div>
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="resources/images/fall.png" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h2 style="opacity: 1"><strong>가을 정취를 느낄 수 있는 서울의 단풍</strong></h2>
+			        <p>Some representative placeholder content for the first slide.</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <img src="resources/images/flower.png" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>Second slide label</h5>
+			        <p>Some representative placeholder content for the second slide.</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <img src="resources/images/green.png" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>Third slide label</h5>
+			        <p>Some representative placeholder content for the third slide.</p>
+			      </div>
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
 			<div class="api-container">
  				<div class="map-image">
 					<img alt="지도" src="resources/images/map.png">
@@ -266,7 +248,7 @@ $(function(){
 									<option value="39">제주도</option>
 								</select>
 							</div>
-							<div class="col-auto p-1">
+							<!-- <div class="col-auto p-1">
 								<input type="text" class="form-control" placeholder="검색 키워드 입력" autocomplete="off" 
 										name="kwd" id="kwd">
 							</div>
@@ -275,7 +257,7 @@ $(function(){
 							</div>
 							<div class="col-auto p-1">
 								<button type="button" class="btn btn-light btnSearchInit"> <i class="bi bi-arrow-clockwise"></i> </button>
-							</div>
+							</div> -->
 						</form>
 					</div>
 				
