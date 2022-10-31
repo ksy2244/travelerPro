@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style/mainStyle.css"
 	type="text/css">
@@ -180,7 +180,7 @@ $(function(){
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
-	<main class="container">
+	<main class="container mt-5">
 		<div class="body-container">
 			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
 			  <div class="carousel-indicators">
@@ -223,6 +223,7 @@ $(function(){
 			<div class="api-container">
  				<div class="map-image">
 					<img alt="지도" src="resources/images/map.png">
+					<!-- <img alt="지도" src="resources/images/exmarker.png"> -->
 				</div>
 				<div class="api-list">
 					<div class="search-container mt-3">
