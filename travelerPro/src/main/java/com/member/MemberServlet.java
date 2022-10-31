@@ -94,7 +94,7 @@ public class MemberServlet extends TravelServlet {
 
 	private void memberForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 회원가입
-		req.setAttribute("title", "회원 가입");
+		req.setAttribute("title", "회원가입");
 		req.setAttribute("mode", "member");
 
 		forward(req, resp, "/WEB-INF/views/member/member.jsp");

@@ -15,7 +15,7 @@
 .traveler {
 	font-family: 'GmarketSans'; 
 	font-size: 45px; 
-	margin-left: 400px;
+	margin-left: 300px;
 	margin-top: 10px;
 	letter-spacing: 7px;
 	height: 65px;

@@ -15,9 +15,28 @@
 	max-width: 1500px;
 }
 
-.alert {
+.body-title {
+	margin-top: 20px;
 	margin-bottom: 40px;
+} 
+
+.check {
+	background: #F1AEB5;
 }
+
+.check:hover {background:#F1C2BF;}
+
+.basic {
+	background: #dc3545;
+}
+
+.basic:hover {background: #F03545;}
+
+.side {
+	background: #E35D6A;
+}
+
+.side:hover {background: #ED5D6A;}
 </style>
 
 <script type="text/javascript">
@@ -172,12 +191,7 @@ function userIdCheck() {
 				<h3> ${title} </h3>
 			</div>
 			
-		    <div class="alert" role="alert" style="background: #E4FBFF">
-		        TRAVELER의 회원이 되시면 회원님만의 유익한 정보를 만날 수 있습니다.
-		    </div>
-			
 			<div class="body-main">
-				
 				<form name="memberForm" method="post">
 					<div class="row mb-4">
 						<label class="col-sm-2 col-form-label" for="userId">아이디</label>
@@ -190,7 +204,7 @@ function userIdCheck() {
 								</div>
 								<div class="col-3 ps-1">
 									<c:if test="${mode=='member'}">
-										<button type="button" class="btn btn-light" onclick="userIdCheck();">아이디중복검사</button>
+										<button type="button" class="btn text-white check" onclick="userIdCheck();">아이디 중복검사</button>
 									</c:if>
 								</div>
 							</div>
@@ -212,7 +226,7 @@ function userIdCheck() {
 				        <label class="col-sm-2 col-form-label" for="userPwd2">패스워드 확인</label>
 				        <div class="col-sm-10">
 				            <input type="password" name="userPwd2" id="userPwd2" class="form-control" autocomplete="off" placeholder="패스워드 확인">
-				            <small class="form-control-plaintext">패스워드를 한번 더 입력해주세요.</small>
+				            <small class="form-control-plaintext">패스워드를 한번 더 입력해 주세요.</small>
 				        </div>
 				    </div>
 				 
@@ -304,8 +318,8 @@ function userIdCheck() {
 				     
 				    <div class="row mb-4">
 				        <div class="text-center">
-				            <button type="button" name="sendButton" class="btn text-white" onclick="memberOk();" style="background: #dc3545"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
-				            <button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/';" style="background: #E35D6A"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
+				            <button type="button" name="sendButton" class="btn text-white basic" onclick="memberOk();"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
+				            <button type="button" class="btn text-white side" onclick="location.href='${pageContext.request.contextPath}/';"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
 				    </div>

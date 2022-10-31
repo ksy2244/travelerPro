@@ -7,12 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>travler</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
 	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+} 
+
+.check {
+	background: #F1AEB5;
+}
+
+.check:hover {background:#F1C2BF;}
+
+.basic {
+	background: #dc3545;
+}
+
+.basic:hover {background: #F03545;}
+
+.side {
+	background: #E35D6A;
+}
+
+.side:hover {background: #ED5D6A;}
+
+.gray {
+	color: #787878;
+	text-decoration: none;
 }
 </style>
 
@@ -169,14 +197,8 @@ function userIdCheck() {
 				<h3> ${title} </h3>
 			</div>
 			
-		    <div class="alert" role="alert" style="background: #E4FBFF">
-		        travler의 고객이 사장님의 고객입니다.
-		    </div>
-			
 			<div class="body-main">
-				
 				<form name="memberForm" method="post">
-			
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label" for="userId">아이디</label>
 						<div class="col-sm-10 userId-box">
@@ -188,7 +210,7 @@ function userIdCheck() {
 								</div>
 								<div class="col-3 ps-1">
 									<c:if test="${mode== 'ceomember'}">
-										<button type="button" class="btn btn-light" onclick="userIdCheck();">아이디중복검사</button>
+										<button type="button" class="btn check text-white" onclick="userIdCheck();">아이디 중복검사</button>
 									</c:if>
 								</div>
 							</div>
@@ -210,12 +232,12 @@ function userIdCheck() {
 				        <label class="col-sm-2 col-form-label" for="userPwd2">패스워드 확인</label>
 				        <div class="col-sm-10">
 				            <input type="password" name="userPwd2" id="userPwd2" class="form-control" autocomplete="off" placeholder="패스워드 확인">
-				            <small class="form-control-plaintext">패스워드를 한번 더 입력해주세요.</small>
+				            <small class="form-control-plaintext">패스워드를 한번 더 입력해 주세요.</small>
 				        </div>
 				    </div>
 				 
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="userName">대표자명</label>
+				        <label class="col-sm-2 col-form-label" for="userName">이름</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="userName" id="userName" class="form-control" value="${dto.userName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
@@ -224,19 +246,19 @@ function userIdCheck() {
 				    </div>
 				    
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="nickName">업체명</label>
+				        <label class="col-sm-2 col-form-label" for="nickName">닉네임</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
-				            		placeholder="업체명">
+				            		placeholder="닉네임">
 				        </div>
 				    </div>
 				 
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="birth">개업일</label>
+				        <label class="col-sm-2 col-form-label" for="birth">생년월일</label>
 				        <div class="col-sm-10">
 				            <input type="date" name="birth" id="birth" class="form-control" value="${dto.birth}" placeholder="생년월일">
-				            <small class="form-control-plaintext">개업일은 2000-01-01 형식으로 입력합니다.</small>
+				            <small class="form-control-plaintext">생년월일은 2000-01-01 형식으로 입력합니다.</small>
 				        </div>
 				    </div>
 				
@@ -302,14 +324,25 @@ function userIdCheck() {
 				     
 				    <div class="row mb-3">
 				        <div class="text-center">
-				            <button type="button" name="sendButton" class="btn" onclick="memberOk();" style="background: #B8B5FF"> ${mode=="ceomember"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
-				            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';" style="background: #EDEEF7"> ${mode=="ceomember"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
+				            <button type="button" name="sendButton" class="btn basic text-white" onclick="memberOk();"> ${mode=="ceomember"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
+				            <button type="button" class="btn side text-white" onclick="location.href='${pageContext.request.contextPath}/';"> ${mode=="ceomember"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
 				        </div>
-				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				
-				        </div>
 				    </div>
+				    <br>
+				    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+							<p>
+							  <a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+							    업체 및 객실 등록은 어디에서 하나요?
+							  </a>
+							</p>
+		    
+						    <div class="collapse" id="collapseExample">
+								  <div class="card card-body">
+								    업체 및 객실 등록은 로그인 후 하단의 아이콘을 통해서 사업자 페이지로 이동 후 진행해 주세요.
+								  </div>
+							</div>
+				      </div>
 				
 				    <div class="row">
 						<p class="form-control-plaintext text-center">${message}</p>
