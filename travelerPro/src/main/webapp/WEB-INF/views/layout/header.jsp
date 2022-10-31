@@ -96,7 +96,7 @@
 		        </li>	      		
 	        	<li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-		           style= "font-size: 30px; margin-right: 220px; padding: 0px;">
+		           style= "font-size: 30px; margin-right: 220px; padding: 0px;"> 
 	            		<i class="fa-regular fa-face-smile"></i>
 	          		</a>
 		          <ul class="dropdown-menu">
