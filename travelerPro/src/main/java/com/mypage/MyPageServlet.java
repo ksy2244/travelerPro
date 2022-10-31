@@ -53,7 +53,9 @@ public class MyPageServlet extends TravelServlet {
 			couponInfo(req, resp);
 		} if (uri.indexOf("mypage.do") != -1) {
 			mypage(req, resp);
-		} 
+		} if (uri.indexOf("alarm.do") != -1) {
+			alarm(req, resp);
+		}
 		
 	}
 	
@@ -180,4 +182,7 @@ public class MyPageServlet extends TravelServlet {
 	}
 
 
+		protected void alarm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			forward(req, resp, "/WEB-INF/views/mypage/alarm.jsp");
+		}
 }
