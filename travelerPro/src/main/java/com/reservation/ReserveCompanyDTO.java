@@ -17,6 +17,7 @@ public class ReserveCompanyDTO {
 	private String imageFileName;
 	private int pick;
 	private int minPrice;
+	private double starRate;
 	
 	public String getCompanyName() {
 		return companyName;
@@ -111,6 +112,14 @@ public class ReserveCompanyDTO {
 	public void setMinPrice(int minPrice) {
 		this.minPrice = minPrice;
 	}
+	public double getStarRate() {
+		return starRate;
+	}
+	public void setStarRate(double starRate) {
+		this.starRate = starRate;
+	}
+	
+	
 	
 	
 }

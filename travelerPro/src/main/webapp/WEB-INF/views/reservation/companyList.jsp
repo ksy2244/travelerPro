@@ -56,6 +56,7 @@
 											<hr>
 											<h5 class="card-title"><img src="${pageContext.request.contextPath}/resources/images/icon/price.png" class ="icon">&nbsp;${dto.minPrice}원</h5>
 											<h5 class="card-title"><img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class ="icon">&nbsp;${dto.pick}</h5>
+											<h5 class="card-title"><img src="${pageContext.request.contextPath}/resources/images/icon/star.png" class ="icon">&nbsp;${dto.starRate}</h5>
 											
 										</div>
 									</div>

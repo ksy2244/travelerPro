@@ -102,11 +102,9 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 업체의 객실 정보
 			roomList = dao.listRoom(companyNum);
-			
-			
-			System.out.println("dff"+start_date);
-			System.out.println("dff"+end_date);
 
+			System.out.println("dff" + start_date);
+			System.out.println("dff" + end_date);
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
@@ -336,7 +334,7 @@ public class ReservationServlet extends TravelServlet {
 				cal.add(Calendar.DATE, +1); // 내일 날짜
 				end_date = sdf.format(cal.getTime());
 
-			} 
+			}
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);

@@ -70,20 +70,22 @@ public class ReservationDAO {
 
 		try {
 
-			sql = "SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, " 
-				+ "	notice, addr, addrDetail, zip, mc.imageFileName, minPrice, "
-				+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick "
-				+ "	FROM company c  "
-				+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum "
-				+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum  "
-				+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum " 
-				+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum "
-				+ " FROM company c, room r  "
-				+ " WHERE c.companyNum = r.companyNum)";
+			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime,  "
+					+ " notice, addr, addrDetail, zip, mc.imageFileName, minPrice,  "
+					+ " CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
+					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  "
+					+ " FROM company c   "
+					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum "
+					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
+					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
+					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
+					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum  "
+					+ " FROM company c, room r   "
+					+ " WHERE c.companyNum = r.companyNum)";
 
 			
 			//  CREATE OR REPLACE VIEW reviewStar AS
-		//	(SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum)  FROM review GROUP BY companyNum);
+			//	(SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum)  FROM review GROUP BY companyNum);
 
 
 			// CREATE OR REPLACE VIEW companyPick AS
@@ -91,6 +93,10 @@ public class ReservationDAO {
 			
 			//CREATE OR REPLACE VIEW companyPrice AS
 			// (SELECT companyNum, MIN(price) AS minPrice FROM room GROUP BY companyNum);
+
+			// CREATE OR REPLACE VIEW companyStar AS SELECT TRUNC(SUM(starRate)/COUNT(starRate), 1) AS starRate, companyNum FROM review r
+			// JOIN reservation rv ON r.reservationNum = rv.reservationNum
+			// GROUP BY companyNum
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -111,6 +117,7 @@ public class ReservationDAO {
 				dto.setZip(rs.getInt("zip"));
 				dto.setImageFileName(rs.getString("imageFileName"));
 				dto.setMinPrice(rs.getInt("minPrice"));
+				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setPick(rs.getInt("pick"));
 
 				list.add(dto);
