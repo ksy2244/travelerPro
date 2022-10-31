@@ -81,6 +81,10 @@ public class ReservationDAO {
 				+ " FROM company c, room r  "
 				+ " WHERE c.companyNum = r.companyNum)";
 
+			
+			//  CREATE OR REPLACE VIEW reviewStar AS
+		//	(SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum)  FROM review GROUP BY companyNum);
+
 
 			// CREATE OR REPLACE VIEW companyPick AS
 			// (SELECT companyNum, COUNT(userId) AS pick FROM pick GROUP BY companyNum);

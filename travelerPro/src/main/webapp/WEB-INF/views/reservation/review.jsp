@@ -81,9 +81,28 @@
 			});
 	});
 
+	
+	
+	// 페이징 처리
+	$(function(){
+		listPage(1);
+	});
+
+	function listPage(page) {
+		let url = "${pageContext.request.contextPath}/review/listReply.do";
+		let query = "reviewNum=${dto.num}&pageNo="+page;
+		let selector = "#listReview";
+		
+		const fn = function(data){
+			$(selector).html(data);
+		};
+		ajaxFun(url, "get", query, "html", fn);
+	}
+
+	
 	// 댓글 삭제
 	$(function() {
-		$("body").on("click", ".deleteReply", function() {
+		$("body").on("click", ".deleteReview", function() {
 			if (!confirm("게시물을 삭제하시겠습니까 ? ")) {
 				return false;
 			}
@@ -92,7 +111,7 @@
 			let page = $(this).attr("data-pageNo");
 
 			let url = "${pageContext.request.contextPath}/review/deleteReview.do";
-			let query = "replyNum=" + replyNum;
+			let query = "reviewNum=" + reviewNum;
 
 			const fn = function(data) {
 				// let state = data.state;
@@ -146,6 +165,10 @@
 									<button type='button' class='btn btn-light btnSendReview'>댓글
 										등록</button>
 								</td>
+								
+								<%-- <c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+					    			<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
+					    		</c:when> --%>
 							</tr>
 						</table>
 					</form>
