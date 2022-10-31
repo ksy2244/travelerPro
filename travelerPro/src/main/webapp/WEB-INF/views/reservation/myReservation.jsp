@@ -46,8 +46,7 @@
 									<h5 class="card-title">${dto.reservation_date}</h5>
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger"
-										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do'">나의
-										예약 내역</button>
+										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">아직 연결 못해 ㅠ </button>
 								</div>
 							</div>
 

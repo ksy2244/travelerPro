@@ -156,7 +156,8 @@
 			let url = "${pageContext.request.contextPath}/reservation/";
 
 			if (tab == "1") {
-				url += "roomList.do?companyNum=${companyNum}";
+				url += "roomList.do?companyNum=${companyNum}&start_date=${start_date}&end_date=${end_date}&tmp="+new Date().getTime();
+				alert(url);
 			} else if (tab == "2") {
 				url += "map.do?companyNum=${companyNum}";
 			} else {
@@ -246,15 +247,13 @@
 							<div class="card-body">
 								<form name="dateForm" action="roomInfo.do" method="get">
 									<p style="font-size: 25px;">
-										<input type="hidden" value="${companyNum}" name="companyNum">
-										시작일 <input type="text" id="start_date" name="start_date"
-											class="styleInput">종료일 <input type="text"
-											id="end_date" name="end_date" class="styleInput">
+										<input type="hidden" value="${companyNum}" name="companyNum"> 시작일 
+										<input type="text" id="start_date" name="start_date" class="styleInput">종료일 
+										<input type="text" id="end_date" name="end_date" class="styleInput">
 									</p>
 
 									<button class="dateBtn btn btn-danger" type="submit">날짜
 										선택</button>
-
 								</form>
 
 							</div>
@@ -262,7 +261,7 @@
 					</div>
 				</div>
 
-				<!-- 업체 정보 -->
+				
 
 				<div class="card border-secondary mb-3" style="max-width: 100rem;">
 
@@ -295,6 +294,7 @@
 
 
 							<table>
+								<tr>
 								<td colspan="2" class="text-center p-3">
 									<button type="button"
 										class="btn btn-outline-secondary btnSendCompanyLike"
@@ -304,6 +304,7 @@
 											id="companyLikeCount">${companyDto.pick}</span>
 									</button>
 								</td>
+								</tr>
 							</table>
 
 							<hr>

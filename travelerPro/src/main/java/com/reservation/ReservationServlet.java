@@ -95,13 +95,18 @@ public class ReservationServlet extends TravelServlet {
 
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+			String start_date = req.getParameter("start_date");
+			String end_date = req.getParameter("end_date");
 
 			List<ReserveRoomDTO> roomList = null;
 
 			// 선택한 업체의 객실 정보
 			roomList = dao.listRoom(companyNum);
-			String start_date = req.getParameter("start_date");
-			String end_date = req.getParameter("end_date");
+			
+			
+			System.out.println("dff"+start_date);
+			System.out.println("dff"+end_date);
+
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
@@ -207,7 +212,6 @@ public class ReservationServlet extends TravelServlet {
 		// 숙박업체 리스트
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
-		ReserveCompanyDTO dto = new ReserveCompanyDTO();
 
 		String cp = req.getContextPath();
 
@@ -332,13 +336,10 @@ public class ReservationServlet extends TravelServlet {
 				cal.add(Calendar.DATE, +1); // 내일 날짜
 				end_date = sdf.format(cal.getTime());
 
-			}
+			} 
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
-//			
-//			System.out.println(roomDto.getStart_date());
-//			System.out.println(roomDto.getEnd_date());
 
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);

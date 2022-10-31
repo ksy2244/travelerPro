@@ -15,7 +15,31 @@ public class AttractionServlet extends TravelServlet {
 
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		req.setCharacterEncoding("utf-8");
+
+		String uri = req.getRequestURI();
+		
+		if (uri.indexOf("list.do") != -1) {
+			list(req, resp);
+		}  else if (uri.indexOf("recognition_ok.do") != -1) {
+			recognitionSubmit(req, resp);
+		}
+	}
+	
+	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			String id = req.getParameter("contentid");
+			String typeid = req.getParameter("contenttypeid");
+			req.setAttribute("id", id);
+			req.setAttribute("typeid", typeid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		forward(req, resp, "/WEB-INF/views/attraction/tourist.jsp");
+	}
+	protected void recognitionSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
 

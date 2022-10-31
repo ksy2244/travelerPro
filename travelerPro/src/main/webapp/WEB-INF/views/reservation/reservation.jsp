@@ -34,7 +34,7 @@
 
 <script>
 	var IMP = window.IMP;
-	IMP.init("인증키");
+	IMP.init("imp31814638");
 
 	var today = new Date();
 	var hours = today.getHours(); // 시
@@ -80,7 +80,7 @@
 		}, function(rsp) { // callback
 			if (rsp.success) {
 				console.log(rsp);
-				f.action = "'${pageContext.request.contextPath}/reservation/reservation_ok.do'";
+				f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
 				f.submit();
 
 			} else {

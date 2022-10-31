@@ -9,82 +9,293 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>traveler</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
-<link rel="stylesheet" href="resources/style/mainStyle.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style/mainStyle.css"
 	type="text/css">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/slick/slick-theme.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/slick/slick.js"></script>
 <style type="text/css">
 @import url('https://webfontworld.github.io/hallym/Hallym.css');
 
-.body-container {
-	max-width: 1500px;
-}
 
-.region-container {
-	grid-template-columns: 200px 200px 200px 200px 200px;
-}
+
 </style>
 
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data){
+			fn(data);
+		},
+		error:function(e) {
+			console.log(e.responseText);
+		}
+	});
+}
+
+$(function(){
+	sendRegion('1', '서울');
+});
+
+function sendRegion(areaCode, areaName){
+	$(".tour-title").html(areaName + " 지역의 추천 관광지");
+	
+	 areaBasedList(areaCode); // 지역 기반 리스트
+}
+
+function areaBasedList(areaCode) {
+	let MobileOS = "ETC";
+	let MobileApp = "AppTest";
+	let arrange = "B";
+	let numOfRows = 20;
+	let pageNo = 1;
+	
+	//let url="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList";
+	let url = "http://apis.data.go.kr/B551011/KorService/areaBasedList";
+	let serviceKey = "키값";
+	let query = "ServiceKey="+serviceKey;
+	query += "&pageNo="+pageNo;
+	query += "&numOfRows="+numOfRows;
+	query += "&MobileOS="+MobileOS;
+	query += "&MobileApp="+MobileApp;
+	query += "&arrange="+arrange;
+	query += "&areaCode="+areaCode;
+		
+	var fn = function(data) {
+		console.log(data);
+		printAreaBasedList(data);
+		
+	};
+	
+	ajaxFun(url, "get", query, "xml", fn);
+}
+
+function printAreaBasedList(data) {
+
+	if( $(".tour-list").text() ) {
+		// slick을 unslick 하지 않은 상태에서 다시 slick을 하면 Cannot read property 'add' of null 에러 발생
+		$('.tour-list').slick("unslick")
+	}
+
+	var out = "";	
+	let ex="";
+	var noImg = "${pageContext.request.contextPath}/resources/images/noimage.png";
+	var dataCount = $(data).find("totalCount").text();
+	$(data).find("item").each(function() {
+		var item = $(this);
+		var title = item.find("title").text();
+		var img = item.find("firstimage").text();
+		var contentid = item.find("contentid").text();
+		var contenttypeid = item.find("contenttypeid").text();
+		if(! img) {
+			img = noImg;
+		}
+		//alert(contentid);
+ 		/* ex = "<a href='${pageContext.request.contextPath}/apiEx/test.jsp'"; */
+ 		//${pageContext.request.contextPath}/attraction/list.do?contentid="+contentid+'"
+		
+		out += "<div class='post'>";
+		out += "    <div class='slider-image'><img src='"+img+"'></div>";
+		out += "    <div class='post-info'>";
+		out += "        <div class='fs-6 post-subject'>" + title + "</div>";
+		out += "        <div class='fs-6 post-link'><a onclick="+"location.href='${pageContext.request.contextPath}/attraction/list.do?contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+"> 둘러보기</a><i class='bi bi-arrow-right-circle'></i></div>";
+		out += "    </div>";
+		out += "</div>";
+	});
+	
+	$(".tour-list").html(out);
+	
+
+	
+	$('.tour-list').slick({
+		  slidesToShow: 3,
+		  slidesToScroll: 1,
+		  autoplay: true,
+		  autoplaySpeed: 2000,
+		  nextArrow:$('.tour-wrapper .next'),
+		  prevArrow:$('.tour-wrapper .prev')
+	});
+}
+
+//검색 ------------------------------------
+$(function(){
+	$(".btnSearchOk").click(function(){
+		let areaCode = $("#areaCode").val(); // 지역코드
+		let areaName = $("#areaCode :selected").text(); // 지역명
+		let kwd = $("#kwd").val();
+
+		if( ! kwd ) {
+			sendRegion(areaCode, areaName);
+			return;
+		}
+		
+		
+	});
+
+	$(".btnSearchInit").click(function(){
+		$("#areaCode").val("1");
+		$("#kwd").val("");
+		sendRegion("1", "서울");
+	});
+});
+
+/* function printAreaBasedList(data) {
+	let out = "";
+	let noImg = "${pageContext.request.contextPath}/resources/images/noimage2.png";
+	let dataCount = $(data).find("totalCount").text();
+
+	
+	$(data).find("item").each(function(){
+		let item = $(this);
+		let title = item.find("title").text();
+		let img = item.find("firstimage").text();
+		if(! img) {
+			img = noImg;
+		}
+		
+		out += "<div class='carousel-item'>";
+		out += "	<img class='d-block w-100 bestRegion' src='"+img+"'>";
+		out += "		<div class='carousel-caption d-none d-md-block'>"
+		out += "			<h1>"+title+"<h1>";	
+		out += "		</div>";
+		out += "</div>";
+	});
+	$(".carousel-inner").html(out);
+	$(".carousel-item:last").addClass('active');
+} */
+</script>
 </head>
-<body>
+<body class="pt-5">
 
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
-	<main>
-
-		<div id="carouselExampleCaptions"
-			class="carousel slide body-container" data-bs-ride="carousel">
-			<div class="carousel-indicators">
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="0" class="active" aria-current="true"
-					aria-label="Slide 1"></button>
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="1" aria-label="Slide 2"></button>
-				<button type="button" data-bs-target="#carouselExampleCaptions"
-					data-bs-slide-to="2" aria-label="Slide 3"></button>
+	<main class="container">
+<!-- 		<div class="body-img">
+			
+		</div> -->
+		<div class="body-container">
+			<img alt="" src="resources/images/eximage.jpg">
+	 		<%-- <div id="carouselExampleCaptions"
+				class="carousel slide body-container" data-bs-ride="carousel">
+				<c:forEach var="i" begin="0" end="21">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="i" class="active" aria-current="true"
+							aria-label="Slide i"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+				</c:forEach> 
+				<div class="carousel-inner"
+					style="text-align: right; font-family: 'HallymM'">
+	 				<div class="carousel-item active">
+						<img src="resources/images/mainImg/bokcheon.png"
+							class="d-block w-100 bestRegion" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<h1>북촌 한옥마을</h1>
+							<h5 style="font-family: 'GmarketSans';">한국의 전통가옥과 서울의 모던한
+								건축물이 함께 어우러져 조화를 이루는 독특한 풍경을 감상할 수 있는 북촌 한옥마을</h5>
+						</div> 
+					</div>
+					<div class="carousel-item">
+						<img src="resources/images/mainImg/busan.png"
+							class="d-block w-100 bestRegion" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<h1>부산 해운대</h1>
+							<h5>부산의 야경을 있는 그대로 확인 할 수 있는 해운대</h5>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="resources/images/mainImg/Gyeongbokgung.png"
+							class="d-block w-100 bestRegion" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<h1>경복궁</h1>
+							<h5>고즈넉한 분위기와 호젓함을 경험할 수 있는 경복궁</h5>
+						</div>
+					</div> 
+	 			</div>
+				<button class="carousel-control-prev" type="button"
+					data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div> --%>
+			<div class="api-container">
+ 				<div class="map-image">
+					<img alt="지도" src="resources/images/map.png">
+				</div>
+				<div class="api-list">
+					<div class="search-container mt-3">
+						<form class="row justify-content-center" method="get">
+							<div class="col-auto p-1">
+								<select name="areaCode" id="areaCode" class="form-select">
+									<option value="1">서울</option>
+									<option value="2">인천</option>
+									<option value="3">대전</option>
+									<option value="4">대구</option>
+									<option value="5">광주</option>
+									<option value="6">부산</option>
+									<option value="7">울산</option>
+									<option value="8">세종특별자치시</option>
+									<option value="31">경기도</option>
+									<option value="32">강원도</option>
+									<option value="33">충청북도</option>
+									<option value="34">충청남도</option>
+									<option value="35">경상북도</option>
+									<option value="36">경상남도</option>
+									<option value="37">전라북도</option>
+									<option value="38">전라남도</option>
+									<option value="39">제주도</option>
+								</select>
+							</div>
+							<div class="col-auto p-1">
+								<input type="text" class="form-control" placeholder="검색 키워드 입력" autocomplete="off" 
+										name="kwd" id="kwd">
+							</div>
+							<div class="col-auto p-1">
+								<button type="button" class="btn btn-light btnSearchOk"> <i class="bi bi-search"></i> </button> 
+							</div>
+							<div class="col-auto p-1">
+								<button type="button" class="btn btn-light btnSearchInit"> <i class="bi bi-arrow-clockwise"></i> </button>
+							</div>
+						</form>
+					</div>
+				
+					<div class="page-wrapper tour-wrapper">
+						<!--page slider -->
+						<div class="post-slider">
+							<h1 class="silder-title tour-title">이 지역의 추천 관광지</h1>
+							<span class="prev"> <i class="bi bi-chevron-left"></i> </span>
+							<span class="next"> <i class="bi bi-chevron-right"></i> </span>
+							<div class="post-wrapper tour-list"></div>
+						</div>
+						<!--post slider-->
+					</div>
+				</div>
 			</div>
-			<div class="carousel-inner"
-				style="text-align: right; font-family: 'HallymM'">
-				<div class="carousel-item active">
-					<img src="resources/images/mainImg/bokcheon.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block">
-						<h1>북촌 한옥마을</h1>
-						<h5 style="font-family: 'GmarketSans';">한국의 전통가옥과 서울의 모던한
-							건축물이 함께 어우러져 조화를 이루는 독특한 풍경을 감상할 수 있는 북촌 한옥마을</h5>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="resources/images/mainImg/busan.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block">
-						<h1>부산 해운대</h1>
-						<h5>부산의 야경을 있는 그대로 확인 할 수 있는 해운대</h5>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img src="resources/images/mainImg/Gyeongbokgung.png"
-						class="d-block w-100 bestRegion" alt="...">
-					<div class="carousel-caption d-none d-md-block">
-						<h1>경복궁</h1>
-						<h5>고즈넉한 분위기와 호젓함을 경험할 수 있는 경복궁</h5>
-					</div>
-				</div>
-			</div>
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
-		</div>
+			
 
-		<div align="center" class="region-container">
+<!--  	<div align="center" class="region-container">
 			<div class="traveleTitle" style="font-family: HallyM">지역별 여행
-				둘러보기!</div>
+				둘러보기!</div> -->
 		<!-- <div class="imageLayout">
 				<div class="box">
 					<img class="regionImg" src="resources/images/mainImg/busan.png">
@@ -122,7 +333,9 @@
 					</div>
 				</div>
 			</div> -->
-			</div>
+			
+
+		</div>
 	</main>
 
 	<footer>
