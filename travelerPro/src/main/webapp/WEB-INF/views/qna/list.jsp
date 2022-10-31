@@ -169,7 +169,7 @@ td {
 					${dataCount == 0 ? "등록된 1:1 문의가 없습니다." : paging}
 				</div>
 				
-				<span class="plus">${dataCount == 0? "TRAVELER는 회원님들의 소중한 의견에 귀기울여
+				<span class="plus">${dataCount == 0? "TRAVELER는 회원님들의 소중한 의견에 귀기울여 
 					신속하고 정확하게 답변드리도록 하겠습니다." : "" }</span>
 
 				<div class="row board-list-footer">
