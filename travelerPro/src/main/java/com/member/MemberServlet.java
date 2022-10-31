@@ -217,7 +217,7 @@ public class MemberServlet extends TravelServlet {
 
 				req.setAttribute("mode", mode);
 				req.setAttribute("message", "패스워드가 일치하지 않습니다.");
-				forward(req, resp, "/WEB-INF/views/member/pwd.jsp");
+				forward(req, resp, "/WEB-INF/views/mypage/pwd.jsp");
 				return;
 			}
 
@@ -236,7 +236,7 @@ public class MemberServlet extends TravelServlet {
 			req.setAttribute("title", "회원 정보 수정");
 			req.setAttribute("dto", dto);
 			req.setAttribute("mode", "update");
-			forward(req, resp, "/WEB-INF/views/member/member.jsp");
+			forward(req, resp, "/WEB-INF/views/mypage/member.jsp");
 			return;
 
 		} catch (Exception e) {

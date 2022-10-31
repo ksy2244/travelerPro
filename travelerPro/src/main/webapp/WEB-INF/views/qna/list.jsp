@@ -51,13 +51,12 @@ function searchList() {
 }
 </script>
 </head>
-<body>
+<body class="pt-5">
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
-	
-<main>
+<main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
@@ -89,7 +88,7 @@ function searchList() {
 									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
 								</td>
 								
-								<td>${userId}</td>
+								<td>${dto.userId}</td>
 								
 								<td>${dto.reg_date}</td>
 								

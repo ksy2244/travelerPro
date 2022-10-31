@@ -84,18 +84,17 @@ function listPage(page) {
 </script>
 
 </head>
-<body>
+<body class="pt-5">
 
-	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	</header>
-
-	<main>
-		<div class="container">
-			<div class="body-container">
-				<div class="body-title">
+<header>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+</header>
+<main class="pt-5">
+	<div class="container">
+		<div class="body-container">	
+			<div class="body-title">
 					<h3>
-						<i class="bi bi-book-half"></i> 1:1문의
+						</i> 1:1문의
 					</h3>
 				</div>
 

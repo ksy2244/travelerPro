@@ -282,7 +282,7 @@ public class QnaServlet extends TravelServlet {
 			dto.setSubject(req.getParameter("subject"));
 			dto.setContent(req.getParameter("content"));
 			dto.setCategoryNum(Integer.parseInt(req.getParameter("categoryNum")));
-			dto.setUserId(info.getUserId());
+			dto.setUserId(req.getParameter("userId"));
 			
 			dao.updateQna(dto);
 		

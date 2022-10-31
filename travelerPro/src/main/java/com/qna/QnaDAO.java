@@ -144,7 +144,7 @@ public class QnaDAO {
 		
 		try {
 			sql = " SELECT questionNum, subject, "
-					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date ,categoryNum "
+					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date ,categoryNum, q.userId "
 					+ " FROM memberQ q "
 					+ " JOIN member m ON q.userId = m.userId "
 					+ " ORDER BY questionNum DESC "
@@ -164,7 +164,7 @@ public class QnaDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
-				
+				dto.setUserId(rs.getString("userId"));
 				
 				list.add(dto);
 			}
