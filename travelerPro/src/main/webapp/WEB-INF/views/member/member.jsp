@@ -21,10 +21,10 @@
 } 
 
 .check {
-	background: #F1AEB5;
+	background: #EA868F;
 }
 
-.check:hover {background:#F1C2BF;}
+.check:hover {background:#FE868F;}
 
 .basic {
 	background: #dc3545;
