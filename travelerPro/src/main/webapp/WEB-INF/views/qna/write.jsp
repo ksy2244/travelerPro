@@ -7,54 +7,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>1:1 문의글 작성</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
-	max-width: 850px;
+	max-width: 1500px;
 }
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.basic {
+	background: #dc3545;
+}
+
+.basic:hover {background: #F03545;}
+
+.side {
+	background: #E35D6A;
+}
+
+.side:hover {background: #ED5D6A;}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 
-<!--
-<script type="text/javascript">
-
- function check() {
-    const f = document.boardForm;
-	let str;
-	
-    str = f.subject.value.trim();
-    if(!str) {
-        alert("제목을 입력하세요. ");
-        f.subject.focus();
-        return false;
-    }
-
-    str = f.content.value.trim();
-    if(!str || str === "<p><br></p>") { // 아무것도 입력 안하면 "<p><br></p>" 만 출력
-        alert("내용을 입력하세요. "); 
-        f.content.focus();
-        return false;
-    }
-
-    f.action = "${pageContext.request.contextPath}/qna/${mode}_ok.do";
-}
-
-<c:if test="${mode=='update'}">
-	function deleteFile(num) {
-		if( !confirm("파일을 삭제하시겠습니까 ?") ) {
-			return;
-		}
-		let url = "${pageContext.request.contextPath}/qna/deleteFile.do?num=" + num + "&page=${page}";
-		location.href = url;
-	}
-</c:if>
-</script> -->
-
 <script type="text/javascript">
 function sendOk() {
-	const f = document.boardForm;
+	const f = document.qnaForm;
 	str = f.subject.value.trim();
 	    if(!str) {
 	        alert("제목을 입력하세요. ");
@@ -70,6 +52,10 @@ function sendOk() {
 	        return false;
 	    }
 		
+	if(! confirm('등록하시겠습니까?')){
+		return false;
+	}
+		
 
 	f.action = "${pageContext.request.contextPath}/qna/${mode}_ok.do";
 	f.submit();
@@ -79,72 +65,61 @@ function sendOk() {
 
 </script>
 </head>
-<body>
+<body class="pt-5">
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
 	
-<main>
+<main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-book-half"></i> 1:1문의 </h3>
+				<h3> 새 문의 작성 </h3>
 			</div>
 			
 			<div class="body-main">
-				<form name="boardForm" method="post" enctype="multipart/form-data"
-					onsubmit="return submitContents(this);">
-					<table class="table  write-form mt-5">
-						<tr>
-							<td class="table-light col-sm-2" scope="row">제 목</td>
-							<td>
-								<input type="text" name="subject" class="form-control" value="${dto.subject}">
-							</td>
-						</tr>
-						
-						<tr>
-							<td class="table-light col-sm-2" scope="row" >카테고리</td>
-							<td>
-								<select name="categoryNum" id="categoryNum" class="form-select" required aria-label="select example">
-									<c:forEach var="vo" items="${list}">
-										<option value="${vo.categoryNum }" ${dto.categoryNum==vo.categoryNum ? "selected = 'selected'": ""}>${vo.categoryName }</option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-	        
-						<tr>
-							<td class="table-light col-sm-2" scope="row">작성자명</td>
-	 						<td>
-								<p class="form-control-plaintext">${sessionScope.member.userId}</p>
-							</td>
-						</tr>
-	
-						<tr>
-							<td class="table-light col-sm-2" scope="row">내 용</td>
-							<td>
-								<textarea name="content" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.content}</textarea>
-							</td>
-						</tr>
-						
-						
-					</table>
-					
-					<table class="table table-borderless">
-	 					<tr>
-							<td class="text-center">
-								<button type="button" onclick="sendOk();" class="btn btn-dark">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+				<form name="qnaForm" method="post">
+					<div class="row mb-4">
+						<label class="col-sm-2 col-form-label">카테고리</label>
+						<div class="col-sm-10 userId-box">
+							<div class="row">
+								<div class="col-5 pe-1">
+									<select name="categoryNum" id="categoryNum" class="form-select" required aria-label="select example">
+										<c:forEach var="vo" items="${list}">
+											<option value="${vo.categoryNum }" ${dto.categoryNum==vo.categoryNum ? "selected = 'selected'": ""}>${vo.categoryName }</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				 
+					<div class="row mb-4">
+						<label class="col-sm-2 col-form-label">제목</label>
+						<div class="col-sm-10">
+				            <input type="text" name="subject" class="form-control" value="${dto.subject}" placeholder="제목">
+				        </div>
+				    </div>
+				    
+				    <div class="row mb-4">
+				        <label class="col-sm-2 col-form-label" for="userPwd2">내용</label>
+				        <div class="col-sm-10 mb-4">
+				            <textarea name="content" id="ir1" class="form-control" style="width: 100%; height: 300px;" placeholder="내용">${dto.content}</textarea>
+				        </div>
+				    </div>
+				     
+				    <div class="row mb-4">
+				        <div class="text-center">
+				            <button type="button" onclick="sendOk();" class="btn basic text-white">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="reset" class="btn side text-white">다시입력</button>
+								<button type="button" class="btn side text-white" onclick="location.href='${pageContext.request.contextPath}/qna/list.do';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="questionNum" value="${dto.questionNum}"> 
 									<input type="hidden" name="page" value="${page}">
-									
 								</c:if>
-							</td>
-						</tr>
-					</table>
+				        </div>
+				    </div>
 				</form>
 			</div>
 		</div>

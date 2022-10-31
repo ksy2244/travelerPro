@@ -7,22 +7,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>qna</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.base {
+	background: #dc3545;
+}
+
+.base:hover {background: #F03545;}
+
+.basic {
+	background-color: #6C757D;
+}
+
+.basic:hover{background-color:#7689A5;}
+
+.box {
+	background: #eee;
+	border-radius: 3px;
+	border: 5px solid #eee;
+	font-size: 13px;
+	text-align: center;
+	color: #5D5D5D;
+}
+
+.content {
+	border-bottom: none;
+}
+
+.blue {
+	color: navy;
+	margin-left: 40px;
+}
+
+.question {
+	color: #B4CDE6;
+	font-size: 70px;
+	font-weight: 500;
+	padding: 0px;
+	margin-left: 40px;
+}
+
+.subject {
+	font-size: 25px;
+	margin-left: 25px;
+}
+
+.content {
+	margin-top: 20px;
+	margin-left: 40px;
+	margin-right: 40px;
+	height: 250px;
+}
+
+.id {
+	margin-left: 40px;
+	margin-top: 20px;
+	font-size: 15px;
+	margin-bottom: 30px;
+}
+
+.date {
+	color: #787878;
+}
+
+.answer {
+	margin-left: 40px;
+	font-size: 50px;
+	color: #628E90;
+	font-weight: 500;
+}
+
+.margin {
+	margin-left: 40px;
+	margin-bottom: 30px;
+}
+
+.reply-list {
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	padding: 20px;
+}
+
+.write {
+	margin-top: 30px;
 }
 </style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board2.css"
-	type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 
 <script type="text/javascript">
-	<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+	<c:if test="${sessionScope.member.userId==dto.userId }">
 	function deleteBoard() {
-		if (confirm("문의글을 삭제 하시 겠습니까 ? ")) {
+		if (confirm("문의글을 삭제하시겠습니까 ? ")) {
 			let query = "questionNum=${dto.questionNum}&${query}";
 			let url = "${pageContext.request.contextPath}/qna/delete.do?"
 					+ query;
@@ -32,56 +118,6 @@
 	</c:if>
 </script>
 
-<script type="text/javascript">
-	function login() {
-		location.href = "${pageContext.request.contextPath}/member/login.do";
-
-	}
-
-	function ajaxFun(url, method, query, dataType, fn) {
-		$.ajax({
-			type : method,
-			url : url,
-			data : query, // 없으면 null값 써도됨
-			dataType : dataType, // dataType 을 생략하면 텍스트 타입이 됨
-			success : function(data) { // 성공하면 (data) 를 fn(data);에 출력
-				fn(data);
-			},
-			beforeSend : function(jqXHR) {
-				jqXHR.setRequestHeader("AJAX", true);
-			},
-			error:function(jqXHR) { // 서버통신에 문제가 잇을때 에러 사용 
-				if(jqXHR.status === 403){ 
-					login();
-					return false;
-				} else if(jqXHR.status === 400){ 
-					alert("요청 처리가 실패 했습니다.");
-					return false;
-				}
-				
-				console.log(jqXHR.responseText);
-			}
-		});
-	}
-	
-
-$(function () {
-	listPage(1);
-});
-
-function listPage(page) { 
-	let url = "${pageContext.request.contextPath}/qna/listReply.do";
-	let query = "questionNum=${dto.questionNum}&pageNo="+page;
-	let selector = "#listReply";
-	
-	const fn = function (data) {
-		$(selector).html(data); 
-	};
-	ajaxFun(url, "get", query, "html", fn);
-}
-
-
-</script>
 
 </head>
 <body class="pt-5">
@@ -92,80 +128,49 @@ function listPage(page) {
 <main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
-			<div class="body-title">
-					<h3>
-						</i> 1:1문의
-					</h3>
-				</div>
+			<button type="button" class="btn text-white pb-5" onclick="location.href='${pageContext.request.contextPath}/qna/list.do?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 
-				<div class="body-main">
-
+				<div class="body-main reply-list">
 					<table class="table">
-						<thead>
-							<tr>
-								<td colspan="2" align="center">${dto.subject}</td>
-							</tr>
-						</thead>
-							<thead>
-							<tr >
-							<c:if test ="${dto.categoryNum == 1}">
-									<td colspan="2">문의사항 : 회원/개인정보</td>
-								</c:if>
-								<c:if test ="${dto.categoryNum == 2}">
-									<td colspan="2">문의사항 : 쿠폰</td>
-								</c:if>
-								<c:if test ="${dto.categoryNum == 3}">
-									<td colspan="2">문의사항 : 환불</td>
-								</c:if>
-								<c:if test ="${dto.categoryNum == 4}">
-									<td colspan="2">문의사항 : 예약/결제</td>
-								</c:if>
-								</tr>
-								</thead>
 						<tbody>
-							<tr>
-								<td width="50%">작성자 : ${dto.userId}</td>
-								<td align="right">${dto.reg_date}</td>
-								
-							</tr>
-							
-							<tr>
-								<td colspan="2" valign="top" height="200">${dto.content}</td>
-							</tr>
-							
- 							
-						</tbody>
-					</table>
-
-					<table class="table table-borderless">
-						<tr>
-							<td width="50%"><c:choose>
-									<c:when test="${sessionScope.member.userId==dto.userId}">
-										<button type="button" class="btn btn-light"
-											onclick="location.href='${pageContext.request.contextPath}/qna/update.do?questionNum=${dto.questionNum}&page=${page}';">수정</button>
+							<tr class="title">
+							<td colspan="2" align="left">
+								<span class="question">Q</span> <span class="subject">${dto.subject}</span>
+								<div class="content">${dto.content}</div>
+								<c:choose>
+									<c:when test="${dto.categoryNum == 1}">
+										<span class="blue"><i class="fa-solid fa-bars"></i> 회원/개인정보 </span>
+									</c:when>
+									<c:when test="${dto.categoryNum == 2}">
+										<span class="blue"><i class="fa-solid fa-bars"></i> 쿠폰 </span>
+									</c:when>
+									<c:when test="${dto.categoryNum == 3}">
+										<span class="blue"><i class="fa-solid fa-bars"></i> 환불 </span>
 									</c:when>
 									<c:otherwise>
-										<button type="button" class="btn btn-light"
-											disabled="disabled">수정</button>
+										<span class="blue"><i class="fa-solid fa-bars"></i> 예약/결제 </span>
 									</c:otherwise>
-								</c:choose> <c:choose>
-									<c:when
-										test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
-										<button type="button" class="btn btn-light"
-											onclick="deleteBoard();">삭제</button>
-									</c:when>
-									<c:otherwise>
-										<button type="button" class="btn btn-light"
-											disabled="disabled">삭제</button>
-									</c:otherwise>
-								</c:choose></td>
-							<td class="text-end">
-								<button type="button" class="btn btn-light"
-									onclick="location.href='${pageContext.request.contextPath}/qna/list.do?${query}';">리스트</button>
+								</c:choose>
+								<div class="id"><span class="date">${dto.reg_date}</span></div>
+								<div class="text-end pb-3"><button type="button" class="btn base text-white " onclick="deleteBoard();">삭제</button></div>
 							</td>
 						</tr>
+						</tbody>
 					</table>
-
+					
+					<div class="reply">
+						<div id="listReply">
+							<table class='table table-borderless'>
+								<tr>
+									<td width="100%">
+										<div class='answer'>A</div>
+										<div class='content'>${vo.content}</div>
+										<div class='date margin'>${vo.reg_date}</div>
+									</td>
+								</tr>
+							</table>			
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -76,7 +76,7 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> qna 관리 </h3>
+				<h3> 1:1 문의 관리 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -128,7 +128,7 @@
 				</table>
 				
 				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 qna가 없습니다." : paging}
+					${dataCount == 0 ? "등록된 문의가 없습니다." : paging}
 				</div>
 
 				<div class="row board-list-footer">

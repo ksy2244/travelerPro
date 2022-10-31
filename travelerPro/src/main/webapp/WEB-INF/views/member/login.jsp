@@ -97,13 +97,9 @@ function sendLogin() {
 	                        	<a href="#" class="text-decoration-none me-2">패스워드 찾기</a>
 	                        	<a href="${pageContext.request.contextPath}/member/member.do" class="text-decoration-none">회원가입</a>
 	                        </p>
+	                        <p class="form-control-plaintext mt-3 text-center text-danger">${message}</p>
 	                    </div>
 	                </div>
-
-	                <div class="d-grid login">
-							<p class="form-control-plaintext text-center text-danger">${message}</p>
-	                </div>
-
 	            </div>
 	        </div>
 

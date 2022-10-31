@@ -7,18 +7,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler_memberQnA</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
 .body-container {
-	max-width: 1000px;
-}
-.basic {
-	background-color: #F5EFE6;
+	max-width: 1500px;
 }
 
-.basic:hover{background-color:#D9D2CC;}
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.basic {
+	background: #dc3545;
+}
+
+.basic:hover {background: #F03545;} 
 
 .title {
 	border-bottom: 2px solid #B4CDE6;
@@ -37,19 +43,57 @@
 	font-style: italic;
 }
 
-.img {
-	width: 20px;
-	height: 20px;
+.plus {
+	font-size: 15px;
+	color: #787878;
+	margin-left: 320px; 
+}
+
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
+
+th {
+	height: 60px;
+	font-size: 15px;
+}
+
+td {
+	height: 50px;
+}
+
+.number {
+	width: 10%;
+}
+
+.cat {
+	width: 15%;
+}
+
+.answer {
+	width: 15%;
+}
+
+.day {
+	width: 10%;
+}
+
+#data {
+	font-size: 16px;
+	font-weight: 600; 
+}
+
+.background {
+	background: #CFF4FC;
+}
+
+.plus {
+	width: 10%;
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 
-<script type="text/javascript">
-function searchList() {
-	const f = document.searchForm;
-	f.submit();
-}
-</script>
 </head>
 <body class="pt-5">
 
@@ -60,38 +104,32 @@ function searchList() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 1:1문의 </h3>
+				<h3> 1:1 문의 </h3>
 			</div>
 			
 			<div class="body-main">
 		        <div class="row board-list-header">
-		            <div class="col-auto me-auto">${dataCount}개(${page}/${total_page} 페이지)</div>
-		            <div class="col-auto">&nbsp;</div>
+		            <div class="col-auto me-auto" id="data">Total ${dataCount}건 (${page}/${total_page} 페이지)</div>
+		            <div class="col-auto mb-3">&nbsp;</div>
 		        </div>				
 				
 				<table class="table table-hover board-list">
-					<thead class="table-light">
-						<tr>
-							<th class="num">번호</th>
-							<th class="subject">제목</th>
-							<th class="name">작성자</th>
-							<th class="date">작성일</th>
-							<th class="category">카테고리</th>
+					<thead class="background">
+						<tr class="align-middle">
+							<th class="number">문의번호</th>
+							<th class="cat">카테고리</th>
+							<th class="sub">제목</th>
+							<th class="day">작성일</th>
+							<th class="answer">상태</th>
+							<th class="plus"></th>
 						</tr>
 					</thead>
 					
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
-							<tr>
+							<tr class="align-middle">
 								<td>${dataCount - (page-1) * size - status.index}</td>
-								<td class="left">
-									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset">${dto.subject}</a>
-								</td>
-								
-								<td>${dto.userId}</td>
-								
-								<td>${dto.reg_date}</td>
-								
+																
 								<c:if test ="${dto.categoryNum == 1}">
 									<td>회원/개인정보</td>
 								</c:if>
@@ -105,41 +143,38 @@ function searchList() {
 									<td>예약/결제</td>
 								</c:if>
 								
-					
+								<td class="left">
+									${dto.subject}
+								</td>
+								
+								<td>${dto.reg_date}</td>
+
+								<c:if test="${dto.answer==0 }">
+									<td class="red">답변대기</td>
+								</c:if>
+								
+								<c:if test="${dto.answer==1 }">
+									<td class="blue">답변완료</td>
+								</c:if>
+								
+								<td class="align-middle">
+									<a href="${articleUrl}&questionNum=${dto.questionNum}" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 18px;"></a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				
-				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 문의사항이 없습니다." : paging}
+				<div class="page-navigation paging" >
+					${dataCount == 0 ? "등록된 1:1 문의가 없습니다." : paging}
 				</div>
+				
+				<span class="plus">${dataCount == 0? "TRAVELER는 회원님들의 소중한 의견에 귀기울여
+					신속하고 정확하게 답변드리도록 하겠습니다." : "" }</span>
 
 				<div class="row board-list-footer">
-					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/list.do';">새로고침</button>
-					</div>
-					<div class="col-6 text-center">
-						<form class="row" name="searchForm" action="${pageContext.request.contextPath}/qna/list.do" method="post">
-							<div class="col-auto p-1">
-								<select name="condition" class="form-select">
-									<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
-									<option value="userName" ${condition=="userId"?"selected='selected'":""}>작성자</option>
-									<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
-									<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-									<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
-								</select>
-							</div>
-							<div class="col-auto p-1">
-								<input type="text" name="keyword" value="${keyword}" class="form-control">
-							</div>
-							<div class="col-auto p-1">
-								<button type="button" class="btn btn-light" onclick="searchList()">검색</button>
-							</div>
-						</form>
-					</div>
 					<div class="col text-end">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/write.do';">문의하기</button>
+						<button type="button" class="btn basic text-white" onclick="location.href='${pageContext.request.contextPath}/qna/write.do';">문의 작성</button>
 					</div>
 				</div>
 

@@ -47,15 +47,18 @@ public class QnaDAO {
 		}
 	}
 	
-	public int dataCount() {
+	public int dataCount(String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 		
 		try {
-			sql = "SELECT COUNT(*) FROM memberQ";
+			sql = "SELECT COUNT(*) FROM memberQ WHERE userId = ? ";
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -83,60 +86,7 @@ public class QnaDAO {
 		return result;
 	}
 	
-	public int dataCount(String condition, String keyword) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-		
-		try {
-			sql = " SELECT COUNT(*) FROM memberQ q "
-					+ " JOIN member m ON q.userId = m.userId ";
-			if(condition.equals("all")) {
-				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
-			} else if(condition.equals("reg_date")) {
-				keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-				sql += " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
-			} else {
-				sql += " WHERE INSTR(" + condition + ", ?) >= 1 ";
-			}
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, keyword);
-			if(condition.equals("all")) {
-				pstmt.setString(2, keyword);
-			} 
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				result = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e2) {
-				}
-			}
-			
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (Exception e2) {
-				}
-			}
-			
-		}
-		
-		return result;
-		
-	}
-	
-	public List<QnaVO> listQna(int offset, int size) {
+	public List<QnaVO> listQna(String userId, int offset, int size) {
 		List<QnaVO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -144,16 +94,17 @@ public class QnaDAO {
 		
 		try {
 			sql = " SELECT questionNum, subject, "
-					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date ,categoryNum, q.userId "
-					+ " FROM memberQ q "
-					+ " JOIN member m ON q.userId = m.userId "
+					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date ,categoryNum, userId, answer "
+					+ " FROM memberQ "
+					+ " WHERE userId = ? "
 					+ " ORDER BY questionNum DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, offset);
-			pstmt.setInt(2, size);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, offset);
+			pstmt.setInt(3, size);
 			
 			rs = pstmt.executeQuery();
 			
@@ -165,6 +116,7 @@ public class QnaDAO {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setCategoryNum(rs.getInt("categoryNum"));
 				dto.setUserId(rs.getString("userId"));
+				dto.setAnswer(rs.getInt("answer"));
 				
 				list.add(dto);
 			}
@@ -188,77 +140,6 @@ public class QnaDAO {
 		}
 		
 		return list;
-	}
-	
-	public List<QnaVO> listQna(int offset, int size, String condition, String keyword) {
-		List<QnaVO> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-		
-		try {
-			sql = " SELECT questionNum, subject, "
-					+ " TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, categoryNum, "
-					+ " FROM memberQ q "
-					+ " JOIN member m ON q.userId = m.userId ";
-			if(condition.equals("all")) {
-				sql += " WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
-			} else if(condition.equals("reg_date")) {
-				keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-				sql += " WHERE TO_CHAR(reg_date, 'YYYYMMDD') = ? ";
-			} else {
-				sql += " WHERE INSTR(" + condition + ", ?) >= 1 ";
-			}
-			sql += " ORDER BY questionNum DESC ";
-			sql += " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			if(condition.equals("all")) {
-				pstmt.setString(1, keyword);
-				pstmt.setString(2, keyword);
-				pstmt.setInt(3, offset);
-				pstmt.setInt(4, size);
-			} else {
-				pstmt.setString(1, keyword);
-				pstmt.setInt(2, offset);
-				pstmt.setInt(3, size);
-			}
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				QnaVO dto = new QnaVO();
-				
-				dto.setQuestionNum(rs.getLong("questionNum"));
-				dto.setSubject(rs.getString("subject"));
-				dto.setReg_date(rs.getString("reg_date"));
-				dto.setCategoryNum(rs.getInt("categoryNum"));
-	
-				
-				list.add(dto);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e2) {
-				}
-			}
-			
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (Exception e2) {
-				}
-			}
-		}
-		
-		return list;
-		
 	}
 	
 	public List<QnaVO> listCategory() {
