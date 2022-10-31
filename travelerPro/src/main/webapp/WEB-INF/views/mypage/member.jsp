@@ -20,21 +20,6 @@
 function memberOk() {
 	const f = document.memberForm;
 	let str;
-
-	str = f.userId.value;
-	if( !/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
-		alert("아이디를 다시 입력 하세요. ");
-		f.userId.focus();
-		return;
-	}
-
-	let mode = "${mode}";
-	if(mode === "member" && f.userIdValid.value === "false") {
-		str = "아이디 중복 검사가 실행되지 않았습니다.";
-		$("#userId").parent().find(".help-block").html(str);
-		f.userId.focus();
-		return;
-	}
 	
 	str = f.userPwd.value;
 	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
@@ -118,41 +103,7 @@ function changeEmail() {
     }
 }
 
-function userIdCheck() {
-	// 아이디 중복 검사
-	let userId = $("#userId").val();
 
-	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(userId)) { 
-		let str = "아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.";
-		$("#userId").focus();
-		$("#userId").parent().find(".help-block").html(str);
-		return;
-	}
-	
-	let url = "${pageContext.request.contextPath}/member/userIdCheck.do";
-	let query = "userId=" + userId;
-	$.ajax({
-		type:"POST"
-		,url:url
-		,data:query
-		,dataType:"json"
-		,success:function(data) {
-			let passed = data.passed;
-
-			if(passed === "true") {
-				let str = "<span style='color:blue; font-weight: bold;'>" + userId + "</span> 아이디는 사용 가능 합니다.";
-				$(".userId-box").find(".help-block").html(str);
-				$("#userIdValid").val("true");
-			} else {
-				let str = "<span style='color:red; font-weight: bold;'>" + userId + "</span> 아이디는 이미 등록되어 있습니다.";
-				$(".userId-box").find(".help-block").html(str);
-				$("#userId").val("");
-				$("#userIdValid").val("false");
-				$("#userId").focus();
-			}
-		}
-	});
-}
 </script>
 </head>
 <body class="pt-5">
@@ -165,7 +116,7 @@ function userIdCheck() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> ${title} </h3>
+				<h3> 내 정보 수정 </h3>
 			</div>
 			
 		    <div class="alert" role="alert" style="background: #E4FBFF">
@@ -184,15 +135,7 @@ function userIdCheck() {
 											${mode=="update" ? "readonly='readonly' ":"" } 
 											placeholder="아이디">
 								</div>
-								<div class="col-3 ps-1">
-									<c:if test="${mode=='member'}">
-										<button type="button" class="btn btn-light" onclick="userIdCheck();">아이디중복검사</button>
-									</c:if>
-								</div>
 							</div>
-							<c:if test="${mode=='member'}">
-								<small class="form-control-plaintext help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</small>
-							</c:if>
 						</div>
 					</div>
 				 
@@ -216,8 +159,8 @@ function userIdCheck() {
 				        <label class="col-sm-2 col-form-label" for="userName">이름</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="userName" id="userName" class="form-control" value="${dto.userName}" 
-				            		
-				            		placeholder="이름">
+				            		${mode=="update" ? "readonly='readonly' ":""}
+				            		placeholder="${dto.userName}">
 				        </div>
 				    </div>
 				    
@@ -226,7 +169,7 @@ function userIdCheck() {
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
 				            		${mode=="update" ? "readonly='readonly' ":""}
-				            		placeholder="닉네임">
+				            		placeholder="${dto.userName}">
 				        </div>
 				    </div>
 				 
@@ -282,30 +225,11 @@ function userIdCheck() {
 				        </div>
 				    </div>
 			
-					<c:if test="${mode == 'member' }">
-					    <div class="row mb-3">
-					        <label class="col-sm-2 col-form-label" for="agree">약관 동의</label>
-							<div class="col-sm-8" style="padding-top: 5px;">
-								<input type="checkbox" id="agree" name="agree"
-									class="form-check-input"
-									checked="checked"
-									style="margin-left: 0;"
-									onchange="form.sendButton.disabled = !checked">
-								<label class="form-check-label">
-									<a href="#" class="text-decoration-none">이용약관</a>에 동의합니다.
-								</label>
-							</div>
-					    </div>
-					 </c:if>
-				     
 				    <div class="row mb-3">
 				        <div class="text-center">
 				            <button type="button" name="sendButton" class="btn" onclick="memberOk();" style="background: #B8B5FF"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
 				            <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';" style="background: #EDEEF7"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
 							<input type="hidden" name="userIdValid" id="userIdValid" value="false">
-				        </div>
-				        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				        	<button type="button" name="register" class="btn" onclick="location.href='${pageContext.request.contextPath}/ceomember/ceomember.do'" style="background: #E4FBFF"><i class="fa-regular fa-registered"></i>사업자 등록하기</button>
 				        </div>
 				    </div>
 				

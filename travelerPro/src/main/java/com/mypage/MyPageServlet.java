@@ -51,7 +51,9 @@ public class MyPageServlet extends TravelServlet {
 			coupon(req, resp);
 		} else if(uri.indexOf("couponInfo.do") != -1) {
 			couponInfo(req, resp);
-		}
+		} if (uri.indexOf("mypage.do") != -1) {
+			mypage(req, resp);
+		} 
 		
 	}
 	
@@ -173,5 +175,9 @@ public class MyPageServlet extends TravelServlet {
 		
 	}
 	
+		protected void mypage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/mypage/member.jsp");
+	}
+
 
 }
