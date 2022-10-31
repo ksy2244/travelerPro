@@ -540,7 +540,8 @@ public class ReservationDAO {
 		try {
 			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, roomName, c.companyName, m.userName, "
-					+ " 	paymentPrice, imageFileName " + " FROM reservation r "
+					+ " 	paymentPrice, imageFileName " 
+					+ " FROM reservation r "
 
 					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
 

@@ -2,38 +2,10 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<title>traveler</title>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/traveler/datePicker.css"
-	type="text/css">
-<link rel="import" href="map.html">
-
-<style type="text/css">
-
-</style>
-</head>
-<body>
-	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
-	</header>
-
-
-	<main>
+	href="${pageContext.request.contextPath}/resources/style/traveler/datePicker.css">
 		<div class="row">
+		
 			<c:forEach var="room" items="${roomList}" varStatus="status">
 				<div class="card border-secondary mb-3" style="max-width: 100rem;">
 
@@ -64,6 +36,3 @@
 
 			</c:forEach>
 		</div>
-	</main>
-</body>
-</html>
