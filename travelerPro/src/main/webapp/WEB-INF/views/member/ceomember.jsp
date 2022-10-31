@@ -199,7 +199,7 @@ function userIdCheck() {
 			
 			<div class="body-main">
 				<form name="memberForm" method="post">
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<label class="col-sm-2 col-form-label" for="userId">아이디</label>
 						<div class="col-sm-10 userId-box">
 							<div class="row">
@@ -220,7 +220,7 @@ function userIdCheck() {
 						</div>
 					</div>
 				 
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<label class="col-sm-2 col-form-label" for="userPwd">패스워드</label>
 						<div class="col-sm-10">
 				            <input type="password" name="userPwd" id="userPwd" class="form-control" autocomplete="off" placeholder="패스워드">
@@ -228,7 +228,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				    
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="userPwd2">패스워드 확인</label>
 				        <div class="col-sm-10">
 				            <input type="password" name="userPwd2" id="userPwd2" class="form-control" autocomplete="off" placeholder="패스워드 확인">
@@ -236,7 +236,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				 
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="userName">이름</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="userName" id="userName" class="form-control" value="${dto.userName}" 
@@ -245,7 +245,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				    
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="nickName">닉네임</label>
 				        <div class="col-sm-10">
 				            <input type="text" name="nickName" id="nickName" class="form-control" value="${dto.nickName}" 
@@ -254,7 +254,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				 
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="birth">생년월일</label>
 				        <div class="col-sm-10">
 				            <input type="date" name="birth" id="birth" class="form-control" value="${dto.birth}" placeholder="생년월일">
@@ -262,7 +262,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="selectEmail">이메일</label>
 				        <div class="col-sm-10 row">
 							<div class="col-3 pe-0">
@@ -285,7 +285,7 @@ function userIdCheck() {
 				        </div>
 				    </div>
 				    
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <label class="col-sm-2 col-form-label" for="tel1">전화번호</label>
 				        <div class="col-sm-10 row">
 							<div class="col-sm-3 pe-2">
@@ -322,7 +322,7 @@ function userIdCheck() {
 					    </div>
 					 </c:if>
 				     
-				    <div class="row mb-3">
+				    <div class="row mb-4">
 				        <div class="text-center">
 				            <button type="button" name="sendButton" class="btn basic text-white" onclick="memberOk();"> ${mode=="ceomember"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
 				            <button type="button" class="btn side text-white" onclick="location.href='${pageContext.request.contextPath}/';"> ${mode=="ceomember"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>

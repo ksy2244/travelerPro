@@ -11,8 +11,27 @@
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 <style type="text/css">
+body {
+	height: 100vh;
+	width: 100%;
+	background-image: url('${pageContext.request.contextPath}/resources/images/background4.png');
+	background-size: cover;
+	background-repeat: repeat-x;
+}
+
 .body-container {
 	max-width: 800px;
+}
+
+.basic {
+	background: #dc3545;
+}
+
+.basic:hover {background: #F03545;}
+
+.login {
+	background: white;
+	border-radius: 3px;
 }
 </style>
 
@@ -46,10 +65,11 @@ function sendLogin() {
 
 <main class="pt-5">
 	<div class="container">
-		<div class="body-container">	
+		<div class="body-container">
+			<br><br>
 	        <div class="row">
 	            <div class="col-md-6 offset-md-3">
-	                <div class="border mt-5 p-4">
+	                <div class="border mt-5 p-4 login">
 	                    <form name="loginForm" action="" method="post" class="row g-3">
 	                        <h3 class="text-center"><i class="bi bi-lock"></i> 회원 로그인</h3>
 	                        <div class="col-12">
@@ -67,7 +87,7 @@ function sendLogin() {
 	                            </div>
 	                        </div>
 	                        <div class="col-12">
-	                            <button type="button" class="btn float-end" onclick="sendLogin();" style="background: #EDEEF7">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
+	                            <button type="button" class="btn float-end basic text-white" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
 	                        </div>
 	                    </form>
 	                    <hr class="mt-4">
@@ -80,8 +100,8 @@ function sendLogin() {
 	                    </div>
 	                </div>
 
-	                <div class="d-grid">
-							<p class="form-control-plaintext text-center text-primary">${message}</p>
+	                <div class="d-grid login">
+							<p class="form-control-plaintext text-center text-danger">${message}</p>
 	                </div>
 
 	            </div>
