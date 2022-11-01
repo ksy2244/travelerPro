@@ -79,7 +79,7 @@
 		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">관광지</a>
 		        </li>
 		    	<li class="nav-item">
-		          		<a class="nav-link text-white" href="#" title="예약내역"
+		          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/reservation/myReservation.do" title="예약내역"
 		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">예약내역</a>
 		        </li>
 		        <li class="nav-item dropdown">
@@ -102,8 +102,8 @@
 		          <ul class="dropdown-menu">
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwd.do?mode=update" style="font-family: 'GmarketSans';">내 정보</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupon.do" style="font-family: 'GmarketSans';">쿠폰함</a></li>
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">예약내역</a></li>
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">나의 후기</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservation.do" style="font-family: 'GmarketSans';">예약내역</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/review/myReview.do" style="font-family: 'GmarketSans';">나의 후기</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/alarm.do" style="font-family: 'GmarketSans';">알림설정</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'GmarketSans';">로그아웃</a></li>
@@ -115,7 +115,6 @@
  	</div>
 </nav>
 
-	
 	
 	<!-- 회원가입 선택 모달 -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
