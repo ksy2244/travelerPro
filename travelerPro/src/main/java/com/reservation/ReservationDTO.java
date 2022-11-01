@@ -23,6 +23,7 @@ public class ReservationDTO {
 	private String roomName;
 	private String userName;
 	private String imageFileName;
+	private int day;
 	
 	private String addr;
 	private String addrDetail;
@@ -240,6 +241,16 @@ public class ReservationDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
+	
 	
 	
 	

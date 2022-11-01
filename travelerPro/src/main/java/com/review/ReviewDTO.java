@@ -12,6 +12,10 @@ public class ReviewDTO {
 	private int companyNum;
 	private String nickName;
 	private int reviewNum;
+	private String companyName;
+	private String roomName;
+	private String startDate;
+	private String endDate;
 
 	public int getReviewNum() {
 		return reviewNum;
@@ -73,7 +77,7 @@ public class ReviewDTO {
 		return starRate;
 	}
 
-	public void setStarRage(int starRate) {
+	public void setStarRate(int starRate) {
 		this.starRate = starRate;
 	}
 
@@ -93,16 +97,44 @@ public class ReviewDTO {
 		this.companyNum = companyNum;
 	}
 
-	public void setStarRate(int starRate) {
-		this.starRate = starRate;
-	}
-
 	public String getNickName() {
 		return nickName;
 	}
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 }

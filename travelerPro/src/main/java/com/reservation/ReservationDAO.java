@@ -546,11 +546,11 @@ public class ReservationDAO {
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = null;
+		String sql = null; 
 		try {
-			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
-					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, roomName, c.companyName, m.userName, "
-					+ " 	paymentPrice, imageFileName " 
+			sql = " SELECT r.reservationNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
+					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
+					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" 
 					+ " FROM reservation r "
 
 					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
@@ -573,6 +573,7 @@ public class ReservationDAO {
 
 			while (rs.next()) {
 				ReservationDTO dto = new ReservationDTO();
+				dto.setReservationNum(rs.getLong("reservationNum"));
 				dto.setStart_date(rs.getString("startDate"));
 				dto.setEnd_date(rs.getString("endDate"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
@@ -583,6 +584,7 @@ public class ReservationDAO {
 				dto.setUserName(rs.getString("userName"));
 				dto.setPaymentPrice(rs.getInt("paymentPrice"));
 				dto.setImageFileName(rs.getString("imageFileName"));
+				dto.setDay(rs.getInt("day"));
 
 				list.add(dto);
 			}

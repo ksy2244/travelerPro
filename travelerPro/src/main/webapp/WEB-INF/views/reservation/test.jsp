@@ -1,47 +1,126 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class='review-info'>
-	<span class='review-count'>댓글 ${reviewCount}개</span>
-	<span>[목록, ${pageNo}/${total_page} 페이지]</span>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<title>TRAVELER</title>
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
+	type="text/css">
+<link rel="import" href="map.html">
+<style type="text/css">
+.body-container {
+	max-width: 1500px;
+}
 
-<table class='table table-borderless reply-list'>
-	<c:forEach var="vo" items="${listReview}">
-		<tr class='list-header'>
-			<td width='50%'>
-				<span class='bold'>${vo.nickName}</span>
-			</td>
-			<td width='50%' align='right'>
-				<span>${vo.reg_date}</span> |
-				<c:choose>
-					<c:when test="${sessionScope.member.userId==vo.userId || sessionScope.member.userId=='admin'}">
-						<span class='deleteReply' data-replyNum='${vo.reviewNum}' data-pageNo='${pageNo}'>삭제</span>
-					</c:when>
-					<c:otherwise>
-						<span class='notifyReply'>신고</span>
-					</c:otherwise>
-				</c:choose>
-			</td>
-		</tr>
-		<tr>
-			<td colspan='2' valign='top'>${vo.content}</td>
-		</tr>
+.body-main {
+	max-width: 1000px;
+	margin-left: 150px;
+}
 
-		<tr>
-			<td>
-				<button type='button' class='btn btn-light btnReplyAnswerLayout' data-replyNum='${vo.replyNum}'>답글 <span id="answerCount${vo.replyNum}">${vo.answerCount}</span></button>
-			</td>
-			<td align='right'>
-				<button type='button' class='btn btn-light btnSendReplyLike' data-replyNum='${vo.replyNum}' data-replyLike='1' title="좋아요"><i class="bi bi-hand-thumbs-up"></i> <span>${vo.likeCount}</span></button>
-				<button type='button' class='btn btn-light btnSendReplyLike' data-replyNum='${vo.replyNum}' data-replyLike='0' title="싫어요"><i class="bi bi-hand-thumbs-down"></i> <span>${vo.disLikeCount}</span></button>	        
-			</td>
-		</tr>
-	</c:forEach>
-</table>
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
 
-<div class="page-navigation">
-	${paging}
-</div>							
+.list {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+
+.date {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+.gap {
+	margin-bottom: 100px;
+}
+
+.body {
+	margin-left: 200px;
+}
+
+.company {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.rnum {
+	color: #787878;
+	font-size: 15px;
+}
+
+.room {
+	color: #787878;
+	font-size: 16px;
+}
+
+.day {
+	color: #787878;
+	font-size: 15px;
+}
+</style>
+</head>
+<body class="pt-5">
+	<header>
+		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
+	</header>
+
+	<main class="pt-5">
+		<div class="container">
+			<div class="body-container">
+				<div class="body-title">
+					<h3>나의 작성 리뷰</h3>
+				</div>
+
+				<div class="body-main">
+					<div class="row">
+						<c:forEach var="dto" items="${list}" varStatus="status">
+							<div class="list">
+								<h5 class="card-title date pt-4 ps-5">${dto.reg_date}</h5>
+								<hr class="pt-2">
+								<div class="rnum ps-5">숙소 예약번호 ${dto.reservationNum}</div>
+
+								<div class="body ps-5">
+									<div class="company">${dto.companyName}</div>
+									<div class="room">${dto.roomName}</div>
+									<div class="day">${dto.start_date}~ ${dto.end_date}</div>
+									<div>평점 ${dto.starRate}</div>
+									<div>리뷰 내용 ${dto.content}</div>
+									<div>리뷰 내용 ${dto.reg_date}</div>
+									<br>
+									<button type="button" name="sendButton"
+										class="dateBtn btn btn-danger mb-5"
+										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">아직
+										연결 못해 ㅠ</button>
+
+								</div>
+							</div>
+							<div class="gap"></div>
+						</c:forEach>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+	</footer>
+
+	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
+
+
+
+
+</body>
+</html>

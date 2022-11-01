@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import com.member.SessionInfo;
+import com.reservation.ReservationDAO;
+import com.reservation.ReservationDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
@@ -36,7 +38,6 @@ public class ReviewServlet extends TravelServlet {
 			return;
 		}
 
-
 		if (uri.indexOf("insertReview.do") != -1) {
 			// 댓글 추가
 			insertReview(req, resp);
@@ -49,6 +50,8 @@ public class ReviewServlet extends TravelServlet {
 
 		} else if (uri.indexOf("review.do") != -1) {
 			review(req, resp);
+		} else if (uri.indexOf("myReview.do") != -1) {
+			myReview(req, resp);
 		}
 
 	}
@@ -172,6 +175,43 @@ public class ReviewServlet extends TravelServlet {
 		}
 
 		resp.sendError(400);
+
+	}
+
+	private void myReview(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		ReviewDAO dao = new ReviewDAO();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String cp = req.getContextPath();
+
+		req.setCharacterEncoding("utf8");
+
+		try {
+
+			List<ReviewDTO> list = null;
+
+			if (info == null) {
+
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+
+			list = dao.myReviewList(info.getUserId());
+			System.out.println(info.getUserId());
+
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/reservation/myReview.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 
 	}
 

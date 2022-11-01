@@ -185,7 +185,7 @@ public class ReservationServlet extends TravelServlet {
 			e.printStackTrace();
 		}
 
-		resp.sendError(400);
+		
 
 	}
 
@@ -223,7 +223,7 @@ public class ReservationServlet extends TravelServlet {
 
 			// 검색
 			String condition = req.getParameter("condition");
-			String keyword = req.getParameter("keyword");
+	 		String keyword = req.getParameter("keyword");
 			if (condition == null) {
 				condition = "all";
 				keyword = "";
