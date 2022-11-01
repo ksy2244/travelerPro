@@ -124,11 +124,11 @@
 				if(state === "true") {
 					let color = "black";
 					if( isNoLike ) {
-						color = "blue";
+						color = "red";
 					}
 					$i.css("color", color);
 					
-					let count = data.boardLikeCount;
+					let count = data.companyLikeCount;
 					$("#companyLikeCount").text(count);
 				} else if(state === "liked") {
 					alert("찜은 한번만 가능합니다. !!!");
@@ -296,13 +296,8 @@
 							<table>
 								<tr>
 								<td colspan="2" class="text-center p-3">
-									<button type="button"
-										class="btn btn-outline-secondary btnSendCompanyLike"
-										title="좋아요">
-										<img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class ="icon"> 
-										&nbsp;&nbsp;<span
-											id="companyLikeCount">${companyDto.pick}</span>
-									</button>
+									<button type="button" class="btn btn-outline-secondary btnSendCompanyLike" title="좋아요">
+									<i class="fa-sharp fa-solid fa-heart"  style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button>								
 								</td>
 								</tr>
 							</table>

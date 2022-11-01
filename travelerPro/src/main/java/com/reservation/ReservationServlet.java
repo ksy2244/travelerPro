@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
@@ -36,6 +35,14 @@ public class ReservationServlet extends TravelServlet {
 		String uri = req.getRequestURI();
 
 		// 세션 정보
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		if (info == null) {
+			forward(req, resp, "/WEB-INF/views/member/login.jsp");
+			return;
+		}
 
 		// 숙박업체 리스트 화면
 		if (uri.indexOf("companyList.do") != -1) {
@@ -98,6 +105,13 @@ public class ReservationServlet extends TravelServlet {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
+			
+			// 로그인 유저의 게시글 공감 여부
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+	
+			boolean isLike = dao.isUserCompanyLike(companyNum, info.getUserId());
+			
 
 			List<ReserveRoomDTO> roomList = null;
 
@@ -110,6 +124,7 @@ public class ReservationServlet extends TravelServlet {
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("roomList", roomList);
+			req.setAttribute("isUserLike", isLike);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
 
@@ -212,9 +227,11 @@ public class ReservationServlet extends TravelServlet {
 		ReservationDAO dao = new ReservationDAO();
 		TravelUtil util = new TravelUtilBootstrap();
 
+
 		String cp = req.getContextPath();
 
 		try {
+			
 			String page = req.getParameter("page");
 			int current_page = 1;
 			if (page != null) {
@@ -475,9 +492,9 @@ public class ReservationServlet extends TravelServlet {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
 		String cp = req.getContextPath();
 
-		System.out.println("insertCompanyLike");
 		String state = "false";
 		int companyLikeCount = 0;
 
@@ -501,9 +518,12 @@ public class ReservationServlet extends TravelServlet {
 			companyLikeCount = dao.countCompanyLike(companyNum);
 
 			state = "true";
+		} catch (SQLException e) {
+			state = "liked";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 
 		JSONObject job = new JSONObject();
 		job.put("state", state);
@@ -513,4 +533,5 @@ public class ReservationServlet extends TravelServlet {
 		PrintWriter out = resp.getWriter();
 		out.print(job.toString());
 	}
+	
 }

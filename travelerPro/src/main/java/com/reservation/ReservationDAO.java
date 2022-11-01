@@ -73,35 +73,35 @@ public class ReservationDAO {
 			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime,  "
 					+ " notice, addr, addrDetail, zip, mc.imageFileName, minPrice,  "
 					+ " CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
-					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  "
-					+ " FROM company c   "
+					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  " + " FROM company c   "
 					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum "
 					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
 					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
 					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
-					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum  "
-					+ " FROM company c, room r   "
+					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum  " + " FROM company c, room r   "
 					+ " WHERE c.companyNum = r.companyNum)";
 
-			
-			//  CREATE OR REPLACE VIEW reviewStar AS
-			//	(SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum)  FROM review GROUP BY companyNum);
+			// CREATE OR REPLACE VIEW reviewStar AS
+			// (SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum) FROM review GROUP
+			// BY companyNum);
 
 			// CREATE OR REPLACE VIEW companyPick AS
 			// (SELECT companyNum, COUNT(userId) AS pick FROM pick GROUP BY companyNum);
-			
-			//CREATE OR REPLACE VIEW companyPrice AS
+
+			// CREATE OR REPLACE VIEW companyPrice AS
 			// (SELECT companyNum, MIN(price) AS minPrice FROM room GROUP BY companyNum);
 
-			// CREATE OR REPLACE VIEW companyStar AS SELECT TRUNC(SUM(starRate)/COUNT(starRate), 1) AS starRate, companyNum FROM review r
+			// CREATE OR REPLACE VIEW companyStar AS SELECT
+			// TRUNC(SUM(starRate)/COUNT(starRate), 1) AS starRate, companyNum FROM review r
 			// JOIN reservation rv ON r.reservationNum = rv.reservationNum
 			// GROUP BY companyNum
-			
-			/* CREATE OR REPLACE FORCE NONEDITIONABLE VIEW  mainCompanyImage AS 
-			  (SELECT imageFileName, companyNum
-			                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName, companyNum 
-			                  FROM companyFile)
-			                  WHERE rnum = 1) */
+
+			/*
+			 * CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainCompanyImage AS (SELECT
+			 * imageFileName, companyNum FROM (SELECT ROW_NUMBER() OVER(PARTITION BY
+			 * companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName,
+			 * companyNum FROM companyFile) WHERE rnum = 1)
+			 */
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -154,19 +154,17 @@ public class ReservationDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		
+
 		try {
-				sql =  "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
-					 + "  FROM room r "
-					 + "  JOIN mainRoomImage mr ON mr.roomNum = r.roomNum "
-					 + "  WHERE companyNum = ? ";
+			sql = "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
+					+ "  FROM room r " + "  JOIN mainRoomImage mr ON mr.roomNum = r.roomNum "
+					+ "  WHERE companyNum = ? ";
 			/*
-			 
-			CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainRoomImage AS 
-  				(SELECT imageFileName, roomNum
-                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY roomNum ORDER BY roomNum, imageFileName DESC) rnum, imageFileName, roomNum 
-                  FROM roomFile)
-                  WHERE rnum = 1)
+			 * 
+			 * CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainRoomImage AS (SELECT
+			 * imageFileName, roomNum FROM (SELECT ROW_NUMBER() OVER(PARTITION BY roomNum
+			 * ORDER BY roomNum, imageFileName DESC) rnum, imageFileName, roomNum FROM
+			 * roomFile) WHERE rnum = 1)
 			 */
 
 			pstmt = conn.prepareStatement(sql);
@@ -344,9 +342,9 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = 	" SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
 					+ " checkintime, checkouttime, companyTel, "
-					+ " notice, addr, addrDetail, zip , pick FROM company c " 
+					+ " notice, addr, addrDetail, zip , pick FROM company c "
 					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -525,8 +523,8 @@ public class ReservationDAO {
 			pstmt.close();
 			pstmt = null;
 
-			sql = "INSERT INTO reservationDetail(reservationDetailNum, reservationNum, roomNum )" 
-				+ " VALUES(reservationDetail_seq.NEXTVAL, ?, ?)";
+			sql = "INSERT INTO reservationDetail(reservationDetailNum, reservationNum, roomNum )"
+					+ " VALUES(reservationDetail_seq.NEXTVAL, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, dto.getReservationNum());
 			pstmt.setInt(2, dto.getRoomNum());
@@ -560,12 +558,11 @@ public class ReservationDAO {
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = null; 
+		String sql = null;
 		try {
 			sql = " SELECT r.reservationNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
-					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" 
-					+ " FROM reservation r "
+					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
 
 					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
 
@@ -715,4 +712,76 @@ public class ReservationDAO {
 
 	}
 
+	// 내가 사용할 수 있는 쿠폰 리스트
+	public List<ReserveRoomDTO> listCoupn(String userId) throws SQLException {
+		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+
+		try {
+			sql = " SELECT  couponName, couponRate, start_date, end_date FROM coupon " 
+					+ " WHERE (couponNum NOT IN "
+					+ " 	(SELECT couponNum FROM myCoupon WHERE userID =  > ) )AND "
+					+ " 	(( start_date <= SYSDATE ) AND  ( end_date >= SYSDATE )) ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return list;
+	}
+
+	public boolean isUserCompanyLike(int companyNum, String userId) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT companyNum, userId FROM pick WHERE companyNum = ?  AND userId = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, companyNum);
+			pstmt.setString(2, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+		}
+		
+		return result;
+	}
 }
