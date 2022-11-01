@@ -23,6 +23,7 @@ public class ReserveRoomDTO {
 	private int zip;
 	private String start_date; // 시작일
 	private String end_date; // 종료일
+	private String imageFileName;
 	
 	public int getRoomNum() {
 		return roomNum;
@@ -190,6 +191,14 @@ public class ReserveRoomDTO {
 
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
+	}
+
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
 	}
 	
 	
