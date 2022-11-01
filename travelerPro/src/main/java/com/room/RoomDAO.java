@@ -356,26 +356,6 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 			 return list;
 		 }
 		 
-		 public void deletePhoto(int num)throws SQLException{
-			 PreparedStatement pstmt=null;
-			 String sql;
-			 
-			 try {
-				sql="DELETE FROM roomFile WHERE num=?";
-				pstmt=conn.prepareStatement(sql);
-				pstmt.setLong(1, num);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}finally {
-				if(pstmt !=null) {
-					try {
-						pstmt.close();
-					} catch (Exception e2) {
-					}
-				}
-			}
-		 }
 		 
 		
 		 public RoomDTO readPhotoFile(long fileNum) {
@@ -415,4 +395,29 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 			}
 			 return dto;
 		 }
+		 
+		public void deleteRoomFile(String mode, long roomNum)throws SQLException{
+			PreparedStatement pstmt =null;
+			String sql;
+			try {
+				if(mode.equals("all")) {
+					sql="DELETE FROM roomFile WHERE roomNum= ?";
+				}else {
+					sql="DELETE FROM roomfile where fileNum =?";
+				}
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setLong(1, roomNum);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e2) {
+					}
+				}
+			}
+		}
 }

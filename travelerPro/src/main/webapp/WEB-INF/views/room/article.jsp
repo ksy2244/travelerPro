@@ -49,7 +49,7 @@ function deleteroom() {
 							<td colspan="2" style="border-bottom: none;">
 							
 								<div class="row row-cols-6 img-box">
-								이미지:
+								
 									<c:forEach var="vo" items="${listFile}">
 										<div class="col p-1">
 											<img src="${pageContext.request.contextPath}/uploads/room/${vo.imageFilename}"
