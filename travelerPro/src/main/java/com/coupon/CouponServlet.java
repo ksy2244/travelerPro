@@ -2,7 +2,6 @@ package com.coupon;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.member.SessionInfo;
-import com.notice.NoticeDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;

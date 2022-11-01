@@ -563,7 +563,7 @@ public class ReservationDAO {
 
 					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
 
-					+ " WHERE m.userId = ? ";
+					+ " WHERE m.userId = ? AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
 
 			pstmt = conn.prepareStatement(sql);
 

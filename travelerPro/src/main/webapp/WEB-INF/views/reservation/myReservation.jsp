@@ -91,7 +91,7 @@
 							<div class="list">
 								<h5 class="card-title date pt-4 ps-5">${dto.reservation_date}</h5>
 								<hr class="pt-2">
-								<div class="rnum ps-5">숙소 예약번호 </div>
+								<div class="rnum ps-5">숙소 예약번호 ${dto.reservationNum }</div>
 								<img
 									src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
 									class="card-img-top ps-5 pt-4 img">
@@ -99,19 +99,20 @@
 								<div class="body ps-5"> 
 									<div class="company">${dto.companyName}</div>
 									<div class="room">${dto.roomName}</div>
-									<div class="day">${dto.start_date} ~ ${dto.end_date}</div>
+									<div class="day">${dto.start_date} ~ ${dto.end_date} | ${dto.day}박</div>
 									<div>체크인 ${dto.checkInTime} | 체크아웃 ${dto.checkOutTime}</div>
 									<br>
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger mb-5"
 										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">후기 작성하기 </button>
-								
+									
 								</div>
 							</div>
 							<div class="gap"></div>
 						</c:forEach>
 					</div>
-
+					<div class="plus pt-5">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
+					<div>(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 팬매자에게 있습니다.</div>
 
 				</div>
 			</div>
