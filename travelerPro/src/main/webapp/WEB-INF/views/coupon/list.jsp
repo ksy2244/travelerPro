@@ -120,7 +120,7 @@
 									<td class="p-0 block text_color">${dto.start_date} ~ ${dto.end_date}</td>
 									<td class="p-2 block" id="searchDate">
 										<c:choose>
-											<c:when test="${searchDate=='쿠폰 만료일까지 0일 남았습니다.'}">
+											<c:when test="${searchDate=='쿠폰 만료일까지 1일 남았습니다.'}">
 												쿠폰이 오늘 만료됩니다.
 											</c:when>
 											<c:otherwise>

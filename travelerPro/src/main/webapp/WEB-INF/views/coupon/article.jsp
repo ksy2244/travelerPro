@@ -132,7 +132,7 @@ function deleteCoupon() {
 							<td class="p-1 block fs-5 fw-bold" align="center">${dto.couponName}</td>
 							<td class="p-0 block text_color" align="center">${dto.start_date} ~ ${dto.end_date} |
 								<c:choose>
-									<c:when test="${searchDate=='쿠폰 만료일까지 0일 남았습니다.'}">
+									<c:when test="${searchDate=='쿠폰 만료일까지 1일 남았습니다.'}">
 										<span id="searchDate">쿠폰이 오늘 만료됩니다.</span>
 									</c:when>
 									<c:otherwise>

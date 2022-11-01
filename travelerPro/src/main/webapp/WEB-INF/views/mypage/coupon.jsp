@@ -82,6 +82,10 @@
 	margin-top: 10px;
 }
 
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 </head>
@@ -135,7 +139,7 @@
 					</table>
 				</c:forEach>
 				
-				<div class="page-navigation">
+				<div class="page-navigation paging">
 					${dataCount == 0 ? "등록된 쿠폰이 없습니다." : paging}
 				</div>
 

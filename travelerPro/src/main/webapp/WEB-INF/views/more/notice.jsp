@@ -33,6 +33,11 @@ td {
 	font-size: 14px;
 }
 
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
+
 </style>
 
 </head>
@@ -67,7 +72,7 @@ td {
 					</tbody>
 				</table>
 				
-				<div class="page-navigation">
+				<div class="page-navigation paging">
 					${dataCount == 0 ? "등록된 공지사항이 없습니다." : paging}
 				</div>
 

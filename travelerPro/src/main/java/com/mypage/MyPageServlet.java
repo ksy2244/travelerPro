@@ -99,24 +99,37 @@ public class MyPageServlet extends TravelServlet {
 			
 			end_date = end_date + " 00:00:00";
 			
+			if(end_date != "null 00:00:00") {
+				req.setAttribute("list", list);
+				req.setAttribute("page", current_page);
+				req.setAttribute("dataCount", dataCount);
+				req.setAttribute("articleUrl", articleUrl);
+				req.setAttribute("paging", paging);
+			} else {
+				Date now = new Date(Calendar.getInstance().getTimeInMillis());
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				Date ed = sf.parse(end_date);
+		       
+		        long diff = ed.getTime() - now.getTime();
+		        long Day = diff/(24*60*60*1000);
+		        
+		        String searchDate = null;
+		        
+		        
+		        searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
+		        
+
+				req.setAttribute("searchDate", searchDate);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("page", current_page);
+				req.setAttribute("dataCount", dataCount);
+				req.setAttribute("articleUrl", articleUrl);
+				req.setAttribute("paging", paging);
+			}
 			
-			Date now = new Date(Calendar.getInstance().getTimeInMillis());
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			
-			Date ed = sf.parse(end_date);
-	       
-	        long diff = ed.getTime() - now.getTime();
-	        long Day = diff/(24*60*60*1000);
-	        
-	        String searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
-			
-			req.setAttribute("searchDate", searchDate);
-			
-			req.setAttribute("list", list);
-			req.setAttribute("page", current_page);
-			req.setAttribute("dataCount", dataCount);
-			req.setAttribute("articleUrl", articleUrl);
-			req.setAttribute("paging", paging);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
