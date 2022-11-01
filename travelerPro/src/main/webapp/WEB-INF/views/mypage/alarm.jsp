@@ -13,7 +13,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 1500px;
+	max-width: 450px;
 }
 
 .body-title {
@@ -83,7 +83,6 @@
 }
 
 .checkbox_container {
-
 	height: 30px;
 	line-height: 30px;
 	margin-top: 8px;
@@ -154,51 +153,53 @@
 	<main class="pt-5">
 		<div class="container">
 			<div class="body-container">
-				
+
 				<div class="body-title">
-					<h3>알림</h3>
+					<h3>알림 설정</h3>
 				</div>
 				<div class="body-main">
-				<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
-					type="checkbox" checked="checked"> <span
-					class="checkbox_mark"></span>
-					
-				</label>
-				<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
-				
-				<label class="checkbox_container"> 푸시알림 <input
-					type="checkbox" checked="checked"> <span
-					class="checkbox_mark"></span>
-				</label> <label class="checkbox_container"> 이메일 <input
-					type="checkbox"> <span class="checkbox_mark"></span>
-				</label> <label class="checkbox_container"> SMS <input
-					type="checkbox"> <span class="checkbox_mark"></span>
-				</label>
+					<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
+						type="checkbox" checked="checked"> <span
+						class="checkbox_mark"></span>
+
+					</label>
+					<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
+
+					<label class="checkbox_container"> 푸시알림 <input
+						type="checkbox" checked="checked"> <span
+						class="checkbox_mark"></span>
+					</label> <label class="checkbox_container"> 이메일 <input
+						type="checkbox"> <span class="checkbox_mark"></span>
+					</label> <label class="checkbox_container"> SMS <input
+						type="checkbox"> <span class="checkbox_mark"></span>
+					</label>
 
 				</div>
 			</div>
 		</div>
 
 		<div class="text-center mb-2 p-2">
-		
-		<button type="button" class="btn btn-primary btnDialog3">변경</button>
-		
-			<div class="modal fade" id="myDialogModal3" tabindex="-1" 
-		aria-labelledby="myDialogModalLabel3" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림 수신정보가 수정되었습니다.</h6>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+			<button type="button" class="btn btn-outline-info btn-lg btnDialog3">변경</button>
+
+			<div class="modal fade" id="myDialogModal3" tabindex="-1"
+				aria-labelledby="myDialogModalLabel3" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
+								수신정보가 수정되었습니다.</h6>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<p>• 일시 :</p>
+							<p>• 수신거절 :</p>
+							<p>• 수신동의 :</p>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="modal-body">
-        		<p>• 일시 : </p>
-        		<p>• 수신거절 : </p>
-        		<p>• 수신동의 : </p>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 		</div>
@@ -213,25 +214,24 @@
 	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 </body>
 
+
 <script type="text/javascript">
-$(function(){
-	$(".btnClose").click(function(){
-		$("#myDialogModal2").modal("hide");
+	$(function() {
+		$(".btnClose").click(function() {
+			$("#myDialogModal2").modal("hide");
+		});
 	});
-});
 
-$(function(){
-	$(".btnDialog3").click(function(){
-		$("#myDialogModal3").modal("show");
+	$(function() {
+		$(".btnDialog3").click(function() {
+			$("#myDialogModal3").modal("show");
+		});
 	});
-});
 
-$(function(){
-	$(".btnDialog4").click(function(){
-		$("#myDialogModal4").modal("show");
+	$(function() {
+		$(".btnDialog4").click(function() {
+			$("#myDialogModal4").modal("show");
+		});
 	});
-});
-
-
 </script>
 </html>

@@ -16,6 +16,7 @@ public class MypageDTO {
 	private long fileSize;
 	
 	
+	
 	public String getUserId() {
 		return userId;
 	}
