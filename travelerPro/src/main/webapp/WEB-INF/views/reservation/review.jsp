@@ -10,8 +10,66 @@
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
+<style type="text/css">
+.font {
+	font-size: 15px;
+	color: #787878;
+}
 
+.text {
+	width: 1000px;
+	height: 200px;
+	margin-left: 100px;
+}
+
+.star li{
+	font-size:22px;
+	letter-spacing:-1px;
+	display:inline-block;
+	color:#ccc;
+	text-decoration:none;
+	cursor:pointer;
+	
+}
+.star li.on{color:#F2CB61;}
+
+.box {
+	background: #F6F6F6; 
+	height: 250px;
+	border-radius: 5px;
+	margin-left: 100px;
+	width: 1000px;
+}
+
+.score {
+	font-weight: bold;
+	font-size: 80px;
+	padding-left: 470px;
+}
+
+.star {
+	margin-left: 410px;
+}
+
+.choice {
+	font-size: 30px;
+	margin-left: 450px;
+	font-weight: bold;
+	color: #787878;
+}
+
+.btn {
+	margin-right: 140px;
+	margin-top: 20px;
+}
+
+.all {
+	font-size: 20px;
+}
+
+</style>
 </head>
+
 
 <script type="text/javascript">
 	function ajaxFun(url, method, query, dataType, fn) {
@@ -48,7 +106,7 @@
 		const $tb = $(this).closest("table");
 		let content = $tb.find("textarea").val().trim();
 
-		var star = $("input:radio[name=reviewStar]:checked").val();
+		var star = $("input[name=reviewStar]").val();
 
 		if (!content) {
 			$tb.find("textarea").focus();
@@ -130,43 +188,40 @@
 			$("#score").val(s);
 		});
 	});
+	
 </script>
+
 
 </head>
 <main>
 	<div class="container">
 		<div class="body-container">
-			<div class="body-title"></div>
-
 			<div class="body-main">
-
-
-
-				<div class="review">
+				<div class="review pt-3">
 					<form name="reviewForm" method="post">
-						<div class='form-header'>
-							<span class="bold">댓글</span><span> - 타인을 비방하거나 개인정보를 유출하는
-								글의 게시를 삼가해 주세요.</span>
-						</div>
+						 	<div class="score pt-2"><span class="all">총점&nbsp;&nbsp;</span>4.2</div>
+ 	 					
+ 	 					 <div class="choice mt-4">별점을 선택하세요</div>
+ 	 					 <ul class="star mt-3">
+					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+					     </ul>
+ 	 					 
+ 	 					 <div style="margin-top: 10px;">
+							<input type="hidden" name="reviewStar" id="score" value="0" readonly="readonly">
+  						</div>
 
 						<table class="table table-borderless review-form">
 							<tr>
-								<td><textarea class='form-control' name="content"></textarea>
-								</td>
-								<td><span class="text-bold">별점을 선택해주세요</span></td>
-								<td><input type="radio" name="reviewStar" value="1"
-									id="rate1"> <label for="rate1">★</label> <input
-									type="radio" name="reviewStar" value="2" id="rate2"> <label
-									for="rate2">★</label> <input type="radio" name="reviewStar"
-									value="3" id="rate3"> <label for="rate3">★</label> <input
-									type="radio" name="reviewStar" value="4" id="rate4"> <label
-									for="rate4">★</label> <input type="radio" name="reviewStar"
-									value="5" id="rate5"> <label for="rate5">★</label></td>
-
+								<td><textarea class='form-control text' name="content" placeholder="타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가해 주세요."></textarea></td>
 							</tr>
+							
 							<tr>
 								<td align='right'>
-									<button type='button' class='btn btn-light btnSendReview'>댓글
+									<button type='button' class='btn btn-danger btnSendReview'>댓글
 										등록</button>
 								</td>
 

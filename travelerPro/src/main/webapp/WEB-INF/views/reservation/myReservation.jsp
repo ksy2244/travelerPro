@@ -32,6 +32,7 @@
 .list {
 	border: 1px solid #ccc;
 	border-radius: 8px;
+	margin-bottom: 50px;
 }
 
 .date {
@@ -71,7 +72,38 @@
 	width: 300px;
 }
 
+.plus1 {
+	font-size: 15px;
+}
+
+.plus2 {
+	color: #787878;
+}
+
 </style>
+
+<script type="text/javascript">
+$(function() {
+	$(window).scroll(function() {
+	    // top button controll
+	    if ($(this).scrollTop() > 50) {
+	        $('#topButton').fadeIn();
+	    } else {
+	        $('#topButton').fadeOut();
+	    }
+	});
+
+	$("#topButton").click(function() {   
+		   $('html, body').animate({
+		     scrollTop : 0    
+		    }, 200);          
+		    return false;
+	});
+		
+});
+
+
+</script>
 </head>
 <body class="pt-5">
 	<header>
@@ -84,8 +116,8 @@
 				<div class="body-title">
 					<h3>예약 내역</h3>
 				</div>
-
-				<div class="body-main">
+				
+				<div class="body-main mt-5">
 					<div class="row">
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<div class="list">
@@ -105,16 +137,16 @@
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger mb-5"
 										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">후기 작성하기 </button>
-									
 								</div>
 							</div>
 							<div class="gap"></div>
 						</c:forEach>
 					</div>
-					<div class="plus pt-5">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
-					<div>(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 팬매자에게 있습니다.</div>
-
+					<div class="plus1 pt-3">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
+					<br><br>
+					<div class="plus2">(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.</div>
 				</div>
+				<div id="topButton" align="right"><i class="fa-solid fa-angles-up fa-3x"></i></div>
 			</div>
 		</div>
 	</main>
