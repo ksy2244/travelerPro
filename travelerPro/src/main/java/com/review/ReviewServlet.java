@@ -107,7 +107,6 @@ public class ReviewServlet extends TravelServlet {
 		String state = "false";
 
 		try {
-			System.out.println("밍밍");
 			int reviewNum = Integer.parseInt(req.getParameter("reviewNum"));
 			System.out.println(reviewNum);
 			dao.deleteReview(reviewNum, info.getUserId());

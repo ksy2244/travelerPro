@@ -9,8 +9,7 @@
 			<c:forEach var="room" items="${roomList}" varStatus="status">
 				<div class="card border-secondary mb-3" style="max-width: 100rem;">
 
-					<img
-						src="${pageContext.request.contextPath}/resources/images/mainImg/busan.png"
+					<img src="${pageContext.request.contextPath}/uploads/room/${dto.imageFileName}"
 						class="card-img-top" alt="...">
 
 					<div class="card-body">

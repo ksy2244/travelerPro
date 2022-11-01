@@ -145,7 +145,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		let u = "${pageContext.request.contextPath}/reservation/roomList.do?companyNum=${companyNum}";
+		let u = "${pageContext.request.contextPath}/reservation/roomList.do?companyNum=${companyNum}&start_date=${start_date}&end_date=${end_date}&tmp="+new Date().getTime();
 		$("#nav-1").load(u);
 
 		// 탭을 클릭할 때 마다

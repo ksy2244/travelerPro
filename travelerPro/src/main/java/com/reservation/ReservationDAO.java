@@ -87,7 +87,6 @@ public class ReservationDAO {
 			//  CREATE OR REPLACE VIEW reviewStar AS
 			//	(SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum)  FROM review GROUP BY companyNum);
 
-
 			// CREATE OR REPLACE VIEW companyPick AS
 			// (SELECT companyNum, COUNT(userId) AS pick FROM pick GROUP BY companyNum);
 			
@@ -97,6 +96,12 @@ public class ReservationDAO {
 			// CREATE OR REPLACE VIEW companyStar AS SELECT TRUNC(SUM(starRate)/COUNT(starRate), 1) AS starRate, companyNum FROM review r
 			// JOIN reservation rv ON r.reservationNum = rv.reservationNum
 			// GROUP BY companyNum
+			
+			/* CREATE OR REPLACE FORCE NONEDITIONABLE VIEW  mainCompanyImage AS 
+			  (SELECT imageFileName, companyNum
+			                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName, companyNum 
+			                  FROM companyFile)
+			                  WHERE rnum = 1) */
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -148,14 +153,23 @@ public class ReservationDAO {
 		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		StringBuilder sb = new StringBuilder();
-
+		String sql = null;
+		
 		try {
-			sb.append(" SELECT companyNum, roomNum, roomName, roomInfo, price, discountRate, headCount ");
-			sb.append(" FROM room");
-			sb.append("  WHERE companyNum = ? ");
+				sql =  "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
+					 + "  FROM room r "
+					 + "  JOIN mainRoomImage mr ON mr.roomNum = r.roomNum "
+					 + "  WHERE companyNum = ? ";
+			/*
+			 
+			CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainRoomImage AS 
+  				(SELECT imageFileName, roomNum
+                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY roomNum ORDER BY roomNum, imageFileName DESC) rnum, imageFileName, roomNum 
+                  FROM roomFile)
+                  WHERE rnum = 1)
+			 */
 
-			pstmt = conn.prepareStatement(sb.toString());
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, companyNum);
 			rs = pstmt.executeQuery();
 
