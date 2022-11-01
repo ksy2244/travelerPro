@@ -33,7 +33,24 @@
 .list_thumType > li .area_txt .tit a:hover{text-decoration: underline;}
 .list_thumType > li .area_txt .tit span{display: inline-block; padding-left: 5px; font-size: 16px;}
 .list_thumType > li .area_txt p{font-size: 14px;}
-
+.area-body {
+	position: relative;
+}
+.area-tag {
+	float: left;
+	position: fixed;
+	top: 300px;
+	width: 200px;
+	height: 300px;
+	background: lightgray;
+	border-radius: 50px;
+	text-align: center;
+	
+	
+}
+.area-tag p{
+	color: white;
+}
 
 
 

@@ -4,23 +4,24 @@
 	padding: 0;
 	margin: 0;
 }
-.map-image {
-	float: left;
-}
+
 .api-list {
-	/* float: right; */
+	margin-top: 200px;
 }
 .map-image img {
-	width: 500px;
-	height: 500px;
+	 margin-left:300px;
+   /*  display: block; */
+    height: 500px;
 }
 .api-container {
-	width: 100%;
-	height: 1000px;
+	margin-top:10px;
+	height: 1500px;
+	
 }
 .container {
 	width: 100%;
 }
+
 
 header {
 	position: relative;
@@ -29,11 +30,6 @@ header {
 	width: 100%;
 	
 }
-.header-image img{
-	width: 100%;
-	vertical-align: middle;
-
-}
 .image-text p{
 	position: absolute;
 	top: 200px;
@@ -41,6 +37,94 @@ header {
 	font-size: 25px;
 	color: white;
 	display: inline-block;
+}
+.map-image {
+	width: 700px;
+	height:500px;
+	text-align: center;
+}
+.region-button button {
+        border:none;
+		color: black;
+		background-color: rgba(0,0,0,0);
+		position: absolute;
+}
+.region-button button:hover {
+	background: white;
+}
+.region-button .seoul{
+	left: 860px;
+	top: 990px;
+}
+.region-button .incheon{
+	left: 800px;
+	top: 990px;
+}
+.region-button .sejeong{
+	left: 850px;
+	top: 1100px;
+}
+.region-button .guynggi{
+	left: 850px;
+	top: 1050px;
+}
+.region-button .gangwon{
+	left: 1000px;
+	top: 990px;
+}
+.region-button .daejeon{
+	left: 850px;
+	top: 1180px;
+}
+.region-button .daegu{
+	left: 1000px;
+	top: 1230px;
+}
+.region-button .wulsan{
+	left: 1040px;
+	top: 1300px;
+}
+.region-button .busan{
+	left: 1020px;
+	top: 1325px;
+}
+.region-button .gwangju{
+	left: 860px;
+	top: 1320px;
+}
+.region-button .chungbuk{
+	left: 920px;
+	top: 1100px;
+}
+.region-button .chungnam{
+	left: 800px;
+	top: 1150px;
+}
+.region-button .gyungbuk{
+	left: 1050px;
+	top: 1150px;
+}
+.region-button .gyungnam{
+	left: 950px;
+	top: 1300px;
+}
+.region-button .jeonbuk{
+	left: 830px;
+	top: 1250px;
+}
+.region-button .jeonnam{
+	left: 800px;
+	top: 1350px;
+}
+.region-button .jeju{
+	left: 710px;
+	top: 1480px;
+}
+ .map-title p{
+	position: absolute;
+	top: 950px;
+	left: 350px;
+	font-size: 20px;
 }
 /* .body-img {
 	width: 100%;
@@ -71,7 +155,7 @@ header {
 } */
 .body-container img{
 	width: 100%;
-	height: 600px;
+	height: 700px;
 }
 .body-container {
 	/* width:100%;
@@ -125,7 +209,7 @@ header {
 	overflow: hidden;
 	padding: 10px 0;
  	position: absolute;
-	right: 0;
+	right: 180px;
 	
 }
 .post-slider .post-wrapper .post {

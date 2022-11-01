@@ -25,6 +25,8 @@
 
 
 
+
+
 </style>
 
 <script type="text/javascript">
@@ -62,7 +64,7 @@ function areaBasedList(areaCode) {
 	
 	//let url="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList";
 	let url = "http://apis.data.go.kr/B551011/KorService/areaBasedList";
-	let serviceKey = "키값";
+	let serviceKey = "zoYzQ4HJAPjbBlboD7ozq5qMtBW4Ug2KyjcpX0%2FtxnM9Kn%2F1EmvgUjvNCEe6nhYUKeL4wnHIsZMhQXqCTg1ADA%3D%3D";
 	let query = "ServiceKey="+serviceKey;
 	query += "&pageNo="+pageNo;
 	query += "&numOfRows="+numOfRows;
@@ -87,6 +89,7 @@ function printAreaBasedList(data) {
 		$('.tour-list').slick("unslick")
 	}
 
+	
 	var out = "";	
 	let ex="";
 	var noImg = "${pageContext.request.contextPath}/resources/images/noimage.png";
@@ -100,6 +103,7 @@ function printAreaBasedList(data) {
 		if(! img) {
 			img = noImg;
 		}
+		var code = $("#areaCode").value;
 		//alert(contentid);
  		/* ex = "<a href='${pageContext.request.contextPath}/apiEx/test.jsp'"; */
  		//${pageContext.request.contextPath}/attraction/list.do?contentid="+contentid+'"
@@ -108,7 +112,7 @@ function printAreaBasedList(data) {
 		out += "    <div class='slider-image'><img src='"+img+"'></div>";
 		out += "    <div class='post-info'>";
 		out += "        <div class='fs-6 post-subject'>" + title + "</div>";
-		out += "        <div class='fs-6 post-link'><a onclick="+"location.href='${pageContext.request.contextPath}/attraction/list.do?contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+"> 둘러보기</a><i class='bi bi-arrow-right-circle'></i></div>";
+		out += "        <div class='fs-6 post-link'><a onclick="+"location.href='${pageContext.request.contextPath}/attraction/list.do?areacode="+code+"&contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+"> 둘러보기</a><i class='bi bi-arrow-right-circle'></i></div>";
 		out += "    </div>";
 		out += "</div>";
 	});
@@ -220,11 +224,33 @@ $(function(){
 			    <span class="visually-hidden">Next</span>
 			  </button>
 			</div>
+			<div class="map-title">
+				<p>원하는 지역을 선택하세요</p>
+			</div>
 			<div class="api-container">
  				<div class="map-image">
 					<img alt="지도" src="resources/images/map.png">
 					<!-- <img alt="지도" src="resources/images/exmarker.png"> -->
 				</div>
+			<div class="region-button">
+				<button class="seoul" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=1&region=서울'">서울</button>
+				<button class="incheon" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=2&region=인천'">인천</button>
+				<button class="sejeong" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=8&region=세종'">세종</button>
+				<button class="guynggi" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=31&region=경기도'">경기도</button>
+				<button class="gangwon" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=32&region=강원도'">강원도</button>
+				<button class="daejeon" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=3&region=대전'">대전</button>
+				<button class="daegu" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=대구'">대구</button>
+				<button class="gwangju" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=광주'">광주</button>
+				<button class="busan" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=6&region=부산'">부산</button>
+				<button class="wulsan" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=7&region=울산'">울산</button>
+				<button class="chungbuk" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=33&region=충청북도'">충청북도</button>
+				<button class="chungnam" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=34&region=충청남도'">충청남도</button>
+				<button class="gyungnam" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=36&region=경상남도'">경상남도</button>
+				<button class="gyungbuk" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=35&region=경상북도'">경상북도</button>
+				<button class="jeonbuk" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=37&region=전라북도'">전라북도</button>
+				<button class="jeonnam" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=38&region=전라남도'">전라남도</button>
+				<button class="jeju" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=39&region=제주도'">제주도</button>
+			</div>
 				<div class="api-list">
 					<div class="search-container mt-3">
 						<form class="row justify-content-center" method="get">

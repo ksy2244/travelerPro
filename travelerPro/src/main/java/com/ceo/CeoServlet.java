@@ -118,6 +118,7 @@ public class CeoServlet extends TravelServlet {
 			req.setAttribute("size", size);
 			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("paging", paging);
+			System.out.println(pathname);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

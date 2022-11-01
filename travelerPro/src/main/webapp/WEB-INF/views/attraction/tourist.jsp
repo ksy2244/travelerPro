@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style/tourist/content.css"
 	type="text/css">
 <style type="text/css">
+@import url('https://webfontworld.github.io/hallym/Hallym.css');
 /* div {
 	box-sizing: border-box;
 }
@@ -49,7 +50,7 @@ ul {
 .region-list > li .photo img {
 	width: 200px;
     height: 200px;
-} */
+}
 
 </style>
 <script type="text/javascript">
@@ -68,57 +69,31 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 $(function(){
-	sendRegion(${id}, ${typeid});
-	toutlist('1','서울');
+	//sendRegion(${id}, ${typeid});
+	toutlist(${areacode},'${region}');
 });
 
 
-function sendRegion(id, typeid){
+/* function sendRegion(id, typeid){
 	//$(".tour-title").html(areaName + " 지역의 관광지");
 	areaBasedList(id,typeid);
 	//areaBasedList2(areaCode);
-}
+} */
 function toutlist(areaCode,areaName) {
 	$(".tour-title").html(areaName + " 지역의 관광지");
-	areaBasedList2(areaCode);
-}
-function areaBasedList(id,typeid) {
-	let MobileOS = "ETC";
-	let MobileApp = "AppTest";
-	let contentId = id;
-	let contentTypeId = typeid;
-	//let arrange = "B";
-	
-	//let url="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList";
-	let url = "http://apis.data.go.kr/B551011/KorService/detailIntro";
-	let serviceKey = "키값";
-	let query = "ServiceKey="+serviceKey;
-	 query += "&MobileOS="+MobileOS;
-	query += "&MobileApp="+MobileApp;
-	query += "&contentId="+contentId;
-	query += "&contentTypeId="+contentTypeId;
-	//query += "&arrange="+arrange;
-	//query += "&type="+type;
-		
-	var fn = function(data) {
-		console.log(data);
-		printAreaBasedList(data);
-		
-	};
-	
-	ajaxFun(url, "get", query, "xml", fn);
+	areaBasedList2(areaCode, 1);
 }
 
-function areaBasedList2(areaCode) {
+
+function areaBasedList2(areaCode, pageNo) {
 	let MobileOS = "ETC";
 	let MobileApp = "AppTest";
 	let arrange = "B";
 	let numOfRows = 20;
-	let pageNo = 2;
 	
 	//let url="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList";
 	let url = "http://apis.data.go.kr/B551011/KorService/areaBasedList";
-	let serviceKey = "키값";
+	let serviceKey = "zoYzQ4HJAPjbBlboD7ozq5qMtBW4Ug2KyjcpX0%2FtxnM9Kn%2F1EmvgUjvNCEe6nhYUKeL4wnHIsZMhQXqCTg1ADA%3D%3D";
 	let query = "ServiceKey="+serviceKey;
 	query += "&pageNo="+pageNo;
 	query += "&numOfRows="+numOfRows;
@@ -128,18 +103,49 @@ function areaBasedList2(areaCode) {
 	query += "&areaCode="+areaCode;
 		
 	var fn = function(data) {
-		console.log(data);
-		printAreaBasedList(data);
+		// console.log(data);
+		let count = $(data).find("item").length;
+		pageNo = parseInt(pageNo);
 		
+		$(".btnPrev").attr("data-pageNo", pageNo<=1?1:pageNo-1);
+		$(".btnNext").attr("data-pageNo", pageNo+1);
+		$(".btnPrev").attr("data-areaCode", areaCode);
+		$(".btnNext").attr("data-areaCode", areaCode);
+		
+		if(pageNo<=1) {
+			$(".btnPrev").prop("disabled", true);
+			$(".btnNext").prop("disabled", false);
+		} else {
+			$(".btnPrev").prop("disabled", false);
+			$(".btnNext").prop("disabled", false);
+		}
+		
+		if(count < numOfRows) {
+			$(".btnNext").prop("disabled", true);
+		}
+		
+		
+		printAreaBasedList(data);
+
 	};
 	
 	ajaxFun(url, "get", query, "xml", fn);
 }
 
+$(function(){
+	$(".btnPrev, .btnNext").click(function(){
+		let pageNo = $(this).attr("data-pageNo");
+		let areaCode = $(this).attr("data-areaCode");
+		
+		if(! pageNo || ! areaCode) {
+			return false;
+		}
+		
+		areaBasedList2(areaCode, pageNo);
+	});
+});
+
 function printAreaBasedList(data) {
-
-
-
 	var out = "";	
 	let ex="";
 	var noImg = "${pageContext.request.contextPath}/resources/images/noimage.png";
@@ -148,8 +154,8 @@ function printAreaBasedList(data) {
 		var item = $(this);
 		var title = item.find("title").text();
 		var img = item.find("firstimage").text();
-		//var contentid = item.find("contentid").text();
-		//var contenttypeid = item.find("contenttypeid").text();
+		var contentid = item.find("contentid").text();
+		var contenttypeid = item.find("contenttypeid").text();
 		if(! img) {
 			img = noImg;
 		}
@@ -172,7 +178,7 @@ function printAreaBasedList(data) {
 		out += "    			</div>";
 		out += "    			<div class='area_txt'>";
 		out += "    				<div class='tit'>";
-		out += "    					<a href='#'>"+title+"</a>";
+		out += "    					<a onclick="+"location.href='${pageContext.request.contextPath}/attraction/content.do?region=${region}&areacode="+${areacode}+"&contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+">"+title+"</a>";
 		out += "					</div>";
 		out += "					<p>"+addr+"</p>";
 		out += "				</div>";
@@ -197,7 +203,18 @@ function printAreaBasedList(data) {
 
 </script>
 </head>
-<body class="pt-5">
+<body class="pt-5 area-body">
+	<div class="area-tag" >
+		<p><a>서울 인천</a></p>
+		<p><a>대전 대구</a></p>
+		<p><a>광주 부산</a></p>
+		<p><a>울산 세종</a></p>
+		<p><a>경기도 강원도</a></p>
+		<p><a>충청북도 충청남도</a></p>
+		<p><a>경상북도 경상남도</a></p>
+		<p><a>전라북도 전라남도</a></p>
+		<p><a>제주도</a></p>
+	</div>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
@@ -225,8 +242,8 @@ function printAreaBasedList(data) {
 			</div>
 		</div>
 		<div class="paging" style="margin-top: 50px;">
-			<button type="button" class="btn btn-primary" id="prev" >이전</button>
-			<button type="button" class="btn btn-primary" id="next" >다음</button>
+			<button type="button" class="btn btn-primary btnPrev" disabled="disabled">이전</button>
+			<button type="button" class="btn btn-primary btnNext" disabled="disabled">다음</button>
 		</div>
 	</main>
 <%-- 		<header>

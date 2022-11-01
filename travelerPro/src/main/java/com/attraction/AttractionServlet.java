@@ -21,17 +21,21 @@ public class AttractionServlet extends TravelServlet {
 		
 		if (uri.indexOf("list.do") != -1) {
 			list(req, resp);
-		}  else if (uri.indexOf("recognition_ok.do") != -1) {
-			recognitionSubmit(req, resp);
+		}  else if (uri.indexOf("content.do") != -1) {
+			content(req, resp);
 		}
 	}
 	
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
+			String areaCode = req.getParameter("areacode");
+			String region = req.getParameter("region");
 			String id = req.getParameter("contentid");
 			String typeid = req.getParameter("contenttypeid");
 			req.setAttribute("id", id);
 			req.setAttribute("typeid", typeid);
+			req.setAttribute("areacode", areaCode);
+			req.setAttribute("region", region);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,8 +43,22 @@ public class AttractionServlet extends TravelServlet {
 		
 		forward(req, resp, "/WEB-INF/views/attraction/tourist.jsp");
 	}
-	protected void recognitionSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void content(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+		String areaCode = req.getParameter("areacode");
+		String region = req.getParameter("region");
+		String id = req.getParameter("contentid");
+		String typeid = req.getParameter("contenttypeid");
 		
+		req.setAttribute("id", id);
+		req.setAttribute("typeid", typeid);
+		req.setAttribute("areacode", areaCode);
+		req.setAttribute("region", region);
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
-
+	
+		forward(req, resp, "/WEB-INF/views/attraction/content.jsp");
+	}
+	
 }
