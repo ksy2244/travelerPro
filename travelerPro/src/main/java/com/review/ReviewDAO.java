@@ -182,6 +182,7 @@ public class ReviewDAO {
 
 	}
 
+	
 	private ReviewDTO readReview(int reviewNum) {
 		ReviewDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -334,7 +335,48 @@ public class ReviewDAO {
 		return list;
 	}
 	
-	
+	public int checkRoll(int companyNum, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = " SELECT  COUNT(r.reservationNum) AS checkRoll FROM reservation r "
+					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
+					+ " JOIN room rm ON rm.roomNum = rd.roomNum " + "JOIN company c ON c.companyNum = rm.companyNum "
+					+ " WHERE (c.companyNum = ? AND r.userId = ? )";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+			pstmt.setString(2, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 	
 
 }

@@ -66,34 +66,33 @@
 		let subject = "${dto.companyName}(${dto.roomName})";
 		alert(paymentPrice);
 		paymentPrice = 100;
-		IMP.request_pay({
-			pg : 'html5_inicis.INIpayTest',
-			pay_method : 'card',
-			merchant_uid : "IMP" + makeMerchantUid,
-			name : subject, //클라이언트에게 보여주는 상품 이름 
-			amount : paymentPrice, // 결제 금액 
-			//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
-			buyer_name : f.realUserName.value, // 구매자 이름 
-			buyer_tel : f.realUserTel.value, // 구매자 전화번호 
-			//buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
-			buyer_postcode : '123-456' //구매자 우편번호 
-		}, function(rsp) { // callback
-			if (rsp.success) {
-				console.log(rsp);
-				f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
-				f.submit();
+		IMP
+				.request_pay(
+						{
+							pg : 'html5_inicis.INIpayTest',
+							pay_method : 'card',
+							merchant_uid : "IMP" + makeMerchantUid,
+							name : subject, //클라이언트에게 보여주는 상품 이름 
+							amount : paymentPrice, // 결제 금액 
+							//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
+							buyer_name : f.realUserName.value, // 구매자 이름 
+							buyer_tel : f.realUserTel.value, // 구매자 전화번호 
+							//buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
+							buyer_postcode : '123-456' //구매자 우편번호 
+						},
+						function(rsp) { // callback
+							if (rsp.success) {
+								console.log(rsp);
+								f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
+								f.submit();
 
-			} else {
-				console.log(rsp);
-				alert("결제가 실패했습니다");
-			}
-		});
+							} else {
+								console.log(rsp);
+								alert("결제가 실패했습니다");
+							}
+						});
 
 	}
-	
-
-	
-	
 </script>
 
 
@@ -116,17 +115,26 @@
 				<div class="alert" role="alert" style="background: #E4FBFF">
 					객실 예매를 위한 정보를 입력해주세요.</div>
 				<div class="shadowBox">
-					<div class ="shadowBoxContent" style ="padding: 40px">
-					<h4><i class="fa-solid fa-hotel"></i>&nbsp; ${dto.companyName}&nbsp;${dto.roomName}</h4>
+					<div class="shadowBoxContent" style="padding: 40px">
+						<h4>
+							<i class="fa-solid fa-hotel"></i>&nbsp;
+							${dto.companyName}&nbsp;${dto.roomName}
+						</h4>
 						<p class="card-text">
-						<p class="address" style ="font-size:20px;">
-								<i class="fa-solid fa-location-dot">&nbsp;</i>주소 ${dto.addr} 기준 ${dto.addrDetail}인</p>
+						<p class="address" style="font-size: 20px;">
+							<i class="fa-solid fa-location-dot">&nbsp;</i>주소 ${dto.addr} 기준
+							${dto.addrDetail}인
+						</p>
 						<p>${dto.roomInfo}</p>
 						<p>체크인 ${start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
-							${end_date}&nbsp;${dto.checkOutTime}  </p>
-						<p> 기준 ${dto.headCount}인 ${dto.headCount}인 가격 ${dto.roomPrice}원&nbsp;할인율 ${dto.discountRate}% </p>
-						<p><i class="fa-solid fa-money-check"></i>&nbsp;지불 금액&nbsp;${paymentPrice}원</p>
-						
+							${end_date}&nbsp;${dto.checkOutTime}</p>
+						<p>기준 ${dto.headCount}인 ${dto.headCount}인 가격
+							${dto.roomPrice}원&nbsp;할인율 ${dto.discountRate}%</p>
+						<p>
+							<i class="fa-solid fa-money-check"></i>&nbsp;지불
+							금액&nbsp;${paymentPrice}원
+						</p>
+
 					</div>
 
 				</div>
@@ -134,17 +142,33 @@
 
 
 
-				<div class="card border-secondary mb-3" style="max-width: 100rem;">
-					<div class="card-header">
-						<h5>
-							<i class="fa-solid fa-hotel"></i>&nbsp;결제 수단&nbsp;
-						</h5>
-					</div>
-					<div class="card-body text-secondary">
-						<h5 class="card-title">카카오 페이</h5>
-						<p class="card-text">
-					</div>
+
+				<!-- 쿠폰 -->
+				<div class="row">
+					<c:forEach var="coupon" items="${list}" varStatus="status">
+						<div class="col-md-4 col-lg-3 p-1 item">
+							<div class="card-group" style="width: 1500px; margin: auto;">
+
+								<div class="card-body">
+								<form name="coupon" method="post">
+								<h4 class="card-title">내가 사용할 수 있는 쿠폰 리스트</h4>
+									<h4 class="card-title">쿠폰 이름${coupon.couponName}</h4>
+									<h4 class="card-title" name = "couponRate">할인율${coupon.couponRate}</h4>
+									<h4 class="card-titl">${coupon.start_date}~${coupon.end_date}</h4>
+									<h4 class="card-title">${coupon.start_date}~${coupon.end_date}</h4>
+									<h4 class="card-title">${couponPrice}~${coupon.end_date}</h4>
+									
+							
+										<button class="dateBtn btn btn-danger" type="submit"> 쿠폰 적용하기 </button>
+										
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</c:forEach>
 				</div>
+
 
 				<div class="body-main">
 					<form name="reservationForm" method="post">
@@ -177,7 +201,7 @@
 
 						<div>
 							<input type="hidden" value="${dto.roomNum}" name="roomNum">
-						<%-- 	<input type="hidden" value="${start_date}" name="start_date">
+							<%-- 	<input type="hidden" value="${start_date}" name="start_date">
 							<input type="hidden" value="${end_date}" name="end_date"> --%>
 							<input type="hidden" value="${dto.headCount}" name="headCount">
 							<input type="hidden" value="${dto.roomPrice}" name="totalPrice">
@@ -189,18 +213,23 @@
 							<input type="hidden" value="${dto.companyNum}" name="companyNum">
 							<input type="hidden" value="${dto.checkInTime}"
 								name="checkInTime"> <input type="hidden"
-								value="${dto.checkOutTime}" name="checkOutTime">
-							<input type="hidden" value="${start_date}" name="start_date" class="styleInput">
-							<input type="hidden" value="${end_date}" name="end_date" class="styleInput">
+								value="${dto.checkOutTime}" name="checkOutTime"> <input
+								type="hidden" value="${start_date}" name="start_date"
+								class="styleInput"> <input type="hidden"
+								value="${end_date}" name="end_date" class="styleInput">
 
-							<button type="button" name="sendButton" class="dateBtn btn btn-danger"
-								onclick="requestPay();">예약</button>
+							<button type="button" name="sendButton"
+								class="dateBtn btn btn-danger" onclick="requestPay();">예약</button>
 						</div>
 					</form>
+
+
+
+
 				</div>
 			</div>
 		</div>
-		
+
 	</main>
 
 	<footer>

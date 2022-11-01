@@ -8,7 +8,7 @@
 	<span>[목록, ${pageNo}/${total_page} 페이지]</span>
 </div>
 
-<table class='table table-borderless reply-list'>
+<table class='table table-borderless review-list'>
 	<c:forEach var="vo" items="${listReview}">
 		<tr class='list-header'>
 			<td width='50%'>

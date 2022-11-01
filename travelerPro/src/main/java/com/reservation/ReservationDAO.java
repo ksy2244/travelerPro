@@ -713,16 +713,15 @@ public class ReservationDAO {
 	}
 
 	// 내가 사용할 수 있는 쿠폰 리스트
-	public List<ReserveRoomDTO> listCoupn(String userId) throws SQLException {
-		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
+	public List<CouponDTO> listCoupon(String userId) throws SQLException {
+		List<CouponDTO> list = new ArrayList<CouponDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 
 		try {
-			sql = " SELECT  couponName, couponRate, start_date, end_date FROM coupon " 
-					+ " WHERE (couponNum NOT IN "
-					+ " 	(SELECT couponNum FROM myCoupon WHERE userID =  > ) )AND "
+			sql = " SELECT  couponName, couponRate,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
+					+ " WHERE (couponNum NOT IN " + " 	(SELECT couponNum FROM myCoupon WHERE userID =  ? ) )AND "
 					+ " 	(( start_date <= SYSDATE ) AND  ( end_date >= SYSDATE )) ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -730,6 +729,18 @@ public class ReservationDAO {
 			pstmt.setString(1, userId);
 
 			pstmt.executeUpdate();
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CouponDTO dto = new CouponDTO();
+				dto.setCouponName(rs.getString("couponName"));
+				dto.setCouponRate(rs.getInt("couponRate"));
+				dto.setStart_date(rs.getString("start_date"));
+				dto.setEnd_date(rs.getString("end_date"));
+
+				list.add(dto);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -750,38 +761,41 @@ public class ReservationDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
-		
+
 		try {
 			sql = "SELECT companyNum, userId FROM pick WHERE companyNum = ?  AND userId = ? ";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setLong(1, companyNum);
 			pstmt.setString(2, userId);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				result = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(rs != null) {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (Exception e2) {
 				}
 			}
-			
-			if(pstmt != null) {
+
+			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (Exception e2) {
 				}
 			}
-			
+
 		}
-		
+
 		return result;
 	}
+
+	
+
 }
