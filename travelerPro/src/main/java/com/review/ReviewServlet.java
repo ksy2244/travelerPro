@@ -222,9 +222,12 @@ public class ReviewServlet extends TravelServlet {
 
 			list = dao.myReviewList(info.getUserId());
 			System.out.println(info.getUserId());
+			
+			int dataCount = dao.myReviewCount(info.getUserId());
 
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
+			req.setAttribute("dataCount", dataCount);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/myReview.jsp");

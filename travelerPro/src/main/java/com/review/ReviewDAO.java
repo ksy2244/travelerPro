@@ -335,6 +335,48 @@ public class ReviewDAO {
 		return list;
 	}
 	
+	public int myReviewCount(String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT COUNT(*) "
+					+ "FROM review r "
+					+ "JOIN reservation s ON r.reservationNum = s.reservationNum "
+					+ "WHERE userId = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+	
 	public int checkRoll(int companyNum, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;

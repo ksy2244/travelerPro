@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+import com.coupon.CouponDTO;
 import com.member.SessionInfo;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
@@ -202,16 +203,17 @@ public class ReservationServlet extends TravelServlet {
 			List<ReservationDTO> list = null;
 
 			if (info == null) {
-
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
 
 			System.out.println(info.getUserId());
 			list = dao.myReseravationList(info.getUserId());
+			int dataCount = dao.myReservationCount(info.getUserId());
 
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
+			req.setAttribute("dataCount", dataCount);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/myReservation.jsp");

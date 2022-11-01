@@ -57,7 +57,6 @@
 						<tr>
 							<td align="right">
 								<span class="date">${dto.reg_date}</span> 
-								<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if>
 							</td>
 						</tr>				
 						<tr>

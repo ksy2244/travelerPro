@@ -74,10 +74,23 @@
 
 .plus1 {
 	font-size: 15px;
+	color: #787878;
 }
 
 .plus2 {
 	color: #787878;
+}
+
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
+
+.plus {
+	text-align: center;
+	color: skyblue;
+	font-size: 16px;
+	margin-bottom: 150px;
 }
 
 </style>
@@ -141,7 +154,12 @@ $(function() {
 							</div>
 							<div class="gap"></div>
 						</c:forEach>
+						<c:if test="${dataCount == 0}">
+							<div class="page-navigation paging mb-2">조회할 예약 내역이 없습니다.</div>
+							<div class="plus">지금 바로 TRAVELER와 여행을 시작해보세요!</div> 
+						</c:if>
 					</div>
+					<br><br>
 					<div class="plus1 pt-3">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
 					<br><br>
 					<div class="plus2">(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.</div>

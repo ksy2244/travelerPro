@@ -103,6 +103,18 @@
 	color: #787878;
 	padding-top: 70px;
 }
+
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
+
+.plus {
+	text-align: center;
+	color: #787878;
+	font-size: 17px;
+	margin-bottom: 150px;
+}
 </style>
 
 <script type="text/javascript">
@@ -189,6 +201,10 @@ $(function() {
 								<br>
 							</div>
 						</c:forEach>
+						<c:if test="${dataCount == 0}"> 
+							<div class="page-navigation paging mb-2">조회할 리뷰가 없습니다.</div>
+							<span class="plus">고객님의 리뷰가 TRAVELER의 발전에 큰 영향이 됩니다.</span> 
+						</c:if>
 					</div>
 				</div>
 			  <div id="topButton" align="right"><i class="fa-solid fa-angles-up fa-3x"></i></div>
