@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
@@ -319,7 +320,9 @@ public class ReservationServlet extends TravelServlet {
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+							
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
 
@@ -427,7 +430,7 @@ public class ReservationServlet extends TravelServlet {
 			dto.setTotalPrice(Integer.parseInt(req.getParameter("totalPrice")));
 			dto.setCheckInTime(req.getParameter("checkInTime"));
 			dto.setCheckOutTime(req.getParameter("checkOutTime"));
-			dto.setDiscountPrice(Integer.parseInt(req.getParameter("discountRate")));
+			dto.setDiscountRate(Integer.parseInt(req.getParameter("discountRate")));
 			dto.setPaymentPrice(Integer.parseInt(req.getParameter("paymentPrice")));
 			dto.setUserId(info.getUserId());
 			dto.setRealUserName(req.getParameter("realUserName"));

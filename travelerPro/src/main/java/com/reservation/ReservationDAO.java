@@ -503,7 +503,7 @@ public class ReservationDAO {
 			pstmt.setString(8, dto.getUserId()); // 사용자 아이디(서블릿)
 			pstmt.setInt(9, dto.getPaymentPrice()); // 지불할 금액 (할인 적용)
 
-			pstmt.setInt(10, dto.getDiscountPrice()); // 할인율
+			pstmt.setInt(10, dto.getDiscountRate()); // 할인율
 			pstmt.setString(11, dto.getRealUserName()); // 이용자 이름
 			pstmt.setString(12, dto.getRealUserTel()); // 이용자 전화번호
 

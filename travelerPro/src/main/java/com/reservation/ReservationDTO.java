@@ -10,7 +10,7 @@ public class ReservationDTO {
 	private String checkInTime; // 체크인 시간
 	private String checkOutTime; // 체크아웃 시간
 	private String status; // 예약 현황
-	private int discountPrice; // 할인금액
+	private int discountRate; // 할인금액
 	private int paymentPrice; // 지불 금액
 	private String userId; // 사용자
 	private int couponPrice; // 쿠폰 가격
@@ -23,6 +23,46 @@ public class ReservationDTO {
 	private String roomName;
 	private String userName;
 	private String imageFileName;
+	
+	private String addr;
+	private String addrDetail;
+	private String roomInfo;
+	private int roomPrice;
+	
+	
+	
+
+	public int getRoomPrice() {
+		return roomPrice;
+	}
+
+	public void setRoomPrice(int roomPrice) {
+		this.roomPrice = roomPrice;
+	}
+
+	public String getRoomInfo() {
+		return roomInfo;
+	}
+
+	public void setRoomInfo(String roomInfo) {
+		this.roomInfo = roomInfo;
+	}
+
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
+	}
 
 	public int getHeadCount() {
 		return headCount;
@@ -112,12 +152,12 @@ public class ReservationDTO {
 		this.status = status;
 	}
 
-	public int getDiscountPrice() {
-		return discountPrice;
+	public int getDiscountRate() {
+		return discountRate;
 	}
 
-	public void setDiscountPrice(int discountPrice) {
-		this.discountPrice = discountPrice;
+	public void setDiscountRate(int discountRate) {
+		this.discountRate = discountRate;
 	}
 
 	public int getPaymentPrice() {
