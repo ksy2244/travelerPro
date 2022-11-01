@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.coupon.CouponDAO;
 import com.coupon.CouponDTO;
+import com.member.MemberDAO;
+import com.member.MemberDTO;
 import com.member.SessionInfo;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
@@ -29,6 +31,8 @@ public class MyPageServlet extends TravelServlet {
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
+		req.setCharacterEncoding("utf-8");
+		
 		
 		// 세션 정보
 		HttpSession session = req.getSession();
@@ -51,8 +55,6 @@ public class MyPageServlet extends TravelServlet {
 			coupon(req, resp);
 		} else if(uri.indexOf("couponInfo.do") != -1) {
 			couponInfo(req, resp);
-		} if (uri.indexOf("mypage.do") != -1) {
-			mypage(req, resp);
 		} if (uri.indexOf("alarm.do") != -1) {
 			alarm(req, resp);
 		}
@@ -161,10 +163,6 @@ public class MyPageServlet extends TravelServlet {
 		
 	}
 	
-		protected void mypage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		forward(req, resp, "/WEB-INF/views/mypage/member.jsp");
-	}
-
 
 		protected void alarm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			forward(req, resp, "/WEB-INF/views/mypage/alarm.jsp");
