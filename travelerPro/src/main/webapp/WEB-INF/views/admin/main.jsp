@@ -140,6 +140,7 @@
 .blue {
 	color: blue;
 }
+
 </style>
 
 </head>
