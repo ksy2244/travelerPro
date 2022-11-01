@@ -22,6 +22,7 @@ public class MemberADAO {
 		try {
 			sql = "SELECT questionNum, subject, content, reg_date, userId, categoryNum, answer "
 					+ " FROM memberQ "
+					+ " ORDER BY questionNum DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
 			pstmt = conn.prepareStatement(sql);

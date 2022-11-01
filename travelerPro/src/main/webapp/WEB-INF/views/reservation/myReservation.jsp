@@ -20,8 +20,8 @@
 }
 
 .body-main {
-	max-width: 1000px;
-	margin-left: 150px;
+	max-width: 900px;
+	margin-left: 230px;
 }
 
 .body-title {
@@ -67,6 +67,10 @@
 	font-size: 15px;
 }
 
+.dateBtn {
+	width: 300px;
+}
+
 </style>
 </head>
 <body class="pt-5">
@@ -87,7 +91,7 @@
 							<div class="list">
 								<h5 class="card-title date pt-4 ps-5">${dto.reservation_date}</h5>
 								<hr class="pt-2">
-								<div class="rnum ps-5">숙소 예약번호 22042916021</div>
+								<div class="rnum ps-5">숙소 예약번호 </div>
 								<img
 									src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
 									class="card-img-top ps-5 pt-4 img">
@@ -100,7 +104,7 @@
 									<br>
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger mb-5"
-										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">아직 연결 못해 ㅠ </button>
+										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">후기 작성하기 </button>
 								
 								</div>
 							</div>

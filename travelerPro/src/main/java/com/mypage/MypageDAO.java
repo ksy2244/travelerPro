@@ -21,7 +21,7 @@ public class MypageDAO {
 		
 		try {
 			sql = "SELECT couponNum, couponName, couponRate, couponPrice, content, "
-					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, TO_CHAR(end_date, 'YYYY-MM-DD') end_date "
+					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date "
 					+ " FROM coupon "
 					+ " WHERE end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
 					+ " ORDER BY couponNum DESC "
@@ -118,7 +118,7 @@ public class MypageDAO {
 		
 		try {
 			sql = "SELECT couponNum, couponName, couponRate, couponPrice, content, "
-					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, TO_CHAR(end_date, 'YYYY-MM-DD') end_date "
+					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date "
 					+ " FROM coupon "
 					+ " WHERE couponNum = ? AND end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ";
 			

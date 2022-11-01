@@ -8,6 +8,7 @@ public class CouponDTO {
 	private String start_date;
 	private String end_date;
 	private String content;
+	private long gap;
 	
 	public Long getCouponNum() {
 		return couponNum;
@@ -50,6 +51,12 @@ public class CouponDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public long getGap() {
+		return gap;
+	}
+	public void setGap(long gap) {
+		this.gap = gap;
 	}
 	
 	

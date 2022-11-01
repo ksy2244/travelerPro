@@ -90,44 +90,22 @@ public class MyPageServlet extends TravelServlet {
 			
 			String paging = util.paging(current_page, total_page, listUrl);
 			
-			String end_date = null;
+			long gap;
+			Date curDate = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			for(CouponDTO dto : list) {
-				end_date = dto.getEnd_date();
+				Date date = sdf.parse(dto.getEnd_date());
+				gap = (date.getTime() - curDate.getTime()) / (1000*60*60*24);
+				dto.setGap(gap);
+				
+				dto.setEnd_date(dto.getEnd_date().substring(0, 10));
 			}
 			
-			req.setAttribute("end_date", end_date);
-			
-			end_date = end_date + " 00:00:00";
-			
-			if(end_date != "null 00:00:00") {
-				req.setAttribute("list", list);
-				req.setAttribute("page", current_page);
-				req.setAttribute("dataCount", dataCount);
-				req.setAttribute("articleUrl", articleUrl);
-				req.setAttribute("paging", paging);
-			} else {
-				Date now = new Date(Calendar.getInstance().getTimeInMillis());
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
-				Date ed = sf.parse(end_date);
-		       
-		        long diff = ed.getTime() - now.getTime();
-		        long Day = diff/(24*60*60*1000);
-		        
-		        String searchDate = null;
-		        
-		        
-		        searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
-		        
-
-				req.setAttribute("searchDate", searchDate);
-				
-				req.setAttribute("list", list);
-				req.setAttribute("page", current_page);
-				req.setAttribute("dataCount", dataCount);
-				req.setAttribute("articleUrl", articleUrl);
-				req.setAttribute("paging", paging);
-			}
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("dataCount", dataCount);
+			req.setAttribute("articleUrl", articleUrl);
+			req.setAttribute("paging", paging);
 			
 			
 			
@@ -158,22 +136,15 @@ public class MyPageServlet extends TravelServlet {
 			
 			dto.setContent(dto.getContent().replaceAll("\r\n", "<br>"));
 			
-			String end_date = dto.getEnd_date();
+			long gap;
+			Date curDate = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			
-			end_date = end_date + " 00:00:00";
-			
-			
-			Date now = new Date(Calendar.getInstance().getTimeInMillis());
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
-			Date ed = sf.parse(end_date);
-	       
-	        long diff = ed.getTime() - now.getTime();
-	        long Day = diff/(24*60*60*1000);
-	        
-	        String searchDate = "쿠폰 만료일까지 " + (Day+1) +"일 남았습니다.";
-			
-			req.setAttribute("searchDate", searchDate);
+			Date date = sdf.parse(dto.getEnd_date());
+			gap = (date.getTime() - curDate.getTime()) / (1000*60*60*24);
+			dto.setGap(gap);
+				
+			dto.setEnd_date(dto.getEnd_date().substring(0, 10));
 			
 			req.setAttribute("query", query);
 			req.setAttribute("dto", dto);
