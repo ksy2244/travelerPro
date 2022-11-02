@@ -896,7 +896,59 @@ public class ReservationDAO {
 		}
 
 	}
-
 	
+	
+	// 인기 업체
+		public List<ReserveCompanyDTO> listTopCompany() {
+			List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
 
-}
+			try {
+					sql = "SELECT companyName ,  mc.imageFileName, minPrice,  "
+						+ "CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
+						+ "CASE WHEN pick >0 THEN pick ELSE 0 END AS pick   FROM company c   "
+						+ "LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
+						+ "LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
+						+ "LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
+						+ "LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
+						+ "WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
+						+ "WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 4 "
+						+ "ORDER BY starRate DESC, pick DESC  ";
+					pstmt = conn.prepareStatement(sql);
+
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ReserveCompanyDTO dto = new ReserveCompanyDTO();
+						dto.setCompanyName(rs.getString("companyName"));
+						dto.setImageFileName(rs.getString("imageFileName"));
+						dto.setMinPrice(rs.getInt("minPrice"));
+						dto.setStarRate(rs.getDouble("starRate"));
+						dto.setPick(rs.getInt("pick"));
+
+						list.add(dto);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException e) {
+						}
+					}
+
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException e) {
+						}
+					}
+				}
+
+				return list;
+			}
+
+		}
