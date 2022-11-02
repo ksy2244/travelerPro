@@ -278,7 +278,7 @@ public class ReviewDAO {
 		String sql = null;
 		try {
 			sql = " SELECT rd.reservationNum, TO_CHAR(reg_date,'yyyy.MM.dd') AS reg_date, content, starRate, "
-					+ " companyName, roomName, "
+					+ " companyName, roomName, c.companyNum, "
 					+ " TO_CHAR(start_date,'yyyy.MM.dd') AS start_date , TO_CHAR(end_date,'yyyy.MM.dd') AS end_date  " 
 					+ "	FROM review r "
 					+ "	JOIN reservationDetail rd  "
@@ -308,6 +308,7 @@ public class ReviewDAO {
 				dto.setStarRate(rs.getInt("starRate"));
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setRoomName(rs.getString("roomName"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setStartDate(rs.getString("start_date"));
 				dto.setEndDate(rs.getString("end_date"));
 

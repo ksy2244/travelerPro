@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import com.member.SessionInfo;
-import com.reservation.ReservationDAO;
-import com.reservation.ReservationDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;

@@ -234,6 +234,7 @@ public class ReservationServlet extends TravelServlet {
 		req.setCharacterEncoding("utf8");
 
 		try {
+			
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
 			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
@@ -248,8 +249,6 @@ public class ReservationServlet extends TravelServlet {
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);

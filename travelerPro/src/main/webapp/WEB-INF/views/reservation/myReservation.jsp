@@ -149,8 +149,8 @@ $(function() {
 									<br>
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger mb-5"
-										onclick="location.href='${pageContext.request.contextPath}/reservation/review.do">후기 작성하기 </button>
-								</div>
+										onclick="location.href= '${pageContext.request.contextPath}/reservation/roomInfo.do?&companyNum=${dto.companyNum}'">후기 작성하기 </button>
+								</div> 						
 							</div>
 							<div class="gap"></div>
 						</c:forEach>

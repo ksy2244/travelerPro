@@ -158,7 +158,7 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount "// --,imageFileName 
+			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount, "// --,imageFileName 
 					+ " FROM room rm  " // -- JOIN mainRoomImage mr ON mr.roomNum = r.roomNum  
 					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  "
 					+ " (SELECT rm.roomNum  FROM reservation r "
@@ -372,7 +372,7 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, notice "
 					+ " checkintime, checkouttime, companyTel, "
 					+ " notice, addr, addrDetail, zip , pick FROM company c "
 					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
@@ -391,6 +391,7 @@ public class ReservationDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
+				dto.setNotice(rs.getString("notice"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setCompanyTel(rs.getString("companyTel"));
@@ -590,7 +591,7 @@ public class ReservationDAO {
 		ResultSet rs = null;
 		String sql = null;
 		try {
-			sql = " SELECT r.reservationNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
+			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
 					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
 
@@ -615,6 +616,7 @@ public class ReservationDAO {
 			while (rs.next()) {
 				ReservationDTO dto = new ReservationDTO();
 				dto.setReservationNum(rs.getLong("reservationNum"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setStart_date(rs.getString("startDate"));
 				dto.setEnd_date(rs.getString("endDate"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
