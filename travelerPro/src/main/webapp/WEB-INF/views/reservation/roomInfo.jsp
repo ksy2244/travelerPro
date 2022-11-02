@@ -2,6 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %> <!-- 소연 -->
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -133,6 +135,8 @@
 			ajaxFun(url, "post", query, "json", fn);
 		});
 	});
+	
+	 
 </script>
 
 <script type="text/javascript"
@@ -271,8 +275,50 @@
 							</p>
 							<p class="roomInfoContent">${companyDto.companyInfo}</p>
 							<p class="roomInfoContent">${companyDto.guide}</p>
-							<hr>
+							<p class="roomInfoContent">${companyDto.notice}</p>
+							
+							<c:set var="serviceList" value="${companyDto.amenities}"></c:set>
+							
+							<c:forEach var="service" items="${serviceList}"><br>
+							
+							<c:choose>
+											<c:when test="${service == 1}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/wifi.png" class="png"></div>
+											</c:when>
+											<c:when test="${service == 2}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/pet.png" class="png"></div>
+											</c:when>
+											<c:when test="${service == 3}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/meat.png" class="png"></div>
+											</c:when>
+											<c:when test="${service== 4}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png"></div>
+											</c:when>
+											<c:when test="${service == 5}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/park.png" class="png"></div>
+											</c:when>
+											<c:when test="${service == 6}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/medicine.png" class="png"></div>
+											</c:when>
+											<c:when test="${service == 7}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/source.png" class="png">&nbsp;</div>
+											</c:when>
+											<c:when test="${service == 8}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/store.png" class="png">&nbsp;</div>
+											</c:when>
+											<c:when test="${service== 9}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/breakFast.png" class="png">&nbsp;</div>
+											</c:when>
+											<c:when test="${service == 10}">
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/palyGround.png" class="png">&nbsp;</div>
+											</c:when>		
+											<c:otherwise>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">&nbsp;</div>
+											</c:otherwise>
+										</c:choose>
+							</c:forEach>
 
+						
 							<p class="roomInfoContent">
 								<span style="background-color: #E4FBFF; text-align: center">체크인
 								</span>&nbsp; ${companyDto.checkInTime}
@@ -298,7 +344,7 @@
 							</table>
 
 							<hr>
-							<p class="roomInfoContent">${companyDto.notice}</p>
+							
 
 
 

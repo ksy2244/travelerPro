@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+import com.ceo.CeoDAO;
+import com.ceo.ServiceDTO;
 import com.coupon.CouponDTO;
 import com.member.SessionInfo;
 import com.util.TravelServlet;
@@ -229,7 +231,7 @@ public class ReservationServlet extends TravelServlet {
 	protected void roomInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 숙박업체리스트에서 클릭한 화면
 		ReservationDAO dao = new ReservationDAO();
-
+		CeoDAO cdao = new CeoDAO(); //소연
 		String cp = req.getContextPath();
 		req.setCharacterEncoding("utf8");
 
@@ -249,6 +251,9 @@ public class ReservationServlet extends TravelServlet {
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
+			
+			List<ServiceDTO> list = cdao.listCategory(); 
+			req.setAttribute("list", list);
 
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);

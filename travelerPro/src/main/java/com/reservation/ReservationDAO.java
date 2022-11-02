@@ -371,8 +371,8 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, notice "
-					+ " checkintime, checkouttime, companyTel, "
+			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+					+ " checkintime, checkouttime, companyTel,  "
 					+ " notice, addr, addrDetail, zip , pick FROM company c "
 					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
 
@@ -385,12 +385,11 @@ public class ReservationDAO {
 			if (rs.next()) {
 
 				dto.setCompanyNum(companyNum);
-
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				dto.setNotice(rs.getString("notice"));
+				
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setCompanyTel(rs.getString("companyTel"));
