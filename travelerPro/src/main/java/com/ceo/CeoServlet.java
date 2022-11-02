@@ -52,6 +52,8 @@ public class CeoServlet extends TravelServlet {
 			room(req, resp);
 		}  else if (uri.indexOf("reservation.do") != -1) {
 			reservation(req, resp);
+		}else if (uri.indexOf("reservationarticle.do") != -1) {
+			reservationarticleSubmit(req,resp);
 		}  else if (uri.indexOf("recognition.do") != -1) {
 			recognition(req, resp);
 		} else if (uri.indexOf("article.do") != -1) {
@@ -118,7 +120,6 @@ public class CeoServlet extends TravelServlet {
 			req.setAttribute("size", size);
 			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("paging", paging);
-			System.out.println(pathname);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,14 +237,160 @@ public class CeoServlet extends TravelServlet {
 		return null;
 	}
 	protected void payList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		CeoDAO dao= new CeoDAO();
+		String cp=req.getContextPath();
+		TravelUtil util = new TravelUtilBootstrap();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		if (info == null) {
+			
+			resp.sendRedirect(cp + "/member/login.do");
+			return;
+		}
+		try {
+		String page = req.getParameter("page"); 
+			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
+			
+			
+			int dataCount = dao.payListCount(info.getUserId());
+			int size =5;
+			int total_page = util.pageCount(dataCount, size);
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			
+			int offset = (current_page -1) *size;
+			if(offset <0) offset = 0;
+					
+			
+			String listUrl = cp + "/ceo/paylist.do";
+			
+			String paging = util.paging(current_page, total_page, listUrl);
+			//List<ReservationDTO>list=dao.payList(offset,size,info.getUserId());
+			List<ReservationDTO>list=dao.payList(info.getUserId(), offset,  size);
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("total_page", total_page);
+			req.setAttribute("dataCount", dataCount);	
+			//req.setAttribute("articleUrl", articleUrl);
+			req.setAttribute("paging", paging);			
+			req.setAttribute("size", size);
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	
+		
 		forward(req, resp, "/WEB-INF/views/ceo/paylist.jsp");
 	}
 	protected void room(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
 	protected void reservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		forward(req, resp, "/WEB-INF/views/ceo/reservation.jsp");
+		CeoDAO dao= new CeoDAO();
+		String cp=req.getContextPath();
+		TravelUtil util = new TravelUtilBootstrap();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+		if (info == null) {		
+			resp.sendRedirect(cp + "/member/login.do");
+			return;
+		}
+		
+		try {
+			//long reservationNum=Long.parseLong(req.getParameter("reservationNum"));
+			String page = req.getParameter("page"); 
+			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
+					
+			int dataCount = dao.dataReservationCount(info.getUserId());
+			int size = 5;
+			int total_page = util.pageCount(dataCount, size);
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			
+			int offset = (current_page -1) *size;
+			if(offset <0) offset = 0;
+					
+			List<ReservationDTO>list=dao.ceoReseravationList(info.getUserId(),offset,size);
+			String listUrl = cp + "/ceo/reservation.do";
+			 String articleUrl = cp + "/ceo/reservationartilce.do?page=" + current_page;
+			String paging = util.paging(current_page, total_page, listUrl);
+			
+
+			//req.setAttribute("companyNum", companyNum);			
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("total_page", total_page);
+			req.setAttribute("dataCount", dataCount);	
+			req.setAttribute("articleUrl", articleUrl);
+			req.setAttribute("paging", paging);			
+			req.setAttribute("size", size);
+			//req.setAttribute("reservationNum", reservationNum);
+			forward(req, resp, "/WEB-INF/views/ceo/reservation.jsp");
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/ceo/main.do");
+		
 	}
+	
+	protected void reservationarticleSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		CeoDAO dao= new CeoDAO();
+		
+		String cp=req.getContextPath();	
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		if (info == null) {
+			
+			resp.sendRedirect(cp + "/member/login.do");
+			return;
+		}
+		String page=req.getParameter("page");
+		String query = "page="+page;
+		
+		try {
+			long reservationNum=Long.parseLong(req.getParameter("reservationNum"));
+			
+			ReservationDTO dto= dao.readreservation(reservationNum);
+			if(dto == null) {
+				resp.sendRedirect(cp + "/ceo/reservation.do?"+query);
+				return; 
+			}
+			
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			//req.setAttribute("userId", userId);
+			req.setAttribute("query", query);
+			req.setAttribute("reservationNum", reservationNum);
+			
+			forward(req, resp, "/WEB-INF/views/ceo/reservationarticle.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp.sendRedirect(cp + "/ceo/reservation.do?"+query);
+		
+		
+	}
+	
+	
 	protected void recognition(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mode", "recognition");
 		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
