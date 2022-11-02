@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coupon.CouponDTO;
+import com.member.MemberDTO;
 import com.util.DBConn;
 
 public class MypageDAO {
@@ -162,4 +163,8 @@ public class MypageDAO {
 		return dto;
 		
 	}
+	
+	
+	
+
 }
