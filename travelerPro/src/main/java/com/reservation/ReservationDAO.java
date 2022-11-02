@@ -158,7 +158,7 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount, "// --,imageFileName 
+			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount "// --,imageFileName 
 					+ " FROM room rm  " // -- JOIN mainRoomImage mr ON mr.roomNum = r.roomNum  
 					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  "
 					+ " (SELECT rm.roomNum  FROM reservation r "
@@ -170,7 +170,7 @@ public class ReservationDAO {
 					+ " OR  ( TO_DATE(start_date) > TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
 					+ " OR  ( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) )) "
 					+ " AND c.companyNum = ?) " ;
-				
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, companyNum);
 			pstmt.setString(2, start_date);
@@ -203,7 +203,6 @@ public class ReservationDAO {
 			
 			while (rs.next()) {
 				ReserveRoomDTO dto = new ReserveRoomDTO();
-
 				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
