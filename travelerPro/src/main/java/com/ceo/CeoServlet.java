@@ -164,7 +164,7 @@ public class CeoServlet extends TravelServlet {
 				String[] saveFiles = map.get("saveFilenames");
 				dto.setImageFiles(saveFiles);
 			}
-			
+			System.out.println(dto.getImageFiles());
 			dao.insertCeo(dto);
 		} catch (Exception e) {
 			e.printStackTrace();

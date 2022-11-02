@@ -124,7 +124,7 @@ function areaBasedList2(areaCode, pageNo) {
 			$(".btnNext").prop("disabled", true);
 		}
 		
-		
+		console.log(data);
 		printAreaBasedList(data);
 
 	};
@@ -163,12 +163,8 @@ function printAreaBasedList(data) {
 		//alert(contentid);
  		/* ex = "<a href='${pageContext.request.contextPath}/apiEx/test.jsp'"; */
  		//${pageContext.request.contextPath}/attraction/list.do?contentid="+contentid+'"
-		
+
 		out += "<div class='wrap_contView clfix'>";
-	/* 	out += "    <div class='tit_cont'>";
-		out += "    	<h2 class='tour-title'>지역의 추천 관광지</h2>";
-		out += "    </div>"; */
-		/* out += "    <div class='box_leftType1'>"; */
 		out += "        <ul class='list_thumType flnon'>";
 		out += "        	<li class='bdr_nor'>";
 		out += "        		<div class='photo'>";
@@ -178,7 +174,7 @@ function printAreaBasedList(data) {
 		out += "    			</div>";
 		out += "    			<div class='area_txt'>";
 		out += "    				<div class='tit'>";
-		out += "    					<a onclick="+"location.href='${pageContext.request.contextPath}/attraction/content.do?region=${region}&areacode="+${areacode}+"&contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+">"+title+"</a>";
+		out += "    					<a onclick="+"location.href='${pageContext.request.contextPath}/attraction/content.do?contentid="+contentid+"'"+">"+title+"</a>";
 		out += "					</div>";
 		out += "					<p>"+addr+"</p>";
 		out += "				</div>";
@@ -204,17 +200,43 @@ function printAreaBasedList(data) {
 </script>
 </head>
 <body class="pt-5 area-body">
-	<div class="area-tag" >
-		<p><a>서울 인천</a></p>
-		<p><a>대전 대구</a></p>
-		<p><a>광주 부산</a></p>
-		<p><a>울산 세종</a></p>
-		<p><a>경기도 강원도</a></p>
-		<p><a>충청북도 충청남도</a></p>
-		<p><a>경상북도 경상남도</a></p>
-		<p><a>전라북도 전라남도</a></p>
-		<p><a>제주도</a></p>
-	</div>
+<div class="area-tag" >
+     <div class="font pt-3"><i class="fa-solid fa-earth-americas"></i> 다른 지역을 여행하고 싶다면 ? <i class="fa-solid fa-earth-americas"></i></div>
+     <div class="pt-5"><br></div>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=1&region=서울'">#서울</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=2&region=인천'">#인천</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=8&region=세종'">#세종</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=3&region=대전'">#대전</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=대구'">#대구</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=광주'">#광주</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=7&region=울산'">#울산</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=6&region=부산'">#부산</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=31&region=경기도'">#경기도</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=32&region=강원도'">#강원도</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=33&region=충청북도'">#충청북도</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=34&region=충청남도'">#충청남도</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=35&region=경상북도'">#경상북도</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=36&region=경상남도'">#경상남도</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=37&region=전라북도'">#전라북도</button></span>
+      <span class="gap"></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=38&region=전라남도'">#전라남도</button></span>
+      <br>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=39&region=제주도'">#제주도</button></span>
+</div>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
