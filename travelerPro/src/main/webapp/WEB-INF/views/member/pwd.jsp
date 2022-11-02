@@ -12,7 +12,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width:800px;
 }
 </style>
 
@@ -38,7 +38,7 @@ function sendOk() {
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 </header>
 
-<main>
+<main class="pt-5">
 	<div class="container">
 		<div class="body-container">	
 
@@ -46,10 +46,10 @@ function sendOk() {
 	            <div class="col-md-7">
 	                <div class="border mt-5 p-4">
 	                    <form name="pwdForm" method="post" class="row g-3">
-	                        <h3 class="text-center fw-bold">패스워드 재확인</h3>
+	                        <h3 class="text-center fw-bold">비밀번호 재확인</h3>
 	                        
 			                <div class="d-grid">
-								<p class="form-control-plaintext text-center">정보 보호를 위해 패스워드를 다시 한 번 입력해주세요.</p>
+								<p class="form-control-plaintext text-center">정보 보호를 위해 비밀번호를 다시 한 번 입력해주세요.</p>
 			                </div>
 	                        
 	                        <div class="d-grid">
@@ -58,7 +58,7 @@ function sendOk() {
 	                            		readonly="readonly">
 	                        </div>
 	                        <div class="d-grid">
-	                            <input type="password" name="userPwd" class="form-control form-control-lg" placeholder="패스워드">
+	                            <input type="password" name="userPwd" class="form-control form-control-lg" placeholder="비밀번호">
 	                        </div>
 	                        <div class="d-grid">
 	                            <button type="button" class="btn btn-lg" onclick="sendOk();" style="background: #EDEEF7">확인 <i class="bi bi-check2"></i> </button>

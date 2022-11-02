@@ -175,34 +175,38 @@
 					</label>
 
 				</div>
-			</div>
-		</div>
 
-		<div class="text-center mb-2 p-2">
+				<div class="text-center mb-2 p-2">
 
-			<button type="button" class="btn btn-outline-info btn-lg btnDialog3">변경</button>
+					<button type="button"
+						class="btn btn-outline-info btn-lg btnDialog3">변경</button>
 
-			<div class="modal fade" id="myDialogModal3" tabindex="-1"
-				aria-labelledby="myDialogModalLabel3" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
-								수신정보가 수정되었습니다.</h6>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<p>• 일시 :</p>
-							<p>• 수신거절 :</p>
-							<p>• 수신동의 :</p>
+					<div class="modal fade" id="myDialogModal3" tabindex="-1"
+						aria-labelledby="myDialogModalLabel3" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
+										수신정보가 수정되었습니다.</h6>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>• 일   시 :  </p>
+									<p>• 수신거절 :</p>
+									<p>• 수신동의 :</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 
+
 		</div>
+
+
 
 
 	</main>

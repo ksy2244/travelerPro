@@ -100,7 +100,7 @@
 	            		<i class="fa-regular fa-face-smile"></i>
 	          		</a>
 		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwd.do?mode=update" style="font-family: 'GmarketSans';">내 정보</a></li>
+		            <li><a class="dropdown-item" href="javascript:dialogPwd();" style="font-family: 'GmarketSans';">내 정보</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupon.do" style="font-family: 'GmarketSans';">쿠폰함</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservation.do" style="font-family: 'GmarketSans';">예약내역</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/review/myReview.do" style="font-family: 'GmarketSans';">나의 후기</a></li>
@@ -162,6 +162,30 @@
 	
 	    f.action = "${pageContext.request.contextPath}/member/login_ok.do";
 	    f.submit();
+	}
+	
+	function dialogPwd() {
+	    $("form[name=modelPwdForm] input[name=userId]").val("");
+	    $("form[name=modelPwdForm] input[name=userPwd]").val("");
+	    
+		$("#pwdModal").modal("show");	
+		
+	    $("form[name=modelPwdForm] input[name=userId]").focus();
+	}
+	
+	
+	function sendOk() {
+		const f = document.modelPwdForm;
+
+		let str = f.userPwd.value;
+		if(!str) {
+			alert("패스워드를 입력하세요. ");
+			f.userPwd.focus();
+			return;
+		}
+
+		f.action = "${pageContext.request.contextPath}/member/pwd_ok.do?mode=update";
+		f.submit();
 	}
 	</script>
 	<div class="modal fade" id="loginModal" tabindex="-1"
@@ -230,4 +254,39 @@
       			</div>
     		</div>
   		</div>
+	</div>
+	
+	
+	
+	<!-- 비밀번호 재확인 모달 -->
+	
+	<div class="modal fade" id="pwdModal" tabindex="-1"
+			data-bs-backdrop="static" data-bs-keyboard="false" 
+			aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginViewerModalLabel">비밀번호 재확인</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+	                <div class="p-3">
+	                    <form name="modelPwdForm" action="" method="post" class="row g-3">
+	                    	<div class="mt-0">
+	                    		 <p class="form-control-plaintext">정보 보호를 위해 비밀번호를 다시 한 번 입력해주세요.</p>
+	                    	</div>
+	                  
+	                        <div>
+	                            <input type="password" name="userPwd" class="form-control" placeholder="비밀번호">
+	                        </div>
+	                        <div>
+	                            <button type="button" class="btn w-100 text-white btn-danger" onclick="sendOk();">확인</button>
+	                        </div>
+	                      
+	                    </form>
+	                    <hr class="mt-3">
+	                </div>
+				</div>
+			</div>
+		</div>
 	</div>

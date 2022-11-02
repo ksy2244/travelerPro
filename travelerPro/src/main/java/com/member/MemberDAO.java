@@ -204,6 +204,29 @@ public class MemberDAO {
 	
 	public void deleteMember(String userId) throws SQLException {
 		// 탈퇴? 
+		
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "DELETE FROM member WHERE userId=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
 	}
 	
 }
