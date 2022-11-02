@@ -275,7 +275,7 @@
 
 								<input type="hidden" name="userIdValid" id="userIdValid"
 									value="false">
-
+								<a href="${pageContext.request.contextPath}/member/delete.do" class="text-decoration-none">회원탈퇴</a>	
 							</div>
 						</div>
 

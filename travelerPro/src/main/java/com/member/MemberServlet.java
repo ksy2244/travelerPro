@@ -318,7 +318,7 @@ public class MemberServlet extends TravelServlet {
 	}
 
 	protected void alarmForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		forward(req, resp, "/WEB-INF/views/mypage/alarm.jsp");
+		forward(req, resp, "/WEB-INF/views/member/alarm.jsp");
 	}
 	
 	private void alarmSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -326,10 +326,7 @@ public class MemberServlet extends TravelServlet {
 		HttpSession session = req.getSession();
 
 		String cp = req.getContextPath();
-		if (req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp + "/");
-			return;
-		}
+
 
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -339,13 +336,27 @@ public class MemberServlet extends TravelServlet {
 			}
 
 			MemberDTO dto = new MemberDTO();
+		
+			dto.setUserId(info.getUserId());
+			if(req.getParameter("mAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("mAlarm")));
+			}
 			
-			dto.setmAlarm(Integer.parseInt(req.getParameter("mAlarm")));
-			dto.setmAlarm(Integer.parseInt(req.getParameter("pAlarm")));
-			dto.setmAlarm(Integer.parseInt(req.getParameter("eAlarm")));
-			dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
-	
-			dao.updateMember(dto);
+			if(req.getParameter("pAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("pAlarm")));
+			}
+			
+			if(req.getParameter("eAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("eAlarm")));
+			}
+
+			if(req.getParameter("sAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
+			}
+			
+			System.out.println(req.getParameter("mAlarm"));
+			dao.updateAlarm(dto);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

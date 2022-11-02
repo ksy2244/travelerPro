@@ -209,18 +209,18 @@ function userIdCheck() {
 					</div>
 				 
 					<div class="row mb-4">
-						<label class="col-sm-2 col-form-label" for="userPwd">패스워드</label>
+						<label class="col-sm-2 col-form-label" for="userPwd">비밀번호</label>
 						<div class="col-sm-10">
 				            <input type="password" name="userPwd" id="userPwd" class="form-control" autocomplete="off" placeholder="패스워드">
-				            <small class="form-control-plaintext">패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</small>
+				            <small class="form-control-plaintext">비밀번호는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</small>
 				        </div>
 				    </div>
 				    
 				    <div class="row mb-4">
-				        <label class="col-sm-2 col-form-label" for="userPwd2">패스워드 확인</label>
+				        <label class="col-sm-2 col-form-label" for="userPwd2">비밀번호 확인</label>
 				        <div class="col-sm-10">
 				            <input type="password" name="userPwd2" id="userPwd2" class="form-control" autocomplete="off" placeholder="패스워드 확인">
-				            <small class="form-control-plaintext">패스워드를 한번 더 입력해 주세요.</small>
+				            <small class="form-control-plaintext">비밀번호를 한번 더 입력해 주세요.</small>
 				        </div>
 				    </div>
 				 
