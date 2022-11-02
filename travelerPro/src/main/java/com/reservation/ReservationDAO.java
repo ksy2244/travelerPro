@@ -151,16 +151,47 @@ public class ReservationDAO {
 	}
 
 	// 해당 업체의 객실 목록 (객실 정보)
-	public List<ReserveRoomDTO> listRoom(int companyNum) {
+	public List<ReserveRoomDTO> listRoom(int companyNum, String start_date, String end_date ) {
 		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 
 		try {
-			sql = "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
+			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount "// --,imageFileName 
+					+ " FROM room rm  " // -- JOIN mainRoomImage mr ON mr.roomNum = r.roomNum  
+					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  "
+					+ " (SELECT rm.roomNum  FROM reservation r "
+					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
+					+ " JOIN room rm ON rm.roomNum = rd.roomNum "
+					+ " JOIN company c ON c.companyNum = rm.companyNum "
+					+ " WHERE (( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) <= TO_DATE(?) AND TO_DATE(end_date) >= TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) > TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) )) "
+					+ " AND c.companyNum = ?) " ;
+				
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, companyNum);
+			pstmt.setString(2, start_date);
+			pstmt.setString(3, end_date);
+			pstmt.setString(4, start_date);
+			pstmt.setString(5, end_date);
+			pstmt.setString(6, start_date);
+			pstmt.setString(7, end_date);
+			pstmt.setString(8, start_date);
+			pstmt.setString(9, end_date);
+			pstmt.setInt(10, companyNum);
+			rs = pstmt.executeQuery();
+
+					
+					
+				/*	
+					 "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
 					+ "  FROM room r " + "  JOIN mainRoomImage mr ON mr.roomNum = r.roomNum "
 					+ "  WHERE companyNum = ? ";
+					
+					*/
 			/*
 			 * 
 			 * CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainRoomImage AS (SELECT
@@ -169,10 +200,7 @@ public class ReservationDAO {
 			 * roomFile) WHERE rnum = 1)
 			 */
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, companyNum);
-			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				ReserveRoomDTO dto = new ReserveRoomDTO();
 

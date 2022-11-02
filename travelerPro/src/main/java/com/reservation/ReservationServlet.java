@@ -308,7 +308,7 @@ public class ReservationServlet extends TravelServlet {
 			List<ReserveRoomDTO> roomList = null;
 
 			// 선택한 업체의 객실 정보
-			roomList = dao.listRoom(companyNum);
+			roomList = dao.listRoom(companyNum, start_date, end_date);
 
 			System.out.println("dff" + start_date);
 			System.out.println("dff" + end_date);
