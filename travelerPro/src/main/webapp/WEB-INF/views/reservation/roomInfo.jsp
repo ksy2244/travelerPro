@@ -30,57 +30,48 @@
 
 
 <script>
-	//DatePicker 한글로 변환
-	$.datepicker.setDefaults({
-  		dateFormat: 'yy-mm-dd',
-  		prevText: '이전 달',
-  		nextText: '다음 달',
-  		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-  		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-  		dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
- 		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		showMonthAfterYear: true,
-  		yearSuffix: '년'
-	});
+ $(function() {
+     var thisDate = new Date();
+     var thisYear = thisDate.getFullYear();        //해당 연
+     var thisMonth = thisDate.getMonth() + 1;    //해당 월
 
-	$(function () {
-  		$('.datepicker').datepicker();
-	});
-
-	//Datepicker 적용할 id 가져오기, 지난 날짜 선택 불가하도록 설정 
-	$(function() {
-		$("#start_date").datepicker({
-			minDate : 0
-		});
-		$("#end_date").datepicker({
-			minDate : 0
-		});
-
-		$.datepicker.setDefaults({
-			dateFormat : 'yy-mm-dd' //input display format 변경
-		});
-
-		$('#start_date').datepicker('setDate', 'today'); // 시작일 초기값 오늘로 설정 
-
-		$('#end_date').datepicker('setDate', '+1D'); // 종료일 초기값 내일로 설정 
-	});
-
-	function dateBtn() {
-		const f = document.dateForm;
-		
-		const c = document.signUp.newId;
-		
-		
-		alert(hello);
-		alert(f.start_date.value);
-		if (f.start_date.value >= f.end_date.value) {
-
-			alert("이용 종료일이 이용 시작일 이후여야 합니다. ");
-			f.start_date.focus();
-		}
-	}
-	
+     $.datepicker.setDefaults({
+         dateFormat: 'yy-mm-dd'         
+         ,showOtherMonths: true     
+         ,showMonthAfterYear:true  
+         ,changeYear: true           
+         ,changeMonth: true            
+         ,yearSuffix: "년"           
+         ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12']                  
+         ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+         ,dayNamesMin: ['일','월','화','수','목','금','토']                                        
+         ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']               
+     });                    
+     
+     //시작일의 초기값을 설정
+     $('#start_date').datepicker({
+    	 minDate : 0,
+         onClose: function( selectedDate) {   
+        	
+        	 var select = selectedDate.split('-');
+        	 var date = new Date(select[0], select[1]-1, parseInt(select[2])+1);
+        	
+        	 selectedDate = date.getFullYear() +"-"+ (date.getMonth()+1)+"-" + (date.getDate());
+               	 
+        	 console.log(selectedDate);
+             $("#end_date").datepicker( "option", "minDate", selectedDate );
+  
+         }                
+     });
+     $('#start_date').datepicker('setDate', thisYear+'-'+thisMonth+'-01');    //시작일 초기값 셋팅
+     
+     //종료일의 초기값을 내일로 설정
+     $('#end_date').datepicker({
+    	 minDate : 0
+         
+     });
+     $('#end_date').datepicker('setDate', 'minDate'+1); //끝일 초기값 셋팅
+ });
 	function ajaxFun(url, method, query, dataType, fn) {
 		$.ajax({
 			type:method,
