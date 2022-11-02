@@ -158,51 +158,62 @@
 					<h3>알림 설정</h3>
 				</div>
 				<div class="body-main">
-					<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
-						type="checkbox" checked="checked"> <span
-						class="checkbox_mark"></span>
+					<form name="alarmForm" method="post">
+						<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
+							type="checkbox" id='my_checkbox1' name='mAlarm' value="1"
+							> <span class="checkbox_mark"></span>
 
-					</label>
-					<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
+						</label>
+						<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
 
-					<label class="checkbox_container"> 푸시알림 <input
-						type="checkbox" checked="checked"> <span
-						class="checkbox_mark"></span>
-					</label> <label class="checkbox_container"> 이메일 <input
-						type="checkbox"> <span class="checkbox_mark"></span>
-					</label> <label class="checkbox_container"> SMS <input
-						type="checkbox"> <span class="checkbox_mark"></span>
-					</label>
+						<label class="checkbox_container"> 푸시알림 <input
+							type="checkbox" id='my_checkbox2' name='pAlarm' value="1"
+							> <span class="checkbox_mark"></span>
+						</label> <label class="checkbox_container"> 이메일 <input
+							type="checkbox" id='my_checkbox3' name='eAlarm' value="1"
+							> <span class="checkbox_mark"></span>
+						</label> <label class="checkbox_container"> SMS <input
+							type="checkbox" id='my_checkbox4' name='sAlarm' value="1"
+							> <span class="checkbox_mark"></span>
+						</label>
 
+
+						<div class="text-center mb-2 p-2">
+
+							<button type="button" id='result'
+								class="btn btn-outline-secondary btnDialog3"
+								onclick="alarm()">변경</button>
+
+							<div class="modal fade" id="myDialogModal3" tabindex="-1"
+								aria-labelledby="myDialogModalLabel3" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h6 class="modal-title" id="myDialogModalLabel3">광고성 정보 수신동의</h6>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<h6 class="modal-title" id="myDialogModalLabel3">[TRAVLER]</h6>
+											<h6 class="modal-title" id="myDialogModalLabel3">
+											마케팅 알림 수신정보가 변경되었습니다.</h6>
+											
+											<p>• 일   시 : </p>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
 				</div>
 			</div>
-		</div>
-
-		<div class="text-center mb-2 p-2">
-
-			<button type="button" class="btn btn-outline-info btn-lg btnDialog3">변경</button>
-
-			<div class="modal fade" id="myDialogModal3" tabindex="-1"
-				aria-labelledby="myDialogModalLabel3" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
-								수신정보가 수정되었습니다.</h6>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<p>• 일시 :</p>
-							<p>• 수신거절 :</p>
-							<p>• 수신동의 :</p>
-						</div>
-					</div>
-				</div>
-			</div>
 
 
 		</div>
+
+
 
 
 	</main>
@@ -233,5 +244,15 @@
 			$("#myDialogModal4").modal("show");
 		});
 	});
+	
+	
+	function alarm() {
+		const f = document.alarmForm;
+		
+		f.action = "${pageContext.request.contextPath}/member/alarm_ok.do";
+		f.submit();
+		
+	}
+	
 </script>
 </html>

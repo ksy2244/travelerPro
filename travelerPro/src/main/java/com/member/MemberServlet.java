@@ -41,19 +41,24 @@ public class MemberServlet extends TravelServlet {
 			updateSubmit(req, resp);
 		} else if (uri.indexOf("userIdCheck.do") != -1) {
 			userIdCheck(req, resp);
+		} else if (uri.indexOf("alarm.do") != -1) {
+			alarmForm(req, resp);
+		} else if (uri.indexOf("alarm_ok.do") != -1) {
+			alarmSubmit(req, resp);
 		}
 	}
 
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
+
 	protected void loginSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		HttpSession session = req.getSession();
 
 		MemberDAO dao = new MemberDAO();
 		String cp = req.getContextPath();
-		
+
 		if (req.getMethod().equalsIgnoreCase("GET")) {
 			resp.sendRedirect(cp + "/");
 			return;
@@ -80,8 +85,9 @@ public class MemberServlet extends TravelServlet {
 
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
+
 	protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			
+
 		HttpSession session = req.getSession();
 		String cp = req.getContextPath();
 
@@ -259,7 +265,7 @@ public class MemberServlet extends TravelServlet {
 
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
-			if (info == null) { 
+			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
@@ -290,7 +296,6 @@ public class MemberServlet extends TravelServlet {
 
 		resp.sendRedirect(cp + "/");
 	}
-	
 
 	private void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 아이디 중복 검사
@@ -312,5 +317,51 @@ public class MemberServlet extends TravelServlet {
 		out.print(job.toString());
 	}
 
+	protected void alarmForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		forward(req, resp, "/WEB-INF/views/member/alarm.jsp");
+	}
 	
+	private void alarmSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+		HttpSession session = req.getSession();
+
+		String cp = req.getContextPath();
+
+
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			if (info == null) {
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+
+			MemberDTO dto = new MemberDTO();
+		
+			dto.setUserId(info.getUserId());
+			if(req.getParameter("mAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("mAlarm")));
+			}
+			
+			if(req.getParameter("pAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("pAlarm")));
+			}
+			
+			if(req.getParameter("eAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("eAlarm")));
+			}
+
+			if(req.getParameter("sAlarm") != null) {
+				dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
+			}
+			
+			System.out.println(req.getParameter("mAlarm"));
+			dao.updateAlarm(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		resp.sendRedirect(cp + "/");
+	}
+
 }

@@ -23,6 +23,12 @@ public class AttractionServlet extends TravelServlet {
 			list(req, resp);
 		}  else if (uri.indexOf("content.do") != -1) {
 			content(req, resp);
+		} else if (uri.indexOf("article.do") != -1) {
+			article(req, resp);
+		} else if (uri.indexOf("map.do") != -1) {
+			map(req, resp);
+		} else if (uri.indexOf("companylist.do") != -1) {
+			companylist(req, resp);
 		}
 	}
 	
@@ -49,16 +55,44 @@ public class AttractionServlet extends TravelServlet {
 		String region = req.getParameter("region");
 		String id = req.getParameter("contentid");
 		String typeid = req.getParameter("contenttypeid");
+		String mapx = req.getParameter("mapx");
+		String mapy = req.getParameter("mapy");
 		
+		System.out.println(mapx);
+		System.out.println(mapy);
 		req.setAttribute("id", id);
 		req.setAttribute("typeid", typeid);
 		req.setAttribute("areacode", areaCode);
 		req.setAttribute("region", region);
+		req.setAttribute("mapx", mapx);
+		req.setAttribute("mapy", mapy);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 	
 		forward(req, resp, "/WEB-INF/views/attraction/content.jsp");
+	}
+	
+	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	protected void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		try {
+			String mapx = req.getParameter("mapx");
+			String mapy = req.getParameter("mapy");
+			
+			System.out.println(mapx);
+			System.out.println(mapy);
+			req.setAttribute("mapx", mapx);
+			req.setAttribute("mapy", mapy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		forward(req, resp, "/WEB-INF/views/attraction/map.jsp");
+	}
+	protected void companylist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	}
 	
 }

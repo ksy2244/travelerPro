@@ -131,7 +131,7 @@ public class QnaServlet extends TravelServlet {
 
 		try {
 			QnaVO dto = new QnaVO();
-
+			
 			dto.setSubject(req.getParameter("subject"));
 			dto.setContent(req.getParameter("content"));
 			dto.setCategoryNum(Integer.parseInt(req.getParameter("categoryNum")));

@@ -74,7 +74,7 @@
 	margin-bottom: 40px;
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/ceo.js"></script>
 <script type="text/javascript">

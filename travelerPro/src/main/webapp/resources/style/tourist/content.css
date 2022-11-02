@@ -33,7 +33,7 @@
 .list_thumType > li .area_txt .tit a:hover{text-decoration: underline;}
 .list_thumType > li .area_txt .tit span{display: inline-block; padding-left: 5px; font-size: 16px;}
 .list_thumType > li .area_txt p{font-size: 14px;}
-.area-body {
+/* .area-body {
 	position: relative;
 }
 .area-tag {
@@ -50,6 +50,41 @@
 }
 .area-tag p{
 	color: white;
+} */
+
+.area-body {
+   position: relative;
+}
+.area-tag {
+   float: left;
+   position: fixed;
+   top: 200px;
+   width: 380px;
+   height: 500px;
+   background: #EAEAEA;
+   border-radius: 10px;
+   text-align: center;
+   margin-left: 40px; 
+   box-shadow: 8px 8px gray;
+   
+}
+
+.font {
+   font-weight: bold;
+   font-size: 20px;
+   font-family: 'GmarketSans';
+   color: black;
+}
+
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
+.btn {
+   font-family: 'GmarketSans';
+   display: inline-block;
+}
+
+.gap {
+   margin-right: 20px;
 }
 
 

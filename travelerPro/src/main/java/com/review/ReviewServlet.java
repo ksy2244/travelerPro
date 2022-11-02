@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import com.member.SessionInfo;
-import com.reservation.ReservationDAO;
-import com.reservation.ReservationDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
@@ -38,19 +36,28 @@ public class ReviewServlet extends TravelServlet {
 			return;
 		}
 
+		// 리뷰 추가
 		if (uri.indexOf("insertReview.do") != -1) {
-			// 댓글 추가
 			insertReview(req, resp);
-		} else if (uri.indexOf("listReview.do") != -1) {
-			// 댓글 리스트
+		}
+
+		// 리뷰 리스트
+		else if (uri.indexOf("listReview.do") != -1) {
 			listReview(req, resp);
-		} else if (uri.indexOf("deleteReview.do") != -1) {
-			// 댓글 삭제
+		}
+
+		// 리뷰 삭제
+		else if (uri.indexOf("deleteReview.do") != -1) {
 			deleteReview(req, resp);
 
-		} else if (uri.indexOf("review.do") != -1) {
+		}
+		// 리뷰
+		else if (uri.indexOf("review.do") != -1) {
 			review(req, resp);
-		} else if (uri.indexOf("myReview.do") != -1) {
+		}
+
+		// 나의 리뷰
+		else if (uri.indexOf("myReview.do") != -1) {
 			myReview(req, resp);
 		}
 
@@ -71,9 +78,20 @@ public class ReviewServlet extends TravelServlet {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		String state = "false";
+		long reservationNum = 0;
 
 		try {
 			ReviewDTO dto = new ReviewDTO();
+
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+
+			System.out.println(companyNum);
+			int checkRoll = dao.checkRoll(companyNum, info.getUserId());
+			
+			System.out.println(checkRoll);
+			if(checkRoll <=0 ) {
+				return;
+			}
 
 			dto.setUserId(info.getUserId());
 			dto.setContent(req.getParameter("content"));
@@ -91,6 +109,7 @@ public class ReviewServlet extends TravelServlet {
 		}
 		JSONObject job = new JSONObject();
 		job.put("state", state);
+		job.put("reservationNum", reservationNum);
 
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
@@ -129,8 +148,11 @@ public class ReviewServlet extends TravelServlet {
 		TravelUtil util = new TravelUtilBootstrap();
 		int reviewCount = 0;
 		try {
+
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+
 			String pageNo = req.getParameter("pageNo");
+
 			int current_page = 1;
 			if (pageNo != null) {
 				current_page = Integer.parseInt(pageNo);
@@ -198,9 +220,12 @@ public class ReviewServlet extends TravelServlet {
 
 			list = dao.myReviewList(info.getUserId());
 			System.out.println(info.getUserId());
+			
+			int dataCount = dao.myReviewCount(info.getUserId());
 
 			// JSP로 전달할 속성
 			req.setAttribute("list", list);
+			req.setAttribute("dataCount", dataCount);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/myReview.jsp");
@@ -209,8 +234,6 @@ public class ReviewServlet extends TravelServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
 
 	}
 

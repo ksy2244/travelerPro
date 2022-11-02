@@ -47,7 +47,37 @@ function ajaxFun(url, method, query, dataType, fn) {
 
 $(function(){
 	sendRegion('1', '서울');
+	companyphoto('1','서울');
 });
+function companyphoto(areaCode,areaName) {
+	let url = "${pageContext.request.contextPath}/companyphoto.do";
+	let query = "areaCode="+areaCode+"areaName="+areaName;
+	const fn = function(data) {
+		printphoto(data);
+	};
+	ajaxFun(url,"get",query,"json",fn);
+	
+}
+
+function printphoto(data){
+	let out = "";
+	for(let item of data.list){
+		let companyName = item.companyName;
+		let imageFileName = item.imageFileName;
+		let minPrice = item.minPrice;
+		out += "<div class=company-photo>";
+		out += "	<a href=#>";		
+		out += "		<img alt='' src='"+imageFileName+"'>";
+		out += "	</a>";
+		out += "</div>";
+		out += "<div class='company-name'>";
+		out += "	<a href=#>"+companyName+"</a>";
+		out += "</div>";
+		out += "<div class='company-price'>"+minPrice+"</div>";
+	}
+	$(".company-content").html(out);
+	
+}
 
 function sendRegion(areaCode, areaName){
 	$(".tour-title").html(areaName + " 지역의 추천 관광지");
@@ -300,6 +330,14 @@ $(function(){
 					</div>
 				</div>
 			</div>
+				<div>
+					<span>숙박업체</span>
+				</div>
+				<div class="company-list">
+					<div class="company-content">
+						
+					</div>
+				</div>
 			
 
 <!--  	<div align="center" class="region-container">

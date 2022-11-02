@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.coupon.CouponDTO;
 import com.util.DBConn;
 
 public class ReservationDAO {
@@ -149,16 +151,47 @@ public class ReservationDAO {
 	}
 
 	// 해당 업체의 객실 목록 (객실 정보)
-	public List<ReserveRoomDTO> listRoom(int companyNum) {
+	public List<ReserveRoomDTO> listRoom(int companyNum, String start_date, String end_date ) {
 		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 
 		try {
-			sql = "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
+			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount "// --,imageFileName 
+					+ " FROM room rm  " // -- JOIN mainRoomImage mr ON mr.roomNum = r.roomNum  
+					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  "
+					+ " (SELECT rm.roomNum  FROM reservation r "
+					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
+					+ " JOIN room rm ON rm.roomNum = rd.roomNum "
+					+ " JOIN company c ON c.companyNum = rm.companyNum "
+					+ " WHERE (( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) <= TO_DATE(?) AND TO_DATE(end_date) >= TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) > TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) )) "
+					+ " AND c.companyNum = ?) " ;
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, companyNum);
+			pstmt.setString(2, start_date);
+			pstmt.setString(3, end_date);
+			pstmt.setString(4, start_date);
+			pstmt.setString(5, end_date);
+			pstmt.setString(6, start_date);
+			pstmt.setString(7, end_date);
+			pstmt.setString(8, start_date);
+			pstmt.setString(9, end_date);
+			pstmt.setInt(10, companyNum);
+			rs = pstmt.executeQuery();
+
+					
+					
+				/*	
+					 "  SELECT companyNum, r.roomNum, roomName, roomInfo, price, discountRate, headCount, imageFileName "
 					+ "  FROM room r " + "  JOIN mainRoomImage mr ON mr.roomNum = r.roomNum "
 					+ "  WHERE companyNum = ? ";
+					
+					*/
 			/*
 			 * 
 			 * CREATE OR REPLACE FORCE NONEDITIONABLE VIEW mainRoomImage AS (SELECT
@@ -167,13 +200,9 @@ public class ReservationDAO {
 			 * roomFile) WHERE rnum = 1)
 			 */
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, companyNum);
-			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				ReserveRoomDTO dto = new ReserveRoomDTO();
-
 				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setRoomName(rs.getString("roomName"));
@@ -342,7 +371,7 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, notice "
 					+ " checkintime, checkouttime, companyTel, "
 					+ " notice, addr, addrDetail, zip , pick FROM company c "
 					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
@@ -361,6 +390,7 @@ public class ReservationDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
+				dto.setNotice(rs.getString("notice"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setCompanyTel(rs.getString("companyTel"));
@@ -560,7 +590,7 @@ public class ReservationDAO {
 		ResultSet rs = null;
 		String sql = null;
 		try {
-			sql = " SELECT r.reservationNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
+			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
 					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
 
@@ -585,6 +615,7 @@ public class ReservationDAO {
 			while (rs.next()) {
 				ReservationDTO dto = new ReservationDTO();
 				dto.setReservationNum(rs.getLong("reservationNum"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setStart_date(rs.getString("startDate"));
 				dto.setEnd_date(rs.getString("endDate"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
@@ -620,6 +651,48 @@ public class ReservationDAO {
 
 		return list;
 	}
+	
+	public int myReservationCount(String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT COUNT(*) FROM reservation "
+					+ " WHERE userId = ?  AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) "
+					+ " AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	
 
 	public int countCompanyLike(int companyNum) {
 		int result = 0;
@@ -713,16 +786,15 @@ public class ReservationDAO {
 	}
 
 	// 내가 사용할 수 있는 쿠폰 리스트
-	public List<ReserveRoomDTO> listCoupn(String userId) throws SQLException {
-		List<ReserveRoomDTO> list = new ArrayList<ReserveRoomDTO>();
+	public List<CouponDTO> listCoupon(String userId) throws SQLException {
+		List<CouponDTO> list = new ArrayList<CouponDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 
 		try {
-			sql = " SELECT  couponName, couponRate, start_date, end_date FROM coupon " 
-					+ " WHERE (couponNum NOT IN "
-					+ " 	(SELECT couponNum FROM myCoupon WHERE userID =  > ) )AND "
+			sql = " SELECT  couponNum, couponName, couponRate,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
+					+ " WHERE (couponNum NOT IN " + " 	(SELECT couponNum FROM myCoupon WHERE userID =  ? ) )AND "
 					+ " 	(( start_date <= SYSDATE ) AND  ( end_date >= SYSDATE )) ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -730,6 +802,19 @@ public class ReservationDAO {
 			pstmt.setString(1, userId);
 
 			pstmt.executeUpdate();
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CouponDTO dto = new CouponDTO();
+				dto.setCouponNum(rs.getLong("couponNum"));
+				dto.setCouponName(rs.getString("couponName"));
+				dto.setCouponRate(rs.getInt("couponRate"));
+				dto.setStart_date(rs.getString("start_date"));
+				dto.setEnd_date(rs.getString("end_date"));
+
+				list.add(dto);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -750,38 +835,120 @@ public class ReservationDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
-		
+
 		try {
 			sql = "SELECT companyNum, userId FROM pick WHERE companyNum = ?  AND userId = ? ";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setLong(1, companyNum);
 			pstmt.setString(2, userId);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				result = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(rs != null) {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (Exception e2) {
 				}
 			}
-			
-			if(pstmt != null) {
+
+			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (Exception e2) {
 				}
 			}
-			
+
 		}
-		
+
 		return result;
 	}
-}
+	
+	public void couponUse(int couponNum, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "INSERT INTO myCoupon(couponNum, userId, use_date) VALUES (?, ?, SYSDATE)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, couponNum);
+			pstmt.setString(2, userId);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+	}
+	
+	
+	// 인기 업체
+		public List<ReserveCompanyDTO> listTopCompany() {
+			List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+
+			try {
+					sql = "SELECT companyName ,  mc.imageFileName, minPrice,  "
+						+ "CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
+						+ "CASE WHEN pick >0 THEN pick ELSE 0 END AS pick   FROM company c   "
+						+ "LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
+						+ "LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
+						+ "LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
+						+ "LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
+						+ "WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
+						+ "WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 4 "
+						+ "ORDER BY starRate DESC, pick DESC  ";
+					pstmt = conn.prepareStatement(sql);
+
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ReserveCompanyDTO dto = new ReserveCompanyDTO();
+						dto.setCompanyName(rs.getString("companyName"));
+						dto.setImageFileName(rs.getString("imageFileName"));
+						dto.setMinPrice(rs.getInt("minPrice"));
+						dto.setStarRate(rs.getDouble("starRate"));
+						dto.setPick(rs.getInt("pick"));
+
+						list.add(dto);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException e) {
+						}
+					}
+
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException e) {
+						}
+					}
+				}
+
+				return list;
+			}
+
+		}

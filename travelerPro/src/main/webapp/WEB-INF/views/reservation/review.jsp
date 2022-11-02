@@ -102,7 +102,7 @@
 	$(function() { $(".btnSendReview").click(
 		function() {
 		let companyNum = "${companyNum}";
-				
+		
 		const $tb = $(this).closest("table");
 		let content = $tb.find("textarea").val().trim();
 
@@ -112,6 +112,7 @@
 			$tb.find("textarea").focus();
 				return false;
 		}
+	
 
 		content = encodeURIComponent(content);
 							
@@ -122,7 +123,7 @@
 		const fn = function(data) {
 			$tb.find("textarea").val("");
 
-			let state = data.state;					
+			let state = data.state;		
 
 			if (state === "true") {
 				listPage(1);

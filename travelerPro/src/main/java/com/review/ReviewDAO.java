@@ -182,6 +182,7 @@ public class ReviewDAO {
 
 	}
 
+	
 	private ReviewDTO readReview(int reviewNum) {
 		ReviewDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -277,7 +278,7 @@ public class ReviewDAO {
 		String sql = null;
 		try {
 			sql = " SELECT rd.reservationNum, TO_CHAR(reg_date,'yyyy.MM.dd') AS reg_date, content, starRate, "
-					+ " companyName, roomName, "
+					+ " companyName, roomName, c.companyNum, "
 					+ " TO_CHAR(start_date,'yyyy.MM.dd') AS start_date , TO_CHAR(end_date,'yyyy.MM.dd') AS end_date  " 
 					+ "	FROM review r "
 					+ "	JOIN reservationDetail rd  "
@@ -307,6 +308,7 @@ public class ReviewDAO {
 				dto.setStarRate(rs.getInt("starRate"));
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setRoomName(rs.getString("roomName"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setStartDate(rs.getString("start_date"));
 				dto.setEndDate(rs.getString("end_date"));
 
@@ -334,7 +336,90 @@ public class ReviewDAO {
 		return list;
 	}
 	
+	public int myReviewCount(String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT COUNT(*) "
+					+ "FROM review r "
+					+ "JOIN reservation s ON r.reservationNum = s.reservationNum "
+					+ "WHERE userId = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 	
+	public int checkRoll(int companyNum, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = " SELECT  COUNT(r.reservationNum) AS checkRoll FROM reservation r "
+					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
+					+ " JOIN room rm ON rm.roomNum = rd.roomNum " + "JOIN company c ON c.companyNum = rm.companyNum "
+					+ " WHERE (c.companyNum = ? AND r.userId = ? )";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+			pstmt.setString(2, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 	
 
 }
