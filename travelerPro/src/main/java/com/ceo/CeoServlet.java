@@ -137,6 +137,20 @@ public class CeoServlet extends TravelServlet {
 
 		try {
 			CeoDTO dto = new CeoDTO();
+
+			String[] ss = req.getParameterValues("checkList");
+
+			String service = "";
+		
+			for (String a : ss) {
+				service += a + ",";
+			}
+	
+			if (service.length() > 0) {
+				service = service.substring(0, service.length() - 1);
+			}
+			
+			
 			dto.setCompanyName(req.getParameter("companyName"));
 			dto.setBusinessNum1(req.getParameter("businessNum1"));
 			dto.setBusinessNum2(req.getParameter("businessNum2"));
@@ -156,7 +170,7 @@ public class CeoServlet extends TravelServlet {
 			dto.setAddr(req.getParameter("addr1"));
 			dto.setAddrDetail(req.getParameter("addr2"));
 			dto.setCompanyInfo(req.getParameter("companyInfo"));
-			dto.setAmenities(req.getParameter("amenities"));
+			dto.setAmenities(service);
 			dto.setGuide(req.getParameter("guide"));
 			dto.setNotice(req.getParameter("notice"));
 			
@@ -392,6 +406,9 @@ public class CeoServlet extends TravelServlet {
 	
 	
 	protected void recognition(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CeoDAO dao = new CeoDAO();
+		List<ServiceDTO> list = dao.listCategory();
+		req.setAttribute("list", list);
 		req.setAttribute("mode", "recognition");
 		forward(req, resp, "/WEB-INF/views/ceo/recognition.jsp");
 	}

@@ -847,4 +847,50 @@ public List<ReservationDTO> payList(String id, int offset, int size) {
 		 
 		 return result;
 	 }
+	 
+
+		public List<ServiceDTO> listCategory() {
+			List<ServiceDTO> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+			
+			try {
+				sql = " SELECT serviceNum, serviceName, serviceImg "
+						+ " FROM service ";
+				
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					ServiceDTO dto = new ServiceDTO();
+
+					dto.setServiceNum(rs.getInt("serviceNum"));
+					dto.setServiceName(rs.getString("serviceName"));
+					dto.setServiceImg(rs.getString("serviceImg"));
+
+					list.add(dto);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (Exception e2) {
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (Exception e2) {
+					}
+				}
+
+			}
+			return list;
+
+		}
+
 }
