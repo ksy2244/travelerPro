@@ -21,7 +21,172 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.shadowBox {
+	margin-left: 100px;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.font {
+	font-size: 19px;
+	font-weight: 600;
+}
+
+.box {
+	background: #eee;
+	border-radius: 3px;
+	border: 5px solid #eee;
+	font-size: 18px;
+	text-align: center;
+	color: #5D5D5D;
+}
+
+.day {
+	font-size: 17px;
+}
+
+.head {
+	font-size: 17px;
+	font-weight: bold;
+	color: gray;
+}
+
+.basic {
+	font-size: 17px;
+	margin-top: 20px;
+}
+
+.rate {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 200px;
+	padding-top: 50px;
+	width: 1100px;
+	color: red;
+}
+
+.price {
+	color: black;
+}
+
+.line {
+	text-decoration: line-through;
+	font-size: 25px;
+	color: #787878;
+}
+
+.realPrice {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 160px;
+	width: 1100px;
+}
+
+.gray {
+	padding-left: 0px;
+}
+
+.card {
+	font-size: 15px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.go {
+	width: 800px;
+	margin-left: 80px;
+}
+
+.coupon {
+	border: 1px solid #eee;
+	border-radius: 7px;
+	font-size: 18px;
+	color: #787878;
+	width: 220px;
+	height: 130px;
+	padding: 10px;
+	margin-right: 10px;
+}
+
+.coupon-body {
+	float: left;
+}
+
+.name {
+	font-weight: bold;
+	font-size: 20px;
+	color: black;
+}
+
+.couponDay {
+	font-size: 14px;
+}
+
+.margin {
+	font-size: 22px; 
+	margin-left: 525px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.black {
+	color: black;
+	font-size: 28px;
+}
+
+#realPayment {
+	font-weight: bold;
+	color:red;
+	font-size: 32px;
+	margin-left: 455px;
+}
+
+.label {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+input[type=checkbox] {
+	zoom: 1.5;
+}
+
+.form-check {
+	margin-left: 20px;
+}
+
+.smallLabel {
+	margin-right: 100px;
+}
+
+.room { 
+	font-size: 19px;
+}
+
+.gray {
+	color: #787878;
+	font-size: 17px;
+}
+
+.btnCoupon {
+	margin-left: 55px;
+	margin-top: 20px;
+}
+
+.red {
+	color: red;
+	font-size: 15px;
 }
 </style>
 
@@ -87,7 +252,7 @@
 				f.submit();
 			} else {
 				console.log(rsp);
-				alert("결제가 실패했습니다");
+				alert("결제를 실패했습니다");
 				}
 		});	
 
@@ -117,7 +282,7 @@
 				
 				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
 
-				$(".spanPaymentPrice").html("(쿠폰 적용가 " + paymentPrice +")");
+				$(".spanPaymentPrice").html(paymentPrice+"원");
 			}
 			
 			
@@ -131,141 +296,202 @@
 
 
 </head>
-<body>
+<body class="pt-5">
 
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 
 
-	<main>
-
+	<main class="pt-5">
 		<div class="container">
 			<div class="body-container">
-				<div class="body-title">
-					<h3>${title}</h3>
-				</div>
-
-				<div class="alert" role="alert" style="background: #E4FBFF">
-					객실 예매를 위한 정보를 입력해주세요.</div>
-				<div class="shadowBox">
+				<br><br><br>
+				<span class="pb-5">
+					<img src="${pageContext.request.contextPath}/resources/images/room.jpg" style="width: 1100px; margin-left: 105px;">
+				</span>
+				<div class="shadowBox" style="width: 1100px; height: 1200px;">  
 					<div class="shadowBoxContent" style="padding: 40px">
-						<h4>
-							<i class="fa-solid fa-hotel"></i>&nbsp;
-							${dto.companyName}&nbsp;${dto.roomName}
-						</h4>
+						<h4 class="name">${dto.roomName}</h4>
+						<br> 
+						<hr style="width: 950px; color: #787878;">
+						<br>
+						
 						<p class="card-text">
 						<p class="address" style="font-size: 20px;">
-							<i class="fa-solid fa-location-dot">&nbsp;</i>주소 ${dto.addr} 기준
-							${dto.addrDetail}인
+							<i class="fa-solid fa-location-dot">&nbsp;</i> ${dto.addr} 기준
+							${dto.addrDetail}
 						</p>
-						<p>${dto.roomInfo}</p>
-						<p>체크인 ${start_date}&nbsp;${dto.checkInTime}&nbsp;|&nbsp;체크아웃
-							${end_date}&nbsp;${dto.checkOutTime}</p>
-						<p>기준 ${dto.headCount}인 ${dto.headCount}인 가격
-							${dto.roomPrice}원&nbsp;할인율 ${dto.discountRate}%</p>
-						<p>
-							<i class="fa-solid fa-money-check"></i>&nbsp;지불
-							금액&nbsp;${paymentPrice}원 <span class ="spanPaymentPrice"></span>
-						</p>
-
+						<br>
+						<p class="font pb-3">숙박</p>
+							<div style="width: 1250px;">
+								<span class="box">인원</span>&nbsp;<span class="head">최대 ${dto.headCount}인</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+								<span class="box">체크인</span>&nbsp;&nbsp;<span class="day">${start_date}&nbsp;${dto.checkInTime}&nbsp;&nbsp;|&nbsp;&nbsp;
+								</span><span class="box">체크아웃</span>&nbsp;&nbsp;<span class="day">${end_date}&nbsp;${dto.checkOutTime}&nbsp;</span>
+							</div>
+						<div class="basic">도보전용</div>
+						<c:if test="${dto.discountRate != 0 }">
+							<div class="rate">${dto.discountRate}%&nbsp;&nbsp;<span class="price line" id="liveAlertPlaceholder">${dto.roomPrice}원</span></div>
+							<div class="realPrice">${paymentPrice}원
+								<span>
+								  <a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+								    <i class="fa-solid fa-circle-exclamation"></i>
+								  </a>
+								</span>
+			    
+							    <div class="collapse" id="collapseExample">
+									  <div class="card card-body">
+									    * 1박 기준 가격입니다.<br>
+									    * 쿠폰은 아래 예약 화면에서 적용할 수 있습니다.
+									  </div>
+								</div>
+							</div>
+						</c:if>
+						
+						<c:if test="${dto.discountRate == 0 }">
+							<div class="realPrice">${paymentPrice}원
+								<span>
+								  <a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+								    <i class="fa-solid fa-circle-exclamation"></i>
+								  </a>
+								</span>
+			    
+							    <div class="collapse" id="collapseExample">
+									  <div class="card card-body">
+									    * 1박 기준 가격입니다.<br>
+									    * 쿠폰은 아래 예약 화면에서 적용할 수 있습니다.
+									  </div>
+								</div>
+							</div>
+						</c:if>				
+						<br>
+						<hr style="width: 950px; color: #787878;">
+						<br>
+						
+						<p class="font pb-3">기본정보</p>
+						<div class="basic" style="width: 1250px;">${dto.roomInfo}</div>
+						<br>
+						<hr style="width: 950px; color: #787878;">
+						<br>
+						
+						<p class="font pb-3">예약공지</p>
+						<div class="basic" style="width: 900px;">${dto.notice}</div>
+						<br><br><br>
+						<div class="pt-5"><button class="btn btn-danger btn-lg go" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">예약하기</button></div>
 					</div>
-
 				</div>
-				<br>
+			<br>
 
 
-				<!-- 쿠폰 -->
-				<div class="row">
-					<c:forEach var="coupon" items="${list}" varStatus="status">
-						<div class="col-md-3 col-lg-5 p-2 item">
-							<div class="card-group" style="width: 1500px; margin: auto;">
-
-								<div class="card-body">
-								
-								<h4 class="card-title">내가 사용할 수 있는 쿠폰 리스트</h4>
-									<h4 class="card-title">쿠폰 이름${coupon.couponNum} </h4>
-									<h4 class="card-title">쿠폰 이름${coupon.couponName}</h4>
-									<h4 class="card-title">할인율${coupon.couponRate}</h4>
-									<h4 class="card-titl">${coupon.start_date}~${coupon.end_date}</h4>
-									<h4 class="card-title">${coupon.start_date}~${coupon.end_date}</h4>
-									<h4 class="card-title">${paymentPrice * coupon.couponRate /100}원 할인</h4>
-						 		
-						 		<div class="couponForm"> 
-									<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponPrice">
-									<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 
-								
-								<button class="dateBtn btn btn-danger btnCoupon"  type="button"> 쿠폰 적용하기 </button>
-										
+		<!-- 예약 모달 -->			
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">예약하기</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      	  <div>
+		      	  	<br>
+		      	  		<div class="font">상품 정보</div>
+		      	  		<br>
+		      	  		<div class="name mb-2">${dto.companyName}</div>
+		      	  		<div class="room">${dto.roomName}</div>
+		      	  		<div class="gray">${start_date}&nbsp;&nbsp;~&nbsp;&nbsp;${end_date}</div>
+		      	  		<div class="gray">체크인 ${dto.checkInTime}&nbsp;&nbsp;|&nbsp;&nbsp;체크아웃 ${dto.checkOutTime}</div>
+		      	  		<br>
+		      	  		<div class="red">취소 및 환불 불가</div>
+		      	  		<br><hr><br>
+		      	  		
+		      	  		<h4 class="font pb-3">지금 사용가능한 쿠폰</h4>
+							<c:forEach var="coupon" items="${list}" varStatus="status">
+								<div>
+									<div class="coupon-body">
+										<div class="coupon">
+											<div class="name" align="center">${coupon.couponName}</div>
+											<div align="center">할인율 ${coupon.couponRate}%</div>
+											<br>
+											<div class="couponDay" align="center">${coupon.start_date}~${coupon.end_date}</div>
+									 	</div>
+									 		
+									 	<div class="couponForm"> 
+											<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponPrice">
+											<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 								
+											<button class="dateBtn btn btn-danger btnCoupon btn-sm"  type="button"> 쿠폰 적용하기 </button>
+										</div>
 									</div>
 								</div>
-							</div>
-
-						</div>
-					</c:forEach>
-				</div>
-
-
-				<div class="body-main">
-					<form name="reservationForm" method="post">
-						<div class="row mb-3">
-							<label class="col-sm-2 col-form-label" for="realUserName">이용자
-								이름</label>
-							<div class="col-sm-10 userId-box">
-								<div class="row">
-									<div class="col-5 pe-1">
-										<input type="text" name="realUserName" id="realUserName"
-											class="form-control" placeholder="체크인시 필요한 이름입니다.">
-									</div>
-								</div>
-
-								<small class="form-control-plaintext help-block">이름은
-									2~5자 이내이며, 한글만 가능합니다. </small>
-
-							</div>
-						</div>
-
-						<div class="row mb-3">
-							<label class="col-sm-2 col-form-label" for="realUserTel">이용자
-								전화번호</label>
-							<div class="col-sm-10">
-								<input type="text" name="realUserTel" id="realUserTel"
-									class="form-control" placeholder="체크인시 필요한 전화번호입니다.">
-							</div>
-						</div>
-
-
-						<div>
-							<input type="hidden" value="${dto.roomNum}" name="roomNum">
-							<%-- 	<input type="hidden" value="${start_date}" name="start_date">
-							<input type="hidden" value="${end_date}" name="end_date"> --%>
-							<input type="hidden" value="${dto.headCount}" name="headCount">
-							<input type="hidden" value="${dto.roomPrice}" name="totalPrice">
-							<input type="hidden" value="${paymentPrice}" name="paymentPrice">
-							<input type="hidden" value="${dto.checkInTime}"
-								name="checkInTime"> <input type="hidden"
-								value="${dto.checkOutTime}" name="checkOutTime"> <input
-								type="hidden" value="${dto.discountRate}" name="discountRate">
-							<input type="hidden" value="${dto.companyNum}" name="companyNum">
-							<input type="hidden" value="${dto.checkInTime}"
-								name="checkInTime"> <input type="hidden"
-								value="${dto.checkOutTime}" name="checkOutTime"> <input
-								type="hidden" value="${start_date}" name="start_date"
-								class="styleInput"> <input type="hidden"
-								value="${end_date}" name="end_date" class="styleInput">
-							
-							<input type ="hidden" name ="couponNum" value ="0">
-							<input type="hidden" value="0" name="couponPrice" >								
-							<button type="button" name="sendButton"
-								class="dateBtn btn btn-danger" onclick="requestPay();">예약</button>
-						</div>
-					</form>
-
-				</div>
-			</div>
+							</c:forEach>
+					</div>
+					
+				<br><br><br><br><br><br><br><br><br><br><hr>		
+		        <form name="reservationForm" method="post">
+		       	<br>
+		          <div class="mb-4">
+		  			<div class="font">이용자 정보</div>
+		            <label for="recipient-name" class="col-form-label basic">이용자 이름</label>
+		            <input type="text" class="form-control" name="realUserName" id="realUserName" placeholder="체크인 시 필요한 이름입니다.">
+		            <small class="form-control-plaintext help-block">이름은 2~5자 이내이며, 한글만 가능합니다. </small>
+		          </div>
+		          <div class="mb-3">
+		            <label for="recipient-name" class="col-form-label basic" >이용자 전화번호</label>
+		            <input type="text" class="form-control" name="realUserTel" id="realUserTel" placeholder="체크인 시 필요한 전화번호입니다.">
+		          </div>
+		          <br><hr><br>
+		          
+		          <div class="font">금액 및 할인 정보</div>
+		          <br>
+		          <span class="basic mb-3">총 결제 금액</span><span class="margin black">${paymentPrice}원</span>
+				  <br><br>				
+		          <span class="basic mb-3">쿠폰 적용 결제 금액</span><span class ="spanPaymentPrice margin" id="realPayment"></span>
+		          <br><br><hr><div class="mb-4"></div>	
+		          	<div class="form-check">
+						 <input type="checkbox" id="agree" name="agree"
+											class="form-check-input"
+											checked="checked"
+											onchange="form.sendButton.disabled = !checked">
+						 <label class="form-check-label label" for="flexCheckDefault">
+						    필수 약관 동의
+						 </label>
+						 <br>
+						 <label class="form-check-label smallLabel" for="flexCheckDefault">
+						    이용규칙, 취소 및 환불 규칙에 동의하실 경우 결제 버튼을 클릭해 주세요.
+						 </label>
+					</div>
+					
+					<div class="mb-4"></div>				
+		          	<div>
+						<input type="hidden" value="${dto.roomNum}" name="roomNum">
+						<%-- 	<input type="hidden" value="${start_date}" name="start_date">
+						<input type="hidden" value="${end_date}" name="end_date"> --%>
+						<input type="hidden" value="${dto.headCount}" name="headCount">
+						<input type="hidden" value="${dto.roomPrice}" name="totalPrice">
+						<input type="hidden" value="${paymentPrice}" name="paymentPrice">
+						<input type="hidden" value="${dto.checkInTime}" name="checkInTime"> 
+						<input type="hidden" value="${dto.checkOutTime}" name="checkOutTime"> 
+						<input type="hidden" value="${dto.discountRate}" name="discountRate">
+						<input type="hidden" value="${dto.companyNum}" name="companyNum">
+						<input type="hidden" value="${dto.checkInTime}" name="checkInTime"> 
+						<input type="hidden" value="${dto.checkOutTime}" name="checkOutTime"> 
+						<input type="hidden" value="${start_date}" name="start_date" class="styleInput"> 
+						<input type="hidden" value="${end_date}" name="end_date" class="styleInput">
+						<input type ="hidden" name ="couponNum" value ="0">
+						<input type="hidden" value="0" name="couponPrice" >								
+					</div>
+			         <div class="modal-footer">
+				      	<button type="button" name="sendButton" class="dateBtn btn btn-danger" onclick="requestPay();">결제</button>
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			      	</div>
+		        </form>   
+		      </div>
+		    </div>
+		  </div>
 		</div>
 
-	</main>
+	</div>
+</div>
+</main>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />

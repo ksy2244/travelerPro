@@ -19,6 +19,15 @@
 <link rel="import" href="map.html">
 
 <style type="text/css">
+.body-container {
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
 .img {
 	padding-top: 20px;
 	padding-left: 20px;
@@ -38,7 +47,13 @@
 }
 
 .png {
-	width: 15px;
+	width: 18px;
+	margin-left: 22px;
+	margin-top: 10px;
+}
+
+.pick {	
+	color: #787878;
 }
 
 .star {
@@ -150,6 +165,7 @@
 													<span class="star"><i class="fa-regular fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
 												</c:otherwise>
 											</c:choose>
+											<div class="pick"><img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class="png">&nbsp;${dto.pick}</div>
 											<div class="price pt-4 pb-1">1박 기준</div>
 											<c:if test="${dto.minPrice < 100000 }">
 												<div class="card-title realpriceMin">${dto.minPrice}</div><span class="won">원</span>
