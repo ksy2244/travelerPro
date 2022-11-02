@@ -183,8 +183,11 @@ $(function() {
 											<c:when test="${dto.starRate == 2}">
 												<div class="star"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>&nbsp;<span class="bold">${dto.starRate }</span></div>
 											</c:when>
-											<c:otherwise>
+											<c:when test="${dto.starRate == 1}">
 												<div class="star"><i class="fa-solid fa-star"></i>&nbsp;<span class="bold">${dto.starRate }</span></div>
+											</c:when>
+											<c:otherwise>
+												<div class="star"><i class="fa-regular fa-star"></i>&nbsp;<span class="bold">${dto.starRate }</span></div>
 											</c:otherwise>
 										</c:choose>
 									</div>	

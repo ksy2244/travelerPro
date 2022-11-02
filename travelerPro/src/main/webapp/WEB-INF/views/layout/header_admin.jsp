@@ -65,6 +65,10 @@
 	          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/coupon/list.do" title="쿠폰 관리" 
 	          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">쿠폰 관리</a>
 	        </li>
+	        <li class="nav-item text-white">
+			          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃"
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
+			</li>
     	</ul>
     	</div>
     </div>
