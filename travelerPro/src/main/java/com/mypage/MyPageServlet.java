@@ -1,9 +1,7 @@
 package com.mypage;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.coupon.CouponDAO;
 import com.coupon.CouponDTO;
-import com.member.MemberDAO;
-import com.member.MemberDTO;
 import com.member.SessionInfo;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
@@ -26,30 +21,20 @@ import com.util.TravelUtilBootstrap;
 public class MyPageServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
 
-	private String pathname;
 	
 	@Override
 	protected void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
 		req.setCharacterEncoding("utf-8");
 		
-		
 		// 세션 정보
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
-		String ajax = req.getHeader("AJAX");
-		if(ajax != null && info == null) {
-			resp.sendError(403);
-			return;
-		} else if(info == null) { // 로그인 되어 있지 않은 경우
+		if(info == null) { // 로그인 되어 있지 않은 경우
 			forward(req, resp, "/WEB-INF/views/member/login.jsp");
 			return;
 		}
-
-		// 파일을 저장할 경로
-		String root = session.getServletContext().getRealPath("/");
-		pathname = root + "uploads" + File.separator + "mypage";
 				
 		if(uri.indexOf("coupon.do") != -1) {
 			coupon(req, resp);
@@ -74,7 +59,12 @@ public class MyPageServlet extends TravelServlet {
 				current_page = Integer.parseInt(page);
 			}
 			
-			int dataCount = dao.dataCount();
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			System.out.print(info.getUserId());
+			
+			int dataCount = dao.dataCount(info.getUserId());
 			
 			int size = 9;
 			int total_page = util.pageCount(dataCount, size);
@@ -85,7 +75,7 @@ public class MyPageServlet extends TravelServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			List<CouponDTO> list = dao.myPageCoupon(offset, size);
+			List<CouponDTO> list = dao.myPageCoupon(info.getUserId(), size, offset);
 			
 			String listUrl = cp + "/mypage/coupon.do";
 			String articleUrl = cp + "/mypage/couponInfo.do?page="+current_page;
@@ -128,7 +118,10 @@ public class MyPageServlet extends TravelServlet {
 		try {
 			long couponNum = Long.parseLong(req.getParameter("couponNum"));
 			
-			CouponDTO dto = dao.myPageReadCoupon(couponNum);
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			CouponDTO dto = dao.myPageReadCoupon(couponNum, info.getUserId());
 			
 			
 			if(dto == null) {
@@ -164,7 +157,7 @@ public class MyPageServlet extends TravelServlet {
 	}
 	
 
-		protected void alarm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void alarm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			forward(req, resp, "/WEB-INF/views/mypage/alarm.jsp");
-		}
+	}
 }

@@ -793,7 +793,7 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = " SELECT  couponNum, couponName, couponRate,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
+			sql = " SELECT  couponNum, couponName, couponRate, couponPrice,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
 					+ " WHERE (couponNum NOT IN " + " 	(SELECT couponNum FROM myCoupon WHERE userID =  ? ) )AND "
 					+ " 	(( start_date <= SYSDATE ) AND  ( end_date >= SYSDATE )) ";
 
@@ -810,6 +810,7 @@ public class ReservationDAO {
 				dto.setCouponNum(rs.getLong("couponNum"));
 				dto.setCouponName(rs.getString("couponName"));
 				dto.setCouponRate(rs.getInt("couponRate"));
+				dto.setCouponPrice(rs.getInt("couponPrice"));
 				dto.setStart_date(rs.getString("start_date"));
 				dto.setEnd_date(rs.getString("end_date"));
 

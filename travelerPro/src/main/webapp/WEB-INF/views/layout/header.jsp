@@ -102,8 +102,8 @@
 		          <ul class="dropdown-menu">
 		            <li><a class="dropdown-item" href="javascript:dialogPwd();" style="font-family: 'GmarketSans';">내 정보</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupon.do" style="font-family: 'GmarketSans';">쿠폰함</a></li>
-		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservation.do" style="font-family: 'GmarketSans';">예약내역</a></li>
-		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/review/myReview.do" style="font-family: 'GmarketSans';">나의 후기</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservation.do" style="font-family: 'GmarketSans';">예약 내역</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/review/myReview.do" style="font-family: 'GmarketSans';">나의 리뷰</a></li>
 		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/alarm.do" style="font-family: 'GmarketSans';">알림설정</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'GmarketSans';">로그아웃</a></li>
@@ -237,24 +237,6 @@
 		</div>
 	</div>
 	
-	<!-- Search Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-    		<div class="modal-content">
-      			<div class="modal-header">
-        			<h1 class="modal-title fs-5" id="exampleModalLabel">검색</h1>
-        			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      			</div>
-      			<div class="modal-body">
-        			<input type="text" class="form-control" id="recipient-name" placeholder="키워드" name="keyword">
-      			</div>
-      			<div class="modal-footer">
-        			<button type="button" class="btn" style="background: #B8B5FF">검색</button>
-        			<button type="button" class="btn" data-bs-dismiss="modal" style="background: #EDEEF7">닫기</button>
-      			</div>
-    		</div>
-  		</div>
-	</div>
 	
 	
 	

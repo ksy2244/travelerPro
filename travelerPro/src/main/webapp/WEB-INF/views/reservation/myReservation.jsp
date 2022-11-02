@@ -160,12 +160,12 @@ $(function() {
 						</c:if>
 					</div>
 					<br><br>
-					<div class="plus1 pt-3">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
-					<br><br>
-					<div class="plus2">(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.</div>
 				</div>
 				<div id="topButton" align="right"><i class="fa-solid fa-angles-up fa-3x"></i></div>
 			</div>
+			<div class="plus1 pt-3" align="center">예약내역은 최대 2년까지 조회할 수 있으며, 삭제하신 내역은 노출되지 않습니다.</div>
+					<br><br>
+			<div class="plus2" align="center">(주)TRAVELER는 통신판매중개업자로서, 통신판매인 당사자가 아니라는 사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.</div>
 		</div>
 	</main>
 

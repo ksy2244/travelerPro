@@ -7,14 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coupon.CouponDTO;
-import com.member.MemberDTO;
+import com.coupon.CouponDTO; 
 import com.util.DBConn;
 
 public class MypageDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public List<CouponDTO> myPageCoupon(int offset, int size){
+	public List<CouponDTO> myPageCoupon(String userId, int offset, int size){
 		List<CouponDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -25,13 +24,15 @@ public class MypageDAO {
 					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date "
 					+ " FROM coupon "
 					+ " WHERE end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
+					+ " AND couponNum NOT IN(SELECT c.couponNum FROM coupon c JOIN myCoupon m ON c.couponNum = m.couponNum WHERE userId = ?) "
 					+ " ORDER BY couponNum DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, offset);
-			pstmt.setInt(2, size);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, offset);
+			pstmt.setInt(3, size);
 			
 			rs = pstmt.executeQuery();
 			
@@ -71,7 +72,7 @@ public class MypageDAO {
 		
 	}
 	
-	public int dataCount() {
+	public int dataCount(String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,9 +80,12 @@ public class MypageDAO {
 		
 		try {
 			sql = "SELECT COUNT(*) FROM coupon "
-					+ " WHERE TO_CHAR(end_date, 'YYYY-MM-DD') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ";
+					+ " WHERE TO_CHAR(end_date, 'YYYY-MM-DD') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
+					+ " AND couponNum NOT IN(SELECT c.couponNum FROM coupon c JOIN myCoupon m ON c.couponNum = m.couponNum WHERE userId = ?) ";
 			
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
 			
 			rs = pstmt.executeQuery();
 			
@@ -111,7 +115,7 @@ public class MypageDAO {
 		
 	}
 	
-	public CouponDTO myPageReadCoupon(long couponNum) {
+	public CouponDTO myPageReadCoupon(long couponNum, String userId) {
 		CouponDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -121,11 +125,13 @@ public class MypageDAO {
 			sql = "SELECT couponNum, couponName, couponRate, couponPrice, content, "
 					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date "
 					+ " FROM coupon "
-					+ " WHERE couponNum = ? AND end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ";
+					+ " WHERE couponNum = ? AND end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
+					+ " AND couponNum NOT IN(SELECT c.couponNum FROM coupon c JOIN myCoupon m ON c.couponNum = m.couponNum WHERE userId = ?) ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, couponNum);
+			pstmt.setString(2, userId);
 			
 			rs = pstmt.executeQuery();
 			

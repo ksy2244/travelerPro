@@ -16,7 +16,12 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1500px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
 }
 
 .max-small {
@@ -25,6 +30,12 @@
 	max-width: 150px;
 	max-height: 150px;
 }
+
+.side {
+	background: #E35D6A;
+}
+
+.side:hover {background: #ED5D6A;}
 </style>
 
 <script type="text/javascript">
@@ -268,14 +279,18 @@
 								<button type="button" name="sendButton"
 									class="btn btn-danger text-white" onclick="memberOk();">
 									${mode=="member"?"회원가입":"정보수정"}</button>
-								<button type="button" class="btn"
+								<button type="button" class="btn text-white side"
 									onclick="location.href='${pageContext.request.contextPath}/';">
 									${mode=="member"?"가입취소":"취소"}<i class="bi bi-x"></i>
 								</button>
 
 								<input type="hidden" name="userIdValid" id="userIdValid"
 									value="false">
-								<a href="${pageContext.request.contextPath}/member/delete.do" class="text-decoration-none">회원탈퇴</a>	
+								<a href="${pageContext.request.contextPath}/member/delete.do" class="text-decoration-none delete">회원 탈퇴</a>
+								
+								<div class="col text-end">
+									<button type="button" class="btn btn-danger text-white" onclick="location.href='${pageContext.request.contextPath}/member/delete.do';">회원 탈퇴</button>
+								</div>
 							</div>
 						</div>
 

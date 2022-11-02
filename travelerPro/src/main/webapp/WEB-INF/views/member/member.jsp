@@ -114,6 +114,10 @@ function memberOk() {
         f.email2.focus();
         return;
     }
+    
+    if(! confirm('회원가입하시겠습니까?')){
+    	return false;
+    }
 
     f.action = "${pageContext.request.contextPath}/member/${mode}_ok.do";
     f.submit();

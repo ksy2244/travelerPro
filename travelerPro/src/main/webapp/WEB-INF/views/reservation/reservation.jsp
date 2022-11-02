@@ -188,6 +188,10 @@ input[type=checkbox] {
 	color: red;
 	font-size: 15px;
 }
+
+.both {
+	clear: both;
+}
 </style>
 
 <!-- jQuery -->
@@ -263,6 +267,7 @@ input[type=checkbox] {
 			let s = $("form[name=reservationForm] input[name=couponNum]").val();
 
 			let couponNum = $(this).closest("div").find("input[name=couponNum]").val();
+			let couponRate = $(this).closest("div").find("input[name=couponRate]").val();
 			let couponPrice = $(this).closest("div").find("input[name=couponPrice]").val();
 			let paymentPrice = ${paymentPrice};
 			
@@ -275,14 +280,23 @@ input[type=checkbox] {
 
 				$(".spanPaymentPrice").html("");
 				
-			}else{
-				paymentPrice = paymentPrice -couponPrice;
+			}else if(couponRate == 0){
+				paymentPrice = paymentPrice - couponPrice;
 				
 				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
 				
 				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
 
 				$(".spanPaymentPrice").html(paymentPrice+"원");
+			} else if(couponPrice == 0){
+				paymentPrice = paymentPrice - couponRate;
+				
+				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
+				
+				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
+
+				$(".spanPaymentPrice").html(paymentPrice+"원");
+				
 			}
 			
 			
@@ -291,6 +305,8 @@ input[type=checkbox] {
 			
 		});
 	});
+	
+	
 	
 </script>
 
@@ -407,25 +423,32 @@ input[type=checkbox] {
 		      	  		<h4 class="font pb-3">지금 사용가능한 쿠폰</h4>
 							<c:forEach var="coupon" items="${list}" varStatus="status">
 								<div>
-									<div class="coupon-body">
+									<div class="coupon-body ms-4">
 										<div class="coupon">
 											<div class="name" align="center">${coupon.couponName}</div>
-											<div align="center">할인율 ${coupon.couponRate}%</div>
+											<c:if test="${coupon.couponPrice == 0 }">
+												<div align="center">할인율 ${coupon.couponRate}%</div>
+											</c:if>
+											<c:if test="${coupon.couponRate == 0 }">
+												<div align="center">할인가격 ${coupon.couponPrice}원</div>
+											</c:if>
 											<br>
 											<div class="couponDay" align="center">${coupon.start_date}~${coupon.end_date}</div>
 									 	</div>
 									 		
 									 	<div class="couponForm"> 
-											<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponPrice">
+											<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponRate">
+											<input type="hidden" value="${coupon.couponPrice}" name="couponPrice">
 											<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 								
 											<button class="dateBtn btn btn-danger btnCoupon btn-sm"  type="button"> 쿠폰 적용하기 </button>
+											<div class="mb-4"></div>
 										</div>
 									</div>
 								</div>
-							</c:forEach>
+						</c:forEach>
 					</div>
-					
-				<br><br><br><br><br><br><br><br><br><br><hr>		
+				<div class="both"></div>	
+				<br><hr>		
 		        <form name="reservationForm" method="post">
 		       	<br>
 		          <div class="mb-4">
