@@ -35,6 +35,11 @@
 	margin-bottom: 50px;
 }
 
+.img {
+	width: 200px;
+	height: 200px;
+}
+
 .date {
 	font-size: 21px;
 	font-weight: bold;
@@ -45,7 +50,8 @@
 }
 
 .body {
-	margin-left: 200px;
+	margin-left: 120px;
+	margin-top: 50px;
 }
 
 .company {
@@ -141,7 +147,7 @@ $(function() {
 									src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
 									class="card-img-top ps-5 pt-4 img">
 								
-								<div class="body ps-5"> 
+								<div class="body"> 
 									<div class="company">${dto.companyName}</div>
 									<div class="room">${dto.roomName}</div>
 									<div class="day">${dto.start_date} ~ ${dto.end_date} | ${dto.day}박</div>
