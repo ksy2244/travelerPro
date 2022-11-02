@@ -207,7 +207,6 @@ public class CeoDAO {
 				}
 			}
 		}
-
 		return result;
 	}
 	public CeoDTO readCto(int num) {

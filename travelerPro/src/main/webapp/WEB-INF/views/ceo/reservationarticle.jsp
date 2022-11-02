@@ -22,8 +22,6 @@
 				<h3> 예약번호:${dto.reservationNum} </h3>
 			</div>
 			
-			
-		
 			<div class="body-main">
 				
 				<table class="table">

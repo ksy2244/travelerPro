@@ -73,6 +73,7 @@
 							<th class ="companyName">업체명</th>
 							<th class="roomName">객실명</th>
 							<th class="paymentPrice">가격</th>
+							
 						</tr>
 					</thead>
 					

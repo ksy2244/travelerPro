@@ -55,6 +55,7 @@
 			</div>
 			<div class="body-main">
 		        <div class="row board-list-header">
+		        
 		        	
 		            <div class="col-auto me-auto page">
 		            	${dataCount}개(${page}/${total_page} 페이지)

@@ -372,10 +372,10 @@ public class CeoServlet extends TravelServlet {
 				return; 
 			}
 			
-			
+		
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
-			//req.setAttribute("userId", userId);
+			
 			req.setAttribute("query", query);
 			req.setAttribute("reservationNum", reservationNum);
 			

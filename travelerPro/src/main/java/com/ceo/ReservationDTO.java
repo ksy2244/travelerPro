@@ -11,8 +11,7 @@ public class ReservationDTO {
 	private int paymentPrice; // 지불 금액
 	private String userId; // 사용자	
 	private String realUserName; // 실제 사용자 이름
-	private String realUserTel; // 실제 사용자 전화번호
-	
+	private String realUserTel; // 실제 사용자 전화번호	
 	private int companyNum;//업체번호
 	private int realheadCount; //realheadCount로 고쳐야할듯
 	private String companyName; //업체이름
