@@ -60,39 +60,73 @@
 			f.realUserTel.focus();
 			return;
 		}
-		alert(f.realUserTel.value);
+		
 		//결제 
-		let paymentPrice = "${paymentPrice}";
-		let subject = "${dto.companyName}(${dto.roomName})";
+		let paymentPrice = $("form[name=reservationForm] input[name=paymentPrice]").val();
+		
 		alert(paymentPrice);
+		
+		let subject = "${dto.companyName}(${dto.roomName})";
 		paymentPrice = 100;
-		IMP
-				.request_pay(
-						{
-							pg : 'html5_inicis.INIpayTest',
-							pay_method : 'card',
-							merchant_uid : "IMP" + makeMerchantUid,
-							name : subject, //클라이언트에게 보여주는 상품 이름 
-							amount : paymentPrice, // 결제 금액 
-							//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
-							buyer_name : f.realUserName.value, // 구매자 이름 
-							buyer_tel : f.realUserTel.value, // 구매자 전화번호 
-							//buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
-							buyer_postcode : '123-456' //구매자 우편번호 
-						},
-						function(rsp) { // callback
-							if (rsp.success) {
-								console.log(rsp);
-								f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
-								f.submit();
-
-							} else {
-								console.log(rsp);
-								alert("결제가 실패했습니다");
-							}
-						});
+		IMP.request_pay({
+			pg : 'html5_inicis.INIpayTest',
+			pay_method : 'card',
+			merchant_uid : "IMP" + makeMerchantUid,
+			name : subject, //클라이언트에게 보여주는 상품 이름 
+			amount : paymentPrice, // 결제 금액 
+			//buyer_email : 'Iamport@chai.finance', // 구매자 이메일 
+			buyer_name : f.realUserName.value, // 구매자 이름 
+			buyer_tel : f.realUserTel.value, // 구매자 전화번호 
+			//buyer_addr : '서울특별시 강남구 삼성동', // 구매자 주소
+			buyer_postcode : '123-456' //구매자 우편번호 
+		},
+		function(rsp) { // callback
+			if (rsp.success) {
+				console.log(rsp);
+				f.action = "${pageContext.request.contextPath}/reservation/reservation_ok.do";
+				f.submit();
+			} else {
+				console.log(rsp);
+				alert("결제가 실패했습니다");
+				}
+		});	
 
 	}
+	
+	$(function(){
+		$(".btnCoupon").click(function(){
+			let s = $("form[name=reservationForm] input[name=couponNum]").val();
+
+			let couponNum = $(this).closest("div").find("input[name=couponNum]").val();
+			let couponPrice = $(this).closest("div").find("input[name=couponPrice]").val();
+			let paymentPrice = ${paymentPrice};
+			
+			
+			if(s==couponNum){
+		
+				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
+				
+				$("form[name=reservationForm] input[name=couponNum]").val("0");
+
+				$(".spanPaymentPrice").html("");
+				
+			}else{
+				paymentPrice = paymentPrice -couponPrice;
+				
+				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
+				
+				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
+
+				$(".spanPaymentPrice").html("(쿠폰 적용가 " + paymentPrice +")");
+			}
+			
+			
+			
+			
+			
+		});
+	});
+	
 </script>
 
 
@@ -132,7 +166,7 @@
 							${dto.roomPrice}원&nbsp;할인율 ${dto.discountRate}%</p>
 						<p>
 							<i class="fa-solid fa-money-check"></i>&nbsp;지불
-							금액&nbsp;${paymentPrice}원
+							금액&nbsp;${paymentPrice}원 <span class ="spanPaymentPrice"></span>
 						</p>
 
 					</div>
@@ -141,27 +175,29 @@
 				<br>
 
 
-
-
 				<!-- 쿠폰 -->
 				<div class="row">
 					<c:forEach var="coupon" items="${list}" varStatus="status">
-						<div class="col-md-4 col-lg-3 p-1 item">
+						<div class="col-md-3 col-lg-5 p-2 item">
 							<div class="card-group" style="width: 1500px; margin: auto;">
 
 								<div class="card-body">
-								<form name="coupon" method="post">
+								
 								<h4 class="card-title">내가 사용할 수 있는 쿠폰 리스트</h4>
+									<h4 class="card-title">쿠폰 이름${coupon.couponNum} </h4>
 									<h4 class="card-title">쿠폰 이름${coupon.couponName}</h4>
-									<h4 class="card-title" name = "couponRate">할인율${coupon.couponRate}</h4>
+									<h4 class="card-title">할인율${coupon.couponRate}</h4>
 									<h4 class="card-titl">${coupon.start_date}~${coupon.end_date}</h4>
 									<h4 class="card-title">${coupon.start_date}~${coupon.end_date}</h4>
-									<h4 class="card-title">${couponPrice}~${coupon.end_date}</h4>
-									
-							
-										<button class="dateBtn btn btn-danger" type="submit"> 쿠폰 적용하기 </button>
+									<h4 class="card-title">${paymentPrice * coupon.couponRate /100}원 할인</h4>
+						 		
+						 		<div class="couponForm"> 
+									<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponPrice">
+									<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 
+								
+								<button class="dateBtn btn btn-danger btnCoupon"  type="button"> 쿠폰 적용하기 </button>
 										
-									</form>
+									</div>
 								</div>
 							</div>
 
@@ -217,14 +253,13 @@
 								type="hidden" value="${start_date}" name="start_date"
 								class="styleInput"> <input type="hidden"
 								value="${end_date}" name="end_date" class="styleInput">
-
+							
+							<input type ="hidden" name ="couponNum" value ="0">
+							<input type="hidden" value="0" name="couponPrice" >								
 							<button type="button" name="sendButton"
 								class="dateBtn btn btn-danger" onclick="requestPay();">예약</button>
 						</div>
 					</form>
-
-
-
 
 				</div>
 			</div>

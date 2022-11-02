@@ -94,6 +94,7 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("test.do") != -1) {
 			test(req, resp);
 		}
+	
 
 	}
 
@@ -438,6 +439,12 @@ public class ReservationServlet extends TravelServlet {
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
+			int couponNum = Integer.parseInt(req.getParameter("couponNum"));
+						
+			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
+			if(couponNum!=0) {
+				dao.couponUse(couponNum, info.getUserId());
+			}
 
 			// 예약 번호 = 오늘(예약일) + 업체 번호 + 객실 번호
 			LocalDate now = LocalDate.now();

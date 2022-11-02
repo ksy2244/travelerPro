@@ -764,7 +764,7 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = " SELECT  couponName, couponRate,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
+			sql = " SELECT  couponNum, couponName, couponRate,  TO_CHAR(start_date,'yyyy.MM.dd') AS start_Date, TO_CHAR(end_date,'yyyy.MM.dd') AS end_date FROM coupon "
 					+ " WHERE (couponNum NOT IN " + " 	(SELECT couponNum FROM myCoupon WHERE userID =  ? ) )AND "
 					+ " 	(( start_date <= SYSDATE ) AND  ( end_date >= SYSDATE )) ";
 
@@ -778,6 +778,7 @@ public class ReservationDAO {
 
 			while (rs.next()) {
 				CouponDTO dto = new CouponDTO();
+				dto.setCouponNum(rs.getLong("couponNum"));
 				dto.setCouponName(rs.getString("couponName"));
 				dto.setCouponRate(rs.getInt("couponRate"));
 				dto.setStart_date(rs.getString("start_date"));
@@ -838,6 +839,33 @@ public class ReservationDAO {
 		}
 
 		return result;
+	}
+	
+	public void couponUse(int couponNum, String userId) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql;
+
+		try {
+			sql = "INSERT INTO myCoupon(couponNum, userId, use_date) VALUES (?, ?, SYSDATE)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, couponNum);
+			pstmt.setString(2, userId);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
 	}
 
 	

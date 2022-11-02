@@ -68,6 +68,10 @@
 
 	function dateBtn() {
 		const f = document.dateForm;
+		
+		const c = document.signUp.newId;
+		
+		
 		alert(hello);
 		alert(f.start_date.value);
 		if (f.start_date.value >= f.end_date.value) {
