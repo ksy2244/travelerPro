@@ -246,7 +246,7 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "UPDATE member SET mAlarm=?, pAlarm=?, eAlarm=?, sAlarm=? WHERE userId=? ";
+			sql = "UPDATE member SET mAlarm=?, pAlarm=?, eAlarm=?, sAlarm=?, modify_date=? WHERE userId=? ";
 			pstmt = conn.prepareStatement(sql);
 
 			
@@ -255,6 +255,7 @@ public class MemberDAO {
 			pstmt.setInt(3, dto.geteAlarm());
 			pstmt.setInt(4, dto.getsAlarm());
 			pstmt.setString(5, dto.getUserId());
+			pstmt.setString(6, dto.getModify_date());
 			
 			pstmt.executeUpdate();
 
