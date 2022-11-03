@@ -172,9 +172,13 @@ public class MypageDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = " SELECT c.companyNum, companyName,companyTel, companyInfo " + " FROM pick p  "
-					+ " JOIN company c ON c.companyNum = p.companyNum " + " WHERE p.userId = ? "
-					+ " ORDER BY c.companyNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+			sql = " SELECT c.companyNum, companyName,companyTel, companyInfo , imageFileName "
+					+ " FROM pick p  "
+					+ " JOIN company c ON c.companyNum = p.companyNum  "
+					+ " JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum  "
+					+ " WHERE p.userId = ? "
+					+ " ORDER BY companyNum DESC "
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -192,6 +196,7 @@ public class MypageDAO {
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setCompanyTel(rs.getString("companyTel"));
 				dto.setCompanyInfo(rs.getString("companyInfo"));
+				dto.setImageFileName(rs.getString("imageFileName"));
 
 				list.add(dto);
 			}

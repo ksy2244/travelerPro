@@ -14,6 +14,7 @@
 	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
 	type="text/css">
 <link rel="import" href="map.html">
+
 <style type="text/css">
 .body-container {
 	max-width: 1500px;

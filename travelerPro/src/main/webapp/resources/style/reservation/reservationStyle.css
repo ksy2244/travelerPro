@@ -127,10 +127,7 @@ img {
 	font-weight: 500;
 }
 
-
-
-
-
+/* 나의 예약 내역 스타일 */
 .body-container {
 	max-width: 1500px;
 }
@@ -158,5 +155,92 @@ img {
 	float: left;
 	display: inline-block;
 }
+
+
+
+.body-container {
+	max-width: 1500px;
+}
+
+.body-main {
+	max-width: 900px;
+	margin-left: 230px;
+}
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.list {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	margin-bottom: 50px;
+}
+
+.img {
+	width: 200px;
+	height: 200px;
+}
+
+.date {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+.gap {
+	margin-bottom: 100px; 
+}
+
+.body {
+	margin-left: 120px;
+	margin-top: 50px;
+}
+
+.company {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.rnum {
+	color: #787878;
+	font-size: 15px; 
+}
+
+.room {
+	color: #787878;
+	font-size: 16px;
+}
+
+.day {
+	color: #787878;
+	font-size: 15px;
+}
+
+.dateBtn {
+	width: 300px;
+}
+
+.plus1 {
+	font-size: 15px;
+	color: #787878;
+}
+
+.plus2 {
+	color: #787878;
+}
+
+.paging {
+	font-weight: bold; 
+	font-size: 18px;
+}
+
+.plus {
+	text-align: center;
+	color: skyblue;
+	font-size: 16px;
+	margin-bottom: 150px;
+}
+
 
 

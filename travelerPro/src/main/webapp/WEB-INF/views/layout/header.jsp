@@ -104,7 +104,7 @@
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupon.do" style="font-family: 'GmarketSans';">쿠폰함</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservation.do" style="font-family: 'GmarketSans';">예약 내역</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/review/myReview.do" style="font-family: 'GmarketSans';">나의 리뷰</a></li>
-		            <li><a class="dropdown-item" href="#" style="font-family: 'GmarketSans';">찜</a></li>
+		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/pick.do" style="font-family: 'GmarketSans';">찜</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/alarm.do" style="font-family: 'GmarketSans';">알림설정</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout.do" style="font-family: 'GmarketSans';">로그아웃</a></li>
 		          </ul>
