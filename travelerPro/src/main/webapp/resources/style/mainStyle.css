@@ -11,7 +11,8 @@
 .map-image img {
 	 margin-left:300px;
    /*  display: block; */
-    height: 500px;
+    height: 800px;
+    width: 800px;
 }
 .api-container {
 	margin-top:10px;
@@ -134,8 +135,13 @@ header {
 .company-content img {
 	width: 200px;
 	height: 200px;
-	
-	
+	margin-left: 20px;
+}
+.company-name {
+	margin-left: 20px;
+}
+.company-price {
+	margin-left: 20px;
 }
 /* .body-img {
 	width: 100%;
@@ -251,6 +257,13 @@ header {
 }
 .post-slider .post-wrapper .post .post-info .post-link:hover {
 	color: #0d6efd;
+}
+.company-famous span{
+	font-size: 2rem;
+	margin-left: 40%;
+}
+.company-list {
+	margin-top: 2em;
 }
 
 /* main {

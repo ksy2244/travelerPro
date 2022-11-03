@@ -34,7 +34,7 @@ public class CeoDAO {
 			rs = null;
 			pstmt = null;
 
-			sql = "INSERT INTO company(companyNum, companyName, companyTel, companyInfo, amenities, guide, regionNum,"
+			sql = "INSERT INTO company(companyNum, companyName, companyTel, companyInfo, amenities, guide, regionName,"
 					+ " checkinTime, checkoutTime, addr, addrDetail, zip, notice, businessNum,userId,approval)"
 					+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
@@ -46,7 +46,7 @@ public class CeoDAO {
 			pstmt.setString(4, dto.getCompanyInfo());
 			pstmt.setString(5, dto.getAmenities());
 			pstmt.setString(6, dto.getGuide());
-			pstmt.setInt(7, dto.getRegionNum());
+			pstmt.setString(7, dto.getRegionName());
 			pstmt.setString(8, dto.getCheckinTime());
 			pstmt.setString(9, dto.getCheckoutTime());
 			pstmt.setString(10, dto.getAddr());
@@ -230,7 +230,7 @@ public class CeoDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				dto.setRegionNum(rs.getInt("regionNum"));
+				dto.setRegionName(rs.getString("regionName"));
 				dto.setCheckinTime(rs.getString("checkinTime"));
 				dto.setCheckoutTime(rs.getString("checkoutTime"));
 				dto.setAddr(rs.getString("addr"));
@@ -320,7 +320,7 @@ public class CeoDAO {
 			pstmt.setString(3, dto.getCompanyInfo());
 			pstmt.setString(4, dto.getAmenities());
 			pstmt.setString(5, dto.getGuide());
-			pstmt.setInt(6, dto.getRegionNum());
+			pstmt.setString(6, dto.getRegionName());
 			pstmt.setString(7, dto.getCheckinTime());
 			pstmt.setString(8, dto.getCheckoutTime());
 			pstmt.setString(9, dto.getAddr());

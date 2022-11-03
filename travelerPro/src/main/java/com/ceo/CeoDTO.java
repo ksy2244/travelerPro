@@ -10,7 +10,6 @@ public class CeoDTO {
 	private String companyInfo;
 	private String amenities;
 	private String guide;
-	private int regionNum;
 	private String addr;
 	private String addrDetail;
 	private String zip;
@@ -82,14 +81,6 @@ public class CeoDTO {
 
 	public void setGuide(String guide) {
 		this.guide = guide;
-	}
-
-	public int getRegionNum() {
-		return regionNum;
-	}
-
-	public void setRegionNum(int regionNum) {
-		this.regionNum = regionNum;
 	}
 
 	public String getAddr() {

@@ -13,7 +13,7 @@ import com.util.DBConn;
 public class AttractionDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public List<ReserveCompanyDTO> surroundCompany(String region, int offset,int size){
+	public List<ReserveCompanyDTO> surroundCompany(String region){
 		List<ReserveCompanyDTO> list = new ArrayList<ReserveCompanyDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -28,15 +28,13 @@ public class AttractionDAO {
 					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
 					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
 					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
-					+ " WHERE regionNum = 1 "
-					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+					+ " WHERE regionName = ? ";
 					
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			//pstmt.setString(1, region);
-			pstmt.setInt(1, offset);
-			pstmt.setInt(2, size);
+			pstmt.setString(1, region);
+
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -75,43 +73,6 @@ public class AttractionDAO {
 			}
 		}
 		return list;
-	}
-	
-	public int dataCount() {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-
-		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM company where regionNum = 1 ";
-			pstmt = conn.prepareStatement(sql);
-
-			//pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-
-		return result;
 	}
 }
 

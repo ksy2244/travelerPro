@@ -85,7 +85,7 @@ function imageViewer(src) {
 				    <div class="row mb-3">
 				        <label class="col-sm-2 col-form-label" for="amenities">지역명</label>
 				        <div class="col-sm-10">
-				           ${dto.regionNum == 1 ? "강원도":"다른지역" }
+				           ${dto.regionName}
 				        </div>
 				    </div>
 

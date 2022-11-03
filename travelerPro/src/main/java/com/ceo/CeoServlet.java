@@ -159,9 +159,7 @@ public class CeoServlet extends TravelServlet {
 			dto.setBusinessNum(req.getParameter("businessNum1") + "-" + req.getParameter("businessNum2") + "-"
 					+ req.getParameter("businessNum3"));
 			dto.setUserId(req.getParameter("userId"));
-			if (req.getParameter("regionName").equals("강원도")) {
-				dto.setRegionNum(1);
-			}
+			dto.setRegionName(req.getParameter("regionName"));
 			dto.setCheckinTime(req.getParameter("checkinTime"));
 			dto.setCheckoutTime(req.getParameter("checkoutTime"));
 			dto.setCompanyTel1(req.getParameter("tel1"));
@@ -549,9 +547,7 @@ public class CeoServlet extends TravelServlet {
 			dto.setBusinessNum(req.getParameter("businessNum1") + "-" + req.getParameter("businessNum2") + "-"
 					+ req.getParameter("businessNum3"));
 			dto.setUserId(req.getParameter("userId"));
-			if (req.getParameter("regionName").equals("강원도")) {
-				dto.setRegionNum(1);
-			}
+			dto.setRegionName("regionName");
 			dto.setCheckinTime(req.getParameter("checkinTime"));
 			dto.setCheckoutTime(req.getParameter("checkoutTime"));
 			dto.setCompanyTel(

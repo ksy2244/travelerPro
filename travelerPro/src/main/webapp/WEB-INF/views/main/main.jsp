@@ -64,15 +64,19 @@ function printphoto(data){
 		let companyName = item.companyName;
 		let imageFileName = item.imageFileName;
 		let minPrice = item.minPrice;
+		let companyNum = item.companyNum;
 		out += "<div class=company-photo>";
 		out += "	<a href=#>";		
 		out += "		<img alt='' src='"+imageFileName+"'>";
 		out += "	</a>";
+		//out += "</div>";
+		out += "	<div class='company-name'>";
+		//out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";
+		out += "		<a href='#'>"+companyName+"</a>";
+		out += "	</div>";
+		out += "	<div class='company-price'>"+minPrice+"원</div>";
 		out += "</div>";
-		out += "<div class='company-name'>";
-		out += "	<a href=#>"+companyName+"</a>";
-		out += "</div>";
-		out += "<div class='company-price'>"+minPrice+"</div>";
+		
 	}
 	$(".company-content").html(out);
 	
@@ -329,8 +333,8 @@ $(function(){
 					</div>
 				</div>
 			</div>
-				<div>
-					<span>숙박업체</span>
+				<div class="company-famous">
+					<span>인기있는 숙박업체</span>
 				</div>
 				<div class="company-list">
 					<div class="company-content">

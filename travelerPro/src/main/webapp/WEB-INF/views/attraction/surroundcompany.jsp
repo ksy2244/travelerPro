@@ -9,15 +9,6 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>TRAVELER</title>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/attractin/attractionStyle.css"
-	type="text/css"> --%>
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/attraction/attractionStyle2.css"
-	type="text/css"> --%>
-<link rel="import" href="map.html">
-
 <style type="text/css">
 .body-contain {
 	width: 100%;
@@ -30,12 +21,12 @@
 	margin-bottom: 40px;
 }
 
-.img {
+.card .img {
 	padding-top: 5px;
 	padding-left: 20px;
-	width: 100px;
-	height: 100px;
-	border-radius: 10px;
+	width: 200px;
+	height: 200px;
+	border-radius: 20%;
 }
 
 .card {
@@ -51,7 +42,7 @@
 .company {
 	font-weight: bold;
 	font-size: 17px;
-	margin-left: 20px;
+	margin-left: 4rem;
 }
 
 .png {
@@ -62,11 +53,13 @@
 
 .pick {	
 	color: #787878;
+	margin-left: 4rem;
 }
 
 .star {
 	color: #FFBB00;
-	margin-left: 20px;
+	margin-left: 2rem;
+	
 }
 
 .bold {
@@ -108,30 +101,37 @@
 }
 
 </style>
+<script type="text/javascript">
+/* $(window).on('load', function () {
+    load('.card', '6');
+
+});
+function load(id, cnt, btn) {
+    var girls_list = id + " .js-load:not(.active)";
+    var girls_length = $(girls_list).length;
+    var girls_total_cnt;
+    if (cnt < girls_length) {
+        girls_total_cnt = cnt;
+    } else {
+        girls_total_cnt = girls_length;
+        $('.button').hide()
+    }
+    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
+} */
+</script>
 </head>
 <body class="pt-5">
-	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
-	</header>
-
-	<main class="">
 		<div class="container">
 			<div class="body-contain">
 				<div class="body-title">
 					<h3>${region}지역숙소</h3>
 				</div>
-
 				<div class="body-main">
-					<div class="row board-list-header">
-						<div class="col-auto me-auto">
-					
-						</div>
-					</div>
 					<div class="row">
-						<c:forEach var="dto" items="${list}" varStatus="status">
-							<div class="col-md-4 col-lg-3 p-1"> 
-								<div class="card-group" style="width: 300px; margin: auto;">
-									<div class="card" style="margin: 10px;"
+						<c:forEach var="dto" items="${list}" varStatus="status" begin="1" end="6">
+							<div class="col-md-4 col-lg-3 p-1 mb-6 card"> 
+								<div class="card-group" style="width: 300px;height: 300px;">
+									<div class="card" style="width:250px; height: 350px;"
 										onclick="location.href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum=${dto.companyNum}'">
 										<img
 											src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
@@ -174,28 +174,15 @@
 												</c:otherwise>
 											</c:choose>
 											<div class="pick"><img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class="png">&nbsp;${dto.pick}</div>
-											<div class="price pt-4 pb-1">1박 기준</div>
-											<c:if test="${dto.minPrice < 100000 }">
-												<div class="card-title realpriceMin">${dto.minPrice}</div><span class="won">원</span>
-											</c:if>
-											<c:if test="${dto.minPrice >= 100000 }">
-												<div class="card-title realprice">${dto.minPrice}</div><span class="won">원</span>
-											</c:if>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</c:forEach>
+						  <button class="btn bg-info" style="color: white;">더 많은 숙소보기</button>
 					</div>
-
-					<div class="page-navigation paging">
-						${dataCount == 0 ? "등록된 업체가 없습니다." : paging}
-					</div>
-
 				</div>
 			</div>
 		</div>
-	</main>
 </body>
 </html>
