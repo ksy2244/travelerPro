@@ -258,8 +258,8 @@ public class MemberDAO {
 			pstmt.setInt(2, dto.getpAlarm());
 			pstmt.setInt(3, dto.geteAlarm());
 			pstmt.setInt(4, dto.getsAlarm());
-			pstmt.setString(5, dto.getUserId());
-			pstmt.setString(6, dto.getModify_date());
+			pstmt.setString(5, dto.getModify_date());
+			pstmt.setString(6, dto.getUserId());
 			
 			pstmt.executeUpdate();
 
