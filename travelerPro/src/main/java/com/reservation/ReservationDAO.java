@@ -858,5 +858,127 @@ public class ReservationDAO {
 
 		return gap;
 	}
+	
+	public ReserveCompanyDTO map(long companyNum) {
+	      ReserveCompanyDTO dto = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql;
+	      
+	      try {
+	         sql = "SELECT companyInfo, addr, addrDetail FROM company WHERE companyNum = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setLong(1, companyNum);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            dto = new ReserveCompanyDTO();
+	            
+	            dto.setAddr(rs.getString("addr"));
+	            dto.setAddrDetail(rs.getString("addrDetail"));
+	            dto.setCompanyInfo(rs.getString("companyInfo"));
+	            
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         if (rs != null) {
+	            try {
+	               rs.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+
+	         if (pstmt != null) {
+	            try {
+	               pstmt.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+	      }
+
+	      return dto;
+	   }
+	   
+	   public double reviewStarRate(long companyNum) {
+	      double rate = 0;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql;
+	      
+	      try {
+	         sql = "SELECT starRate FROM companyStar WHERE companyNum = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setLong(1, companyNum);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            rate = rs.getDouble(1);
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         if (rs != null) {
+	            try {
+	               rs.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+
+	         if (pstmt != null) {
+	            try {
+	               pstmt.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+	      }
+
+	      return rate;
+	   }
+	   
+	   public int reviewCount(long companyNum) {
+	      int result = 0;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql;
+	      
+	      try {
+	         sql = "SELECT COUNT(*) FROM review WHERE companyNum = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setLong(1, companyNum);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = rs.getInt(1);
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         if (rs != null) {
+	            try {
+	               rs.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+
+	         if (pstmt != null) {
+	            try {
+	               pstmt.close();
+	            } catch (SQLException e) {
+	            }
+	         }
+	      }
+
+	      return result;
+	   }
 
 }

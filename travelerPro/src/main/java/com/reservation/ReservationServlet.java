@@ -91,7 +91,6 @@ public class ReservationServlet extends TravelServlet {
 		else if (uri.indexOf("test.do") != -1) {
 			test(req, resp);
 		}
-	
 
 	}
 
@@ -187,8 +186,6 @@ public class ReservationServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/reservation/companyList.jsp");
 	}
 
-
-
 	protected void roomInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 숙박업체리스트에서 클릭한 화면
 		ReservationDAO dao = new ReservationDAO();
@@ -197,7 +194,7 @@ public class ReservationServlet extends TravelServlet {
 		req.setCharacterEncoding("utf8");
 
 		try {
-			
+
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 
 			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
@@ -208,14 +205,14 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 업체의 객실 정보
 			roomDto.setCompanyNum(companyNum);
-			
-			
+
+			int count = dao.reviewCount(companyNum);
 
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-			
-			List<ServiceDTO> list = cdao.listCategory(); 
+
+			List<ServiceDTO> list = cdao.listCategory();
 			req.setAttribute("list", list);
 
 			roomDto.setStart_date(start_date);
@@ -250,6 +247,7 @@ public class ReservationServlet extends TravelServlet {
 			req.setAttribute("companyDto", companyDto);
 			req.setAttribute("roomDto", roomDto);
 			req.setAttribute("isUserLike", isLike);
+			req.setAttribute("count", count);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
@@ -331,6 +329,11 @@ public class ReservationServlet extends TravelServlet {
 		int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 		req.setAttribute("companyNum", companyNum);
 
+		ReservationDAO dao = new ReservationDAO();
+		double rate = dao.reviewStarRate(companyNum);
+
+		req.setAttribute("rate", rate);
+
 		forward(req, resp, "/WEB-INF/views/reservation/review.jsp");
 		return;
 
@@ -355,33 +358,27 @@ public class ReservationServlet extends TravelServlet {
 
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-			
+
 			System.out.println(start_date);
-			System.out.println(end_date );
-			
-			int gap = dao.reservationGap(start_date,end_date);
-			
+			System.out.println(end_date);
+
+			int gap = dao.reservationGap(start_date, end_date);
+
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 			// 선택한 객실 정보 가져오기
 			ReserveRoomDTO dto = dao.listSelectRoom(roomNum);
-			
-			//나의 사용 가능한 쿠폰 정보 가져오기
+
+			// 나의 사용 가능한 쿠폰 정보 가져오기
 			List<CouponDTO> list = null;
-			
+
 			list = dao.listCoupon(info.getUserId());
-			
+
 			System.out.println(gap);
 
-//			int paymentPrice = 0;
-//			// 금액 게산
-//			int sale = (int) (dto.getRoomPrice()*(dto.getDiscountRate() / 100.0));
-//
-//			paymentPrice = dto.getRoomPrice() - sale;
-			
 			int paymentPrice = dto.getRoomPrice();
-			
+
 			req.setAttribute("gap", gap);
 			req.setAttribute("dto", dto);
 			req.setAttribute("paymentPrice", paymentPrice);
@@ -416,9 +413,9 @@ public class ReservationServlet extends TravelServlet {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
 			int couponNum = Integer.parseInt(req.getParameter("couponNum"));
-						
+
 			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
-			if(couponNum!=0) {
+			if (couponNum != 0) {
 				dao.couponUse(couponNum, info.getUserId());
 			}
 
@@ -491,7 +488,7 @@ public class ReservationServlet extends TravelServlet {
 		try {
 			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
 			String isNoLike = req.getParameter("isNoLike");
-			
+
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
