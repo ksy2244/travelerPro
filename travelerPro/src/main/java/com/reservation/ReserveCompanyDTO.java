@@ -18,6 +18,8 @@ public class ReserveCompanyDTO {
 	private int pick;
 	private int minPrice;
 	private double starRate;
+	private String userName; 
+	private String email;
 	
 	public String getCompanyName() {
 		return companyName;
@@ -117,6 +119,18 @@ public class ReserveCompanyDTO {
 	}
 	public void setStarRate(double starRate) {
 		this.starRate = starRate;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

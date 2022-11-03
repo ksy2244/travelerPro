@@ -82,11 +82,6 @@ public class ReservationServlet extends TravelServlet {
 			review(req, resp);
 		}
 
-//		// 나의 예약 정보
-//		else if (uri.indexOf("myReservation.do") != -1) {
-//			myReservation(req, resp);
-//		}
-
 		// 업체 찜
 		else if (uri.indexOf("insertCompanyLike.do") != -1) {
 			insertCompanyLike(req, resp);
@@ -138,7 +133,7 @@ public class ReservationServlet extends TravelServlet {
 			}
 
 			// 전체 페이지 수
-			int size = 5;
+			int size = 8;
 			int total_page = util.pageCount(dataCompanyCount, size);
 			System.out.println("dd" + total_page);
 			if (current_page > total_page) {
@@ -152,7 +147,7 @@ public class ReservationServlet extends TravelServlet {
 
 			List<ReserveCompanyDTO> list = null;
 			if (keyword.length() == 0) {
-				list = dao.listCompany();
+				list = dao.listCompany(offset, size);
 
 			} else {
 				// list = dao.listCompany(offset, size, condition, keyword);
@@ -192,46 +187,12 @@ public class ReservationServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/reservation/companyList.jsp");
 	}
 
-//	private void myReservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		// 포워딩
-//		ReservationDAO dao = new ReservationDAO();
-//		HttpSession session = req.getSession();
-//		SessionInfo info = (SessionInfo) session.getAttribute("member");
-//		String cp = req.getContextPath();
-//
-//		req.setCharacterEncoding("utf8");
-//
-//		try {
-//
-//			List<ReservationDTO> list = null;
-//
-//			if (info == null) {
-//				resp.sendRedirect(cp + "/member/login.do");
-//				return;
-//			}
-//
-//			System.out.println(info.getUserId());
-//			list = dao.myReseravationList(info.getUserId());
-//			int dataCount = dao.myReservationCount(info.getUserId());
-//
-//			// JSP로 전달할 속성
-//			req.setAttribute("list", list);
-//			req.setAttribute("dataCount", dataCount);
-//
-//			// 포워딩
-//			forward(req, resp, "/WEB-INF/views/reservation/myReservation.jsp");
-//			return;
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+
 
 	protected void roomInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 숙박업체리스트에서 클릭한 화면
 		ReservationDAO dao = new ReservationDAO();
-		CeoDAO cdao = new CeoDAO(); //소연
+		CeoDAO cdao = new CeoDAO();
 		String cp = req.getContextPath();
 		req.setCharacterEncoding("utf8");
 
@@ -392,6 +353,9 @@ public class ReservationServlet extends TravelServlet {
 
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
+			
+			System.out.println(start_date);
+			System.out.println(end_date );
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
