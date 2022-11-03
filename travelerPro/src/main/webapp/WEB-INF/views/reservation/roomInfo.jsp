@@ -24,10 +24,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/style/traveler/review.css"
 	type="text/css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <style type="text/css">
 .card {
@@ -36,7 +32,7 @@
 
 .name {
 	font-weight: bold;
-	font-size: 35px;
+	font-size: 30px;
 	color: black;
 }
 
@@ -56,6 +52,8 @@
 
 .shadowBox {
 	padding: 40px;
+	margin-left: 100px;
+	margin-top: 0px;
 }
 
 .star {
@@ -64,18 +62,18 @@
 
 .bold {
 	color: black;
-	font-size: 17px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
 .address {
 	color: #0067A3;
-	font-size: 18px;
+	font-size: 17px;
 	font-weight: 500;
 }
 
 .font {
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
 }
 
@@ -87,20 +85,14 @@
 .png {
 	width: 50px;
 	height: 50px;
-	margin-right: 50px;
-}
-
-.choice {
-	margin-bottom: 10px;
-	float: left;
 }
 
 .roomInfoContent {
-	font-size: 20px; 
+	font-size: 17px; 
 }
 
 .no {
-	font-size: 21px;
+	font-size: 18px;
 	font-weight: bold;
 }
 
@@ -119,18 +111,18 @@
 	padding: 20px;
 	color: #787878;
 	font-weight: bold;
-	font-size: 22px;
+	font-size: 20px;
 	
 }
 
 .white {
 	clear: both;
-	font-size: 20px;
+	font-size: 16px;
 	padding: 10px;
 }
 
 .cal {
-	font-size: 20px;
+	font-size: 17px;
 	float: left;
 	padding-right: 50px;
 }
@@ -144,11 +136,102 @@
 	float: left;
 }
 
+#myTab {
+	width: 1100px;	
+}
 
+.box {
+	width: 1100px;
+	border: 1px solid #ccc;
+	border-radius: 9px;
+	padding: 30px;
+}
 
+.roomDetail {
+	width: 300px;
+	height: 300px;
+	float: left;
+	margin-right: 50px;
+}
+
+.eachRoomName {
+	font-size: 27px;
+	padding-top: 70px;
+	
+}
+
+.headCount {
+	font-size: 16px;
+	color: #787878;
+	border: 1px solid #eee;
+	border-radius: 7px;
+	padding: 6px;
+	float: left;
+	margin-right: 5px;
+}
+
+.eachRoomMoney {
+	font-size: 25px;
+}
+
+.roomChoice {
+	float: right;
+	margin-top: 30px;
+}
+
+.roomImg {
+	width: 1100px;
+}
+
+.review-info {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
+.review-list {
+	padding: 50px;
+	width: 1100px;
+}
+
+.list-header {
+	padding: 30px;
+}
+
+.content {
+	border-bottom: 1px solid #eee;
+	font-size: 17px;
+}
+
+.nickName {
+	font-size: 20px;
+	padding-top: 300px;
+	padding-left: 30px;
+}
+
+.color {
+	color: #00B4DB;
+}
+
+.registerDate {
+	font-size: 16px;
+	color: #787878;
+}
+
+.deleteReview {
+	font-size: 16px;
+	color: #787878;
+}
+
+.deleteReview:hover {
+	text-decoration: underline;
+}
+
+.review-info {
+	padding-top: 30px;
+}
 
 </style>
-
 
 <script>
  $(function() {
@@ -224,7 +307,7 @@
 		$(".btnSendCompanyLike").click(function(){
 			const $i = $(this).find("i");
 			let isNoLike = $i.css("color") == "rgb(0, 0, 0)";
-			let msg = isNoLike ? "업체를 찜 하십겠습니까 ? " : "업체 찜을 취소하시겠습니까 ? ";
+			let msg = isNoLike ? "찜 하시겠습니까 ? " : "찜을 취소하시겠습니까 ? ";
 
 			if(! confirm( msg )) {
 				return false;
@@ -247,7 +330,7 @@
 					let count = data.companyLikeCount;
 					$("#companyLikeCount").text(count);
 				} else if(state === "liked") {
-					alert("찜은 한번만 가능합니다. !!!");
+					alert("찜은 한번만 가능합니다.");
 				}
 			};
 			
@@ -353,7 +436,7 @@
 
 				<!-- 시작일, 종료일 -->
 				<div class="border-secondary mb-3">
-					<div class="shadowBox" style="width: 1100px; height: 1400px;">
+					<div class="shadowBox" style="width: 1100px; height: 1250px;">
 						<span class="trip">
 							<a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 							<img src="${pageContext.request.contextPath}/resources/images/한국관광공사.png" style="width: 14px;" class="imgg">&nbsp;<span class="ok">인증</span>
@@ -365,41 +448,41 @@
 								한국관광공사에서 인증한 숙소 등급입니다.
 							</div>
 						</div>
-						<h4 class="name mt-3">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
+						<h4 class="name mt-3 mb-3">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
 									<i class="fa-sharp fa-solid fa-heart fa-2x"  style="color: ${isUserLike?'red':'black'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button></span>
 						<c:choose>
 								<c:when test="${companyDto.starRate > 4.5}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 4.0}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 3.5}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 3.0}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 2.5}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 2.0}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 1.5}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 1.0}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 0.5}">
-									<span class="star"><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:when test="${companyDto.starRate > 0}">
-									<span class="star"><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-solid fa-star-half fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:when>
 								<c:otherwise>
-									<span class="star"><i class="fa-regular fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
+									<span class="star"><i class="fa-regular fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (${count})</span></span>
 								</c:otherwise>
 							</c:choose>
 						<br><br>
@@ -412,55 +495,55 @@
 						<br>
 						<p class="font pb-3">인기시설 및 서비스</p>
 						<c:set var="serviceList" value="${companyDto.amenities}"></c:set>
-							<c:forEach var="service" items="${serviceList}"><br>
-								<div class="choice">
+							<div class="row">
+							<c:forEach var="service" items="${serviceList}">
 									<c:choose>
 										<c:when test="${service == 1}">
-											<div><img src="${pageContext.request.contextPath}/resources/images/service/wifi.png" class="png">
+											<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/wifi.png" class="png">
 											<p>와이파이</p></div>
 										</c:when>
 										<c:when test="${service == 2}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/pet.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/pet.png" class="png">
 												<p>반려동물</p></div>
 										</c:when>
 										<c:when test="${service == 3}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/meat.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/meat.png" class="png">
 												<p>바베큐</p></div>
 										</c:when>
 										<c:when test="${service== 4}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">
 												<p>수영장</p></div>
 										</c:when>
 										<c:when test="${service == 5}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/park.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/park.png" class="png">
 												<p>주차 가능</p></div>
 										</c:when>
 										<c:when test="${service == 6}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/medicine.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/medicine.png" class="png">
 												<p>상비약</p></div>
 										</c:when>
 										<c:when test="${service == 7}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/source.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/source.png" class="png">
 												<p>양념</p></div>
 										</c:when>
 										<c:when test="${service == 8}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/store.png" class="png">
-												<p>매점/편의점</p></div>
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/store.png" class="png">
+												<p style="font-size: 11px;">매점/편의점</p></div>
 										</c:when>
 										<c:when test="${service== 9}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/breakFast.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/breakFast.png" class="png">
 												<p>조식 제공</p></div>
 										</c:when>
 										<c:when test="${service == 10}">
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/palyGround.png" class="png">
+												<div class="col-1" style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/service/palyGround.png" class="png">
 												<p>운동장</p></div>
 										</c:when>		
 										<c:otherwise>
-												<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">&nbsp;</div>
+												<div class="col-1"><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">&nbsp;</div>
 										</c:otherwise>
 									</c:choose>
-								</div>
 							</c:forEach>
+								</div>
 						<br>
 						<hr style="width: 1000px; color: #787878; clear: both;">
 						<br>
@@ -542,78 +625,24 @@
 
 							</div>
 						</div>
-				
 				</div>
 				
-
-				<div class="card border-secondary mb-3" style="max-width: 100rem;">
-
-					<div class="card-body">
-						<div class="roomDetailInfo" style="float: center">
-							<p class="roomInfoTitle">
-								&nbsp; <i class="fa-sharp fa-solid fa-hotel"></i>&nbsp;${companyDto.companyName}
-							</p>
-							<hr>
-							<p class="address">
-								<i class="fa-solid fa-location-dot"></i>&nbsp;${companyDto.addr}&nbsp;${companyDto.addrDetail}
-							</p>
-							<p class="roomInfoContent">${companyDto.companyInfo}</p>
-							<p class="roomInfoContent">${companyDto.guide}</p>
-							<p class="roomInfoContent">${companyDto.notice}</p>
-							
-							
-
-						
-							<p class="roomInfoContent">
-								<span style="background-color: #E4FBFF; text-align: center">체크인
-								</span>&nbsp; ${companyDto.checkInTime}
-							</p>
-							<p class="roomInfoContent">
-								<span style="background-color: #E4FBFF; text-align: center">체크아웃
-								</span>&nbsp; ${companyDto.checkOutTime}
-							</p>
-
-							<p class="roomInfoContent">
-								<span style="background-color: #E4FBFF; text-align: center">업체 전화번호
-								 </span> ${companyDto.companyTel}
-							</p>
-
-
-							<table>
-								<tr>
-								<td colspan="2" class="text-center p-3">
-									<button type="button" class="btn btn-outline-secondary btnSendCompanyLike" title="좋아요">
-									<i class="fa-sharp fa-solid fa-heart"  style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button>								
-								</td>
-								</tr>
-							</table>
-
-							<hr>
-							
-
-
-
-						</div>
-					</div>
-				</div>
-				<br>
-				<div class="container mb-2 pt-3">
-
+				<div class="container mb-2 pt-3" style="width: 1100px; margin-left: 80px;">
 					<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
 						<li class="nav-item" role="presentation">
 
-							<button class="nav-link active  bg-info text-white h-100 p-3 h1"
+							<button class="nav-link active text-white h-100 p-3 h1"
 								id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1"
-								type="button" role="tab" aria-controls="1" aria-selected="true">객실정보</button>
+								type="button" role="tab" aria-controls="1" aria-selected="true" style="background: #B4CDE6;">객실정보</button>
 						</li>
 						<li class="nav-item" role="presentation">
-							<button class="nav-link bg-info text-white h-100 p-3" id="tab-2"
+							<button class="nav-link text-white h-100 p-3" id="tab-2"
 								data-bs-toggle="tab" data-bs-target="#nav-2" type="button"
-								role="tab" aria-controls="2" aria-selected="true">지도</button></li>
+								role="tab" aria-controls="2" aria-selected="true" style="background: #B4CDE6;">위치/교통</button></li>
 						<li class="nav-item" role="presentation">
-							<button class="nav-link  bg-info text-white h-100 p-3" id="tab-3"
+							<button class="nav-link text-white h-100 p-3" id="tab-3"
 								data-bs-toggle="tab" data-bs-target="#nav-3" type="button"
-								role="tab" aria-controls="3" aria-selected="true">리뷰</button>
+								role="tab" aria-controls="3" aria-selected="true" style="background: #B4CDE6;">리뷰</button>
 						</li>
 					</ul>
 

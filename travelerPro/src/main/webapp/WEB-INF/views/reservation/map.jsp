@@ -3,14 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
-.font {
-	font-size: 25px;
+.font2 {
+	font-size: 20px;
 	font-weight: 600;
 	margin-left: 20px;
 }
@@ -28,18 +23,14 @@
 	margin: 20px;
 }
 </style>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 <!-- services 라이브러리 불러오기 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
-</head>
-<body>
-	<main>
-		<p class="font pb-2 pt-2">위치</p>
-		<div id="map" style="width: 100%; height: 350px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
+
+<p class="font2 pb-2 pt-2 mt-4">위치</p>
+<div id="map" style="width: 100%; height: 350px;"></div>
+
 <script>
-
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -79,14 +70,12 @@ geocoder.addressSearch('"${address}"', function(result, status) {
 </script>
 	<br>
 	<div class="place">
-		<i class="fa-solid fa-location-dot fa-lg ps-3"></i>&nbsp;&nbsp;<span class="address">서울특별시${companyDto.addr}&nbsp;${companyDto.addrDetail}</span>
+		<i class="fa-solid fa-location-dot fa-lg ps-3"></i>&nbsp;&nbsp;<span class="address">${dto.addr}&nbsp;${dto.addrDetail}</span>
 	</div>
 	<br>
 	<hr style="width: 1000px; color: #787878; clear: both;">
 	<br>
-	<p class="font pb-2 pt-2">길안내</p>
-	<div class="place">홍대입구역 1번 출구에서 도보 5분 거리 ${dto.companyInfo}</div>
-	
-	</main>
-</body>
-</html>
+	<p class="font2 pb-2 pt-2">길안내</p>
+	<div class="place">${dto.companyInfo}</div>
+
+

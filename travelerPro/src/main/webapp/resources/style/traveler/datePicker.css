@@ -1,24 +1,25 @@
 @charset "UTF-8";
 
 .ui-datepicker {
-	font-size: 30px;
-	width: 600px;
+	font-size: 20px;
+	width: 350px;
 }
 
 .ui-datepicker-header {
-	background: #dc3545;
+	background: #FFA7A7;
 	color: white;
 }
 
 .ui-datepicker select.ui-datepicker-month {
-	width: 200px;
-	font-size: 30px;
+	width: 100px;
+	font-size: 20px;
 	text-align: center;
 }
 
 .ui-datepicker select.ui-datepicker-year {
-	width: 200px;
-	font-size: 30px;
+	width: 100px;
+	font-size: 20px;
+	text-align: center;
 }
 
 .ui-state-default.ui-state-highlight {
@@ -31,13 +32,14 @@
 }
 
 .ui-datepicker select.ui-datepicker-month {
-	width: 200px;
-	font-size: 30px;
+	width: 100px;
+	font-size: 20px;
 	text-align: center;
 } 
 .ui-datepicker select.ui-datepicker-year {
-	width: 200px;
-	font-size: 30px;
+	width: 100px;
+	font-size: 20px;
+	text-align: center;
 } 
 
 .ui-state-default.ui-state-highlight {

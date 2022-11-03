@@ -7,19 +7,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TRAVELER</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board2.css" type="text/css">
 <style type="text/css">
-.font {
-	font-size: 15px;
-	color: #787878;
+.text {
+	width: 1100px;
+	height: 150px;
 }
 
-.text {
-	width: 1000px;
-	height: 200px;
-	margin-left: 100px;
+.starRate {
+	color: #FFBB00;
+	text-align: center;
 }
 
 .star li{
@@ -33,39 +32,60 @@
 }
 .star li.on{color:#F2CB61;}
 
-.box {
-	background: #F6F6F6; 
-	height: 250px;
-	border-radius: 5px;
-	margin-left: 100px;
-	width: 1000px;
+.starBox {
+	text-align: center;
+	width: 1100px;
 }
 
 .score {
 	font-weight: bold;
-	font-size: 80px;
-	padding-left: 470px;
+	font-size: 60px;
 }
 
 .star {
-	margin-left: 410px;
+	text-align: left;
 }
 
-.choice {
-	font-size: 30px;
-	margin-left: 450px;
+.choiceStar {
+	font-size: 19px;
+	text-align: left;
+	margin-left: 40px;
+	margin-top: 50px;
 	font-weight: bold;
-	color: #787878;
+	color: #ccc;
 }
 
-.btn {
-	margin-right: 140px;
+.btnSendReview {
 	margin-top: 20px;
 }
 
 .all {
 	font-size: 20px;
 }
+
+.register {
+	margin-top: 80px;
+}
+
+.count {
+	margin-left: 400px;
+	margin-bottom: 500px;	
+}
+
+.q {
+	font-size: 20px;
+	text-align: center;
+	margin-left: 20px;
+	margin-top: 50px;
+	font-weight: bold;
+	color: #787878;
+}
+
+.font3 {
+	font-size: 20px;
+	font-weight: 600;
+} 
+
 
 </style>
 </head>
@@ -195,26 +215,65 @@
 
 </head>
 <main>
-	<div class="container">
-		<div class="body-container">
-			<div class="body-main">
-				<div class="review pt-3">
-					<form name="reviewForm" method="post">
-						 	<div class="score pt-2"><span class="all">총점&nbsp;&nbsp;</span>4.2</div>
- 	 					
- 	 					 <div class="choice mt-4">별점을 선택하세요</div>
- 	 					 <ul class="star mt-3">
-					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
-					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
-					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
-					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
-					              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
-					     </ul>
- 	 					 
+	<div class="containerReview">
+		<div class="body-containerReview">
+			<div class="body-mainReview">
+				<div class="reviewStar pt-3">
+				
+				<form name="reviewForm" method="post">
+					<div class="starBox">
+						<div class="q mt-4">이 숙소의 별점은?</div>
+						 	<div class="score pb-2">${rate}</div>
+						 	<c:choose>
+								<c:when test="${rate > 4.5}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 4.0}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 3.5}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 3.0}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 2.5}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 2.0}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 1.5}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 1.0}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star-half fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 0.5}">
+									<p class="starRate"><i class="fa-solid fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:when test="${rate > 0}">
+									<p class="starRate"><i class="fa-solid fa-star-half fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:when>
+								<c:otherwise>
+									<p class="starRate"><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i><i class="fa-regular fa-star fa-2x"></i></p>
+								</c:otherwise>
+							</c:choose>
+					 </div>
+					 <br>
+					 <hr style="width: 1100px; color: #787878;">
+ 	 				 	<p class="font3 pb-5 mt-5">리뷰 작성</p>
+ 	 					 <div class="choiceStar mt-2">별점을 선택하세요</div>
+	 	 					 <ul class="star mt-3">
+						              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+						              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+						              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+						              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+						              <li><span><i class="fa-solid fa-star fa-2x"></i></span></li>
+						     </ul>
  	 					 <div style="margin-top: 10px;">
 							<input type="hidden" name="reviewStar" id="score" value="0" readonly="readonly">
   						</div>
-
 						<table class="table table-borderless review-form">
 							<tr>
 								<td><textarea class='form-control text' name="content" placeholder="타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가해 주세요."></textarea></td>
@@ -232,6 +291,8 @@
 							</tr>
 						</table>
 					</form>
+					<br>
+					<hr style="width: 1100px; color: #787878;">
 
 					<div id="listReview"></div>
 				</div>
