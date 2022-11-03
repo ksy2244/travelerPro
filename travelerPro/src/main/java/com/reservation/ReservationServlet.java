@@ -208,6 +208,8 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 업체의 객실 정보
 			roomDto.setCompanyNum(companyNum);
+			
+			
 
 			// 사용자가 입력한 시작일, 종료일 찾기
 			String start_date = req.getParameter("start_date");
