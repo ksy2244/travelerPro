@@ -33,88 +33,71 @@
 .card {
 	border: 1px solid #eee;
 }
-
 .name {
 	font-weight: bold;
 	font-size: 35px;
 	color: black;
 }
-
 .trip {
 	border: 1px solid #eee;
 	border-radius: 6px;
 	padding: 5px;
 }
-
 .ok {
 	color: #787878;
 }
-
 .img {
 	padding-top: 5px;
 }
-
 .shadowBox {
 	padding: 40px;
 }
-
 .star {
 	color: #FFBB00;
 }
-
 .bold {
 	color: black;
 	font-size: 17px;
 	font-weight: 600;
 }
-
 .address {
 	color: #0067A3;
 	font-size: 18px;
 	font-weight: 500;
 }
-
 .font {
 	font-size: 25px;
 	font-weight: 600;
 }
-
 #companyLikeCount {
 	color: #787878;
 	font-size: 17px;
 }
-
 .png {
 	width: 50px;
 	height: 50px;
 	margin-right: 50px;
 }
-
 .choice {
 	margin-bottom: 10px;
 	float: left;
 }
-
 .roomInfoContent {
 	font-size: 20px; 
 }
-
 .no {
 	font-size: 21px;
 	font-weight: bold;
 }
-
 .info {
 	float: right;
 }
-
 .ceoinfo {
 	font-size: 20px;
 	padding-top: 9px;
 	padding-bottom: 9px;
 	margin-bottom: 10px;
 }
-
 .all {
 	padding: 20px;
 	color: #787878;
@@ -122,31 +105,23 @@
 	font-size: 22px;
 	
 }
-
 .white {
 	clear: both;
 	font-size: 20px;
 	padding: 10px;
 }
-
 .cal {
 	font-size: 20px;
 	float: left;
 	padding-right: 50px;
 }
-
 .dateBtn {
 	margin-bottom: 20px;
 	clear: both;
 }
-
 .left {
 	float: left;
 }
-
-
-
-
 </style>
 
 
@@ -155,7 +130,6 @@
      var thisDate = new Date();
      var thisYear = thisDate.getFullYear();        //해당 연
      var thisMonth = thisDate.getMonth() + 1;    //해당 월
-
      $.datepicker.setDefaults({
          dateFormat: 'yy-mm-dd'         
          ,showOtherMonths: true     
@@ -218,14 +192,12 @@
 			}
 		});
 	}
-
 	// 업체 찜
 	$(function(){
 		$(".btnSendCompanyLike").click(function(){
 			const $i = $(this).find("i");
 			let isNoLike = $i.css("color") == "rgb(0, 0, 0)";
 			let msg = isNoLike ? "업체를 찜 하십겠습니까 ? " : "업체 찜을 취소하시겠습니까 ? ";
-
 			if(! confirm( msg )) {
 				return false;
 			}
@@ -265,14 +237,11 @@
 	$(function() {
 		let u = "${pageContext.request.contextPath}/reservation/roomList.do?companyNum=${companyNum}&start_date=${start_date}&end_date=${end_date}&tmp="+new Date().getTime();
 		$("#nav-1").load(u);
-
 		// 탭을 클릭할 때 마다
 		$("button[role='tab']").on("click", function(e) {
 			let tab = $(this).attr("aria-controls");
 			let selector = "#nav-" + tab;
-
 			let url = "${pageContext.request.contextPath}/reservation/";
-
 			if (tab == "1") {
 				url += "roomList.do?companyNum=${companyNum}&start_date=${start_date}&end_date=${end_date}&tmp="+new Date().getTime();
 				alert(url);
@@ -281,13 +250,9 @@
 			} else {
 				url += "review.do?companyNum=${companyNum}";
 			}
-
 			$(selector).load(url);
-
 		});
-
 	});
-
 </script>
 
 
@@ -354,19 +319,19 @@
 				<!-- 시작일, 종료일 -->
 				<div class="border-secondary mb-3">
 					<div class="shadowBox" style="width: 1100px; height: 1400px;">
-						<span class="trip">
+						<span class="trip mb-3">
 							<a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 							<img src="${pageContext.request.contextPath}/resources/images/한국관광공사.png" style="width: 14px;" class="img">&nbsp;<span class="ok">인증</span>
 							</a>
 						</span>
-			    
+
 						<div class="collapse" id="collapseExample">
 							<div class="card card-body">
 								한국관광공사에서 인증한 숙소 등급입니다.
 							</div>
 						</div>
-						<h4 class="name mt-3">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
-									<i class="fa-sharp fa-solid fa-heart fa-2x"  style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button></span>
+						<h4 class="name">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
+									<i class="fa-sharp fa-solid fa-heart fa-2x" style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button></span>
 						<c:choose>
 								<c:when test="${companyDto.starRate > 4.5}">
 									<span class="star"><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i><i class="fa-solid fa-star fa-2x"></i>&nbsp;<span class="bold">${companyDto.starRate} (리뷰수)</span></span>
@@ -487,7 +452,7 @@
 								<button type="button" class="btn text-white info" data-bs-toggle="modal" data-bs-target="#info"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 18px;"></button>		
 							</span>
 						</p>
-	
+
 						<div class="modal fade" id="info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						  <div class="modal-dialog">
 						    <div class="modal-content">
@@ -500,7 +465,7 @@
 						        	<span class="all">대표자명</span><span class="white">김자바</span>
 						        </div>
 						        <div class="ceoinfo">
-						        	<span class="all">상호명</span><span class="white">(주)${companyDto.companyName }</span>
+						        	<span class="all">상호명</span><span class="white">(주)${companyDto.companyName}</span>
 						        </div>
 						        <div class="ceoinfo">
 						        	<span class="all">사업자 주소</span><span class="white">${companyDto.addr}&nbsp;${companyDto.addrDetail}</span>
@@ -521,9 +486,9 @@
 						    </div>
 						  </div>
 						</div>
-					</div>
+					</div> 
 				</div>
-				
+
 				<div class="shadowBox" style="width: 1100px; height: 200px;">
 					<p class="font pb-3">이용 날짜 선택</p>
 					<div
@@ -542,9 +507,9 @@
 
 							</div>
 						</div>
-				
+
 				</div>
-				
+
 
 				<div class="card border-secondary mb-3" style="max-width: 100rem;">
 
@@ -560,10 +525,10 @@
 							<p class="roomInfoContent">${companyDto.companyInfo}</p>
 							<p class="roomInfoContent">${companyDto.guide}</p>
 							<p class="roomInfoContent">${companyDto.notice}</p>
-							
-							
 
-						
+
+
+
 							<p class="roomInfoContent">
 								<span style="background-color: #E4FBFF; text-align: center">체크인
 								</span>&nbsp; ${companyDto.checkInTime}
@@ -589,7 +554,7 @@
 							</table>
 
 							<hr>
-							
+
 
 
 

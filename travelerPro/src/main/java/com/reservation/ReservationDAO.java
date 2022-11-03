@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.coupon.CouponDTO;
@@ -369,11 +372,9 @@ public class ReservationDAO {
 		try {
 			sql = "  SELECT c.companyNum,companyName, companyInfo, amenities, guide, userName, email, businessNum, "
 					+ " checkintime, checkouttime, companyTel, CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
-					+ " notice, addr, addrDetail, zip , pick FROM company c "
-					+ " JOIN member m ON c.userId = m.userId "
+					+ " notice, addr, addrDetail, zip , pick FROM company c " + " JOIN member m ON c.userId = m.userId "
 					+ " LEFT OUTER JOIN companyStar cs ON cs.companyNum = c.companyNum "
-					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum "
-					+ "  WHERE c.companyNum = ? ";
+					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum " + "  WHERE c.companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -388,22 +389,21 @@ public class ReservationDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				
+
 				dto.setUserName(rs.getString("userName"));
 				dto.setEmail(rs.getString("email"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setCompanyTel(rs.getString("companyTel"));
-				
+
 				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setNotice(rs.getString("notice"));
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
-				
+
 				dto.setPick(rs.getInt("pick"));
 				dto.setBusinessNum(rs.getString("businessNum"));
-
 
 			}
 		} catch (SQLException e) {
@@ -842,6 +842,21 @@ public class ReservationDAO {
 		}
 
 		return list;
+	}
+
+	// 예약 시작일/예약 종료일 기간 구하기
+	public static long reservationGap(String startDate, String endDate) throws ParseException {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date start = format.parse(startDate);
+		Date end = format.parse(endDate);
+
+		long gap = end.getTime() - start.getTime();
+
+		gap = gap / (24 * 60 * 60 * 1000);
+
+		return gap;
 	}
 
 }

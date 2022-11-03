@@ -288,7 +288,7 @@ public class ReservationServlet extends TravelServlet {
 			req.setAttribute("end_date", end_date);
 
 			// 포워딩
-			forward(req, resp, "/WEB-INF/views/reservation/roominfo.jsp");
+			forward(req, resp, "/WEB-INF/views/reservation/roomList.jsp");
 			return;
 
 		} catch (Exception e) {
@@ -358,6 +358,8 @@ public class ReservationServlet extends TravelServlet {
 			
 			System.out.println(start_date);
 			System.out.println(end_date );
+			
+			long gap = dao.reservationGap(start_date,end_date);
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
