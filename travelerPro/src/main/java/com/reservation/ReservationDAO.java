@@ -581,117 +581,117 @@ public class ReservationDAO {
 		}
 
 	}
-
-	// 나의 예약 내역 조회
-	public List<ReservationDTO> myReseravationList(String userId) {
-		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		try {
-			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
-					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
-					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
-
-					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
-
-					+ " LEFT OUTER JOIN room room " + " ON room.roomNum = d.roomNum "
-
-					+ " LEFT OUTER JOIN company c " + " ON c.companyNum = room.companyNum "
-
-					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
-
-					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
-
-					+ " WHERE m.userId = ? AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, userId);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				ReservationDTO dto = new ReservationDTO();
-				dto.setReservationNum(rs.getLong("reservationNum"));
-				dto.setCompanyNum(rs.getInt("companyNum"));
-				dto.setStart_date(rs.getString("startDate"));
-				dto.setEnd_date(rs.getString("endDate"));
-				dto.setCheckInTime(rs.getString("checkInTime"));
-				dto.setCheckOutTime(rs.getString("checkOutTime"));
-				dto.setReservation_date(rs.getString("RegDate"));
-				dto.setRoomName(rs.getString("roomName"));
-				dto.setCompanyName(rs.getString("companyName"));
-				dto.setUserName(rs.getString("userName"));
-				dto.setPaymentPrice(rs.getInt("paymentPrice"));
-				dto.setImageFileName(rs.getString("imageFileName"));
-				dto.setDay(rs.getInt("day"));
-
-				list.add(dto);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-
-		return list;
-	}
-	
-	public int myReservationCount(String userId) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-
-		try {
-			sql = "SELECT COUNT(*) FROM reservation "
-					+ " WHERE userId = ?  AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) "
-					+ " AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, userId);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				result = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-
-		return result;
-	}
-	
-	
+//
+//	// 나의 예약 내역 조회
+//	public List<ReservationDTO> myReseravationList(String userId) {
+//		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String sql = null;
+//		try {
+//			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
+//					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
+//					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
+//
+//					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
+//
+//					+ " LEFT OUTER JOIN room room " + " ON room.roomNum = d.roomNum "
+//
+//					+ " LEFT OUTER JOIN company c " + " ON c.companyNum = room.companyNum "
+//
+//					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
+//
+//					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
+//
+//					+ " WHERE m.userId = ? AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+//
+//			pstmt = conn.prepareStatement(sql);
+//
+//			pstmt.setString(1, userId);
+//
+//			rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//				ReservationDTO dto = new ReservationDTO();
+//				dto.setReservationNum(rs.getLong("reservationNum"));
+//				dto.setCompanyNum(rs.getInt("companyNum"));
+//				dto.setStart_date(rs.getString("startDate"));
+//				dto.setEnd_date(rs.getString("endDate"));
+//				dto.setCheckInTime(rs.getString("checkInTime"));
+//				dto.setCheckOutTime(rs.getString("checkOutTime"));
+//				dto.setReservation_date(rs.getString("RegDate"));
+//				dto.setRoomName(rs.getString("roomName"));
+//				dto.setCompanyName(rs.getString("companyName"));
+//				dto.setUserName(rs.getString("userName"));
+//				dto.setPaymentPrice(rs.getInt("paymentPrice"));
+//				dto.setImageFileName(rs.getString("imageFileName"));
+//				dto.setDay(rs.getInt("day"));
+//
+//				list.add(dto);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException e) {
+//				}
+//			}
+//
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//				}
+//			}
+//		}
+//
+//		return list;
+//	}
+//	
+//	public int myReservationCount(String userId) {
+//		int result = 0;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String sql;
+//
+//		try {
+//			sql = "SELECT COUNT(*) FROM reservation "
+//					+ " WHERE userId = ?  AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) "
+//					+ " AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+//			pstmt = conn.prepareStatement(sql);
+//
+//			pstmt.setString(1, userId);
+//
+//			rs = pstmt.executeQuery();
+//
+//			if (rs.next()) {
+//				result = rs.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException e) {
+//				}
+//			}
+//
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//				}
+//			}
+//		}
+//
+//		return result;
+//	}
+//	
+//	
 
 	public int countCompanyLike(int companyNum) {
 		int result = 0;

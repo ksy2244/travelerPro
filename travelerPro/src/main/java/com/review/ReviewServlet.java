@@ -56,10 +56,10 @@ public class ReviewServlet extends TravelServlet {
 			review(req, resp);
 		}
 
-		// 나의 리뷰
-		else if (uri.indexOf("myReview.do") != -1) {
-			myReview(req, resp);
-		}
+//		// 나의 리뷰
+//		else if (uri.indexOf("myReview.do") != -1) {
+//			myReview(req, resp);
+//		}
 
 	}
 
@@ -199,42 +199,42 @@ public class ReviewServlet extends TravelServlet {
 
 	}
 
-	private void myReview(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 포워딩
-		ReviewDAO dao = new ReviewDAO();
-		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		String cp = req.getContextPath();
-
-		req.setCharacterEncoding("utf8");
-
-		try {
-
-			List<ReviewDTO> list = null;
-
-			if (info == null) {
-
-				resp.sendRedirect(cp + "/member/login.do");
-				return;
-			}
-
-			list = dao.myReviewList(info.getUserId());
-			System.out.println(info.getUserId());
-			
-			int dataCount = dao.myReviewCount(info.getUserId());
-
-			// JSP로 전달할 속성
-			req.setAttribute("list", list);
-			req.setAttribute("dataCount", dataCount);
-
-			// 포워딩
-			forward(req, resp, "/WEB-INF/views/reservation/myReview.jsp");
-			return;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+//	private void myReview(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		// 포워딩
+//		ReviewDAO dao = new ReviewDAO();
+//		HttpSession session = req.getSession();
+//		SessionInfo info = (SessionInfo) session.getAttribute("member");
+//		String cp = req.getContextPath();
+//
+//		req.setCharacterEncoding("utf8");
+//
+//		try {
+//
+//			List<ReviewDTO> list = null;
+//
+//			if (info == null) {
+//
+//				resp.sendRedirect(cp + "/member/login.do");
+//				return;
+//			}
+//
+//			list = dao.myReviewList(info.getUserId());
+//			System.out.println(info.getUserId());
+//			
+//			int dataCount = dao.myReviewCount(info.getUserId());
+//
+//			// JSP로 전달할 속성
+//			req.setAttribute("list", list);
+//			req.setAttribute("dataCount", dataCount);
+//
+//			// 포워딩
+//			forward(req, resp, "/WEB-INF/views/reservation/myReview.jsp");
+//			return;
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }

@@ -13,13 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import com.coupon.CouponDTO;
 import com.member.SessionInfo;
+import com.reservation.ReservationDTO;
 import com.reservation.ReserveCompanyDTO;
+import com.review.ReviewDTO;
 import com.util.TravelServlet;
 import com.util.TravelUtil;
 import com.util.TravelUtilBootstrap;
 
 @WebServlet("/mypage/*")
-public class MyPageServlet extends TravelServlet {
+public class MypageServlet extends TravelServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -38,12 +40,25 @@ public class MyPageServlet extends TravelServlet {
 
 		if (uri.indexOf("coupon.do") != -1) {
 			coupon(req, resp);
-		} else if (uri.indexOf("couponInfo.do") != -1) {
+		}
+		else if (uri.indexOf("couponInfo.do") != -1) {
 			couponInfo(req, resp);
-		} else if (uri.indexOf("alarm.do") != -1) {
+		} 
+		
+		else if (uri.indexOf("alarm.do") != -1) {
 			alarm(req, resp);
-		} else if (uri.indexOf("pick.do") != -1) {
+		} 
+		
+		else if (uri.indexOf("pick.do") != -1) {
 			pick(req, resp);
+		}
+		// 나의 예약 정보
+		else if (uri.indexOf("myReservation.do") != -1) {
+			myReservation(req, resp);
+		}
+		// 나의 리뷰
+		else if (uri.indexOf("myReview.do") != -1) {
+			myReview(req, resp);
 		}
 
 	}
@@ -205,4 +220,79 @@ public class MyPageServlet extends TravelServlet {
 		}
 		forward(req, resp, "/WEB-INF/views/mypage/pick.jsp");
 	}
+
+	private void myReservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		MypageDAO dao = new MypageDAO();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String cp = req.getContextPath();
+
+		req.setCharacterEncoding("utf8");
+
+		try {
+
+			List<ReservationDTO> list = null;
+
+			if (info == null) {
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+
+			System.out.println(info.getUserId());
+			list = dao.myReseravationList(info.getUserId());
+			int dataCount = dao.myReservationCount(info.getUserId());
+
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
+			req.setAttribute("dataCount", dataCount);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/mypage/myReservation.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void myReview(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 포워딩
+		MypageDAO dao = new MypageDAO();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String cp = req.getContextPath();
+
+		req.setCharacterEncoding("utf8");
+
+		try {
+
+			List<ReviewDTO> list = null;
+
+			if (info == null) {
+
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+
+			list = dao.myReviewList(info.getUserId());
+			System.out.println(info.getUserId());
+
+			int dataCount = dao.myReviewCount(info.getUserId());
+
+			// JSP로 전달할 속성
+			req.setAttribute("list", list);
+			req.setAttribute("dataCount", dataCount);
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/mypage/myReview.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
