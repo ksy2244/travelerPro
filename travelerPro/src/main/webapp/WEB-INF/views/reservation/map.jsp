@@ -8,6 +8,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.font {
+	font-size: 25px;
+	font-weight: 600;
+	margin-left: 20px;
+}
+
+#map {
+	border-radius: 8px;
+}
+
+.address {
+	font-size: 15px;
+	color: black;
+}
+
+.place {
+	margin: 20px;
+}
+</style>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <!-- services 라이브러리 불러오기 -->
 <script type="text/javascript"
@@ -15,6 +35,7 @@
 </head>
 <body>
 	<main>
+		<p class="font pb-2 pt-2">위치</p>
 		<div id="map" style="width: 100%; height: 350px;"></div>
 <script>
 
@@ -56,6 +77,15 @@ geocoder.addressSearch('"${address}"', function(result, status) {
     } 
 });    
 </script>
+	<br>
+	<div class="place">
+		<i class="fa-solid fa-location-dot fa-lg ps-3"></i>&nbsp;&nbsp;<span class="address">서울특별시${companyDto.addr}&nbsp;${companyDto.addrDetail}</span>
+	</div>
+	<br>
+	<hr style="width: 1000px; color: #787878; clear: both;">
+	<br>
+	<p class="font pb-2 pt-2">길안내</p>
+	<div class="place">홍대입구역 1번 출구에서 도보 5분 거리 ${dto.companyInfo}</div>
 	
 	</main>
 </body>

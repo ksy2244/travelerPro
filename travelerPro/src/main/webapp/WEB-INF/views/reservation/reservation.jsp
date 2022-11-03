@@ -440,7 +440,7 @@ input[type=checkbox] {
 											<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponRate">
 											<input type="hidden" value="${coupon.couponPrice}" name="couponPrice">
 											<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 								
-											<button class="dateBtn btn btn-danger btnCoupon btn-sm"  type="button"> 쿠폰 적용하기 </button>
+											<button class="btn btn-danger btnCoupon btn-sm"  type="button"> 쿠폰 적용하기 </button>
 											<div class="mb-4"></div>
 										</div>
 									</div>
@@ -503,7 +503,7 @@ input[type=checkbox] {
 						<input type="hidden" value="0" name="couponPrice" >								
 					</div>
 			         <div class="modal-footer">
-				      	<button type="button" name="sendButton" class="dateBtn btn btn-danger" onclick="requestPay();">결제</button>
+				      	<button type="button" name="sendButton" class="btn btn-danger" onclick="requestPay();">결제</button>
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 			      	</div>
 		        </form>   
