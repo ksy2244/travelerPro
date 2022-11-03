@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.reservation.ReservationDAO;
-import com.reservation.ReservationDTO;
 import com.reservation.ReserveCompanyDTO;
 import com.util.TravelServlet;
 
-@WebServlet("/*")
+@WebServlet("/main/*")
 public class MainServlet extends TravelServlet {
    private static final long serialVersionUID = 1L;
 
@@ -28,16 +27,18 @@ public class MainServlet extends TravelServlet {
       
       // 메인 화면
       if(uri.indexOf("main.do") != -1) {
-    	 
-    	  
-         forward(req, resp, "/WEB-INF/views/main/main.jsp");
+    	  main(req,resp);
 		}
       else if(uri.indexOf("companyphoto.do")!=-1) {
     	  companyphoto(req,resp);
       }
    }
+   
+   protected void main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	 forward(req, resp, "/WEB-INF/views/main/main.jsp");
+   }
       
-      protected void companyphoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void companyphoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	  try {
 			ReservationDAO dao = new ReservationDAO();
 			String areaCode = req.getParameter("areaCode");

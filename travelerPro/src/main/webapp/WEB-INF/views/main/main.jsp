@@ -51,12 +51,12 @@ $(function(){
 });
 function companyphoto(areaCode,areaName) {
 	let url = "${pageContext.request.contextPath}/companyphoto.do";
-	let query = "areaCode="+areaCode+"areaName="+areaName;
+	let query = "areaCode="+areaCode+"&areaName="+areaName+"&tmp="+new Date().getTime();
+	alert(url);
 	const fn = function(data) {
 		printphoto(data);
 	};
 	ajaxFun(url,"get",query,"json",fn);
-	
 }
 
 function printphoto(data){
