@@ -60,9 +60,7 @@ public class MyPageServlet extends TravelServlet {
 			if(page != null) {
 				current_page = Integer.parseInt(page);
 			}
-			
-			
-			
+
 			System.out.print(info.getUserId());
 			
 			int dataCount = dao.dataCount(info.getUserId());
@@ -76,7 +74,7 @@ public class MyPageServlet extends TravelServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			List<CouponDTO> list = dao.myPageCoupon(info.getUserId());
+			List<CouponDTO> list = dao.myPageCoupon(info.getUserId(), offset, size);
 			
 			
 			String listUrl = cp + "/mypage/coupon.do";
