@@ -177,11 +177,10 @@
 							<span class="checkbox_mark"></span>
 						</label>
 
-
 						<div class="text-center mb-2 p-2">
 
-							<button type="button" id='result' onclick="alarm()"
-								class="btn btn-outline-secondary btnDialog3" >변경</button>
+							<button type="button" id='result'
+								class="btn btn-outline-secondary btnDialog3">변경</button>
 
 							<div class="modal" id="myDialogModal3" tabindex="-1"
 								aria-labelledby="myDialogModalLabel3" aria-hidden="true">
@@ -197,26 +196,32 @@
 											<h6 class="modal-title" id="myDialogModalLabel3">[TRAVLER]</h6>
 											<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
 												수신정보가 변경되었습니다.</h6>
-											<h6 class="modal-title" id="myDialogModalLabel3">• 일 시 : ${date} </h6>
-												
-												
-											
-											
-
-
+											<h6 class="modal-title" id="myDialogModalLabel3">• 일 시 :
+												${date}</h6>
+											<h6 class="modal-title" id="myDialogModalLabel3"></h6>
 
 										</div>
+										<div class="modal-body">
+
+											<button type="button"
+												class="btn btn-outline-secondary btnDialog3"
+												onclick="alarm()">확인</button>
+										</div>
+
+
+
 									</div>
 								</div>
 							</div>
 						</div>
-
-					</form>
 				</div>
+
+
 			</div>
-
-
 		</div>
+
+
+
 
 
 

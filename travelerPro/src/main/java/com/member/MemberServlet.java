@@ -357,20 +357,18 @@ public class MemberServlet extends TravelServlet {
 			}
 
 			if (req.getParameter("pAlarm") != null) {
-				dto.setmAlarm(Integer.parseInt(req.getParameter("pAlarm")));
+				dto.setpAlarm(Integer.parseInt(req.getParameter("pAlarm")));
 			}
 
 			if (req.getParameter("eAlarm") != null) {
-				dto.setmAlarm(Integer.parseInt(req.getParameter("eAlarm")));
+				dto.seteAlarm(Integer.parseInt(req.getParameter("eAlarm")));
 			}
 
 			if (req.getParameter("sAlarm") != null) {
-				dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
+				dto.setsAlarm(Integer.parseInt(req.getParameter("sAlarm")));
 			}
 
 			dto.setModify_date(req.getParameter("modify_date"));
-
-			System.out.println(req.getParameter("mAlarm"));
 			dao.updateAlarm(dto);
 
 		} catch (Exception e) {
