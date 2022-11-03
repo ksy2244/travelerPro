@@ -354,7 +354,7 @@
 				<!-- 시작일, 종료일 -->
 				<div class="border-secondary mb-3">
 					<div class="shadowBox" style="width: 1100px; height: 1400px;">
-						<span class="trip mb-3">
+						<span class="trip">
 							<a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 							<img src="${pageContext.request.contextPath}/resources/images/한국관광공사.png" style="width: 14px;" class="img">&nbsp;<span class="ok">인증</span>
 							</a>
@@ -365,7 +365,7 @@
 								한국관광공사에서 인증한 숙소 등급입니다.
 							</div>
 						</div>
-						<h4 class="name">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
+						<h4 class="name mt-3">${companyDto.companyName}</h4><span style="float: right;"><button type="button" class="btn btnSendCompanyLike like" title="좋아요">
 									<i class="fa-sharp fa-solid fa-heart fa-2x"  style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button></span>
 						<c:choose>
 								<c:when test="${companyDto.starRate > 4.5}">
@@ -500,7 +500,7 @@
 						        	<span class="all">대표자명</span><span class="white">김자바</span>
 						        </div>
 						        <div class="ceoinfo">
-						        	<span class="all">상호명</span><span class="white">(주)${companyDto.companyName}</span>
+						        	<span class="all">상호명</span><span class="white">(주)${companyDto.companyName }</span>
 						        </div>
 						        <div class="ceoinfo">
 						        	<span class="all">사업자 주소</span><span class="white">${companyDto.addr}&nbsp;${companyDto.addrDetail}</span>
@@ -521,7 +521,7 @@
 						    </div>
 						  </div>
 						</div>
-					</div> 
+					</div>
 				</div>
 				
 				<div class="shadowBox" style="width: 1100px; height: 200px;">
