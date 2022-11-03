@@ -12,6 +12,9 @@
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 
 <style type="text/css">
+th{font-size: 20px;}
+
+
 .body-container {
 	max-width: 1500px;
 }

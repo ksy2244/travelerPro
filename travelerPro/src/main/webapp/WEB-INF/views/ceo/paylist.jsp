@@ -9,6 +9,11 @@
 <title>CEOMain</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
+th{font-size:25px;}
+
+td{ padding: 15px;
+font-size: 18px;
+}
 .body-container {
 	max-width: 1500px;
 }

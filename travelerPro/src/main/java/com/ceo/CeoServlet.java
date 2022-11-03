@@ -343,7 +343,7 @@ public class CeoServlet extends TravelServlet {
 
 			List<ReservationDTO> list = dao.ceoReseravationList(info.getUserId(), offset, size);
 			String listUrl = cp + "/ceo/reservation.do";
-			String articleUrl = cp + "/ceo/reservationartilce.do?page=" + current_page;
+			String articleUrl = cp + "/ceo/reservationarticle.do?page=" + current_page;
 			String paging = util.paging(current_page, total_page, listUrl);
 
 			req.setAttribute("list", list);
