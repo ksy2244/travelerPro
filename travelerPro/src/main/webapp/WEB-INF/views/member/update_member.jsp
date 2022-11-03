@@ -123,6 +123,13 @@
 			f.email1.focus();
 		}
 	}
+	
+	function del() {
+		if(confirm("회원탈퇴를 진행하시겠습니까?")){
+			location.href="${pageContext.request.contextPath}/member/delete.do";
+		}
+		
+	}
 </script>
 </head>
 <body class="pt-5">
@@ -283,13 +290,12 @@
 									onclick="location.href='${pageContext.request.contextPath}/';">
 									${mode=="member"?"가입취소":"취소"}<i class="bi bi-x"></i>
 								</button>
-
-								<input type="hidden" name="userIdValid" id="userIdValid"
-									value="false">
-								<a href="${pageContext.request.contextPath}/member/delete.do" class="text-decoration-none delete">회원 탈퇴</a>
-								
+						
 								<div class="col text-end">
-									<button type="button" class="btn btn-danger text-white" onclick="location.href='${pageContext.request.contextPath}/member/delete.do';">회원 탈퇴</button>
+									<button type="button" name="sendButton" class="btn text-white side"
+									onclick="del();">
+									회원탈퇴
+								</button>
 								</div>
 							</div>
 						</div>

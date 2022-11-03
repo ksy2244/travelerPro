@@ -160,28 +160,28 @@
 				<div class="body-main">
 					<form name="alarmForm" method="post">
 						<label class="checkbox_container"> 마케팅 알림 수신 동의(선택) <input
-							type="checkbox" id='my_checkbox1' name='mAlarm' value="1">
+							type="checkbox" id='my_checkbox' name='mAlarm' value="1">
 							<span class="checkbox_mark"></span>
 
 						</label>
 						<p>할인쿠폰, 특가 상품, 이벤트 등 다양한 혜택 소식을 가장 먼저 보내드려요.</p>
 
 						<label class="checkbox_container"> 푸시알림 <input
-							type="checkbox" id='my_checkbox2' name='pAlarm' value="1">
+							type="checkbox" id='my_checkbox' name='pAlarm' value="1">
 							<span class="checkbox_mark"></span>
 						</label> <label class="checkbox_container"> 이메일 <input
-							type="checkbox" id='my_checkbox3' name='eAlarm' value="1">
+							type="checkbox" id='my_checkbox' name='eAlarm' value="1">
 							<span class="checkbox_mark"></span>
 						</label> <label class="checkbox_container"> SMS <input
-							type="checkbox" id='my_checkbox4' name='sAlarm' value="1">
+							type="checkbox" id='my_checkbox' name='sAlarm' value="1">
 							<span class="checkbox_mark"></span>
 						</label>
 
 
 						<div class="text-center mb-2 p-2">
 
-							<button type="button" id='result'
-								class="btn btn-outline-secondary btnDialog3" onclick="alarm()">변경</button>
+							<button type="button" id='result' onclick="alarm()"
+								class="btn btn-outline-secondary btnDialog3" >변경</button>
 
 							<div class="modal" id="myDialogModal3" tabindex="-1"
 								aria-labelledby="myDialogModalLabel3" aria-hidden="true">
@@ -197,9 +197,12 @@
 											<h6 class="modal-title" id="myDialogModalLabel3">[TRAVLER]</h6>
 											<h6 class="modal-title" id="myDialogModalLabel3">마케팅 알림
 												수신정보가 변경되었습니다.</h6>
-											<p>• 일 시 :</p>
-											<label class="checkbox_container"> <input type="text"
-												name='modify_date' value="${dto.modify_date}"></label>
+											<h6 class="modal-title" id="myDialogModalLabel3">• 일 시 : ${date} </h6>
+												
+												
+											
+											
+
 
 
 										</div>
