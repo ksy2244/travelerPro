@@ -9,6 +9,13 @@
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
+<style type="text/css">
+td.tt{font-size: 30px;}
+
+td{ padding: 15px;
+font-size: 20px;
+}
+</style>
 <script type="text/javascript">
 function deleteroom() {
 	if(confirm("객실을 삭제 하시 겠습니까 ? ")) {
@@ -37,8 +44,8 @@ function deleteroom() {
 				<table class="table">
 					<thead>
 						<tr>
-							<td colspan="2" align="center">
-								${dto.roomName}
+							<td colspan="2" align="center" class=tt>
+								객실명:${dto.roomName}
 							</td>
 						</tr>
 					</thead>

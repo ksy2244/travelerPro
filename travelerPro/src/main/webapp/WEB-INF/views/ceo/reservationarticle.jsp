@@ -10,6 +10,62 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
+<style type="text/css">
+.body-container {
+	max-width: 1500px;
+}
+
+th{font-size:25px;}
+
+td{ padding: 15px;
+font-size: 18px;
+}
+
+
+.body-title {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
+
+.title {
+	border-bottom: 2px solid #ced4da;
+	background: #ced4da;
+}
+
+.page {
+	margin-bottom: 20px;
+}
+
+#point {
+	background-color: #FF5E00;
+}
+
+#point:hover{background-color:#FF9000;}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
+}
+
+.gray {
+	color: #787878;
+}
+
+.png {
+	width: 20px;
+	height: 20px;
+}
+</style>
 </head>
 <body>
 <header>
@@ -19,24 +75,32 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 예약번호:${dto.reservationNum} </h3>
+				<h1> 예약번호:${dto.reservationNum} </h1>
 			</div>
 			
 			<div class="body-main">
 				
-				<table class="table">
+				<table class="table table-hover board-list">
+					<thead>
+						<tr class="title">
+							<th class="inquiryNum" >예약상세정보</th>
+							
+						</tr>
+					</thead>
 					
 					
 					<tbody>
 						<tr>
-							<td align="left">
+							<td align="left" >
 								업체이름:${dto.companyName}
+								
 							</td>
 						</tr>
 						
 						<tr>
 							<td align="left">
 								업체번호:${dto.companyNum}
+								
 							</td>
 						</tr>
 						
@@ -44,38 +108,49 @@
 						<tr>
 							<td align="left">
 								이용자이름:${dto.realUserName}
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
-								회원아이디:${dto.realUserId}
+								회원아이디:${dto.userId}
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
 								이용자전화번호:${dto.realUserTel}
+								
 							</td>
 						</tr>
 						
 						<tr>
 							<td align="left">
 								방이름 :${dto.roomName }
+								
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
 								시작날짜:${dto.start_date}
+								
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
 								종료날짜:${dto.end_date}
+								
+								
 							</td>
 						</tr>
 						
 						<tr>
 							<td align="left">
-								인원수:${dto.realheadCount} 
+								인원수:${dto.realHeadCount} 
+								
+								
 							</td>
 						</tr>
 						
@@ -83,22 +158,30 @@
 						<tr>
 							<td align="left">
 								체크인시간:${dto.checkInTime}
+								
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
 								체크아웃시간:${dto.checkOutTime}
+								
+								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
 								결재금액:${dto.paymentPrice }
+								
+								
 							</td>
 						</tr>
 						
 						<tr>
 							<td align="left">
 								예약날짜:${dto.reservation_date}
+								
+								
 							</td>
 						</tr>
 						

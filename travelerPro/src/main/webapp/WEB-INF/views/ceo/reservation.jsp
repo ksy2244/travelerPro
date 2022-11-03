@@ -9,6 +9,12 @@
 <title>CEOMain</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
+th{font-size:23px;}
+
+td{ padding: 20px;
+font-size: 18px;
+}
+
 .body-container {
 	max-width: 1500px;
 }
@@ -50,7 +56,7 @@
 	<div class="container mt-3">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 예약정보 리스트 </h3>
+				<h1> 예약정보 리스트 </h1>
 				
 			</div>
 			<div class="body-main">

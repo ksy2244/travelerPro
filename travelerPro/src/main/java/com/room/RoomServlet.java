@@ -80,7 +80,7 @@ public class RoomServlet extends TravelServlet  {
 			
 			int dataCount = dao.dataCount(companyNum);
 			
-			int size = 15;
+			int size = 3;
 			int total_page = util.pageCount(dataCount, size);
 			if(current_page > total_page) {
 				current_page = total_page;
