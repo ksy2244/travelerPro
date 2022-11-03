@@ -45,6 +45,8 @@ public class MemberServlet extends TravelServlet {
 			alarmForm(req, resp);
 		} else if (uri.indexOf("alarm_ok.do") != -1) {
 			alarmSubmit(req, resp);
+		} else if (uri.indexOf("delete.do") != -1) {
+			delete(req, resp);
 		}
 	}
 
@@ -215,6 +217,7 @@ public class MemberServlet extends TravelServlet {
 			String userPwd = req.getParameter("userPwd");
 			String mode = req.getParameter("mode");
 			if (!dto.getUserPwd().equals(userPwd)) {
+
 				if (mode.equals("update")) {
 					req.setAttribute("title", "회원 정보 수정");
 				} else {
@@ -223,10 +226,11 @@ public class MemberServlet extends TravelServlet {
 
 				req.setAttribute("mode", mode);
 				req.setAttribute("message", "패스워드가 일치하지 않습니다.");
-				forward(req, resp, "/WEB-INF/views/member/update_member.jsp");
+				forward(req, resp, "/WEB-INF/views/member/pwd.jsp");
 				return;
 			}
 
+			/*
 			if (mode.equals("delete")) {
 				// 회원탈퇴
 				dao.deleteMember(info.getUserId());
@@ -235,9 +239,10 @@ public class MemberServlet extends TravelServlet {
 				session.invalidate();
 
 				resp.sendRedirect(cp + "/");
+
 				return;
 			}
-
+		*/
 			// 회원정보수정 - 회원수정폼으로 이동
 			req.setAttribute("title", "회원 정보 수정");
 			req.setAttribute("dto", dto);
@@ -318,15 +323,24 @@ public class MemberServlet extends TravelServlet {
 	}
 
 	protected void alarmForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			MemberDAO dao = new MemberDAO();
+			String date = dao.sysdate();
+
+			req.setAttribute("date", date);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		forward(req, resp, "/WEB-INF/views/member/alarm.jsp");
 	}
-	
+
 	private void alarmSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberDAO dao = new MemberDAO();
 		HttpSession session = req.getSession();
 
 		String cp = req.getContextPath();
-
 
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -336,29 +350,29 @@ public class MemberServlet extends TravelServlet {
 			}
 
 			MemberDTO dto = new MemberDTO();
-		
+
 			dto.setUserId(info.getUserId());
-			if(req.getParameter("mAlarm") != null) {
+			if (req.getParameter("mAlarm") != null) {
 				dto.setmAlarm(Integer.parseInt(req.getParameter("mAlarm")));
 			}
-			
-			if(req.getParameter("pAlarm") != null) {
+
+			if (req.getParameter("pAlarm") != null) {
 				dto.setmAlarm(Integer.parseInt(req.getParameter("pAlarm")));
 			}
-			
-			if(req.getParameter("eAlarm") != null) {
+
+			if (req.getParameter("eAlarm") != null) {
 				dto.setmAlarm(Integer.parseInt(req.getParameter("eAlarm")));
 			}
 
-			if(req.getParameter("sAlarm") != null) {
+			if (req.getParameter("sAlarm") != null) {
 				dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
 			}
-			
+
 			dto.setModify_date(req.getParameter("modify_date"));
-			
+
 			System.out.println(req.getParameter("mAlarm"));
 			dao.updateAlarm(dto);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -366,4 +380,25 @@ public class MemberServlet extends TravelServlet {
 		resp.sendRedirect(cp + "/");
 	}
 
+	private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+		HttpSession session = req.getSession();
+
+		String cp = req.getContextPath();
+
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+			MemberDTO dto = new MemberDTO();
+
+			dto.setUserId(info.getUserId());
+		
+			dao.deleteMember(dto);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp.sendRedirect(cp + "/");
+	}
+	
 }

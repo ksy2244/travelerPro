@@ -213,20 +213,22 @@ public class MemberDAO {
 		}
 	}
 
-	public void deleteMember(String userId) throws SQLException {
-		// 탈퇴?
-
-		PreparedStatement pstmt = null;
+	public void deleteMember(MemberDTO dto) throws SQLException {
+		// 탈퇴
+		PreparedStatement pstmt= null;
 		String sql;
 
 		try {
 			sql = "DELETE FROM member WHERE userId=?";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, userId);
+			pstmt.setString(1, dto.getUserId());
 
 			pstmt.executeUpdate();
+			
+			
 		} catch (SQLException e) {
+		
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -237,6 +239,8 @@ public class MemberDAO {
 				}
 			}
 		}
+		
+
 
 	}
 
@@ -272,5 +276,39 @@ public class MemberDAO {
 		}
 	}
 	
-	
+	public String sysdate() {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT SYSDATE FROM dual";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result += rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 }
