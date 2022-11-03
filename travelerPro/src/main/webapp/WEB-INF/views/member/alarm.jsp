@@ -183,7 +183,7 @@
 							<button type="button" id='result'
 								class="btn btn-outline-secondary btnDialog3" onclick="alarm()">변경</button>
 
-							<div class="modal fade" id="myDialogModal3" tabindex="-1"
+							<div class="modal" id="myDialogModal3" tabindex="-1"
 								aria-labelledby="myDialogModalLabel3" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
