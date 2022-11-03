@@ -10,12 +10,6 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
-	type="text/css">
 <link rel="import" href="map.html">
 
 <style type="text/css">
@@ -44,6 +38,7 @@
 	font-weight: bold;
 	font-size: 17px;
 	margin-left: 20px;
+	margin-top: 20px;
 }
 
 .png {
