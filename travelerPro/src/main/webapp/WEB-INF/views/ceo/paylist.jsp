@@ -58,7 +58,7 @@
 			
 			<div class="body-main">
 		        <div class="row board-list-header">	        	
-		           <div><h1 align="center">총매출:</h1></div>
+		           <div><h1 align="center">총매출: ${sales}</h1></div>
 		            <div class="col-auto me-auto page">
 		            	${dataCount}개(${page}/${total_page} 페이지)
 		            </div>
@@ -68,26 +68,20 @@
 				<table class="table table-hover board-list">
 					<thead>
 						<tr class="title">
-							<th class="regDate">결제날짜</th>
-							<th class ="companyNum">업체 전화번호</th>
 							<th class ="companyName">업체명</th>
-							<th class="roomName">객실명</th>
-							<th class="paymentPrice">가격</th>
+							<th class="paymentPrice">업체별 매출액</th>
 							
 						</tr>
 					</thead>
 					
 					<tbody>
-						 <c:forEach var="dto" items="${list}" varStatus="status"> 
+						 <c:forEach var="dto" items="${saleslist}" varStatus="status"> 
 							<tr>
-								<td>${dto.reservation_date}
-								<td>${dto.companyNum}</td>
 								<td>${dto.companyName}</td>
-								<td>${dto.roomName}</td>
 								<td>${dto.paymentPrice}</td>
 								
 							</tr>
-						< </c:forEach> 
+						< </c:forEach>
 					</tbody>
 				</table>
 				
