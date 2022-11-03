@@ -367,11 +367,13 @@ public class ReservationDAO {
 		String sql;
 
 		try {
-			sql = " SELECT c.companyNum,companyName, companyInfo, amenities, guide, "
+			sql = "  SELECT c.companyNum,companyName, companyInfo, amenities, guide, userName, email, businessNum, "
 					+ " checkintime, checkouttime, companyTel, CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
-					+ " notice, addr, addrDetail, zip , pick " + " FROM company c "
+					+ " notice, addr, addrDetail, zip , pick FROM company c "
+					+ " JOIN member m ON c.userId = m.userId "
 					+ " LEFT OUTER JOIN companyStar cs ON cs.companyNum = c.companyNum "
-					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum WHERE c.companyNum = ? ";
+					+ " LEFT OUTER JOIN companyPick cp ON c.companyNum = cp.companyNum "
+					+ "  WHERE c.companyNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -386,16 +388,22 @@ public class ReservationDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-
+				
+				dto.setUserName(rs.getString("userName"));
+				dto.setEmail(rs.getString("email"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setCompanyTel(rs.getString("companyTel"));
+				
+				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setNotice(rs.getString("notice"));
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
+				
 				dto.setPick(rs.getInt("pick"));
-				dto.setStarRate(rs.getDouble("starRate"));
+				dto.setBusinessNum(rs.getString("businessNum"));
+
 
 			}
 		} catch (SQLException e) {
@@ -835,53 +843,5 @@ public class ReservationDAO {
 
 		return list;
 	}
-	
-	public ReserveCompanyDTO ceoInfo(int companyNum) {
-		ReserveCompanyDTO dto = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql;
-
-		try {	sql = " SELECT userName, companyNum, addr, addrDetail, email, companyTel "
-					+ " FROM company c "
-					+ " JOIN member m ON c.userId = m.userId "
-					+ " WHERE companyNum = ? ";
-				
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, companyNum);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				dto = new ReserveCompanyDTO();
-				dto.setUserName(rs.getString("userName"));
-				dto.setCompanyNum(rs.getInt("companyNum"));
-				dto.setAddr(rs.getString("addr"));
-				dto.setAddrDetail(rs.getString("addrDetail"));
-				dto.setEmail(rs.getString("email"));
-				dto.setCompanyTel(rs.getString("compayTel"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-
-		return dto;
-	}
-
 
 }
