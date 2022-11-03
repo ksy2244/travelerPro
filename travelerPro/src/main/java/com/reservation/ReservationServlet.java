@@ -359,7 +359,7 @@ public class ReservationServlet extends TravelServlet {
 			System.out.println(start_date);
 			System.out.println(end_date );
 			
-			long gap = dao.reservationGap(start_date,end_date);
+			int gap = dao.reservationGap(start_date,end_date);
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -371,14 +371,18 @@ public class ReservationServlet extends TravelServlet {
 			List<CouponDTO> list = null;
 			
 			list = dao.listCoupon(info.getUserId());
+			
+			System.out.println(gap);
 
-			int paymentPrice = 0;
-			// 금액 게산
-			int sale = (int) (dto.getRoomPrice() * (dto.getDiscountRate() / 100.0));
-
-			paymentPrice = dto.getRoomPrice() - sale;
-
-			// JSP로 전달할 속성
+//			int paymentPrice = 0;
+//			// 금액 게산
+//			int sale = (int) (dto.getRoomPrice()*(dto.getDiscountRate() / 100.0));
+//
+//			paymentPrice = dto.getRoomPrice() - sale;
+			
+			int paymentPrice = dto.getRoomPrice();
+			
+			req.setAttribute("gap", gap);
 			req.setAttribute("dto", dto);
 			req.setAttribute("paymentPrice", paymentPrice);
 			req.setAttribute("start_date", start_date);

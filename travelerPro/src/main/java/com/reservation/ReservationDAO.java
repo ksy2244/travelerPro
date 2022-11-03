@@ -845,16 +845,16 @@ public class ReservationDAO {
 	}
 
 	// 예약 시작일/예약 종료일 기간 구하기
-	public static long reservationGap(String startDate, String endDate) throws ParseException {
+	public int reservationGap(String startDate, String endDate) throws ParseException {
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date start = format.parse(startDate);
 		Date end = format.parse(endDate);
 
-		long gap = end.getTime() - start.getTime();
+		long time = end.getTime() - start.getTime();
 
-		gap = gap / (24 * 60 * 60 * 1000);
+		int gap = (int) (time / (24 * 60 * 60 * 1000));
 
 		return gap;
 	}

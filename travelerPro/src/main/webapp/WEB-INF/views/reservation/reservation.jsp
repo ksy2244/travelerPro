@@ -136,7 +136,7 @@
 
 .margin {
 	font-size: 22px; 
-	margin-left: 525px;
+	margin-left: 515px;
 	font-weight: bold;
 	text-align: right;
 }
@@ -233,10 +233,10 @@ input[type=checkbox] {
 		//결제 
 		let paymentPrice = $("form[name=reservationForm] input[name=paymentPrice]").val();
 		
-		alert(paymentPrice);
+		alert(paymentPrice); // 지우면 안 됨. 
 		
 		let subject = "${dto.companyName}(${dto.roomName})";
-		paymentPrice = 100;
+		paymentPrice = 100; // 지우면 안 됨.
 		IMP.request_pay({
 			pg : 'html5_inicis.INIpayTest',
 			pay_method : 'card',
@@ -269,7 +269,10 @@ input[type=checkbox] {
 			let couponNum = $(this).closest("div").find("input[name=couponNum]").val();
 			let couponRate = $(this).closest("div").find("input[name=couponRate]").val();
 			let couponPrice = $(this).closest("div").find("input[name=couponPrice]").val();
-			let paymentPrice = ${paymentPrice};
+			
+			let paymentPrice = ${paymentPrice * gap};
+			alert(paymentPrice);
+			let gap = ${paymentPrice};
 			
 			
 			if(s==couponNum){
@@ -282,15 +285,18 @@ input[type=checkbox] {
 				
 			}else if(couponRate == 0){
 				paymentPrice = paymentPrice - couponPrice;
+				alert(paymentPrice);
 				
 				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
 				
 				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
 
 				$(".spanPaymentPrice").html(paymentPrice+"원");
-			} else if(couponPrice == 0){
-				paymentPrice = paymentPrice - couponRate;
 				
+			} else if(couponPrice == 0){
+				couponRate = (100-couponRate)/100;
+				paymentPrice = paymentPrice * couponRate;
+				alert(paymentPrice);
 				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
 				
 				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
@@ -354,7 +360,7 @@ input[type=checkbox] {
 								    <i class="fa-solid fa-circle-exclamation"></i>
 								  </a>
 								</span>
-			    
+			    			<div><h4>${gap}박 총액 ${paymentPrice*gap}&nbsp;&nbsp;&nbsp;</h4></div>
 							    <div class="collapse" id="collapseExample">
 									  <div class="card card-body">
 									    * 1박 기준 가격입니다.<br>
@@ -437,7 +443,7 @@ input[type=checkbox] {
 									 	</div>
 									 		
 									 	<div class="couponForm"> 
-											<input type="hidden" value="${paymentPrice * coupon.couponRate /100}" name="couponRate">
+											<input type="hidden" value="${coupon.couponRate}" name="couponRate">
 											<input type="hidden" value="${coupon.couponPrice}" name="couponPrice">
 											<input type="hidden" value="${coupon.couponNum}" name="couponNum"> 								
 											<button class="btn btn-danger btnCoupon btn-sm"  type="button"> 쿠폰 적용하기 </button>
@@ -465,7 +471,7 @@ input[type=checkbox] {
 		          
 		          <div class="font">금액 및 할인 정보</div>
 		          <br>
-		          <span class="basic mb-3">총 결제 금액</span><span class="margin black">${paymentPrice}원</span>
+		          <span class="basic mb-3">총 결제 금액</span><span class="margin black">${paymentPrice*gap}원</span>(${gap}박)
 				  <br><br>				
 		          <span class="basic mb-3">쿠폰 적용 결제 금액</span><span class ="spanPaymentPrice margin" id="realPayment"></span>
 		          <br><br><hr><div class="mb-4"></div>	
@@ -490,7 +496,7 @@ input[type=checkbox] {
 						<input type="hidden" value="${end_date}" name="end_date"> --%>
 						<input type="hidden" value="${dto.headCount}" name="headCount">
 						<input type="hidden" value="${dto.roomPrice}" name="totalPrice">
-						<input type="hidden" value="${paymentPrice}" name="paymentPrice">
+						<input type="hidden" value="${paymentPrice*gap}" name="paymentPrice">
 						<input type="hidden" value="${dto.checkInTime}" name="checkInTime"> 
 						<input type="hidden" value="${dto.checkOutTime}" name="checkOutTime"> 
 						<input type="hidden" value="${dto.discountRate}" name="discountRate">
