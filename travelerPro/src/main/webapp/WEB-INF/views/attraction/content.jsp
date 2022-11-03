@@ -214,7 +214,7 @@ $(function(){
 				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="2" aria-selected="true">위치</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">주변숙소</button>
+				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">지역숙소</button>
 			</li>
 		</ul>
 

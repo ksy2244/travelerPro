@@ -1,13 +1,17 @@
 package com.attraction;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.reservation.ReserveCompanyDTO;
 import com.util.TravelServlet;
+import com.util.TravelUtil;
+import com.util.TravelUtilBootstrap;
 
 @WebServlet("/attraction/*")
 public class AttractionServlet extends TravelServlet {
@@ -92,7 +96,40 @@ public class AttractionServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/attraction/map.jsp");
 	}
 	protected void surroundcompany(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AttractionDAO dao = new AttractionDAO();
+		TravelUtil util = new TravelUtilBootstrap();
 		
+		try {
+			String page = req.getParameter("page"); 
+			String region = req.getParameter("addr");
+			int current_page = 1;
+			if(page != null) {
+				current_page = Integer.parseInt(page);
+			}
+			
+			//int dataCount = dao.dataCount(region);
+			int dataCount = dao.dataCount();
+			int size = 4;
+			int total_page = util.pageCount(dataCount, size);
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			
+			int offset = (current_page -1) *size;
+			if(offset <0) offset = 0;
+			
+			List<ReserveCompanyDTO> list = dao.surroundCompany(region,offset,size);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", current_page);
+			req.setAttribute("total_page", total_page);
+			req.setAttribute("dataCount", dataCount);
+			req.setAttribute("region", region);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		forward(req, resp, "/WEB-INF/views/attraction/surroundcompany.jsp");
 	}
 	
 }
