@@ -49,6 +49,8 @@ public class MyPageServlet extends TravelServlet {
 	protected void coupon(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MypageDAO dao = new MypageDAO();
 		TravelUtil util = new TravelUtilBootstrap();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		String cp = req.getContextPath();
 		
@@ -59,8 +61,7 @@ public class MyPageServlet extends TravelServlet {
 				current_page = Integer.parseInt(page);
 			}
 			
-			HttpSession session = req.getSession();
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
 			
 			System.out.print(info.getUserId());
 			
@@ -75,7 +76,8 @@ public class MyPageServlet extends TravelServlet {
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
 			
-			List<CouponDTO> list = dao.myPageCoupon(info.getUserId(), size, offset);
+			List<CouponDTO> list = dao.myPageCoupon(info.getUserId());
+			
 			
 			String listUrl = cp + "/mypage/coupon.do";
 			String articleUrl = cp + "/mypage/couponInfo.do?page="+current_page;

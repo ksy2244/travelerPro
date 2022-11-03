@@ -108,6 +108,7 @@
 						<tbody>
 								<tr>
 									<td class="fw-bolder lh-lg fs-4">
+
 										<c:if test="${dto.couponRate==0}">
 											<div class="box top">
 												<span class="text-reset text">${dto.couponPrice}</span>

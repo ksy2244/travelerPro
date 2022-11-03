@@ -283,34 +283,44 @@
 							
 							<c:choose>
 											<c:when test="${service == 1}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/wifi.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/wifi.png" class="png">
+														<p>와이파이</p></div>
 											</c:when>
 											<c:when test="${service == 2}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/pet.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/pet.png" class="png">
+													<p>애완동물</p></div>
 											</c:when>
 											<c:when test="${service == 3}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/meat.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/meat.png" class="png">
+													<p>바베큐</p></div>
 											</c:when>
 											<c:when test="${service== 4}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">
+													<p>수영장</p></div>
 											</c:when>
 											<c:when test="${service == 5}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/park.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/park.png" class="png">
+													<p>주차 가능</p></div>
 											</c:when>
 											<c:when test="${service == 6}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/medicine.png" class="png"></div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/medicine.png" class="png">
+													<p>상비약</p></div>
 											</c:when>
 											<c:when test="${service == 7}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/source.png" class="png">&nbsp;</div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/source.png" class="png">
+													<p>양념</p></div>
 											</c:when>
 											<c:when test="${service == 8}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/store.png" class="png">&nbsp;</div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/store.png" class="png">
+													<p>매점/편의점</p></div>
 											</c:when>
 											<c:when test="${service== 9}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/breakFast.png" class="png">&nbsp;</div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/breakFast.png" class="png">
+													<p>조식 제공</p></div>
 											</c:when>
 											<c:when test="${service == 10}">
-													<div><img src="${pageContext.request.contextPath}/resources/images/service/palyGround.png" class="png">&nbsp;</div>
+													<div><img src="${pageContext.request.contextPath}/resources/images/service/palyGround.png" class="png">
+													<p>운동장</p></div>
 											</c:when>		
 											<c:otherwise>
 													<div><img src="${pageContext.request.contextPath}/resources/images/service/pool.png" class="png">&nbsp;</div>
