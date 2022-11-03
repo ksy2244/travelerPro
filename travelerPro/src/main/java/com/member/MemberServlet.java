@@ -354,6 +354,8 @@ public class MemberServlet extends TravelServlet {
 				dto.setmAlarm(Integer.parseInt(req.getParameter("sAlarm")));
 			}
 			
+			dto.setModify_date(req.getParameter("modify_date"));
+			
 			System.out.println(req.getParameter("mAlarm"));
 			dao.updateAlarm(dto);
 			
