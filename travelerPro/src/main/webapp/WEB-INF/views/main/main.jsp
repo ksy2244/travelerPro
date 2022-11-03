@@ -50,9 +50,8 @@ $(function(){
 	companyphoto('1','서울');
 });
 function companyphoto(areaCode,areaName) {
-	let url = "${pageContext.request.contextPath}/companyphoto.do";
+	let url = "${pageContext.request.contextPath}/main/companyphoto.do";
 	let query = "areaCode="+areaCode+"&areaName="+areaName+"&tmp="+new Date().getTime();
-	alert(url);
 	const fn = function(data) {
 		printphoto(data);
 	};
@@ -224,21 +223,21 @@ $(function(){
 			  </div>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="resources/images/fall.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/fall.png" class="d-block w-100" alt="...">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h2 style="opacity: 1"><strong>가을 정취를 느낄 수 있는 서울의 단풍</strong></h2>
 			        <p>Some representative placeholder content for the first slide.</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/images/flower.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/flower.png" class="d-block w-100" alt="...">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Second slide label</h5>
 			        <p>Some representative placeholder content for the second slide.</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/images/green.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/green.png" class="d-block w-100" alt="...">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Third slide label</h5>
 			        <p>Some representative placeholder content for the third slide.</p>
@@ -259,7 +258,7 @@ $(function(){
 			</div>
 			<div class="api-container">
  				<div class="map-image">
-					<img alt="지도" src="resources/images/map.png">
+					<img alt="지도" src="${pageContext.request.contextPath}/resources/images/map.png">
 					<!-- <img alt="지도" src="resources/images/exmarker.png"> -->
 				</div>
 			<div class="region-button">

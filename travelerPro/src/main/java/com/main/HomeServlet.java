@@ -16,7 +16,7 @@ import com.reservation.ReserveCompanyDTO;
 import com.util.TravelServlet;
 
 @WebServlet("/main/*")
-public class MainServlet extends TravelServlet {
+public class HomeServlet extends TravelServlet {
    private static final long serialVersionUID = 1L;
 
    @Override
@@ -28,7 +28,7 @@ public class MainServlet extends TravelServlet {
       // 메인 화면
       if(uri.indexOf("main.do") != -1) {
     	  main(req,resp);
-		}
+	  }
       else if(uri.indexOf("companyphoto.do")!=-1) {
     	  companyphoto(req,resp);
       }
@@ -63,30 +63,7 @@ public class MainServlet extends TravelServlet {
       }
 
 }
-      // -- ** 더보기 ** -- 
-      // 자주 묻는 질문 FAQ
-      
-      /* 
-      if(uri.indexOf("main.do") != -1) {
-         forward(req, resp, "/WEB-INF/views/main/faq.jsp");
-      }
-      
-      // 1:1 문의 
-      if(uri.indexOf("main.do") != -1) {
-         forward(req, resp, "/WEB-INF/views/main/memberq.jsp");
-      }
-      
-      // 공지사항 
-      if(uri.indexOf("main.do") != -1) {
-         forward(req, resp, "/WEB-INF/views/main/notice.jsp");
-      }
-            
-      // 약관 및 정책
-      if(uri.indexOf("main.do") != -1) {
-         forward(req, resp, "/WEB-INF/views/main/~~~.jsp"); // 아직 안 적음 
-      }
-            
-      */
+     
       
       
       
