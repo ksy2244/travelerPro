@@ -74,6 +74,7 @@
 							<th class="start_date">시작날짜</th>
 							<th class="end_date">종료날짜</th>
 							<th class="reg_date">예약날짜</th>
+							<th class="reg_price">금액</th>
 						</tr>
 					</thead>
 					
@@ -93,7 +94,7 @@
 								<td>${dto.start_date}</td>
 								<td>${dto.end_date}</td>
 								<td>${dto.reservation_date}</td>
-								
+								<td>${dto.paymentPrice}</td>
 							</tr>
 						 </c:forEach>
 					</tbody>

@@ -326,7 +326,6 @@ public class CeoServlet extends TravelServlet {
 		}
 
 		try {
-			// long reservationNum=Long.parseLong(req.getParameter("reservationNum"));
 			String page = req.getParameter("page");
 			int current_page = 1;
 			if (page != null) {
@@ -349,7 +348,6 @@ public class CeoServlet extends TravelServlet {
 			String articleUrl = cp + "/ceo/reservationartilce.do?page=" + current_page;
 			String paging = util.paging(current_page, total_page, listUrl);
 
-			// req.setAttribute("companyNum", companyNum);
 			req.setAttribute("list", list);
 			req.setAttribute("page", current_page);
 			req.setAttribute("total_page", total_page);
@@ -357,7 +355,7 @@ public class CeoServlet extends TravelServlet {
 			req.setAttribute("articleUrl", articleUrl);
 			req.setAttribute("paging", paging);
 			req.setAttribute("size", size);
-			// req.setAttribute("reservationNum", reservationNum);
+
 			forward(req, resp, "/WEB-INF/views/ceo/reservation.jsp");
 			return;
 		} catch (Exception e) {

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coupon.CouponDTO;
+import com.reservation.ReservationDTO;
 import com.reservation.ReserveCompanyDTO;
+import com.review.ReviewDTO;
 import com.util.DBConn;
 
 public class MypageDAO {
@@ -263,5 +265,228 @@ public class MypageDAO {
 		return result;
 
 	}
+	
+
+	// 나의 예약 내역 조회
+	public List<ReservationDTO> myReseravationList(String userId) {
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
+					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
+					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
+
+					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
+
+					+ " LEFT OUTER JOIN room room " + " ON room.roomNum = d.roomNum "
+
+					+ " LEFT OUTER JOIN company c " + " ON c.companyNum = room.companyNum "
+
+					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
+
+					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
+
+					+ " WHERE m.userId = ? AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReservationDTO dto = new ReservationDTO();
+				dto.setReservationNum(rs.getLong("reservationNum"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setStart_date(rs.getString("startDate"));
+				dto.setEnd_date(rs.getString("endDate"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setCheckOutTime(rs.getString("checkOutTime"));
+				dto.setReservation_date(rs.getString("RegDate"));
+				dto.setRoomName(rs.getString("roomName"));
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setPaymentPrice(rs.getInt("paymentPrice"));
+				dto.setImageFileName(rs.getString("imageFileName"));
+				dto.setDay(rs.getInt("day"));
+
+				list.add(dto);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return list;
+	}
+	
+	
+	// 나의 예약 데이터 개수 세기 
+	public int myReservationCount(String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT COUNT(*) FROM reservation "
+					+ " WHERE userId = ?  AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) "
+					+ " AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	// 나의 리뷰
+		public List<ReviewDTO> myReviewList(String userId) {
+			List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			try {
+				sql = " SELECT rd.reservationNum, TO_CHAR(reg_date,'yyyy.MM.dd') AS reg_date, content, starRate, "
+						+ " companyName, roomName, c.companyNum, "
+						+ " TO_CHAR(start_date,'yyyy.MM.dd') AS start_date , TO_CHAR(end_date,'yyyy.MM.dd') AS end_date  " 
+						+ "	FROM review r "
+						+ "	JOIN reservationDetail rd  "
+						+ "	ON r.reservationNum = rd.reservationNum "
+						+ "	JOIN reservation rv "
+						+ "	ON rv.reservationNum = rd.reservationNum "
+						+ "	JOIN company c "
+						+ "	ON c.companyNum = r.companyNum " 
+						+ "	JOIN room r "
+						+ "	ON r.companyNum = c.companyNum "
+						+ "	JOIN member m " 
+						+ "	ON m.userId = rv.userId " 
+						+ "	WHERE m.userID = ? "
+						+ "	ORDER BY reg_date DESC ";
+
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, userId);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					ReviewDTO dto = new ReviewDTO();
+					dto.setReservationNum(rs.getLong("reservationNum"));
+					dto.setReg_date(rs.getString("reg_date"));
+					dto.setContent(rs.getString("content"));
+					dto.setStarRate(rs.getInt("starRate"));
+					dto.setCompanyName(rs.getString("companyName"));
+					dto.setRoomName(rs.getString("roomName"));
+					dto.setCompanyNum(rs.getInt("companyNum"));
+					dto.setStartDate(rs.getString("start_date"));
+					dto.setEndDate(rs.getString("end_date"));
+
+					list.add(dto);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+					}
+				}
+
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+					}
+				}
+			}
+
+			return list;
+		}
+		
+		public int myReviewCount(String userId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql;
+
+			try {
+				sql = "SELECT COUNT(*) "
+						+ "FROM review r "
+						+ "JOIN reservation s ON r.reservationNum = s.reservationNum "
+						+ "WHERE userId = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, userId);
+
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					result = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+					}
+				}
+
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+					}
+				}
+			}
+
+			return result;
+		}
+		
+	
+	
 
 }
