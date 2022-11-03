@@ -258,6 +258,12 @@ public class ReservationServlet extends TravelServlet {
 			roomDto.setStart_date(start_date);
 			roomDto.setEnd_date(end_date);
 
+			// 로그인 유저의 게시글 공감 여부
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+			boolean isLike = dao.isUserCompanyLike(companyNum, info.getUserId());
+
 			// 이용 시작일, 종료일 초기값 설정
 			if (start_date == null || end_date == null) {
 
@@ -280,6 +286,7 @@ public class ReservationServlet extends TravelServlet {
 			req.setAttribute("end_date", end_date);
 			req.setAttribute("companyDto", companyDto);
 			req.setAttribute("roomDto", roomDto);
+			req.setAttribute("isUserLike", isLike);
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/reservation/roomInfo.jsp");
@@ -303,12 +310,6 @@ public class ReservationServlet extends TravelServlet {
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
 
-			// 로그인 유저의 게시글 공감 여부
-			HttpSession session = req.getSession();
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-			boolean isLike = dao.isUserCompanyLike(companyNum, info.getUserId());
-
 			List<ReserveRoomDTO> roomList = null;
 
 			// 선택한 업체의 객실 정보
@@ -320,12 +321,11 @@ public class ReservationServlet extends TravelServlet {
 			// JSP로 전달할 속성
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("roomList", roomList);
-			req.setAttribute("isUserLike", isLike);
 			req.setAttribute("start_date", start_date);
 			req.setAttribute("end_date", end_date);
 
 			// 포워딩
-			forward(req, resp, "/WEB-INF/views/reservation/roomList.jsp");
+			forward(req, resp, "/WEB-INF/views/reservation/roominfo.jsp");
 			return;
 
 		} catch (Exception e) {
@@ -517,20 +517,18 @@ public class ReservationServlet extends TravelServlet {
 		int companyLikeCount = 0;
 
 		try {
-
+			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
+			String isNoLike = req.getParameter("isNoLike");
+			
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
 
-			int companyNum = Integer.parseInt(req.getParameter("companyNum"));
-
-			String isNoLike = req.getParameter("isNoLike");
-
 			if (isNoLike.equals("true")) {
-				dao.insertCompanyLike(companyNum, info.getUserId()); // 공감
+				dao.insertCompanyLike(companyNum, info.getUserId()); // 찜
 			} else {
-				dao.deleteCompanyLike(companyNum, info.getUserId()); // 공감 취소
+				dao.deleteCompanyLike(companyNum, info.getUserId()); // 찜 취소
 			}
 
 			companyLikeCount = dao.countCompanyLike(companyNum);

@@ -105,7 +105,7 @@
 		$(".btnSendCompanyLike").click(function(){
 			const $i = $(this).find("i");
 			let isNoLike = $i.css("color") == "rgb(0, 0, 0)";
-			let msg = isNoLike ? "업체를 찜 하십겠습니까 ? " : "업체 찜을 취소하시겠습니까 ? ";
+			let msg = isNoLike ? "업체를 찜 하시겠습니까 ? " : "업체 찜을 취소하시겠습니까 ? ";
 
 			if(! confirm( msg )) {
 				return false;
@@ -275,7 +275,7 @@
 							</p>
 							<p class="roomInfoContent">${companyDto.companyInfo}</p>
 							<p class="roomInfoContent">${companyDto.guide}</p>
-							<p class="roomInfoContent">${companyDto.notice}</p>
+							<p class="roomInfoContent">${companyDto.notice}  sadsda ${isUserLike}</p>
 							
 							<c:set var="serviceList" value="${companyDto.amenities}"></c:set>
 							
@@ -348,7 +348,7 @@
 								<tr>
 								<td colspan="2" class="text-center p-3">
 									<button type="button" class="btn btn-outline-secondary btnSendCompanyLike" title="좋아요">
-									<i class="fa-sharp fa-solid fa-heart"  style="color: ${isUserLike? 'black':'red'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button>								
+									<i class="fa-sharp fa-solid fa-heart"  style="color: ${isUserLike?'red':'black'}"></i>&nbsp;&nbsp;<span id="companyLikeCount">${companyDto.pick}</span></button>								
 								</td>
 								</tr>
 							</table>
