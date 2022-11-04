@@ -67,7 +67,7 @@
 
 .room {
 	color: #787878;
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .day {
@@ -152,7 +152,7 @@ $(function() {
 									<div class="company">${dto.companyName}</div>
 									<div class="room">${dto.roomName}</div>
 									<div class="day">${dto.start_date} ~ ${dto.end_date} | ${dto.day}박</div>
-									<div>체크인 ${dto.checkInTime} | 체크아웃 ${dto.checkOutTime}</div>
+									<div class="day">체크인 ${dto.checkInTime} | 체크아웃 ${dto.checkOutTime}</div>
 									<br>
 									<button type="button" name="sendButton"
 										class="dateBtn btn btn-danger mb-5"

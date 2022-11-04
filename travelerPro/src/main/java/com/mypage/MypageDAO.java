@@ -174,9 +174,11 @@ public class MypageDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = " SELECT c.companyNum, companyName,companyTel, companyInfo , imageFileName "
+			sql = " SELECT c.companyNum, companyName, imageFileName, checkInTime, r.price, cp.pick "
 					+ " FROM pick p  "
 					+ " JOIN company c ON c.companyNum = p.companyNum  "
+					+ " JOIN companyPick cp ON p.companyNum = cp.companyNum "
+					+ " JOIN room r ON r.companyNum = p.companyNum "
 					+ " JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum  "
 					+ " WHERE p.userId = ? "
 					+ " ORDER BY companyNum DESC "
@@ -196,8 +198,9 @@ public class MypageDAO {
 
 				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setCompanyName(rs.getString("companyName"));
-				dto.setCompanyTel(rs.getString("companyTel"));
-				dto.setCompanyInfo(rs.getString("companyInfo"));
+				dto.setCheckInTime(rs.getString("checkInTime"));
+				dto.setMinPrice(rs.getInt("price"));
+				dto.setPick(rs.getInt("pick"));
 				dto.setImageFileName(rs.getString("imageFileName"));
 
 				list.add(dto);
