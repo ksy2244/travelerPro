@@ -38,6 +38,10 @@
 	font-size: 20px;
 	line-height: 3rem;
 }
+
+#myTab {
+	width: 1100px;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
 <script type="text/javascript">
@@ -208,13 +212,13 @@ $(function(){
 
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="1" aria-selected="true">관광지정보</button>
+				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="1" aria-selected="true">정보</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="2" aria-selected="true">위치</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">지역숙소</button>
+				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="3" aria-selected="true">지역 숙소</button>
 			</li>
 		</ul>
 

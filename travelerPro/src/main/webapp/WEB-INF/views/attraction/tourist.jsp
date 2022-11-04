@@ -12,10 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style/tourist/main.css"
 	type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style/tourist/content.css"
-	type="text/css">
+
 <style type="text/css">
-@import url('https://webfontworld.github.io/hallym/Hallym.css');
 /* div {
 	box-sizing: border-box;
 }
@@ -51,6 +49,73 @@ ul {
 	width: 200px;
     height: 200px;
 }
+
+.area-body {
+	margin-top: 60px;
+	position: relative;
+}
+
+.area-tag {
+   float: left;
+   position: fixed;
+   top: 200px;
+   width: 380px;
+   height: 500px;
+   text-align: center;
+   margin-left: 1650px; 
+   box-shadow: 8px 8px gray;
+   font-family: 'GmarketSans';
+   background: #D4F4FA;
+   
+}
+
+.font {
+   
+   font-size: 22px;
+   color: black;
+}
+
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
+.btn {
+   display: inline-block;
+   font-family: 'GmarketSans'; 
+}
+
+.gap {
+   margin-right: 20px;
+}
+
+.btnPrev {
+	font-family: '맑은 고딕';
+}
+
+.btnNext {
+	font-family: '맑은 고딕';
+}
+/* 이벤트 */
+
+
+.tit_cont h2{overflow: hidden;font-weight:500;color: #333;font-size:36px;letter-spacing:-1px;word-break: keep-all; font-family: 'GmarketSans'; margin-bottom: 50px;}
+.wrap_contView {
+	margin-top: 20px;
+}
+.list_thumType > li{position: relative; padding: 20px 0 20px; border-bottom: 1px solid #e6e6e6;}
+/* .list_thumType > li:first-child{border-top: 1px solid #999;} */
+.list_thumType > li.bdr_nor{border-top: 1px solid #e6e6e6;}
+.list_thumType{width: 1000px;}
+.list_thumType > li .photo{position: absolute;left:0;top:20px; width: 140px;height:94px;}
+.list_thumType > li .photo img{width: 140px;height:94px;}
+.list_thumType > li .photo a{display: block;}
+.list_thumType > li .area_txt{min-height:94px;padding-left:160px;padding-right:20px;}
+
+.list_thumType > li .area_txt .tit{margin-top:-5px;padding-bottom: 5px;}
+.list_thumType > li .area_txt .tit a br{display:none;}
+.list_thumType > li .area_txt .tit a{overflow:hidden;display: inline-block;width:100%; font-weight:bold;font-size: 21px; color: #000;text-overflow:ellipsis;white-space: nowrap;}
+.list_thumType > li .area_txt .tit a em{font-weight:500;color:#ed4956;}
+.list_thumType > li .area_txt .tit a:hover{text-decoration: underline;}
+.list_thumType > li .area_txt .tit span{display: inline-block; padding-left: 5px; font-size: 16px;}
+.list_thumType > li .area_txt p{font-size: 14px;}
 
 </style>
 <script type="text/javascript">
@@ -201,8 +266,8 @@ function printAreaBasedList(data) {
 </head>
 <body class="pt-5 area-body">
 <div class="area-tag" >
-     <div class="font pt-3"><i class="fa-solid fa-earth-americas"></i> 다른 지역을 여행하고 싶다면 ? <i class="fa-solid fa-earth-americas"></i></div>
-     <div class="pt-5"><br></div>
+     <div class="font pt-5"><i class="fa-solid fa-earth-americas"></i> 다른 지역을 여행하고 싶다면? </div>
+     <div class="pt-3"><br></div>
       <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=1&region=서울'">#서울</button></span>
       <span class="gap"></span>
       <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=2&region=인천'">#인천</button></span>
@@ -264,8 +329,8 @@ function printAreaBasedList(data) {
 			</div>
 		</div>
 		<div class="paging" style="margin-top: 50px;">
-			<button type="button" class="btn btn-primary btnPrev" disabled="disabled">이전</button>
-			<button type="button" class="btn btn-primary btnNext" disabled="disabled">다음</button>
+			<button type="button" class="btn btn-danger btnPrev" disabled="disabled">이전</button>
+			<button type="button" class="btn btn-danger btnNext" disabled="disabled">다음</button>
 		</div>
 	</main>
 <%-- 		<header>

@@ -71,7 +71,7 @@ body {
 }
 
 .region-button {
-	font-family: 'GmarketSans'; 
+	font-family: 'GmarketSans';
 	font-size: 15px;
 }
 
@@ -185,19 +185,17 @@ body {
 	margin:30px auto;
 	position: relative;
 	font-family: 'GmarketSans'; 
-	font-size: 25px;
+	font-size: 30px;
 	font-weight: 300;
 }
 .post-slider .next {
 	position: absolute;
-	top:  70%;
 	right: 30px;
 	font-size: 2em;
 	cursor: pointer;
 }
 .post-slider .prev {
 	position: absolute;
-	top:  70%;
 	left:0;
 	font-size: 2em;
 	cursor: pointer;
@@ -282,6 +280,10 @@ body {
 	padding-left: 10px;
 }
 
+.company-name:hover {
+	
+}
+
 .star {
 	color: #FFBB00;
 	margin-left: 30px;
@@ -292,9 +294,9 @@ body {
 }
 
 .company-price {
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: bold;
-	padding-left: 110px;
+	padding-left: 100px;
 }
 
 
@@ -624,7 +626,7 @@ $(function(){
 		<div class="box2">
 				<div class="company-famous">
 					<span>지금 인기 Top</span>
-					<div class="map-sidetitle">TRAVELER의 인기숙소를 만나보세요</div>
+					<div class="map-sidetitle">TRAVELER의 인기숙소도 같이 만나보세요</div>
 				</div>
 				<div class="company-list">
 					<div class="company-content">
