@@ -214,7 +214,7 @@ public class CeoDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = "SELECT companyNum, companyName, companyTel, companyInfo, amenities, guide, regionNum,"
+			sql = "SELECT companyNum, companyName, companyTel, companyInfo, amenities, guide, regionName,"
 					+ " checkinTime, checkoutTime, addr, addrDetail, zip, notice, businessNum,userId " + " FROM company"
 					+ " WHERE companyNum = ?";
 
@@ -310,7 +310,7 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = "UPDATE company SET companyName=?, companyTel=?, companyInfo=?, amenities=?, guide=?, regionNum=?, "
+			sql = "UPDATE company SET companyName=?, companyTel=?, companyInfo=?, amenities=?, guide=?, regionName=?, "
 					+ " checkinTime=?, checkoutTime=?, addr=?, addrDetail=?, zip=?, notice=?, businessNum=?"
 					+ " WHERE companyNum = ?";
 
@@ -789,6 +789,47 @@ public class CeoDAO {
 		return result;
 	}
 	
+	
+	public ServiceDTO readService() {
+		ServiceDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = " SELECT serviceNum, serviceName, serviceImg FROM service ";
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ServiceDTO();
+
+				dto.setServiceNum(rs.getInt("serviceNum"));
+				dto.setServiceName(rs.getString("serviceName"));
+				dto.setServiceImg(rs.getString("serviceImg"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+
+		}
+		return dto;
+
+	}
 	
 	public List<ServiceDTO> listCategory() {
 		List<ServiceDTO> list = new ArrayList<>();

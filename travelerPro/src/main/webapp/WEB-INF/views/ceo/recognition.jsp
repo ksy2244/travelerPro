@@ -86,6 +86,31 @@
 function companyOk() {
 	const f = document.companyForm;
 	
+/*  	if(!f.companyName.vlaue){
+		f.companyName.focus();
+		return false;
+	}
+	if(!f.userId.vlaue){
+		f.companyName.focus();
+		return false;
+	}
+	if(!f.regionName.vlaue){
+		f.companyName.focus();
+		return false;
+	}
+	if(!f.guide.vlaue){
+		f.companyName.focus();
+		return false;
+	}
+	if(!f.companyInfo.vlaue){
+		f.companyName.focus();
+		return false;
+	}
+	if(!f.notice.vlaue){
+		f.companyName.focus();
+		return false;
+	}  */
+
 		
 	f.action = "${pageContext.request.contextPath}/ceo/${mode}_ok.do"; 
 	f.submit();
@@ -212,21 +237,21 @@ $(function(){
 								<div class="col-sm-3 pe-2">
 									<input type="text" name="businessNum1" id="businessNum1"
 										class="form-control" value="${dto.businessNum1}" maxlength="3"
-										placeholder="사업자 등록번호">
+										placeholder="사업자 등록번호" pattern="[0-9]+">
 								</div>
 								<div class="col-sm-1 px-1" style="width: 2%;">
 									<p class="form-control-plaintext text-center">-</p>
 								</div>
 								<div class="col-sm-3 px-1">
 									<input type="text" name="businessNum2" id="businessNum2"
-										class="form-control" value="${dto.businessNum2}" maxlength="2">
+										class="form-control" value="${dto.businessNum2}" maxlength="2" pattern="[0-9]+">
 								</div>
 								<div class="col-sm-1 px-1" style="width: 2%;">
 									<p class="form-control-plaintext text-center">-</p>
 								</div>
 								<div class="col-sm-3 ps-1">
 									<input type="text" name="businessNum3" id="businessNum3"
-										class="form-control" value="${dto.businessNum3}" maxlength="5">
+										class="form-control" value="${dto.businessNum3}" maxlength="5" pattern="[0-9]+">
 								</div>
 							</div>
 						</div>
@@ -246,7 +271,7 @@ $(function(){
 							<div class="col-sm-10">
 								<input type="text" name="regionName" id="regionName"
 									class="form-control" placeholder="지역명"
-									value="${dto.regionNum == 1 ? '강원도':'' }">
+									value="${dto.regionName}">
 							</div>
 						</div>
 
@@ -330,21 +355,21 @@ $(function(){
 							<div class="col-sm-10 row">
 								<div class="col-sm-3 pe-2">
 									<input type="text" name="tel1" id="tel1" class="form-control"
-										value="${dto.companyTel1}" maxlength="3" placeholder="전화번호">
+										value="${dto.companyTel1}" maxlength="3" placeholder="전화번호" pattern="[0-9]+">
 								</div>
 								<div class="col-sm-1 px-1" style="width: 2%;">
 									<p class="form-control-plaintext text-center">-</p>
 								</div>
 								<div class="col-sm-3 px-1">
 									<input type="text" name="tel2" id="tel2" class="form-control"
-										value="${dto.companyTel2}" maxlength="4">
+										value="${dto.companyTel2}" maxlength="4" pattern="[0-9]+">
 								</div>
 								<div class="col-sm-1 px-1" style="width: 2%;">
 									<p class="form-control-plaintext text-center">-</p>
 								</div>
 								<div class="col-sm-3 ps-1">
 									<input type="text" name="tel3" id="tel3" class="form-control"
-										value="${dto.companyTel3}" maxlength="4">
+										value="${dto.companyTel3}" maxlength="4" pattern="[0-9]+">
 								</div>
 							</div>
 						</div>
@@ -388,6 +413,12 @@ $(function(){
 								<label>${vo.serviceName}<input type="checkbox"
 									value="${vo.serviceNum}" name="checkList" /></label>
 							</c:forEach>
+							<c:if test="${mode=='update'}">
+								<c:forEach var="dto" items="${list}">
+									<label>${dto.serviceName}<input type="checkbox"
+										value="${dto.serviceNum}" name="checkList" /></label>
+								</c:forEach>
+							</c:if>
 						</div>
 
 

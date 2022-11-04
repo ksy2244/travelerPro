@@ -71,8 +71,8 @@ function printphoto(data){
 		out += "	</a>";
 		//out += "</div>";
 		out += "	<div class='company-name'>";
-		//out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";
-		out += "		<a href='#'>"+companyName+"</a>";
+		out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";
+		//out += "		<a href='#'>"+companyName+"</a>";
 		out += "	</div>";
 		out += "	<div class='company-price'>"+minPrice+"원</div>";
 		out += "</div>";
@@ -145,7 +145,7 @@ function printAreaBasedList(data) {
 		out += "    <div class='slider-image'><img src='"+img+"'></div>";
 		out += "    <div class='post-info'>";
 		out += "        <div class='fs-6 post-subject'>" + title + "</div>";
-		out += "        <div class='fs-6 post-link'><a onclick="+"location.href='${pageContext.request.contextPath}/attraction/list.do?areacode="+code+"&contenttypeid="+contenttypeid+"&contentid="+contentid+"'"+"> 둘러보기</a><i class='bi bi-arrow-right-circle'></i></div>";
+		out += "        <div class='fs-6 post-link'><a onclick="+"location.href='${pageContext.request.contextPath}/attraction/content.do?contentid="+contentid+"'"+"> 둘러보기</a><i class='bi bi-arrow-right-circle'></i></div>";
 		out += "    </div>";
 		out += "</div>";
 	});
