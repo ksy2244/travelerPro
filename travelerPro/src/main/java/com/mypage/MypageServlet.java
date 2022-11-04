@@ -56,6 +56,12 @@ public class MypageServlet extends TravelServlet {
 		else if (uri.indexOf("myReservation.do") != -1) {
 			myReservation(req, resp);
 		}
+		
+		// 예약 상세 정보 
+		else if (uri.indexOf("reservationDetail.do") != -1) {
+			reservationDetail(req, resp);
+		}
+		
 		// 나의 리뷰
 		else if (uri.indexOf("myReview.do") != -1) {
 			myReview(req, resp);
@@ -233,7 +239,7 @@ public class MypageServlet extends TravelServlet {
 		try {
 
 			List<ReservationDTO> list = null;
-
+			
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
@@ -249,6 +255,46 @@ public class MypageServlet extends TravelServlet {
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/mypage/myReservation.jsp");
+			return;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+	private void reservationDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MypageDAO dao = new MypageDAO();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String cp = req.getContextPath();
+		System.out.println("reservationDatail00");
+
+		req.setCharacterEncoding("utf8");
+
+		try {
+
+			System.out.println("reservationDatail");
+			
+			if (info == null) {
+				resp.sendRedirect(cp + "/member/login.do");
+				return;
+			}
+			
+			long reservationNum =  Long.parseLong(req.getParameter("reservationNum"));
+			
+			//System.out.println(info.getUserId());
+			ReservationDTO dto = new ReservationDTO();
+			dto = dao.reservationDetail(reservationNum);
+			System.out.println(reservationNum);
+
+			// JSP로 전달할 속성
+			req.setAttribute("dto", dto);
+		
+
+			// 포워딩
+			forward(req, resp, "/WEB-INF/views/mypage/reservationDatail.jsp");
 			return;
 
 		} catch (Exception e) {

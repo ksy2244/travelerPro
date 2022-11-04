@@ -6,8 +6,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -419,21 +417,19 @@ public class ReservationServlet extends TravelServlet {
 			String[] endSplit = req.getParameter("end_date").split("-");
 			String end = endSplit[1] + endSplit[2];
 
-			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
-			if (couponNum != 0) {
-				dao.couponUse(couponNum, info.getUserId());
-			}
 
 			// 예약 번호 = 예약 시작일 + 예약 종료일 + 업체 번호 + 객실 번호
 			String reservationCode = start + end + Integer.toString(companyNum) + Integer.toString(roomNum);
 			long reservationNum = (Long.parseLong(reservationCode));
+			
+			System.out.println(reservationNum + "dfsdfsdfsdfdsfsfsdfs");
 
-			System.out.println(reservationNum);
 
 			System.out.println("결제 번호");
 			dto.setRoomNum(roomNum);
 			dto.setReservationNum(reservationNum);
 			System.out.println(dto.getReservationNum());
+
 
 			dto.setStart_date(req.getParameter("start_date"));
 			dto.setEnd_date(req.getParameter("end_date"));
@@ -448,6 +444,12 @@ public class ReservationServlet extends TravelServlet {
 			dto.setRealUserTel(req.getParameter("realUserTel"));
 
 			dao.insertReservation(dto);
+			
+
+			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
+			if (couponNum != 0) {
+				dao.couponUse(couponNum, info.getUserId(), dto.getReservationNum());
+			}
 
 			ReserveRoomDTO sdto = dao.listSelectRoom(roomNum);
 

@@ -170,17 +170,16 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			 sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount,rf.imageFileName "// --,imageFileName
-		               + " FROM room rm  "
-		               + " join roomfile rf on rf.roomNum = rm.roomNum " // -- JOIN mainRoomImage mr ON mr.roomNum = r.roomNum
-		               + " WHERE companyNum = ? AND rm.roomNum NOT IN  " + " (SELECT rm.roomNum  FROM reservation r "
-		               + " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
-		               + " JOIN room rm ON rm.roomNum = rd.roomNum " + " JOIN company c ON c.companyNum = rm.companyNum "
-		               + " WHERE (( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
-		               + " OR  ( TO_DATE(start_date) <= TO_DATE(?) AND TO_DATE(end_date) >= TO_DATE(?) ) "
-		               + " OR  ( TO_DATE(start_date) > TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
-		               + " OR  ( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) )) "
-		               + " AND c.companyNum = ?) ";
+			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount , imageFileName  "
+					+ " JOIN mainRoomImage mr ON mr.roomNum = rm.roomNum "
+					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  " + " (SELECT rm.roomNum  FROM reservation r "
+					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
+					+ " JOIN room rm ON rm.roomNum = rd.roomNum " + " JOIN company c ON c.companyNum = rm.companyNum "
+					+ " WHERE (( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) <= TO_DATE(?) AND TO_DATE(end_date) >= TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) > TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) ) "
+					+ " OR  ( TO_DATE(start_date) >= TO_DATE(?) AND TO_DATE(end_date) < TO_DATE(?) )) "
+					+ " AND c.companyNum = ?) ";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, companyNum);
@@ -219,6 +218,7 @@ public class ReservationDAO {
 				dto.setDiscountRate(rs.getInt("discountRate"));
 				dto.setHeadCount(rs.getInt("headCount"));
 				dto.setImageFileName(rs.getString("imageFileName"));
+
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -805,16 +805,17 @@ public class ReservationDAO {
 		return result;
 	}
 
-	public void couponUse(int couponNum, String userId) throws SQLException {
+	public void couponUse(int couponNum, String userId, long reservationNum) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
 
 		try {
-			sql = "INSERT INTO myCoupon(couponNum, userId, use_date) VALUES (?, ?, SYSDATE)";
+			sql = "INSERT INTO myCoupon(couponNum, userId, use_date, reservationNum) VALUES (?, ?, SYSDATE, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setLong(1, couponNum);
 			pstmt.setString(2, userId);
+			pstmt.setLong(3, reservationNum);
 
 			pstmt.executeUpdate();
 
@@ -1018,4 +1019,5 @@ public class ReservationDAO {
 		return result;
 	}
 
+	
 }

@@ -24,14 +24,29 @@ public class ReservationDTO {
 	private String userName;
 	private String imageFileName;
 	private int day;
-	
+
 	private String addr;
 	private String addrDetail;
 	private String roomInfo;
 	private int roomPrice;
-	
-	
-	
+	private String couponName;
+	private int sales;
+
+	public String getCouponName() {
+		return couponName;
+	}
+
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+
+	public int getSales() {
+		return sales;
+	}
+
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
 
 	public int getRoomPrice() {
 		return roomPrice;
@@ -84,7 +99,7 @@ public class ReservationDTO {
 	public long getReservationNum() {
 		return reservationNum;
 	}
-	
+
 	public void setReservationNum(long reservationNum) {
 		this.reservationNum = reservationNum;
 	}
@@ -224,7 +239,6 @@ public class ReservationDTO {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	
 
 	public String getImageFileName() {
 		return imageFileName;
@@ -249,10 +263,5 @@ public class ReservationDTO {
 	public void setDay(int day) {
 		this.day = day;
 	}
-	
-	
-	
-	
-	
 
 }

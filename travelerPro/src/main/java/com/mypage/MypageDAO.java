@@ -174,15 +174,13 @@ public class MypageDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = " SELECT c.companyNum, companyName, imageFileName, checkInTime, r.price, cp.pick "
+			sql = " SELECT c.companyNum, companyName,imageFileName, checkInTime, r.price, cp.pick  "
 					+ " FROM pick p  "
 					+ " JOIN company c ON c.companyNum = p.companyNum  "
 					+ " JOIN companyPick cp ON p.companyNum = cp.companyNum "
 					+ " JOIN room r ON r.companyNum = p.companyNum "
-					+ " JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum  "
-					+ " WHERE p.userId = ? "
-					+ " ORDER BY companyNum DESC "
-					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+					+ " JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum  " + " WHERE p.userId = ? "
+					+ " ORDER BY companyNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -268,7 +266,6 @@ public class MypageDAO {
 		return result;
 
 	}
-	
 
 	// 나의 예약 내역 조회
 	public List<ReservationDTO> myReseravationList(String userId) {
@@ -338,9 +335,8 @@ public class MypageDAO {
 
 		return list;
 	}
-	
-	
-	// 나의 예약 데이터 개수 세기 
+
+	// 나의 예약 데이터 개수 세기
 	public int myReservationCount(String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -380,116 +376,155 @@ public class MypageDAO {
 
 		return result;
 	}
-	
+
 	// 나의 리뷰
-		public List<ReviewDTO> myReviewList(String userId) {
-			List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			try {
-				sql = " SELECT rd.reservationNum, TO_CHAR(reg_date,'yyyy.MM.dd') AS reg_date, content, starRate, "
-						+ " companyName, roomName, c.companyNum, "
-						+ " TO_CHAR(start_date,'yyyy.MM.dd') AS start_date , TO_CHAR(end_date,'yyyy.MM.dd') AS end_date  " 
-						+ "	FROM review r "
-						+ "	JOIN reservationDetail rd  "
-						+ "	ON r.reservationNum = rd.reservationNum "
-						+ "	JOIN reservation rv "
-						+ "	ON rv.reservationNum = rd.reservationNum "
-						+ "	JOIN company c "
-						+ "	ON c.companyNum = r.companyNum " 
-						+ "	JOIN room r "
-						+ "	ON r.companyNum = c.companyNum "
-						+ "	JOIN member m " 
-						+ "	ON m.userId = rv.userId " 
-						+ "	WHERE m.userID = ? "
-						+ "	ORDER BY reg_date DESC ";
+	public List<ReviewDTO> myReviewList(String userId) {
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			sql = " SELECT rd.reservationNum, TO_CHAR(reg_date,'yyyy.MM.dd') AS reg_date, content, starRate, "
+					+ " companyName, roomName, c.companyNum, "
+					+ " TO_CHAR(start_date,'yyyy.MM.dd') AS start_date , TO_CHAR(end_date,'yyyy.MM.dd') AS end_date  "
+					+ "	FROM review r " + "	JOIN reservationDetail rd  "
+					+ "	ON r.reservationNum = rd.reservationNum " + "	JOIN reservation rv "
+					+ "	ON rv.reservationNum = rd.reservationNum " + "	JOIN company c "
+					+ "	ON c.companyNum = r.companyNum " + "	JOIN room r " + "	ON r.companyNum = c.companyNum "
+					+ "	JOIN member m " + "	ON m.userId = rv.userId " + "	WHERE m.userID = ? "
+					+ "	ORDER BY reg_date DESC ";
 
-				pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 
-				pstmt.setString(1, userId);
+			pstmt.setString(1, userId);
 
-				rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
-				while (rs.next()) {
-					ReviewDTO dto = new ReviewDTO();
-					dto.setReservationNum(rs.getLong("reservationNum"));
-					dto.setReg_date(rs.getString("reg_date"));
-					dto.setContent(rs.getString("content"));
-					dto.setStarRate(rs.getInt("starRate"));
-					dto.setCompanyName(rs.getString("companyName"));
-					dto.setRoomName(rs.getString("roomName"));
-					dto.setCompanyNum(rs.getInt("companyNum"));
-					dto.setStartDate(rs.getString("start_date"));
-					dto.setEndDate(rs.getString("end_date"));
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setReservationNum(rs.getLong("reservationNum"));
+				dto.setReg_date(rs.getString("reg_date"));
+				dto.setContent(rs.getString("content"));
+				dto.setStarRate(rs.getInt("starRate"));
+				dto.setCompanyName(rs.getString("companyName"));
+				dto.setRoomName(rs.getString("roomName"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setStartDate(rs.getString("start_date"));
+				dto.setEndDate(rs.getString("end_date"));
 
-					list.add(dto);
-				}
+				list.add(dto);
+			}
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-					}
-				}
-
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e) {
-					}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
 				}
 			}
 
-			return list;
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
-		
-		public int myReviewCount(String userId) {
-			int result = 0;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql;
 
-			try {
-				sql = "SELECT COUNT(*) "
-						+ "FROM review r "
-						+ "JOIN reservation s ON r.reservationNum = s.reservationNum "
-						+ "WHERE userId = ? ";
-				
-				pstmt = conn.prepareStatement(sql);
+		return list;
+	}
 
-				pstmt.setString(1, userId);
+	public int myReviewCount(String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
 
-				rs = pstmt.executeQuery();
+		try {
+			sql = "SELECT COUNT(*) " + "FROM review r " + "JOIN reservation s ON r.reservationNum = s.reservationNum "
+					+ "WHERE userId = ? ";
 
-				if (rs.next()) {
-					result = rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-					}
-				}
+			pstmt = conn.prepareStatement(sql);
 
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e) {
-					}
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
 				}
 			}
 
-			return result;
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
-		
-	
-	
+
+		return result;
+	}
+
+	public ReservationDTO reservationDetail(long reservationNum) {
+		ReservationDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT realUserName, realUserTel, totalPrice, totalPrice-paymentPrice AS sales, paymentPrice, couponName,  c.couponRate, c.couponPrice, c.end_date "
+					+ "FROM reservation r "
+					+ "JOIN myCoupon mc ON mc.reservationNum = r.reservationNum "
+					+ "JOIN coupon c ON c.couponNum = mc.couponNum "
+					+ "WHERE r.reservationNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reservationNum);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ReservationDTO();
+				dto.setRealUserName(rs.getString("realUserName")); // 예약자 이름
+				dto.setRealUserTel(rs.getString("realUserTel")); // 예약자 전화번호
+				dto.setTotalPrice(rs.getInt("totalPrice")); // 업체 지정 금액
+				dto.setSales(rs.getInt("sales")); // 할인 받은 가격
+				dto.setPaymentPrice(rs.getInt("paymentPrice")); // 실제 지불한 금액
+				dto.setCouponName(rs.getString("couponName")); // 쿠폰 이름
+				dto.setDiscountRate(rs.getInt("couponRate")); // 할인율 쿠폰
+				dto.setCouponPrice(rs.getInt("couponRate")); // 할인가격 쿠폰
+				dto.setEnd_date(rs.getString("end_date")); // 쿠폰 시작 종료일
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return dto;
+	}
 
 }
