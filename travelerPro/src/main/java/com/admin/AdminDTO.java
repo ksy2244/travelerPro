@@ -7,7 +7,7 @@ public class AdminDTO {
 	private String companyInfo;
 	private String amenities;
 	private String guide;
-	private int regionNum;
+	private String regionName;
 	private String checkInTime;
 	private String checkOutTime;
 	private String addr;
@@ -58,12 +58,7 @@ public class AdminDTO {
 	public void setGuide(String guide) {
 		this.guide = guide;
 	}
-	public int getRegionNum() {
-		return regionNum;
-	}
-	public void setRegionNum(int regionNum) {
-		this.regionNum = regionNum;
-	}
+	
 	public String getCheckInTime() {
 		return checkInTime;
 	}
@@ -141,6 +136,12 @@ public class AdminDTO {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getRegionName() {
+		return regionName;
+	}
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
 	}
 	
 	
