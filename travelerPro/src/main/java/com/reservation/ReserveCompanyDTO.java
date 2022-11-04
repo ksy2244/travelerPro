@@ -21,6 +21,7 @@ public class ReserveCompanyDTO {
 	private String userName;
 	private String email;
 	private String businessNum;
+	private int reviewCount;
 
 	public String getCompanyName() {
 		return companyName;
@@ -173,6 +174,14 @@ public class ReserveCompanyDTO {
 
 	public void setBusinessNum(String businessNum) {
 		this.businessNum = businessNum;
+	}
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 
 }

@@ -75,17 +75,20 @@ public class ReservationDAO {
 
 		try {
 
-			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime,  "
-					+ " notice, addr, addrDetail, zip, mc.imageFileName, minPrice,  "
+			sql = " SELECT c.companyNum, companyName, companyInfo, amenities, guide, checkInTime, checkOutTime, "
+					+ " notice, addr, addrDetail, zip, mc.imageFileName, minPrice, "
+					+ " CASE WHEN reviewCount >0 THEN reviewCount ELSE 0 END AS reviewCount, "
 					+ " CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
-					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  " + " FROM company c   "
-					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum "
-					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
+					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  FROM company c   "
+					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
+					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum    "					
 					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
 					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
-					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum  " + " FROM company c, room r   "
-					+ " WHERE c.companyNum = r.companyNum)" + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
-
+					+ " LEFT OUTER JOIN reviewList rl ON rl.companyNum = c.companyNum "
+					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
+					+ " WHERE c.companyNum = r.companyNum) "
+					+" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+					
 			// CREATE OR REPLACE VIEW reviewStar AS
 			// (SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum) FROM review GROUP
 			// BY companyNum);
@@ -107,6 +110,9 @@ public class ReservationDAO {
 			 * companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName,
 			 * companyNum FROM companyFile) WHERE rnum = 1)
 			 */
+			
+			//CREATE OR REPLACE VIEW reviewList AS (SELECT COUNT(*) AS reviewCount, companyNum FROM review GROUP BY companyNum);
+
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, offset);
@@ -128,6 +134,7 @@ public class ReservationDAO {
 				dto.setZip(rs.getInt("zip"));
 				dto.setImageFileName(rs.getString("imageFileName"));
 				dto.setMinPrice(rs.getInt("minPrice"));
+				dto.setReviewCount(rs.getInt("reviewCount"));
 				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setPick(rs.getInt("pick"));
 

@@ -168,6 +168,7 @@
 											<c:if test="${dto.minPrice >= 100000 }">
 												<div class="card-title realprice">${dto.minPrice}</div><span class="won">원</span>
 											</c:if>
+											<p>${dto.reviewCount} </p> <!-- 리뷰 카운트 -->
 										</div>
 									</div>
 								</div>
