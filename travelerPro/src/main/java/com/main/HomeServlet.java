@@ -30,7 +30,7 @@ public class HomeServlet extends TravelServlet {
     	  main(req,resp);
 	  }
       else if(uri.indexOf("companyphoto.do")!=-1) {
-    	  companyphoto(req,resp);
+    	  companyPhoto(req,resp);
       }
    }
    
@@ -38,7 +38,7 @@ public class HomeServlet extends TravelServlet {
 	 forward(req, resp, "/WEB-INF/views/main/main.jsp");
    }
       
-   protected void companyphoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void companyPhoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	  try {
 			ReservationDAO dao = new ReservationDAO();
 			String areaCode = req.getParameter("areaCode");
