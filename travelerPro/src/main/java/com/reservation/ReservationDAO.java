@@ -171,6 +171,7 @@ public class ReservationDAO {
 
 		try {
 			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount , imageFileName  "
+					+ " FROM room rm  "
 					+ " JOIN mainRoomImage mr ON mr.roomNum = rm.roomNum "
 					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  " + " (SELECT rm.roomNum  FROM reservation r "
 					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "

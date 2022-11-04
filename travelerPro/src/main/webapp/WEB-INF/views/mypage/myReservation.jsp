@@ -143,7 +143,7 @@ $(function() {
 							<div class="list">
 								<h5 class="card-title date pt-4 ps-5">${dto.reservation_date}</h5>
 								<hr class="pt-2">
-								<div class="rnum ps-5">숙소 예약번호 ${dto.reservationNum }</div>
+								<div class="rnum ps-5">숙소 예약번호 ${dto.reservationNum} <a href= "${pageContext.request.contextPath}/mypage/reservationDetail.do?&reservationNum=${dto.reservationNum}"></a><span style ="color:blue">상세 예약</span></div>
 								<img
 									src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
 									class="card-img-top ps-5 pt-4 img">
