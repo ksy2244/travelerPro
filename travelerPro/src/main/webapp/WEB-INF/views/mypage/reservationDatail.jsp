@@ -2,162 +2,173 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 소연 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>TRAVELER</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/reservation/reservationStyle.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/travelerStyle.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/datePicker.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style/traveler/review.css"
+	type="text/css">
 
 <style type="text/css">
-.body-container {
-	max-width: 1500px;
+.card {
+	border: 1px solid #eee;
 }
 
-.body-main {
-	max-width: 800px;
-	margin-left: 250px;
-}
-
-.body-title {
-	margin-top: 20px;
-	margin-bottom: 40px;
-}
-
-.box {
-	border-bottom: 1px solid #ccc;
-	border-radius: 8px;
-	margin-bottom: 20px;
-}
-
-.date {
-	font-size: 21px;
+.name {
 	font-weight: bold;
-}
-
-.gap {
-	margin-bottom: 200px;
-}
-
-.body {
-	margin-left: 40px;
-	margin-top: 60px;
-}
-
-.company {
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.rnum {
-	color: #787878;
-	font-size: 15px;
-}
-
-.room {
-	color: #787878;
-	font-size: 16px;
-}
-
-.day {
-	color: #787878;
-	font-size: 15px;
-}
-
-.color {
-	color: #00B4DB;
-	padding-top: 20px;
-	padding-left: 50px;
-	float: left;
-}
-
-.star {
-	color: red;
-}
-
-.starRate {
-	padding-left: 50px;
-}
-
-.bold {
-	font-weight: bold;
+	font-size: 30px;
 	color: black;
-	font-size: 15px;
 }
 
-.content {
-	clear: both;
-	margin-left: 50px;
+.shadowBox {
+	padding: 40px;
+	margin-left: 100px;
+	margin-top: 0px;
+}
+
+.font {
 	font-size: 20px;
-	height: 100px;
+	font-weight: 600;
 }
 
-.reg_date {
-	float: right;
-	font-size: 12px;
-	color: #787878;
-	padding-top: 70px;
-}
-
-.paging {
-	font-weight: bold;
-	font-size: 18px;
-}
-
-.plus {
-	text-align: center;
-	color: #787878;
+.reservationContent {
 	font-size: 17px;
-	margin-bottom: 150px;
+}
+
+.rightContent {
+	float: right;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.couponContent {
+	color: gray;
+	font-size: 17px;
+}
+
+.priceContent {
+	float: right;
+	font-size: 40px;
+	font-weight: 600;
+}
+
+.back {
+	font-size: 30px;
+	font-weight: 600;
 }
 </style>
-
-
 </head>
 <body class="pt-5">
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 
-	<main class="pt-5">
-		<div class="container">
-			<div class="body-container">
-				<div class="body-title">
-					<h3>예약 내역</h3>
-				</div>
+	<div class="container">
+		<div class="body-container">
+			<div class="body-title">
+				<div class="shadowBox" style="width: 1100px; height: 900px;">
+					<p class="back">
+						<a
+							href="${pageContext.request.contextPath}/mypage/myReservation.do?">
+							<i class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp;&nbsp;예약
+							내역 상세
+						</a>
+					</p>
+					<hr>
+					<a class="btn gray font pb-3" data-bs-toggle="collapse"
+						href="#collapseExample" role="button" aria-expanded="false"
+						aria-controls="collapseExample"><span class="ok"><i
+							class="fa-sharp fa-solid fa-chevron-down"></i>&nbsp;예약자 정보</span> </a>
 
-				<div class="body-main mt-5">
-					<div class="row">
 
-						<div class="body">
-							<div class="company">${dto.realUserName}</div>
-							<br>
-							<div class="room">${dto.realUserTel}</div>
-							<div class="day">${dto.totalPrice}
-								<div class="company">${dto.sales}</div>
-								<div class="room">${dto.sales}</div>
-								<div class="day">${dto.discountRate}
-									<div class="day">${dto.couponPrice}
-										<div class="day">${dto.couponName}
-											<div class="day">${dto.end_date}</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="collapse" id="collapseExample">
+						<p class="reservationContent">
+							이름 <span class="rightContent">${dto.userName}</span>
+						</p>
+						<p class="reservationContent">
+							휴대폰 번호 <span class="rightContent"> ${dto.tel}</span>
+						</p>
+
 					</div>
+
+
+
+
+
+
+
+					<br> <br>
+					<div>
+						<p class="font pb-3">이용자 정보</p>
+						<p class="reservationContent">
+							이름 <span class="rightContent">${dto.realUserName}</span>
+						</p>
+						<p class="reservationContent">
+							휴대폰 번호 <span class="rightContent"> ${dto.realUserTel}</span>
+						</p>
+					</div>
+					<hr>
+					<br>
+					<div>
+						<p class="font pb-3">금액 및 할인 정보</p>
+						<p class="reservationContent">
+							예약 금액 <span class="rightContent">${dto.totalPrice}원</span>
+						</p>
+						<p class="reservationContent">
+							총 할인 금액 <span class="rightContent">-${dto.sales}원</span>
+						</p>
+						<p class="couponContent">${dto.couponName}
+							~(${dto.end_date}까지)
+							<c:choose>
+								<c:when test="${dto.discountRate == 0 }">
+									<span class="rightContent"> ${dto.couponPrice}원</span>
+								</c:when>
+								<c:otherwise>
+									<span class="rightContent"> ${dto.discountRate}%</span>
+								</c:otherwise>
+							</c:choose>
+						</p>
+					</div>
+					<hr>
+					<br>
+					<div>
+						<p class="reservationContent">
+							결제 금액 <span class="priceContent">${dto.paymentPrice}원</span>
+						</p>
+						<br>
+						<p class="reservationContent">
+							결제 수단 <span class="rightContent">KG이니시스</span>
+						</p>
+					</div>
+
 				</div>
 			</div>
 		</div>
+	</div>
 
-	</main>
+
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
 	</footer>
 
 	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
-
 </body>
 </html>

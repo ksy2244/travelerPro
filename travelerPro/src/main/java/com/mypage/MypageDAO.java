@@ -24,7 +24,7 @@ public class MypageDAO {
 
 		try {
 			sql = "SELECT couponNum, couponName, couponRate, couponPrice, content, "
-					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date " + " FROM coupon "
+					+ " TO_CHAR(start_date, 'YYYY.MM.DD') start_date,  TO_CHAR(end_date, 'YYYY.MM.DD') end_date " + " FROM coupon "
 					+ " WHERE end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
 					+ " AND couponNum NOT IN(SELECT c.couponNum FROM coupon c JOIN myCoupon m ON c.couponNum = m.couponNum WHERE userId = ?) "
 					+ " ORDER BY couponNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
@@ -174,8 +174,7 @@ public class MypageDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = " SELECT c.companyNum, companyName,imageFileName, checkInTime, r.price, cp.pick  "
-					+ " FROM pick p  "
+			sql = " SELECT c.companyNum, companyName,imageFileName, checkInTime, r.price, cp.pick  " + " FROM pick p  "
 					+ " JOIN company c ON c.companyNum = p.companyNum  "
 					+ " JOIN companyPick cp ON p.companyNum = cp.companyNum "
 					+ " JOIN room r ON r.companyNum = p.companyNum "
@@ -483,11 +482,13 @@ public class MypageDAO {
 		String sql;
 
 		try {
-			sql = "SELECT realUserName, realUserTel, totalPrice, totalPrice-paymentPrice AS sales, paymentPrice, couponName,  c.couponRate, c.couponPrice, c.end_date "
-					+ "FROM reservation r "
-					+ "JOIN myCoupon mc ON mc.reservationNum = r.reservationNum "
-					+ "JOIN coupon c ON c.couponNum = mc.couponNum "
-					+ "WHERE r.reservationNum = ? ";
+			sql = "SELECT realUserName, realUserTel, totalPrice, totalPrice-paymentPrice AS sales, paymentPrice, "
+					+ " couponName,  c.couponRate, c.couponPrice, TO_CHAR(c.end_date, 'YYYY.MM.DD') AS end_date  , userName, tel "
+					+ " FROM reservation r "
+					+ " JOIN member m ON r.userId = m.userId "
+					+ " JOIN myCoupon mc ON mc.reservationNum = r.reservationNum "
+					+ " JOIN coupon c ON c.couponNum = mc.couponNum "
+					+ " WHERE r.reservationNum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, reservationNum);
@@ -502,8 +503,10 @@ public class MypageDAO {
 				dto.setPaymentPrice(rs.getInt("paymentPrice")); // 실제 지불한 금액
 				dto.setCouponName(rs.getString("couponName")); // 쿠폰 이름
 				dto.setDiscountRate(rs.getInt("couponRate")); // 할인율 쿠폰
-				dto.setCouponPrice(rs.getInt("couponRate")); // 할인가격 쿠폰
+				dto.setCouponPrice(rs.getInt("couponPrice")); // 할인가격 쿠폰
 				dto.setEnd_date(rs.getString("end_date")); // 쿠폰 시작 종료일
+				dto.setUserName(rs.getString("userName"));
+				dto.setTel(rs.getString("tel"));
 
 			}
 		} catch (SQLException e) {

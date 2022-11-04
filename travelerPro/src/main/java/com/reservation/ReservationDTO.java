@@ -31,6 +31,7 @@ public class ReservationDTO {
 	private int roomPrice;
 	private String couponName;
 	private int sales;
+	private String tel;
 
 	public String getCouponName() {
 		return couponName;
@@ -262,6 +263,14 @@ public class ReservationDTO {
 
 	public void setDay(int day) {
 		this.day = day;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 }
