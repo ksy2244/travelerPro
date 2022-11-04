@@ -9,6 +9,7 @@
 	margin-top: 200px;
 	width: 100%;
 	height: 450px;
+	z-index: 1;
 }
 
 .nav-next {

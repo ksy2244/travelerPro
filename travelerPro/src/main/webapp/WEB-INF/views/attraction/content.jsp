@@ -10,19 +10,6 @@
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <style type="text/css">
 @import url('https://webfontworld.github.io/hallym/Hallym.css');
-.container {
-	height: 1500px;
-}
-.body-container {
-	margin-left: 15%;
-	width:3000px;
-	overflow: hidden;
-	object-fit: fill;
-}
-.body-container img{
-	width: 30%;
-	height: 30rem;
-}
 .attraction-title {
 	font-size:40px;
 	font-weight:bold;
@@ -40,8 +27,76 @@
 }
 
 #myTab {
-	width: 1100px;
+	margin-top: 20px;
+	width: 1030px;
+	margin-left: 130px;
 }
+
+#nav-tabContent{
+	width: 1030px;
+	margin-left: 130px;
+	height: 500px;
+}
+
+.attraction-title {
+	font-family: 'GmarketSans';
+	font-weight: 500;
+	font-size: 30px;
+	margin-top: 80px;
+	text-align: center;
+}
+
+.img {
+   width: 800px;
+   margin-left: 130px; 
+}
+
+.body-container {
+	max-width: 1500px;
+}
+
+.icon {
+	float: left;
+	margin-right: 1200px;
+}
+
+.attraction-content {
+	font-size: 20px;
+	line-height: 50px;
+}
+
+.more {
+	font-size: 22px;
+	font-weight: 600;
+	margin-left: 130px;
+}
+
+.red {
+	font-size: 32px;
+	color: #5CD1E5;
+	font-weight: bold;
+}
+
+.name {
+	color: black;
+	padding: 20px;
+	font-size: 22px;
+}
+
+
+.name2 {
+	font-size: 19px;
+	color: #787878;
+	border: 1px solid #eee;
+	border-radius: 7px;
+	padding: 7px;
+	background: #eee;
+	text-align: center;
+	padding-left: 4px;
+	margin-right: 25px;
+}
+
+
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
 <script type="text/javascript">
@@ -113,18 +168,18 @@ function printdetailCommon(data) {
 	let overview = item.find("overview").text();
 
 	
-	ex += "<img class='attraction-image alt='attraction' src='"+image+"'>";
+	ex += "<img class='attraction-image' alt='attraction' src='"+image+"'>";
 	ct += overview;
 	ti += title1;
 	//out+= "<div>아아아아</div>";
 		
-	$(".body-container").html(ex);
+	$(".img").html(ex);
 	$(".attraction-content").html(ct);
 	$(".attraction-title").html(ti);
 	
-	out += "<p>전화번호:&nbsp;&nbsp;"+tel+"</p>";
-	out += "<p>홈페이지:&nbsp;&nbsp;"+homepage+"</p>";
-	out += "<p>주소:&nbsp;&nbsp;"+addr1+"</p>";
+	out += "<p class='name'> <span class='name2'>&nbsp;<i class='fa-solid fa-square-phone'></i>&nbsp;전화번호</span>"+tel+"</p>";
+	out += "<p class='name'> <span class='name2'>&nbsp;<i class='fa-solid fa-house-signal'></i>&nbsp;홈페이지</span>"+homepage+"</p>";
+	out += "<p class='name'> <span class='name2'>&nbsp;<i class='fa-solid fa-location-dot'></i>&nbsp;주소</span>"+addr1+"</p>";
 	
 	
 	$("#nav-1").html(out);
@@ -200,17 +255,27 @@ $(function(){
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body class="pt-5">
-	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
-	</header>
-	<main class="container mt-5">
-		<div class="attraction-title"></div>
-		<div class="body-container"></div>
-		
-		<div class="attraction-content"></div>
-		<div class="container mt-4 mb-2 pt-3">
+<header>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
+</header>
 
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
+<main class="pt-5">
+	<div class="container">
+	<div class="body-containerMain">
+		<div class="attraction-title"></div>
+		<br>
+		<div class="icon"><i class="fa-solid fa-share-nodes fa-2x"></i></div><span><i class="fa-regular fa-bookmark fa-2x"></i></span>&nbsp;&nbsp;<span><i class="fa-solid fa-print fa-2x"></i></span>
+		<hr style="width: 1300px; color: #787878">
+		<br><br>
+		<div class="img" align="left"></div>
+		<br><br>
+		<div class="more">이 <span class="red">관광지</span>는요,</div><br>
+		<div class="attraction-content"></div>
+		<div class="mt-4 mb-2 pt-3"><br>
+		<div class="more">이 <span class="red">관광지</span>가 더 궁금하다면?</div>
+		<div class="mt-4 mb-2 pt-3 moreBox">
+		
+		<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="1" aria-selected="true">정보</button>
 			</li>
@@ -232,9 +297,11 @@ $(function(){
 			</div>
 		</div>
 
+		</div>
 	</div>
-		
-	</main>
+	</div>
+	</div>
+</main>
 	
 	<footer>
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
