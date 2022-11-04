@@ -490,7 +490,7 @@ input[type=checkbox] {
 		          
 		          <div class="font">금액 및 할인 정보</div>
 		          <br>
-		          <span class="basic mb-3">총 결제 금액</span><span class="margin result">${gap}박 <span class="realPrice2">${paymentPrice*gap}원</span></span>  
+		          <span class="basic mb-3">총 결제 금액</span><span class="margin result">${gap}박 <span class="realPrice2">${paymentPrice*gap}원</span></span>   
 				  <br><br>				
 		          <span class="basic mb-3">쿠폰 적용 결제 금액</span><span class ="spanPaymentPrice margin" id="realPayment"></span>
 		          <br><br><hr><div class="mb-4"></div>	

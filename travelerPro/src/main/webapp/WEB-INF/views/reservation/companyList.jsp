@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>TRAVELER</title>
-<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" /> 
 <link rel="import" href="map.html">
 
 <style type="text/css">
