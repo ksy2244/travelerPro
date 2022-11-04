@@ -231,6 +231,17 @@
 	padding-top: 30px;
 }
 
+.db {
+	width: 120px;
+}
+
+.styleInput {
+	height: 38px;
+	text-align: center;
+	border: 1px solid #eee;
+	border-radius: 7px;
+}
+
 </style>
 
 <script>
@@ -614,12 +625,12 @@
 							<div class="card-body">
 								<form name="dateForm" action="roomInfo.do" method="get">
 									<p class="cal">
-										<i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
+										<i class="fa-regular fa-calendar fa-lg"></i>&nbsp;&nbsp;
 										<input type="hidden" value="${companyNum}" name="companyNum">
 										<input type="text" id="start_date" name="start_date" class="styleInput"> ~
 										<input type="text" id="end_date" name="end_date" class="styleInput">
 									</p>
-									<button class="dateBtn btn btn-danger" type="submit">날짜
+									<button class="dateBtn btn btn-danger db" type="submit">날짜
 										선택</button>
 								</form>
 

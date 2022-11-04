@@ -234,7 +234,7 @@ public class AdminDAO {
 		
 		try {
 			sql = "SELECT companyNum, companyName, companyInfo, amenities,"
-					+ " guide, regionNum, checkInTime, checkOutTime, addr, addrDetail, notice, businessNum, approval, m.userName, m.tel "
+					+ " guide, regionName, checkInTime, checkOutTime, addr, addrDetail, notice, businessNum, approval, m.userName, m.tel "
 					+ " FROM company c "
 					+ " JOIN member m ON c.userId = m.userId "
 					+ " WHERE (approval = 0 OR approval = 1) AND companyNum = ?";
@@ -253,7 +253,7 @@ public class AdminDAO {
 				dto.setCompanyInfo(rs.getString("companyInfo"));
 				dto.setAmenities(rs.getString("amenities"));
 				dto.setGuide(rs.getString("guide"));
-				dto.setRegionNum(rs.getInt("regionNum"));
+				dto.setRegionName(rs.getString("regionName"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
 				dto.setCheckOutTime(rs.getString("checkOutTime"));
 				dto.setAddr(rs.getString("addr"));

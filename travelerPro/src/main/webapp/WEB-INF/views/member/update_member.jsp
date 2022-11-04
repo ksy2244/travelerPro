@@ -292,7 +292,7 @@
 								</button>
 						
 								<div class="col text-end">
-									<button type="button" name="sendButton" class="btn text-white side"
+									<button type="button" name="sendButton" class="btn text-white btn-danger"
 									onclick="del();">
 									회원탈퇴
 								</button>

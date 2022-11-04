@@ -70,12 +70,12 @@ geocoder.addressSearch('"${address}"', function(result, status) {
 </script>
 	<br>
 	<div class="place">
-		<i class="fa-solid fa-location-dot fa-lg ps-3"></i>&nbsp;&nbsp;<span class="address">${dto.addr}&nbsp;${dto.addrDetail}</span>
+		<i class="fa-solid fa-location-dot fa-lg ps-3"></i>&nbsp;&nbsp;<span class="address">${address}</span>
 	</div>
 	<br>
 	<hr style="width: 1000px; color: #787878; clear: both;">
 	<br>
 	<p class="font2 pb-2 pt-2">길안내</p>
-	<div class="place">${dto.companyInfo}</div>
+	<div class="place">${companyInfo}</div>
 
 

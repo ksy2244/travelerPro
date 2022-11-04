@@ -44,11 +44,11 @@
 .png {
 	width: 18px;
 	margin-left: 22px;
-	margin-top: 10px;
 }
 
 .pick {	
 	color: #787878;
+	padding-top: 10px;
 }
 
 .star {
@@ -94,6 +94,10 @@
 	font-size: 18px;
 }
 
+.pickCount {
+	padding-top: 10px;
+}
+
 </style>
 </head>
 <body class="pt-5">
@@ -127,40 +131,42 @@
 											<div class="card-title company">${dto.companyName}</div>
 											<c:choose>
 												<c:when test="${dto.starRate > 4.5}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 4.0}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 3.5}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 3.0}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 2.5}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 2.0}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 1.5}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 1.0}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 0.5}">
-													<span class="star"><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:when test="${dto.starRate > 0}">
-													<span class="star"><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:when>
 												<c:otherwise>
-													<span class="star"><i class="fa-regular fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (리뷰수)</span></span>
+													<span class="star"><i class="fa-regular fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}</span></span>
 												</c:otherwise>
 											</c:choose>
-											<div class="pick"><img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class="png">&nbsp;${dto.pick}</div>
+											<div class="pick">
+												<img src="${pageContext.request.contextPath}/resources/images/icon/pick.png" class="png">&nbsp;${dto.pick}
+											</div>
 											<div class="price pt-4 pb-1">1박 기준</div>
 											<c:if test="${dto.minPrice < 100000 }">
 												<div class="card-title realpriceMin">${dto.minPrice}</div><span class="won">원</span>

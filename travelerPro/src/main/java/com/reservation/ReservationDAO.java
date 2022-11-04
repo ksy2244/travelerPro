@@ -866,14 +866,14 @@ public class ReservationDAO {
 		return gap;
 	}
 	
-	public ReserveCompanyDTO map(long companyNum) {
-	      ReserveCompanyDTO dto = null;
+	public String map(long companyNum) {
+		  String info = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      String sql;
 	      
 	      try {
-	         sql = "SELECT companyInfo, addr, addrDetail FROM company WHERE companyNum = ? ";
+	         sql = "SELECT companyInfo FROM company WHERE companyNum = ? ";
 	         
 	         pstmt = conn.prepareStatement(sql);
 	         
@@ -882,11 +882,7 @@ public class ReservationDAO {
 	         rs = pstmt.executeQuery();
 	         
 	         if(rs.next()) {
-	            dto = new ReserveCompanyDTO();
-	            
-	            dto.setAddr(rs.getString("addr"));
-	            dto.setAddrDetail(rs.getString("addrDetail"));
-	            dto.setCompanyInfo(rs.getString("companyInfo"));
+	        	 info = rs.getString(1);
 	            
 	         }
 	      } catch (Exception e) {
@@ -907,7 +903,7 @@ public class ReservationDAO {
 	         }
 	      }
 
-	      return dto;
+	      return info;
 	   }
 	   
 	   public double reviewStarRate(long companyNum) {

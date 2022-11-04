@@ -311,11 +311,14 @@ public class ReservationServlet extends TravelServlet {
 			String addr = companyDto.getAddr();
 			String addrDetail = companyDto.getAddrDetail();
 			String companyName = companyDto.getCompanyName();
+			String companyInfo = dao.map(companyNum);
 
 			String address = addr + " " + addrDetail;
-
+			
+			req.setAttribute("companyInfo", companyInfo);
 			req.setAttribute("address", address);
 			req.setAttribute("companyName", companyName);
+			req.setAttribute("companyInfo", companyInfo);
 
 			forward(req, resp, "/WEB-INF/views/reservation/map.jsp");
 			return;
