@@ -49,7 +49,8 @@ public class HomeServlet extends TravelServlet {
 			job.put("list", list);
 			job.put("areaCode", areaCode);
 			job.put("areaName", areaName);
-			//job.put("paging", paging);
+			
+			
 			
 			resp.setContentType("text/html; charset=utf-8");
 			PrintWriter out = resp.getWriter();
