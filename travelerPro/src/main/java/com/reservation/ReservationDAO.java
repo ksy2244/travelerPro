@@ -843,14 +843,16 @@ public class ReservationDAO {
 
 		try {
 			sql = "SELECT companyName ,  mc.imageFileName, minPrice, c.companyNum,  "
-					+ "CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
-					+ "CASE WHEN pick >0 THEN pick ELSE 0 END AS pick   FROM company c   "
-					+ "LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
-					+ "LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
-					+ "LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
-					+ "LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
-					+ "WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
-					+ "WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 4 " + "ORDER BY starRate DESC, pick DESC  ";
+					+ " CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
+					+ " CASE WHEN reviewCount >0 THEN reviewCount ELSE 0 END AS reviewCount, "
+					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick   FROM company c   "
+					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
+					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum   "
+					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
+					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
+					+ " LEFT OUTER JOIN reviewList rl ON rl.companyNum = c.companyNum "
+					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
+					+ " WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 5 " + "ORDER BY starRate DESC, pick DESC  ";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -863,6 +865,7 @@ public class ReservationDAO {
 				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setPick(rs.getInt("pick"));
 				dto.setCompanyNum(rs.getInt("companyNum"));
+				dto.setReviewCount(rs.getInt("reviewCount"));
 
 				list.add(dto);
 			}

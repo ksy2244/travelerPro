@@ -70,7 +70,7 @@ header {
 	top: 1050px;
 }
 .region-button .gangwon{
-	left: 1000px;
+	left: 1400px;
 	top: 990px;
 }
 .region-button .daejeon{
@@ -260,10 +260,12 @@ header {
 .post-slider .post-wrapper .post .post-info .post-link:hover {
 	color: #0d6efd;
 }
+/*
 .company-famous span{
 	font-size: 2rem;
 	margin-left: 40%;
 }
+*/
 .company-list {
 	margin-top: 2em;
 }
