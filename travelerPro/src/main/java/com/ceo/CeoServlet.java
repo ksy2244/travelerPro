@@ -511,11 +511,13 @@ public class CeoServlet extends TravelServlet {
 			dto.setCompanyTel1(t[0]);
 			dto.setCompanyTel2(t[1]);
 			dto.setCompanyTel3(t[2]);
+			List<ServiceDTO> list = dao.listCategory();
 
 			/*
 			 * if(dto == null) { resp.sendRedirect(cp+"/ceo/main.do?page=" +page); return; }
 			 */
 			req.setAttribute("dto", dto);
+			req.setAttribute("list", list);
 			req.setAttribute("page", page);
 			req.setAttribute("listFile", listFile);
 			req.setAttribute("mode", "update");
@@ -542,13 +544,25 @@ public class CeoServlet extends TravelServlet {
 		String page = req.getParameter("page");
 		try {
 			CeoDTO dto = new CeoDTO();
+			
+			String[] ss = req.getParameterValues("checkList");
+
+			String service = "";
+
+			for (String a : ss) {
+				service += a + ",";
+			}
+
+			if (service.length() > 0) {
+				service = service.substring(0, service.length() - 1);
+			}
 
 			dto.setCompanyNum(Integer.parseInt(req.getParameter("companyNum")));
 			dto.setCompanyName(req.getParameter("companyName"));
 			dto.setBusinessNum(req.getParameter("businessNum1") + "-" + req.getParameter("businessNum2") + "-"
 					+ req.getParameter("businessNum3"));
 			dto.setUserId(req.getParameter("userId"));
-			dto.setRegionName("regionName");
+			dto.setRegionName(req.getParameter("regionName"));
 			dto.setCheckinTime(req.getParameter("checkinTime"));
 			dto.setCheckoutTime(req.getParameter("checkoutTime"));
 			dto.setCompanyTel(
@@ -557,7 +571,7 @@ public class CeoServlet extends TravelServlet {
 			dto.setAddr(req.getParameter("addr1"));
 			dto.setAddrDetail(req.getParameter("addr2"));
 			dto.setCompanyInfo(req.getParameter("companyInfo"));
-			dto.setAmenities(req.getParameter("amenities"));
+			dto.setAmenities(service);
 			dto.setGuide(req.getParameter("guide"));
 			dto.setNotice(req.getParameter("notice"));
 

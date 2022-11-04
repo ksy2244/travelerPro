@@ -413,12 +413,6 @@ $(function(){
 								<label>${vo.serviceName}<input type="checkbox"
 									value="${vo.serviceNum}" name="checkList" /></label>
 							</c:forEach>
-							<c:if test="${mode=='update'}">
-								<c:forEach var="dto" items="${list}">
-									<label>${dto.serviceName}<input type="checkbox"
-										value="${dto.serviceNum}" name="checkList" /></label>
-								</c:forEach>
-							</c:if>
 						</div>
 
 
