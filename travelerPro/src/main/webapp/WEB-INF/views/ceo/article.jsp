@@ -153,7 +153,26 @@ function imageViewer(src) {
 					</div>
 					<div class="mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">서비스(편의시설)</label>
-					  <textarea class="form-control" name="amenities" id="amenities" rows="3">${dto.amenities}</textarea>
+					  <br>
+					  
+					  <c:set var="serviceList" value="${dto.amenities}"></c:set>
+							<c:forEach var="service" items="${serviceList}">
+									<c:choose>
+										<c:when test="${service == 1}">와이파이&nbsp;</c:when>
+										<c:when test="${service == 2}">애견동반&nbsp; </c:when>
+										<c:when test="${service == 3}">개별 바베큐&nbsp; </c:when>
+										<c:when test="${service == 4}">수영장&nbsp;</c:when>
+										<c:when test="${service == 5}">주차 가능&nbsp;</c:when>
+										<c:when test="${service == 6}">상비약&nbsp;</c:when>
+										<c:when test="${service == 7}">기본 양념&nbsp;</c:when>
+										<c:when test="${service == 8}">매점/편읭점&nbsp;</c:when>
+										<c:when test="${service == 9}">조식 운영&nbsp;</c:when>
+										<c:when test="${service == 10}">운동장&nbsp;</c:when>
+										<c:otherwise><p>기타</p></c:otherwise> 
+										
+							</c:choose>
+							</c:forEach>
+						
 					</div>
 					<div class="mb-5">
 					  <label for="exampleFormControlTextarea1" class="form-label">안내</label>

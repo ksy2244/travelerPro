@@ -436,6 +436,7 @@ public class CeoServlet extends TravelServlet {
 				return;
 			}
 			List<CeoDTO> listFile = dao.listPhotoFile(num);
+			
 
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
