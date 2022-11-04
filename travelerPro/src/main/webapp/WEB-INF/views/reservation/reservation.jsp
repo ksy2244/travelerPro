@@ -76,6 +76,14 @@
 	color: red;
 }
 
+.rate2 {
+	font-size: 15px;
+	font-weight: bold;
+	text-align: right;
+	width: 1100px;
+	padding-right: 250px;
+}
+
 .price {
 	color: black;
 }
@@ -92,6 +100,16 @@
 	text-align: right;
 	padding-right: 160px;
 	width: 1100px;
+}
+
+.realPrice2 {
+	font-size: 28px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.result {
+	padding-left: 18px;
 }
 
 .gray {
@@ -136,7 +154,7 @@
 
 .margin {
 	font-size: 22px; 
-	margin-left: 515px;
+	margin-left: 430px;
 	font-weight: bold;
 	text-align: right;
 }
@@ -149,8 +167,7 @@
 #realPayment {
 	font-weight: bold;
 	color:red;
-	font-size: 32px;
-	margin-left: 455px;
+	font-size: 30px;
 }
 
 .label {
@@ -192,6 +209,9 @@ input[type=checkbox] {
 .both {
 	clear: both;
 }
+
+
+
 </style>
 
 <!-- jQuery -->
@@ -271,7 +291,7 @@ input[type=checkbox] {
 			let couponPrice = $(this).closest("div").find("input[name=couponPrice]").val();
 			
 			let paymentPrice = ${paymentPrice * gap};
-			alert(paymentPrice);
+			
 			let gap = ${paymentPrice};
 			
 			
@@ -285,7 +305,7 @@ input[type=checkbox] {
 				
 			}else if(couponRate == 0){
 				paymentPrice = paymentPrice - couponPrice;
-				alert(paymentPrice);
+				
 				
 				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
 				
@@ -296,7 +316,7 @@ input[type=checkbox] {
 			} else if(couponPrice == 0){
 				couponRate = (100-couponRate)/100;
 				paymentPrice = paymentPrice * couponRate;
-				alert(paymentPrice);
+				
 				$("form[name=reservationForm] input[name=paymentPrice]").val(paymentPrice);
 				
 				$("form[name=reservationForm] input[name=couponNum]").val(couponNum);
@@ -360,7 +380,6 @@ input[type=checkbox] {
 								    <i class="fa-solid fa-circle-exclamation"></i>
 								  </a>
 								</span>
-			    			<div><h4>${gap}박 총액 ${paymentPrice*gap}&nbsp;&nbsp;&nbsp;</h4></div>
 							    <div class="collapse" id="collapseExample">
 									  <div class="card card-body">
 									    * 1박 기준 가격입니다.<br>
@@ -471,7 +490,7 @@ input[type=checkbox] {
 		          
 		          <div class="font">금액 및 할인 정보</div>
 		          <br>
-		          <span class="basic mb-3">총 결제 금액</span><span class="margin black">${paymentPrice*gap}원</span>(${gap}박)
+		          <span class="basic mb-3">총 결제 금액</span><span class="margin result">${gap}박 <span class="realPrice2">${paymentPrice*gap}원</span></span>   
 				  <br><br>				
 		          <span class="basic mb-3">쿠폰 적용 결제 금액</span><span class ="spanPaymentPrice margin" id="realPayment"></span>
 		          <br><br><hr><div class="mb-4"></div>	

@@ -207,26 +207,28 @@ header {
 }
 .post-slider .next {
 	position: absolute;
-	top:  50%;
+	top:  70%;
 	right: 30px;
 	font-size: 2em;
 	cursor: pointer;
 }
 .post-slider .prev {
 	position: absolute;
-	top:  50%;
-	left: 30px;
+	top:  70%;
+	left:0;
 	font-size: 2em;
 	cursor: pointer;
+	
 }
 .post-slider .post-wrapper {
-	width: 1000px;
+	width: 1050px;
 	height: 400px;
-	margin: 0 auto;
+	right: 20px;
 	overflow: hidden;
 	padding: 10px 0;
  	position: absolute;
-	right: 170px;
+	
+	
 	
 }
 .post-slider .post-wrapper .post {
@@ -239,7 +241,7 @@ header {
 }
 
 .post-slider .post-wrapper .post .slider-image>img {
-	width: 280px;
+	width: 240px;
 	height: 300px;
 	margin-left: 10px; margin-right: 10px;
 	border-top-left-radius: 5px;
@@ -266,6 +268,9 @@ header {
 	margin-top: 2em;
 }
 
+.company-name a{
+	text-decoration: none;
+}
 /* main {
 	background: lightblue;
 } */
