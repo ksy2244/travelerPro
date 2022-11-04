@@ -48,8 +48,8 @@
 		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">관광지</a>
 		        </li>
 		    	<li class="nav-item">
-		          		<a class="nav-link text-white" href="javascript:dialogLogin();" title="예약내역"
-		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">예약내역</a>
+		          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/reservation/companyList.do;" title="예약"
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 45px;">예약</a>
 		        </li>
 		        <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -79,8 +79,8 @@
 		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">관광지</a>
 		        </li>
 		    	<li class="nav-item">
-		          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/mypage/myReservation.do" title="예약내역"
-		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">예약내역</a>
+		          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/reservation/companyList.do" title="예약"
+		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">예약</a>
 		        </li>
 		        <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -91,7 +91,6 @@
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/faq.do" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/notice.do" style="font-family: 'GmarketSans';">공지사항</a></li>
-		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/service.do" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
 		          </ul>
 		        </li>	      		
 	        	<li class="nav-item dropdown">

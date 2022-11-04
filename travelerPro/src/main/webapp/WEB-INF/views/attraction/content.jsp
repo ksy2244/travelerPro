@@ -48,7 +48,8 @@
 
 .img {
    width: 800px;
-   margin-left: 130px; 
+   margin: auto;
+   display: block;
 }
 
 .body-container {
