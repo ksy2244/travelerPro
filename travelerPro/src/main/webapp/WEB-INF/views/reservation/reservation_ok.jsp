@@ -12,18 +12,18 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 1500px;
 }
 </style>
 
 </head>
-<body>
+<body class="pt-5">
 
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 
-	<main>
+	<main class="pt-5">
 		<div class="container">
 			<div class="body-container">
 
