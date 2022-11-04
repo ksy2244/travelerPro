@@ -34,7 +34,7 @@
 
 <nav class="navbar navbar-expand-lg justify-content-end bg-info fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand text-white traveler" href="${pageContext.request.contextPath}/"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>
+    <a class="navbar-brand text-white traveler" href="${pageContext.request.contextPath}/main/main.do"><i class="fa-regular fa-paper-plane">TRAVELER</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

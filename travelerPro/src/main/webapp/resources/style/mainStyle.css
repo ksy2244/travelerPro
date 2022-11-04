@@ -6,7 +6,7 @@
 }
 
 .api-list {
-	margin-top: 200px;
+	margin-top: 300px;
 }
 .map-image img {
 	 margin-left:300px;
@@ -220,13 +220,13 @@ header {
 	cursor: pointer;
 }
 .post-slider .post-wrapper {
-	width: 700px;
+	width: 1000px;
 	height: 400px;
 	margin: 0 auto;
 	overflow: hidden;
 	padding: 10px 0;
  	position: absolute;
-	right: 180px;
+	right: 170px;
 	
 }
 .post-slider .post-wrapper .post {

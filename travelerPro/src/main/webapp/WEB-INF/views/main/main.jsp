@@ -18,7 +18,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/slick/slick-theme.css"/>
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/slick/slick.js"></script>
 <style type="text/css">
 @import url('https://webfontworld.github.io/hallym/Hallym.css');
@@ -51,7 +50,7 @@ $(function(){
 });
 function companyphoto(areaCode,areaName) {
 	let url = "${pageContext.request.contextPath}/main/companyphoto.do";
-	let query = "areaCode="+areaCode+"&areaName="+areaName+"&tmp="+new Date().getTime();
+	let query = "areaCode="+areaCode+"&areaName="+areaName;
 	const fn = function(data) {
 		printphoto(data);
 	};
@@ -69,10 +68,8 @@ function printphoto(data){
 		out += "	<a href=#>";		
 		out += "		<img alt='' src='"+imageFileName+"'>";
 		out += "	</a>";
-		//out += "</div>";
 		out += "	<div class='company-name'>";
 		out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";
-		//out += "		<a href='#'>"+companyName+"</a>";
 		out += "	</div>";
 		out += "	<div class='company-price'>"+minPrice+"원</div>";
 		out += "</div>";
@@ -155,7 +152,7 @@ function printAreaBasedList(data) {
 
 	
 	$('.tour-list').slick({
-		  slidesToShow: 3,
+		  slidesToShow: 4,
 		  slidesToScroll: 1,
 		  autoplay: true,
 		  autoplaySpeed: 2000,
@@ -285,7 +282,7 @@ $(function(){
 				<button class="jeju" type="submit" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=39&region=제주도'">제주도</button>
 			</div>
 				<div class="api-list">
-					<div class="search-container mt-3">
+					<div class="search-container mt-6">
 						<form class="row justify-content-center" method="get">
 							<div class="col-auto p-1">
 								<select name="areaCode" id="areaCode" class="form-select">
@@ -308,16 +305,12 @@ $(function(){
 									<option value="39">제주도</option>
 								</select>
 							</div>
-							<!-- <div class="col-auto p-1">
-								<input type="text" class="form-control" placeholder="검색 키워드 입력" autocomplete="off" 
-										name="kwd" id="kwd">
-							</div>
 							<div class="col-auto p-1">
 								<button type="button" class="btn btn-light btnSearchOk"> <i class="bi bi-search"></i> </button> 
 							</div>
 							<div class="col-auto p-1">
 								<button type="button" class="btn btn-light btnSearchInit"> <i class="bi bi-arrow-clockwise"></i> </button>
-							</div> -->
+							</div>
 						</form>
 					</div>
 				

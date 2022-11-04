@@ -807,7 +807,7 @@ public class ReservationDAO {
 		String sql = null;
 
 		try {
-			sql = "SELECT companyName ,  mc.imageFileName, minPrice,  "
+			sql = "SELECT companyName ,  mc.imageFileName, minPrice, c.companyNum,  "
 					+ "CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
 					+ "CASE WHEN pick >0 THEN pick ELSE 0 END AS pick   FROM company c   "
 					+ "LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
@@ -827,6 +827,7 @@ public class ReservationDAO {
 				dto.setMinPrice(rs.getInt("minPrice"));
 				dto.setStarRate(rs.getDouble("starRate"));
 				dto.setPick(rs.getInt("pick"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
 
 				list.add(dto);
 			}
