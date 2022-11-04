@@ -3,7 +3,9 @@ package com.reservation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,14 +83,13 @@ public class ReservationDAO {
 					+ " CASE WHEN starRate >0 THEN starRate ELSE 0 END AS starRate, "
 					+ " CASE WHEN pick >0 THEN pick ELSE 0 END AS pick  FROM company c   "
 					+ " LEFT OUTER JOIN mainCompanyImage mc ON mc.companyNum = c.companyNum  "
-					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum    "					
+					+ " LEFT OUTER JOIN companyPick p ON p.companyNum = c.companyNum    "
 					+ " LEFT OUTER JOIN companyPrice pp ON pp.companyNum = c.companyNum  "
 					+ " LEFT OUTER JOIN companyStar sr ON sr.companyNum = c.companyNum "
 					+ " LEFT OUTER JOIN reviewList rl ON rl.companyNum = c.companyNum "
 					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
-					+ " WHERE c.companyNum = r.companyNum) "
-					+" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
-					
+					+ " WHERE c.companyNum = r.companyNum) " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+
 			// CREATE OR REPLACE VIEW reviewStar AS
 			// (SELECT *, COUNT(reviewNum) AS reviewCount, SUM(reviewNum) FROM review GROUP
 			// BY companyNum);
@@ -110,9 +111,9 @@ public class ReservationDAO {
 			 * companyNum ORDER BY companyNum, imageFileName DESC) rnum, imageFileName,
 			 * companyNum FROM companyFile) WHERE rnum = 1)
 			 */
-			
-			//CREATE OR REPLACE VIEW reviewList AS (SELECT COUNT(*) AS reviewCount, companyNum FROM review GROUP BY companyNum);
 
+			// CREATE OR REPLACE VIEW reviewList AS (SELECT COUNT(*) AS reviewCount,
+			// companyNum FROM review GROUP BY companyNum);
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, offset);
@@ -540,9 +541,8 @@ public class ReservationDAO {
 		try {
 
 			sql = " INSERT INTO reservation" + "(reservationNum, start_date, end_date, realHeadCount, totalPrice, "
-					+ " checkInTime, checkOutTime, status,  userId, paymentPrice, "
-					+ " discountPrice, realUserName, realUserTel) "
-					+ " VALUES( ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ? , ?, ?)";
+					+ " checkInTime, checkOutTime,  userId, paymentPrice, "
+					+ " discountPrice, realUserName, realUserTel) " + " VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, dto.getReservationNum()); // 예약 번호 (서블릿)
@@ -550,13 +550,10 @@ public class ReservationDAO {
 			pstmt.setString(3, dto.getEnd_date()); // 이용 종료일 (서블릿)
 			pstmt.setInt(4, dto.getRealHeadCount()); // 허용 인원수 (select)
 			pstmt.setInt(5, dto.getTotalPrice()); // 총합계 (할인 적용 안 된 업체에서 등록된 비용) (select)
-
 			pstmt.setString(6, dto.getCheckInTime()); // 체크인 시간(서블릿)
 			pstmt.setString(7, dto.getCheckOutTime()); // 체크아웃 시간 (서블릿)
-			// 1
 			pstmt.setString(8, dto.getUserId()); // 사용자 아이디(서블릿)
-			pstmt.setInt(9, dto.getPaymentPrice()); // 지불할 금액 (할인 적용)
-
+			pstmt.setInt(9, dto.getPaymentPrice());
 			pstmt.setInt(10, dto.getDiscountRate()); // 할인율
 			pstmt.setString(11, dto.getRealUserName()); // 이용자 이름
 			pstmt.setString(12, dto.getRealUserTel()); // 이용자 전화번호
@@ -575,22 +572,57 @@ public class ReservationDAO {
 			pstmt.close();
 			pstmt = null;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
+			conn.commit();
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+
+			// 롤백
+			try {
+
+				conn.rollback();
+			} catch (Exception e2) {
+
+			}
+			if (e.getErrorCode() == 1) {
+				System.out.println("코드 중복으로 등록이 불가능합니다");
+			} else if (e.getErrorCode() == 1400) {
+				System.out.println("필수사항을 입력하지않았습니다.");
+			} else if (e.getErrorCode() == 2291) {
+				System.out.println("중분류 코드를 잘못입력했습니다");
+			} else {
+				System.out.println(e.toString()); // 오류메세지 찍기
+			}
+			throw e;
+
+		} catch (SQLDataException e2) {
+			try {
+				conn.rollback();
+			} catch (Exception e3) {
 			}
 
+			throw e2;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+			}
+		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e) {
+				} catch (Exception e2) {
+
 				}
+
 			}
+			try {
+
+				conn.setAutoCommit(true);
+			} catch (Exception e) {
+
+			}
+
 		}
 
 	}
@@ -866,123 +898,123 @@ public class ReservationDAO {
 
 		return gap;
 	}
-	
+
 	public String map(long companyNum) {
-		  String info = null;
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      String sql;
-	      
-	      try {
-	         sql = "SELECT companyInfo FROM company WHERE companyNum = ? ";
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         pstmt.setLong(1, companyNum);
-	         
-	         rs = pstmt.executeQuery();
-	         
-	         if(rs.next()) {
-	        	 info = rs.getString(1);
-	            
-	         }
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         if (rs != null) {
-	            try {
-	               rs.close();
-	            } catch (SQLException e) {
-	            }
-	         }
+		String info = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
 
-	         if (pstmt != null) {
-	            try {
-	               pstmt.close();
-	            } catch (SQLException e) {
-	            }
-	         }
-	      }
+		try {
+			sql = "SELECT companyInfo FROM company WHERE companyNum = ? ";
 
-	      return info;
-	   }
-	   
-	   public double reviewStarRate(long companyNum) {
-	      double rate = 0;
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      String sql;
-	      
-	      try {
-	         sql = "SELECT starRate FROM companyStar WHERE companyNum = ? ";
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         pstmt.setLong(1, companyNum);
-	         
-	         rs = pstmt.executeQuery();
-	         
-	         if(rs.next()) {
-	            rate = rs.getDouble(1);
-	         }
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         if (rs != null) {
-	            try {
-	               rs.close();
-	            } catch (SQLException e) {
-	            }
-	         }
+			pstmt = conn.prepareStatement(sql);
 
-	         if (pstmt != null) {
-	            try {
-	               pstmt.close();
-	            } catch (SQLException e) {
-	            }
-	         }
-	      }
+			pstmt.setLong(1, companyNum);
 
-	      return rate;
-	   }
-	   
-	   public int reviewCount(long companyNum) {
-	      int result = 0;
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      String sql;
-	      
-	      try {
-	         sql = "SELECT COUNT(*) FROM review WHERE companyNum = ? ";
-	         
-	         pstmt = conn.prepareStatement(sql);
-	         
-	         pstmt.setLong(1, companyNum);
-	         
-	         rs = pstmt.executeQuery();
-	         
-	         if(rs.next()) {
-	            result = rs.getInt(1);
-	         }
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         if (rs != null) {
-	            try {
-	               rs.close();
-	            } catch (SQLException e) {
-	            }
-	         }
+			rs = pstmt.executeQuery();
 
-	         if (pstmt != null) {
-	            try {
-	               pstmt.close();
-	            } catch (SQLException e) {
-	            }
-	         }
-	      }
+			if (rs.next()) {
+				info = rs.getString(1);
 
-	      return result;
-	   }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return info;
+	}
+
+	public double reviewStarRate(long companyNum) {
+		double rate = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT starRate FROM companyStar WHERE companyNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				rate = rs.getDouble(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return rate;
+	}
+
+	public int reviewCount(long companyNum) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT COUNT(*) FROM review WHERE companyNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
 
 }

@@ -39,16 +39,16 @@
 
 							
 							<div class="d-grid">
-								<button type="button" name="sendButton"
-									class="dateBtn btn btn-danger"
-									onclick="location.href='${pageContext.request.contextPath}/reservation/myReservation.do">나의
+								<button type="button"
+									class=" btn btn-danger"
+									onclick="location.href='${pageContext.request.contextPath}/mypage/myReservation.do'">나의
 									예약 내역</button>
 									<br>
 						
 
-								<button type="button" name="sendButton"
+								<button type="button"
 									class="btn btn-outline-danger"
-									onclick="location.href='${pageContext.request.contextPath}/reservation/main.jsp">메인으로 돌아가기</button>
+									onclick="location.href='${pageContext.request.contextPath}/main/main.do'">메인으로 돌아가기</button>
 							</div>
 						</div>
 

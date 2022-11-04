@@ -314,7 +314,7 @@ public class ReservationServlet extends TravelServlet {
 			String companyInfo = dao.map(companyNum);
 
 			String address = addr + " " + addrDetail;
-			
+
 			req.setAttribute("companyInfo", companyInfo);
 			req.setAttribute("address", address);
 			req.setAttribute("companyName", companyName);
@@ -361,9 +361,6 @@ public class ReservationServlet extends TravelServlet {
 
 			String start_date = req.getParameter("start_date");
 			String end_date = req.getParameter("end_date");
-
-			System.out.println(start_date);
-			System.out.println(end_date);
 
 			int gap = dao.reservationGap(start_date, end_date);
 
@@ -417,20 +414,27 @@ public class ReservationServlet extends TravelServlet {
 			int roomNum = Integer.parseInt(req.getParameter("roomNum"));
 			int couponNum = Integer.parseInt(req.getParameter("couponNum"));
 
+			// 결제 번호를 위한 문자열 파싱
+			String start = String.join("", req.getParameter("start_date").split("-"));
+			String[] endSplit = req.getParameter("end_date").split("-");
+			String end = endSplit[1] + endSplit[2];
+
 			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
 			if (couponNum != 0) {
 				dao.couponUse(couponNum, info.getUserId());
 			}
 
-			// 예약 번호 = 오늘(예약일) + 업체 번호 + 객실 번호
-			LocalDate now = LocalDate.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-			String today = now.format(formatter);
-			String reservationCode = today + Integer.toString(companyNum) + Integer.toString(roomNum);
-			long reservationNum = Long.parseLong(reservationCode);
+			// 예약 번호 = 예약 시작일 + 예약 종료일 + 업체 번호 + 객실 번호
+			String reservationCode = start + end + Integer.toString(companyNum) + Integer.toString(roomNum);
+			long reservationNum = (Long.parseLong(reservationCode));
 
+			System.out.println(reservationNum);
+
+			System.out.println("결제 번호");
 			dto.setRoomNum(roomNum);
 			dto.setReservationNum(reservationNum);
+			System.out.println(dto.getReservationNum());
+
 			dto.setStart_date(req.getParameter("start_date"));
 			dto.setEnd_date(req.getParameter("end_date"));
 			dto.setRealHeadCount(Integer.parseInt(req.getParameter("headCount")));
