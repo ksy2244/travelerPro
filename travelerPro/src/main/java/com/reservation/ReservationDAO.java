@@ -171,8 +171,7 @@ public class ReservationDAO {
 
 		try {
 			sql = " SELECT companyNum, rm.roomNum, roomName, roomInfo, price, discountRate, headCount , imageFileName  "
-					+ " FROM room rm  "
-					+ " JOIN mainRoomImage mr ON mr.roomNum = rm.roomNum "
+					+ " FROM room rm  " + " JOIN mainRoomImage mr ON mr.roomNum = rm.roomNum "
 					+ " WHERE companyNum = ? AND rm.roomNum NOT IN  " + " (SELECT rm.roomNum  FROM reservation r "
 					+ " JOIN reservationDetail rd ON rd.reservationNum = r.reservationNum "
 					+ " JOIN room rm ON rm.roomNum = rd.roomNum " + " JOIN company c ON c.companyNum = rm.companyNum "
@@ -855,8 +854,6 @@ public class ReservationDAO {
 					+ " WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 5 " + "ORDER BY starRate DESC, pick DESC  ";
 			pstmt = conn.prepareStatement(sql);
 
-			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				ReserveCompanyDTO dto = new ReserveCompanyDTO();
 				dto.setCompanyName(rs.getString("companyName"));
@@ -1023,5 +1020,47 @@ public class ReservationDAO {
 		return result;
 	}
 
-	
+	public List<ReservationDTO> roomImageList(int companyNum) {
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "  SELECT imageFileName, r.roomNum, companyNum FROM roomFile rf "
+					+ " JOIN room r ON rf.roomNum = r.roomNum " + " WHERE companyNum =  ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, companyNum);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReservationDTO dto = new ReservationDTO();
+				dto.setImageFileName(rs.getString("imageFileName"));
+				dto.setRoomNum(rs.getInt("roomNum"));
+				dto.setCompanyNum(rs.getInt("companyNum"));
+
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return list;
+	}
+
 }
