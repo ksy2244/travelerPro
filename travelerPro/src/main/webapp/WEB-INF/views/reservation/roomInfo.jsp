@@ -423,7 +423,7 @@
 				style="text-align: right; font-family: 'GmarketSans'">
 				<div class="carousel-item active">
 					<img class="roomImg"
-						src="${pageContext.request.contextPath}/resources/images/mainImg/bokcheon.png"
+						src="${pageContext.request.contextPath}/uploads/ceo/${companyImg}"
 						class="d-block w-100 bestRegion" alt="...">
 					<div class="carousel-caption d-none d-md-block"></div>
 				</div>

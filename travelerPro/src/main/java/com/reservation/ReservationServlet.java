@@ -197,7 +197,6 @@ public class ReservationServlet extends TravelServlet {
 
 			ReserveCompanyDTO companyDto = new ReserveCompanyDTO();
 			ReserveRoomDTO roomDto = new ReserveRoomDTO();
-			ReserveCompanyDTO imageDto = new ReserveCompanyDTO();
 
 			// 업체 정보 가져오기
 			companyDto = dao.readCompany(companyNum);
@@ -206,8 +205,11 @@ public class ReservationServlet extends TravelServlet {
 			roomDto.setCompanyNum(companyNum);
 			
 			
+			// 캐러셀에 담을 객실 이미지 가져오기
 			List<ReservationDTO> imgList = dao.roomImageList(companyNum);
 			
+			//
+			String companyImg = dao.companyImg(companyNum);
 			
 
 			int count = dao.reviewCount(companyNum);
@@ -245,6 +247,7 @@ public class ReservationServlet extends TravelServlet {
 			roomDto.setEnd_date(end_date);
 
 			// JSP로 전달할 속성
+			req.setAttribute("companyImg", companyImg);
 			req.setAttribute("imgList", imgList);
 			req.setAttribute("companyNum", companyNum);
 			req.setAttribute("start_date", start_date);

@@ -1039,7 +1039,6 @@ public class ReservationDAO {
 				dto.setImageFileName(rs.getString("imageFileName"));
 				dto.setRoomNum(rs.getInt("roomNum"));
 				dto.setCompanyNum(rs.getInt("companyNum"));
-
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -1062,5 +1061,49 @@ public class ReservationDAO {
 
 		return list;
 	}
+	
+	
+	public String companyImg (int companyNum) {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = " SELECT DISTINCT cf.imageFileName AS companyImg FROM roomFile rf "
+					+ " JOIN room r ON rf.roomNum = r.roomNum "
+					+ " JOIN companyFile cf ON cf.companyNum = r.companyNum "
+					+ " WHERE cf.companyNum = ?  "; 
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, companyNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+
 
 }
