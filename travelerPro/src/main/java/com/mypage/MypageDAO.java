@@ -278,17 +278,11 @@ public class MypageDAO {
 			sql = " SELECT r.reservationNum, c.companyNum, TO_CHAR(start_date,'yyyy.MM.dd') AS startDate, TO_CHAR(end_date, 'yyyy.MM.dd') AS endDate, "
 					+ "     r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'yyyy.MM.dd') AS  RegDate, roomName, c.companyName, m.userName, "
 					+ " 	paymentPrice, imageFileName, end_date-start_date AS  day" + " FROM reservation r "
-
 					+ " LEFT OUTER JOIN reservationDetail d " + " ON r.reservationNum = d.reservationNum "
-
 					+ " LEFT OUTER JOIN room room " + " ON room.roomNum = d.roomNum "
-
 					+ " LEFT OUTER JOIN company c " + " ON c.companyNum = room.companyNum "
-
 					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
-
 					+ " LEFT OUTER JOIN mainCompanyImage mc " + " ON mc.companyNum = c.companyNum "
-
 					+ " WHERE m.userId = ? AND TO_CHAR(reservation_date, 'YYYYMMDD') >= SYSDATE - (INTERVAL '2' YEAR) AND TO_CHAR(reservation_date,'YYYYMMDD') <= TO_CHAR(SYSDATE, 'YYYYMMDD') ";
 
 			pstmt = conn.prepareStatement(sql);

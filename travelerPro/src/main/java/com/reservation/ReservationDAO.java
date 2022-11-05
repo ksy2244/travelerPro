@@ -538,7 +538,7 @@ public class ReservationDAO {
 	public void insertReservation(ReservationDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
-		ResultSet rs = null;
+		
 		try {
 
 			sql = " INSERT INTO reservation" + "(reservationNum, start_date, end_date, realHeadCount, totalPrice, "
@@ -853,6 +853,8 @@ public class ReservationDAO {
 					+ " WHERE c.companyNum IN (SELECT DISTINCT c.companyNum   FROM company c, room r "
 					+ " WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 5 " + "ORDER BY starRate DESC, pick DESC  ";
 			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		
 
 			while (rs.next()) {
 				ReserveCompanyDTO dto = new ReserveCompanyDTO();

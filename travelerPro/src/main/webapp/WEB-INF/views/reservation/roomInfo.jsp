@@ -384,7 +384,6 @@
 							if (tab == "1") {
 								url += "roomList.do?companyNum=${companyNum}&start_date=${start_date}&end_date=${end_date}&tmp="
 										+ new Date().getTime();
-								alert(url);
 							} else if (tab == "2") {
 								url += "map.do?companyNum=${companyNum}";
 							} else {

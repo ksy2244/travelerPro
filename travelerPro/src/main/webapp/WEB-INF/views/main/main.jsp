@@ -10,7 +10,6 @@
 <title>TRAVELER</title>
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet"
@@ -22,7 +21,6 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/slick/slick-theme.css" />
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/vendor/slick/slick.js"></script>
 <style type="text/css">
@@ -408,7 +406,6 @@ function areaBasedList(areaCode) {
 	let numOfRows = 20;
 	let pageNo = 1;
 	
-	//let url="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList";
 	let url = "http://apis.data.go.kr/B551011/KorService/areaBasedList";
 	let serviceKey = "zoYzQ4HJAPjbBlboD7ozq5qMtBW4Ug2KyjcpX0%2FtxnM9Kn%2F1EmvgUjvNCEe6nhYUKeL4wnHIsZMhQXqCTg1ADA%3D%3D";
 	let query = "ServiceKey="+serviceKey;
@@ -450,9 +447,6 @@ function printAreaBasedList(data) {
 			img = noImg;
 		}
 		var code = $("#areaCode").value;
-		//alert(contentid);
- 		/* ex = "<a href='${pageContext.request.contextPath}/apiEx/test.jsp'"; */
- 		//${pageContext.request.contextPath}/attraction/list.do?contentid="+contentid+'"
 		
 		out += "<div class='post'>";
 		out += "    <div class='slider-image'><img src='"+img+"'></div>";
@@ -499,30 +493,7 @@ $(function(){
 	});
 });
 
-/* function printAreaBasedList(data) {
-	let out = "";
-	let noImg = "${pageContext.request.contextPath}/resources/images/noimage2.png";
-	let dataCount = $(data).find("totalCount").text();
 
-	
-	$(data).find("item").each(function(){
-		let item = $(this);
-		let title = item.find("title").text();
-		let img = item.find("firstimage").text();
-		if(! img) {
-			img = noImg;
-		}
-		
-		out += "<div class='carousel-item'>";
-		out += "	<img class='d-block w-100 bestRegion' src='"+img+"'>";
-		out += "		<div class='carousel-caption d-none d-md-block'>"
-		out += "			<h1>"+title+"<h1>";	
-		out += "		</div>";
-		out += "</div>";
-	});
-	$(".carousel-inner").html(out);
-	$(".carousel-item:last").addClass('active');
-} */
 </script>
 </head>
 <body class="pt-5">
