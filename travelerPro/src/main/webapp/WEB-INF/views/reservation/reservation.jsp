@@ -34,10 +34,6 @@
 	margin-left: 100px;
 }
 
-.name {
-	font-weight: bold;
-}
-
 .font {
 	font-size: 19px;
 	font-weight: 600;
@@ -145,12 +141,16 @@
 
 .name {
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 17px;
 	color: black;
 }
 
+.couponPrice {
+	font-size: 16px;
+}
+
 .couponDay {
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .margin {
@@ -254,7 +254,7 @@ input[type=checkbox] {
 		//결제 
 		let paymentPrice = $("form[name=reservationForm] input[name=paymentPrice]").val();
 		
-		alert(paymentPrice); // 지우면 안 됨. 
+		
 		
 		let subject = "${dto.companyName}(${dto.roomName})";
 		paymentPrice = 100; // 지우면 안 됨.
@@ -453,13 +453,12 @@ input[type=checkbox] {
 										<div class="coupon">
 											<div class="name" align="center">${coupon.couponName}</div>
 											<c:if test="${coupon.couponPrice == 0 }">
-												<div align="center">할인율 ${coupon.couponRate}%</div>
+												<div align="center" class="couponPrice">할인율 ${coupon.couponRate}%</div>
 											</c:if>
 											<c:if test="${coupon.couponRate == 0 }">
-												<div align="center">할인가격 ${coupon.couponPrice}원</div>
+												<div align="center" class="couponPrice">할인가격 ${coupon.couponPrice}원</div>
 											</c:if>
-											<br>
-											<div class="couponDay" align="center">${coupon.start_date}~${coupon.end_date}</div>
+											<div class="couponDay mt-3" align="center">${coupon.start_date}~${coupon.end_date}</div>
 									 	</div>
 									 		
 									 	<div class="couponForm"> 

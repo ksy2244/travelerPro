@@ -334,7 +334,8 @@ body {
     top: 0px;
     left: 210px;;
     color: white;
-    font-size: 
+    font-size: 50px;
+    text-shadow: 2px 2px gray;
  }
 </style>
 
