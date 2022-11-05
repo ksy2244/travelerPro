@@ -37,8 +37,8 @@
 }
 
 .img {
-	width: 200px;
-	height: 200px;
+	width: 250px;
+	height: 230px;
 }
 
 .date {

@@ -15,9 +15,9 @@
 	height: 200px;
 }
 
-.img {
-	width: 200px !important;
-	height: 230px !important;
+.card .img {
+	width: 200px;
+	height: 230px;
 	margin-left: 100px;
 }
 

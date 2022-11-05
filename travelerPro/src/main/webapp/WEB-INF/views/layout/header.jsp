@@ -60,7 +60,6 @@
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/faq.do" style="font-family: 'GmarketSans';">자주 묻는 질문 FAQ</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
 		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/notice.do" style="font-family: 'GmarketSans';">공지사항</a></li>
-		            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/more/service.do" style="font-family: 'GmarketSans';">약관 및 정책</a></li>
 		          </ul>
 		        </li>
 	        	<li class="nav-item">
