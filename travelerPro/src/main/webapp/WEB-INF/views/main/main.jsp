@@ -605,7 +605,7 @@ $(function(){
 							대구
 						</button>
 						<button class="gwangju" type="submit"
-							onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=광주'">
+							onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=5&region=광주'">
 							<div style="color: red;">
 								<i class="fa-solid fa-location-dot fa-2x"></i>
 							</div>

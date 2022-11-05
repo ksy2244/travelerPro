@@ -465,7 +465,7 @@ public class CeoServlet extends TravelServlet {
 			CeoDTO dto = dao.readCto(companyNum);
 
 			if (dto == null) {
-				resp.sendRedirect(cp + "/ceo/list.do?" + query);
+				resp.sendRedirect(cp + "/ceo/main.do?" + query);
 				return;
 			}
 
@@ -474,7 +474,7 @@ public class CeoServlet extends TravelServlet {
 			e.printStackTrace();
 		}
 
-		resp.sendRedirect(cp + "/ceo/list.do?" + query);
+		resp.sendRedirect(cp + "/ceo/main.do?" + query);
 
 	}
 

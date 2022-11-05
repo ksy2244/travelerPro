@@ -97,6 +97,7 @@ public class AttractionServlet extends TravelServlet {
 			
 			List<ReserveCompanyDTO> list = dao.surroundCompany(region);
 			
+			System.out.println(region);
 			req.setAttribute("list", list);
 			req.setAttribute("region", region);
 		} catch (Exception e) {
