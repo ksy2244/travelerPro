@@ -203,14 +203,12 @@ public class ReservationServlet extends TravelServlet {
 
 			// 선택한 업체의 객실 정보
 			roomDto.setCompanyNum(companyNum);
-			
-			
+
 			// 캐러셀에 담을 객실 이미지 가져오기
 			List<ReservationDTO> imgList = dao.roomImageList(companyNum);
-			
+
 			//
 			String companyImg = dao.companyImg(companyNum);
-			
 
 			int count = dao.reviewCount(companyNum);
 

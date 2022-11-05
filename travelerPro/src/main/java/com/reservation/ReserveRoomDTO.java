@@ -14,7 +14,7 @@ public class ReserveRoomDTO {
 	private String companyTel;
 	private String companyInfo;
 	private String amenities;
-	private String  guide;
+	private String guide;
 	private String notice;
 	private String checkInTime;
 	private String checkOutTime;
@@ -24,7 +24,7 @@ public class ReserveRoomDTO {
 	private String start_date; // 시작일
 	private String end_date; // 종료일
 	private String imageFileName;
-	
+
 	public int getRoomNum() {
 		return roomNum;
 	}
@@ -200,7 +200,5 @@ public class ReserveRoomDTO {
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
 	}
-	
-	
 
 }

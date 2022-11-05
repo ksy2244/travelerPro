@@ -181,8 +181,7 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "UPDATE member SET userName=?, userPwd=?, nickName=?, " 
-					+ " birth=TO_DATE(?,'YYYYMMDD'), "
+			sql = "UPDATE member SET userName=?, userPwd=?, nickName=?, " + " birth=TO_DATE(?,'YYYYMMDD'), "
 					+ " email=?, tel=?, mAlarm=?, pAlarm=?, eAlarm=?, sAlarm=? WHERE userId=? ";
 			pstmt = conn.prepareStatement(sql);
 
@@ -197,7 +196,7 @@ public class MemberDAO {
 			pstmt.setInt(9, dto.geteAlarm());
 			pstmt.setInt(10, dto.getsAlarm());
 			pstmt.setString(11, dto.getUserId());
-			
+
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -215,7 +214,7 @@ public class MemberDAO {
 
 	public void deleteMember(MemberDTO dto) throws SQLException {
 		// 탈퇴
-		PreparedStatement pstmt= null;
+		PreparedStatement pstmt = null;
 		String sql;
 
 		try {
@@ -225,10 +224,9 @@ public class MemberDAO {
 			pstmt.setString(1, dto.getUserId());
 
 			pstmt.executeUpdate();
-			
-			
+
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -239,8 +237,6 @@ public class MemberDAO {
 				}
 			}
 		}
-		
-
 
 	}
 
@@ -253,14 +249,13 @@ public class MemberDAO {
 			sql = "UPDATE member SET mAlarm=?, pAlarm=?, eAlarm=?, sAlarm=?, modify_date=? WHERE userId=? ";
 			pstmt = conn.prepareStatement(sql);
 
-			
 			pstmt.setInt(1, dto.getmAlarm());
 			pstmt.setInt(2, dto.getpAlarm());
 			pstmt.setInt(3, dto.geteAlarm());
 			pstmt.setInt(4, dto.getsAlarm());
 			pstmt.setString(5, dto.getModify_date());
 			pstmt.setString(6, dto.getUserId());
-			
+
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -275,7 +270,7 @@ public class MemberDAO {
 			}
 		}
 	}
-	
+
 	public String sysdate() {
 		String result = "";
 		PreparedStatement pstmt = null;

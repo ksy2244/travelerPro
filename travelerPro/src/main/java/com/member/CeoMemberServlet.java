@@ -103,7 +103,8 @@ public class CeoMemberServlet extends TravelServlet {
 
 	}
 
-	private void ceomemberSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void ceomemberSubmit(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		// 회원가입 처리
 		CeoMemberDAO dao = new CeoMemberDAO();
 
@@ -262,7 +263,7 @@ public class CeoMemberServlet extends TravelServlet {
 
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
-			if (info == null) { 
+			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
@@ -293,7 +294,6 @@ public class CeoMemberServlet extends TravelServlet {
 
 		resp.sendRedirect(cp + "/");
 	}
-	
 
 	private void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 아이디 중복 검사
@@ -315,5 +315,4 @@ public class CeoMemberServlet extends TravelServlet {
 		out.print(job.toString());
 	}
 
-	
 }

@@ -20,18 +20,18 @@ public class AttractionServlet extends TravelServlet {
 		req.setCharacterEncoding("utf-8");
 
 		String uri = req.getRequestURI();
-		
+
 		if (uri.indexOf("list.do") != -1) {
 			list(req, resp);
-		}  else if (uri.indexOf("content.do") != -1) {
+		} else if (uri.indexOf("content.do") != -1) {
 			content(req, resp);
-		}  else if (uri.indexOf("map.do") != -1) {
-			map(req, resp); 
+		} else if (uri.indexOf("map.do") != -1) {
+			map(req, resp);
 		} else if (uri.indexOf("surroundcompany.do") != -1) {
 			surroundcompany(req, resp);
 		}
 	}
-	
+
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			String areaCode = req.getParameter("areacode");
@@ -45,40 +45,40 @@ public class AttractionServlet extends TravelServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		forward(req, resp, "/WEB-INF/views/attraction/tourist.jsp");
 	}
+
 	protected void content(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-		String areaCode = req.getParameter("areacode");
-		String region = req.getParameter("region");
-		String id = req.getParameter("contentid");
-		String typeid = req.getParameter("contenttypeid");
-		String mapx = req.getParameter("mapx");
-		String mapy = req.getParameter("mapy");
-		
-		System.out.println(mapx);
-		System.out.println(mapy);
-		req.setAttribute("id", id);
-		req.setAttribute("typeid", typeid);
-		req.setAttribute("areacode", areaCode);
-		req.setAttribute("region", region);
-		req.setAttribute("mapx", mapx);
-		req.setAttribute("mapy", mapy);
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	
+			String areaCode = req.getParameter("areacode");
+			String region = req.getParameter("region");
+			String id = req.getParameter("contentid");
+			String typeid = req.getParameter("contenttypeid");
+			String mapx = req.getParameter("mapx");
+			String mapy = req.getParameter("mapy");
+
+			System.out.println(mapx);
+			System.out.println(mapy);
+			req.setAttribute("id", id);
+			req.setAttribute("typeid", typeid);
+			req.setAttribute("areacode", areaCode);
+			req.setAttribute("region", region);
+			req.setAttribute("mapx", mapx);
+			req.setAttribute("mapy", mapy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		forward(req, resp, "/WEB-INF/views/attraction/content.jsp");
 	}
-	
+
 	protected void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		try {
 			String address = req.getParameter("address");
 			String title = req.getParameter("title");
-			
+
 			System.out.println(address);
 			System.out.println(title);
 			req.setAttribute("address", address);
@@ -88,15 +88,17 @@ public class AttractionServlet extends TravelServlet {
 		}
 		forward(req, resp, "/WEB-INF/views/attraction/map.jsp");
 	}
-	protected void surroundcompany(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	protected void surroundcompany(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		AttractionDAO dao = new AttractionDAO();
-		
+
 		try {
-			
+
 			String region = req.getParameter("addr");
-			
+
 			List<ReserveCompanyDTO> list = dao.surroundCompany(region);
-			
+
 			System.out.println(region);
 			req.setAttribute("list", list);
 			req.setAttribute("region", region);
@@ -105,5 +107,5 @@ public class AttractionServlet extends TravelServlet {
 		}
 		forward(req, resp, "/WEB-INF/views/attraction/surroundcompany.jsp");
 	}
-	
+
 }

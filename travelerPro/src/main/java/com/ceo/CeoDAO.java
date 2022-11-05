@@ -85,7 +85,7 @@ public class CeoDAO {
 				} catch (Exception e2) {
 				}
 			}
-			if(rs != null) {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (Exception e2) {
@@ -102,8 +102,12 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = "SELECT companyNum, companyName, companyTel,addr,approval " + " FROM company" + " WHERE userId = ?"
-					+ " ORDER BY companyNum DESC" + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+			sql = "SELECT companyNum, companyName, companyTel,addr,approval " 
+					+ " FROM company" 
+					+ " WHERE userId = ?"
+					+ " ORDER BY companyNum DESC" 
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+			
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, id);
@@ -221,7 +225,8 @@ public class CeoDAO {
 		String sql;
 		try {
 			sql = "SELECT companyNum, companyName, companyTel, companyInfo, amenities, guide, regionName,"
-					+ " checkinTime, checkoutTime, addr, addrDetail, zip, notice, businessNum,userId " + " FROM company"
+					+ " checkinTime, checkoutTime, addr, addrDetail, zip, notice, businessNum,userId " 
+					+ " FROM company"
 					+ " WHERE companyNum = ?";
 
 			pstmt = conn.prepareStatement(sql);
@@ -396,7 +401,8 @@ public class CeoDAO {
 
 		try {
 			sql = "SELECT r.inquiryNum, r.content,r.reg_date,c.companyNum,nickName,companyName,answhether"
-					+ " FROM reserveq r " + " JOIN member m ON r.userId = m.userId "
+					+ " FROM reserveq r "
+					+ " JOIN member m ON r.userId = m.userId "
 					+ " JOIN company c ON c.companyNum = r.companyNum "
 					+ " LEFT OUTER JOIN reservea a ON a.inquiryNum = r.inquiryNum"
 					+ " WHERE c.companyNum IN (SELECT companyNum from company where userId = ?) "
@@ -451,7 +457,8 @@ public class CeoDAO {
 
 		try {
 			sql = "SELECT inquiryNum, r.content,r.reg_date,c.companyNum,nickName FROM reserveq r"
-					+ " JOIN company c ON c.companyNum = r.companyNum" + " JOIN member m ON r.userId = m.userId"
+					+ " JOIN company c ON c.companyNum = r.companyNum"
+					+ " JOIN member m ON r.userId = m.userId"
 					+ " WHERE c.companyNum = ?";
 
 			pstmt = conn.prepareStatement(sql);
@@ -524,9 +531,11 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = "SELECT answerNum,r.content,r.reg_date,r.inquiryNum,c.companyNum " + " FROM reservea r"
+			sql = "SELECT answerNum,r.content,r.reg_date,r.inquiryNum,c.companyNum " 
+					+ " FROM reservea r"
 					+ " JOIN reserveq e ON r.inquiryNum = e.inquiryNum"
-					+ " JOIN company c ON c.companyNum = r.companyNum" + " WHERE e.inquiryNum = ?";
+					+ " JOIN company c ON c.companyNum = r.companyNum" 
+					+ " WHERE e.inquiryNum = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 
@@ -594,12 +603,17 @@ public class CeoDAO {
 			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
 					+ " r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, "
 					+ " paymentPrice, realheadCount,room.roomname,c.companyName,c.companyNum,r.userId,r.realUsertel, r.reservationNum,r.realUsername "
-					+ " FROM reservation r " + " LEFT OUTER JOIN reservationDetail d "
-					+ " ON r.reservationNum = d.reservationNum " + " LEFT OUTER JOIN room room "
-					+ " ON room.roomNum = d.roomNum " + " LEFT OUTER JOIN company c "
-					+ " ON c.companyNum = room.companyNum " + " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
+					+ " FROM reservation r " 
+					+ " LEFT OUTER JOIN reservationDetail d "
+					+ " ON r.reservationNum = d.reservationNum "
+					+ " LEFT OUTER JOIN room room "
+					+ " ON room.roomNum = d.roomNum " 
+					+ " LEFT OUTER JOIN company c "
+					+ " ON c.companyNum = room.companyNum " 
+					+ " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
 					+ " WHERE c.companyNum IN (SELECT companyNum from company where userId = ?) "
-					+ " ORDER BY reservationNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+					+ " ORDER BY reservationNum DESC " 
+					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -656,10 +670,14 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = " SELECT COUNT(*) FROM reservation r " + " LEFT OUTER JOIN reservationDetail d "
-					+ " ON r.reservationNum = d.reservationNum" + " LEFT OUTER JOIN room room  "
-					+ " ON room.roomNum = d.roomNum " + " LEFT OUTER JOIN company c  "
-					+ " ON c.companyNum = room.companyNum " + " LEFT OUTER JOIN member m  "
+			sql = " SELECT COUNT(*) FROM reservation r "
+					+ " LEFT OUTER JOIN reservationDetail d "
+					+ " ON r.reservationNum = d.reservationNum" 
+					+ " LEFT OUTER JOIN room room  "
+					+ " ON room.roomNum = d.roomNum "
+					+ " LEFT OUTER JOIN company c  "
+					+ " ON c.companyNum = room.companyNum " 
+					+ " LEFT OUTER JOIN member m  "
 					+ " ON m.userId = r.userId  "
 					+ "  WHERE c.companyNum IN(SELECT companyNum from company where userId =?)";
 			pstmt = conn.prepareStatement(sql);
@@ -702,10 +720,15 @@ public class CeoDAO {
 			sql = " SELECT TO_CHAR(start_date, 'YYYY-MM-DD') AS startDate, TO_CHAR(end_date, 'YYYY-MM-DD') AS endDate, "
 					+ " r.checkInTime, r.checkOutTime, TO_CHAR(reservation_Date, 'YYYY-MM-DD') AS  RegDate, "
 					+ " paymentPrice, realheadCount,room.roomname,c.companyName,c.companyNum,r.userId,r.realUsertel, r.reservationNum,r.realUsername "
-					+ " FROM reservation r " + " LEFT OUTER JOIN reservationDetail d "
-					+ " ON r.reservationNum = d.reservationNum " + " LEFT OUTER JOIN room room "
-					+ " ON room.roomNum = d.roomNum " + " LEFT OUTER JOIN company c "
-					+ " ON c.companyNum = room.companyNum " + " LEFT OUTER JOIN member m " + " ON m.userId = r.userId "
+					+ " FROM reservation r " 
+					+ " LEFT OUTER JOIN reservationDetail d "
+					+ " ON r.reservationNum = d.reservationNum " 
+					+ " LEFT OUTER JOIN room room "
+					+ " ON room.roomNum = d.roomNum " 
+					+ " LEFT OUTER JOIN company c "
+					+ " ON c.companyNum = room.companyNum "
+					+ " LEFT OUTER JOIN member m " 
+					+ " ON m.userId = r.userId "
 					+ " WHERE r.reservationNum=? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -751,7 +774,6 @@ public class CeoDAO {
 		return dto;
 	}
 
-	
 	public int payListCount(String id) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -759,15 +781,15 @@ public class CeoDAO {
 		String sql;
 
 		try {
-				sql =  "SELECT COUNT(*) FROM "
+			sql = "SELECT COUNT(*) FROM " 
 					+ " (SELECT c.companyNum "
 					+ " FROM reservation r 			"
 					+ " LEFT OUTER JOIN reservationDetail d ON r.reservationNum = d.reservationNum "
 					+ " LEFT OUTER JOIN room room  ON room.roomNum = d.roomNum  "
 					+ " LEFT OUTER JOIN company c  ON c.companyNum = room.companyNum  "
-					+ " LEFT OUTER JOIN member m  ON m.userId = r.userId " 
+					+ " LEFT OUTER JOIN member m  ON m.userId = r.userId "
 					+ " WHERE c.companyNum IN(SELECT companyNum FROM company WHERE userId = ? ) "
-					+ " GROUP BY c.companyNum )" ;
+					+ " GROUP BY c.companyNum )";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -794,8 +816,7 @@ public class CeoDAO {
 
 		return result;
 	}
-	
-	
+
 	public ServiceDTO readService() {
 		ServiceDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -836,7 +857,7 @@ public class CeoDAO {
 		return dto;
 
 	}
-	
+
 	public List<ServiceDTO> listCategory() {
 		List<ServiceDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -844,11 +865,12 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = " SELECT serviceNum, serviceName, serviceImg " + " FROM service ";
+			sql = " SELECT serviceNum, serviceName, serviceImg " 
+					+ " FROM service ";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				ServiceDTO dto = new ServiceDTO();
 
@@ -935,17 +957,15 @@ public class CeoDAO {
 		String sql;
 
 		try {
-			sql = " SELECT c.companyName, c.companyNum, SUM(paymentPrice) AS sales"
-					+ " FROM reservation r 			"
+			sql = " SELECT c.companyName, c.companyNum, SUM(paymentPrice) AS sales" + " FROM reservation r 			"
 					+ " LEFT OUTER JOIN reservationDetail d ON r.reservationNum = d.reservationNum "
 					+ " LEFT OUTER JOIN room room  ON room.roomNum = d.roomNum "
 					+ " LEFT OUTER JOIN company c  ON c.companyNum = room.companyNum "
 					+ " LEFT OUTER JOIN member m  ON m.userId = r.userId "
 					+ " WHERE c.companyNum IN ( SELECT companyNum FROM company WHERE userId = ? ) "
-					+ " GROUP BY c.companyNum, c.companyName  "
-					+ " ORDER BY c.companyNum ASC  "
+					+ " GROUP BY c.companyNum, c.companyName  " + " ORDER BY c.companyNum ASC  "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
-			
+
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, Userid);

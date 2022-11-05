@@ -231,18 +231,14 @@ public class MemberServlet extends TravelServlet {
 			}
 
 			/*
-			if (mode.equals("delete")) {
-				// 회원탈퇴
-				dao.deleteMember(info.getUserId());
-
-				session.removeAttribute("member");
-				session.invalidate();
-
-				resp.sendRedirect(cp + "/");
-
-				return;
-			}
-		*/
+			 * if (mode.equals("delete")) { // 회원탈퇴 dao.deleteMember(info.getUserId());
+			 * 
+			 * session.removeAttribute("member"); session.invalidate();
+			 * 
+			 * resp.sendRedirect(cp + "/");
+			 * 
+			 * return; }
+			 */
 			// 회원정보수정 - 회원수정폼으로 이동
 			req.setAttribute("title", "회원 정보 수정");
 			req.setAttribute("dto", dto);
@@ -390,13 +386,13 @@ public class MemberServlet extends TravelServlet {
 			MemberDTO dto = new MemberDTO();
 
 			dto.setUserId(info.getUserId());
-		
+
 			dao.deleteMember(dto);
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		resp.sendRedirect(cp + "/");
 	}
-	
+
 }

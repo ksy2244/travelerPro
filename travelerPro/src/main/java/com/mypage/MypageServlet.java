@@ -40,14 +40,13 @@ public class MypageServlet extends TravelServlet {
 
 		if (uri.indexOf("coupon.do") != -1) {
 			coupon(req, resp);
-		}
-		else if (uri.indexOf("couponInfo.do") != -1) {
+		} else if (uri.indexOf("couponInfo.do") != -1) {
 			couponInfo(req, resp);
-		} 
+		}
 
 		else if (uri.indexOf("alarm.do") != -1) {
 			alarm(req, resp);
-		} 
+		}
 
 		else if (uri.indexOf("pick.do") != -1) {
 			pick(req, resp);
@@ -56,12 +55,12 @@ public class MypageServlet extends TravelServlet {
 		else if (uri.indexOf("myReservation.do") != -1) {
 			myReservation(req, resp);
 		}
-		
-		// 예약 상세 정보 
+
+		// 예약 상세 정보
 		else if (uri.indexOf("reservationDetail.do") != -1) {
 			reservationDetail(req, resp);
 		}
-		
+
 		// 나의 리뷰
 		else if (uri.indexOf("myReview.do") != -1) {
 			myReview(req, resp);
@@ -239,7 +238,7 @@ public class MypageServlet extends TravelServlet {
 		try {
 
 			List<ReservationDTO> list = null;
-			
+
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
@@ -263,8 +262,8 @@ public class MypageServlet extends TravelServlet {
 
 	}
 
-	
-	private void reservationDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void reservationDetail(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		MypageDAO dao = new MypageDAO();
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -276,22 +275,21 @@ public class MypageServlet extends TravelServlet {
 		try {
 
 			System.out.println("reservationDatail");
-			
+
 			if (info == null) {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
-			
-			long reservationNum =  Long.parseLong(req.getParameter("reservationNum"));
-			
-			//System.out.println(info.getUserId());
+
+			long reservationNum = Long.parseLong(req.getParameter("reservationNum"));
+
+			// System.out.println(info.getUserId());
 			ReservationDTO dto = new ReservationDTO();
 			dto = dao.reservationDetail(reservationNum);
 			System.out.println(reservationNum);
 
 			// JSP로 전달할 속성
 			req.setAttribute("dto", dto);
-		
 
 			// 포워딩
 			forward(req, resp, "/WEB-INF/views/mypage/reservationDatail.jsp");

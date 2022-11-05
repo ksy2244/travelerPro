@@ -87,9 +87,9 @@ public class ReviewServlet extends TravelServlet {
 
 			System.out.println(companyNum);
 			int checkRoll = dao.checkRoll(companyNum, info.getUserId());
-			
+
 			System.out.println(checkRoll);
-			if(checkRoll <=0 ) {
+			if (checkRoll <= 0) {
 				return;
 			}
 

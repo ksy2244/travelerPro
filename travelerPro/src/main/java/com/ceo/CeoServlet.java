@@ -430,7 +430,6 @@ public class CeoServlet extends TravelServlet {
 				return;
 			}
 			List<CeoDTO> listFile = dao.listPhotoFile(num);
-			
 
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
@@ -538,7 +537,7 @@ public class CeoServlet extends TravelServlet {
 		String page = req.getParameter("page");
 		try {
 			CeoDTO dto = new CeoDTO();
-			
+
 			String[] ss = req.getParameterValues("checkList");
 
 			String service = "";
