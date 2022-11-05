@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약내용</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
@@ -15,11 +15,7 @@
 	max-width: 1500px;
 }
 
-th{font-size:25px;}
 
-td{ padding: 15px;
-font-size: 18px;
-}
 
 
 .body-title {
@@ -65,6 +61,12 @@ font-size: 18px;
 	width: 20px;
 	height: 20px;
 }
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
 </style>
 </head>
 <body>
@@ -75,7 +77,7 @@ font-size: 18px;
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h1> 예약번호:${dto.reservationNum} </h1>
+				<h3> 예약번호:${dto.reservationNum} </h3>
 			</div>
 			
 			<div class="body-main">
@@ -92,64 +94,14 @@ font-size: 18px;
 					<tbody>
 						<tr>
 							<td align="left" >
-								업체이름:${dto.companyName}
+								업체이름 : ${dto.companyName}
 								
 							</td>
 						</tr>
 						
 						<tr>
 							<td align="left">
-								업체번호:${dto.companyNum}
-								
-							</td>
-						</tr>
-						
-						
-						<tr>
-							<td align="left">
-								이용자이름:${dto.realUserName}
-								
-							</td>
-						</tr>
-						<tr>
-							<td align="left">
-								회원아이디:${dto.userId}
-								
-							</td>
-						</tr>
-						<tr>
-							<td align="left">
-								이용자전화번호:${dto.realUserTel}
-								
-							</td>
-						</tr>
-						
-						<tr>
-							<td align="left">
-								방이름 :${dto.roomName }
-								
-								
-							</td>
-						</tr>
-						<tr>
-							<td align="left">
-								시작날짜:${dto.start_date}
-								
-								
-							</td>
-						</tr>
-						<tr>
-							<td align="left">
-								종료날짜:${dto.end_date}
-								
-								
-							</td>
-						</tr>
-						
-						<tr>
-							<td align="left">
-								인원수:${dto.realHeadCount} 
-								
+								업체번호 : ${dto.companyNum}
 								
 							</td>
 						</tr>
@@ -157,21 +109,40 @@ font-size: 18px;
 						
 						<tr>
 							<td align="left">
-								체크인시간:${dto.checkInTime}
+								이용자 이름 : ${dto.realUserName}
+								
+							</td>
+						</tr>
+						<tr>
+							<td align="left">
+								회원 아이디 : ${dto.userId}
+								
+							</td>
+						</tr>
+						<tr>
+							<td align="left">
+								이용자 전화번호 : ${dto.realUserTel}
+								
+							</td>
+						</tr>
+						
+						<tr>
+							<td align="left">
+								방이름 : ${dto.roomName }
 								
 								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
-								체크아웃시간:${dto.checkOutTime}
+								시작 날짜 : ${dto.start_date}
 								
 								
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
-								결재금액:${dto.paymentPrice }
+								종료 날짜 : ${dto.end_date}
 								
 								
 							</td>
@@ -179,7 +150,38 @@ font-size: 18px;
 						
 						<tr>
 							<td align="left">
-								예약날짜:${dto.reservation_date}
+								인원수 : ${dto.realHeadCount} 
+								
+								
+							</td>
+						</tr>
+						
+						
+						<tr>
+							<td align="left">
+								체크인 시간 : ${dto.checkInTime}
+								
+								
+							</td>
+						</tr>
+						<tr>
+							<td align="left">
+								체크아웃 시간 : ${dto.checkOutTime}
+								
+								
+							</td>
+						</tr>
+						<tr>
+							<td align="left">
+								결재금액 : ${dto.paymentPrice }
+								
+								
+							</td>
+						</tr>
+						
+						<tr>
+							<td align="left">
+								예약 날짜 : ${dto.reservation_date}
 								
 								
 							</td>
@@ -194,7 +196,7 @@ font-size: 18px;
 					<tr>
 							
 						<td class="text-end">
-							<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/ceo/reservation.do';">리스트</button>
+							<button type="button" class="btn text-white" id="basic"  onclick="location.href='${pageContext.request.contextPath}/ceo/reservation.do';">리스트</button>
 						</td>
 					</tr>
 				</table>

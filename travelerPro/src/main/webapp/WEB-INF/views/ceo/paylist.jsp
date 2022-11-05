@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
-th{font-size:25px;}
-
+th{font-size:19px;} 
+ 
 td{ padding: 15px;
-font-size: 18px;
+font-size: 16px; 
 }
 .body-container {
 	max-width: 1500px;
@@ -63,11 +63,10 @@ font-size: 18px;
 			
 			<div class="body-main">
 		        <div class="row board-list-header">	        	
-		           <div><h1 align="center">총매출: ${sales}</h1></div>
-		            <div class="col-auto me-auto page">
-		            	${dataCount}개(${page}/${total_page} 페이지)
+		           <div><h3 align="center">총 매출: ${sales} 원</h3></div>
+		            <div class="col-auto me-auto">
+		            	${dataCount}개 (${page}/${total_page} 페이지)
 		            </div>
-		            <div class="col-auto">&nbsp;</div>
 		        </div>				
 				
 				<table class="table table-hover board-list">
@@ -83,7 +82,7 @@ font-size: 18px;
 						 <c:forEach var="dto" items="${saleslist}" varStatus="status"> 
 							<tr>
 								<td>${dto.companyName}</td>
-								<td>${dto.paymentPrice}</td>
+								<td>${dto.paymentPrice} 원</td>
 								
 							</tr>
 						< </c:forEach>

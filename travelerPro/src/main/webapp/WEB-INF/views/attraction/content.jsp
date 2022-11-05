@@ -30,6 +30,7 @@
 	margin-top: 20px;
 	width: 1030px;
 	margin-left: 130px;
+	color: black;
 }
 
 #nav-tabContent{
@@ -46,10 +47,10 @@
 	text-align: center;
 }
 
-.img {
-   width: 800px;
-   margin: auto;
-   display: block;
+.attraction-image {
+	width: 600px;
+	height: 650px;
+	margin-left: 130px;
 }
 
 .body-container {

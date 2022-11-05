@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
@@ -408,9 +408,9 @@ $(function(){
 						</div>
 						
 						<div class="checkList">
-						<label for="exampleFormControlTextarea1" class="form-label">서비스 유형 </label>
+						<label for="exampleFormControlTextarea1" class="form-label">서비스 유형 : </label>
 							<c:forEach var="vo" items="${list}">
-								<label>${vo.serviceName}<input type="checkbox"
+								<label>${vo.serviceName} <input type="checkbox"
 									value="${vo.serviceNum}" name="checkList" /></label>
 							</c:forEach>
 						</div>

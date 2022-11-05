@@ -6,14 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
-th{font-size:23px;}
 
-td{ padding: 20px;
-font-size: 18px;
-}
 
 .body-container {
 	max-width: 1500px;
@@ -56,7 +52,7 @@ font-size: 18px;
 	<div class="container mt-3">
 		<div class="body-container">	
 			<div class="body-title">
-				<h1> 예약정보 리스트 </h1>
+				<h3> 예약정보 리스트 </h3>
 				
 			</div>
 			<div class="body-main">
@@ -64,7 +60,7 @@ font-size: 18px;
 		        
 		        	
 		            <div class="col-auto me-auto page">
-		            	${dataCount}개(${page}/${total_page} 페이지)
+		            	${dataCount}개 (${page}/${total_page} 페이지)
 		            </div>
 		            <div class="col-auto">&nbsp;</div>
 		        </div>				

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>traveler</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
@@ -307,16 +307,12 @@ body {
 .company-name {
 	font-size: 16px;
 	margin-top: 10px;
-	padding-left: 10px;
-}
-
-.company-name:hover {
-	
+	margin-bottom: 5px;
 }
 
 .star {
 	color: #FFBB00;
-	margin-left: 30px;
+	margin-left: 18px;
 }
 
 .all {
@@ -783,7 +779,7 @@ $(function(){
 						TRAVELER의 인기숙소도 같이 만나보세요 
 						<a href="${pageContext.request.contextPath}/reservation/companyList.do?"
 							style ="float:right; margin-right:60px">
-							<i class="fa-sharp fa-solid fa-chevron-right"></i>더보기
+							더보기 <i class="fa-sharp fa-solid fa-chevron-right"></i>
 						</a>
 					</div>
 				</div>

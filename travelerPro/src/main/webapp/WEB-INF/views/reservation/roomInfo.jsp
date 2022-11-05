@@ -447,7 +447,7 @@
 
 				<!-- 시작일, 종료일 -->
 				<div class="border-secondary mb-3">
-					<div class="shadowBox" style="width: 1100px; height: 1250px;">
+					<div class="shadowBox" style="width: 1100px; height: 1400px;">
 						<span class="trip">
 							<a class="btn gray" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 							<img src="${pageContext.request.contextPath}/resources/images/한국관광공사.png" style="width: 14px;" class="imgg">&nbsp;<span class="ok">인증</span>

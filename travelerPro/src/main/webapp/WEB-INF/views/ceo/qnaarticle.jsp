@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 .img-box img {

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 .body-container {
@@ -63,7 +63,7 @@
 			<div class="body-main">
 		        <div class="row board-list-header">
 		            <div class="col-auto me-auto page">
-		            	${dataCount}개(${page}/${total_page} 페이지)
+		            	${dataCount}개 (${page}/${total_page} 페이지)
 		            </div>
 		            <div class="col-auto">&nbsp;</div>
 		        </div>				

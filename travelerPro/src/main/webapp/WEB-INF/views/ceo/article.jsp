@@ -6,13 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CEOMain</title>
+<title>CEO</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 .img-box img {
 	cursor: pointer;
 
 }
+
+#basic {
+	background-color: #6C757D;
+}
+
+#basic:hover{background-color:#7689A5;}
 
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -48,11 +54,11 @@ function imageViewer(src) {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-person-square"></i> 업체상세정보 </h3>
+				<h3> 업체 상세 정보 </h3>
 			</div>
 			
 		    <div class="alert alert-info" role="alert">
-		        <i class="bi bi-person-check-fill"></i> 업체상세정보 입니다.
+		         업체 상세 정보입니다.
 		    </div>
 			
 			<div class="body-main">
@@ -158,16 +164,16 @@ function imageViewer(src) {
 					  <c:set var="serviceList" value="${dto.amenities}"></c:set>
 							<c:forEach var="service" items="${serviceList}">
 									<c:choose>
-										<c:when test="${service == 1}">와이파이&nbsp;</c:when>
-										<c:when test="${service == 2}">애견동반&nbsp; </c:when>
-										<c:when test="${service == 3}">개별 바베큐&nbsp; </c:when>
-										<c:when test="${service == 4}">수영장&nbsp;</c:when>
-										<c:when test="${service == 5}">주차 가능&nbsp;</c:when>
-										<c:when test="${service == 6}">상비약&nbsp;</c:when>
-										<c:when test="${service == 7}">기본 양념&nbsp;</c:when>
-										<c:when test="${service == 8}">매점/편읭점&nbsp;</c:when>
-										<c:when test="${service == 9}">조식 운영&nbsp;</c:when>
-										<c:when test="${service == 10}">운동장&nbsp;</c:when>
+										<c:when test="${service == 1}">와이파이&nbsp;/ </c:when>
+										<c:when test="${service == 2}">애견동반&nbsp;/ </c:when>
+										<c:when test="${service == 3}">개별 바베큐&nbsp;/ </c:when>
+										<c:when test="${service == 4}">수영장&nbsp;/ </c:when>
+										<c:when test="${service == 5}">주차 가능&nbsp;/ </c:when>
+										<c:when test="${service == 6}">상비약&nbsp;/ </c:when>
+										<c:when test="${service == 7}">기본 양념&nbsp;/ </c:when>
+										<c:when test="${service == 8}">매점&편의점&nbsp;/ </c:when>
+										<c:when test="${service == 9}">조식 운영&nbsp;/ </c:when>
+										<c:when test="${service == 10}">운동장&nbsp;/ </c:when> 
 										<c:otherwise><p>기타</p></c:otherwise> 
 										
 							</c:choose>
@@ -186,7 +192,7 @@ function imageViewer(src) {
 				        <div class="text-center">
 						<%-- 	<c:choose> --%>
 								<%-- <c:when test="${sessionScope.member.userId==dto.userId}"> --%>
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ceo/update.do?companyNum=${dto.companyNum}&page=${page}';">수정</button>
+									<button type="button" class="btn text-white" id="basic"  onclick="location.href='${pageContext.request.contextPath}/ceo/update.do?companyNum=${dto.companyNum}&page=${page}';">수정</button>
 <%-- 								</c:when>
 								<c:otherwise>
 									<button type="button" class="btn btn-primary" disabled="disabled">수정</button>
@@ -195,7 +201,7 @@ function imageViewer(src) {
 					    	
 							<c:choose> --%>
 					    		<%-- <c:when test="${sessionScope.member.userId==dto.userId}"> --%>
-					    			<button type="button" class="btn btn-primary" onclick="deleteCeo();">삭제</button>
+					    			<button type="button" class="btn text-white" id="basic" onclick="deleteCeo();">삭제</button>
 <%-- 					    		</c:when>
 					    		<c:otherwise>
 					    			<button type="button" class="btn btn-primary" disabled="disabled">삭제</button>
