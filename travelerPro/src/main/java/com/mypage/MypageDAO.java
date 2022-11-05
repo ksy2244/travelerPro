@@ -174,12 +174,14 @@ public class MypageDAO {
 		ResultSet rs = null;
 		String sql;
 		try {
-			sql = " SELECT c.companyNum, companyName,imageFileName, checkInTime, r.price, cp.pick  " + " FROM pick p  "
-					+ " JOIN company c ON c.companyNum = p.companyNum  "
-					+ " JOIN companyPick cp ON p.companyNum = cp.companyNum "
-					+ " JOIN room r ON r.companyNum = p.companyNum "
-					+ " JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum  " + " WHERE p.userId = ? "
-					+ " ORDER BY companyNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+				sql = " SELECT DISTINCT c.companyNum, companyName,imageFileName, checkInTime, minPrice, cp.pick FROM pick p  "
+					+" JOIN company c ON c.companyNum = p.companyNum  " 
+					+" JOIN companyPick cp ON p.companyNum = cp.companyNum "  
+					+" JOIN room r ON r.companyNum = p.companyNum " 
+					+" JOIN mainCompanyImage mc ON mc.companyNum = p.companyNum "
+					+" JOIN companyPrice cpr ON cpr.companyNum = p.companyNum  " 
+					+" WHERE p.userId = ? "
+					+" ORDER BY companyNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -196,7 +198,7 @@ public class MypageDAO {
 				dto.setCompanyNum(rs.getInt("companyNum"));
 				dto.setCompanyName(rs.getString("companyName"));
 				dto.setCheckInTime(rs.getString("checkInTime"));
-				dto.setMinPrice(rs.getInt("price"));
+				dto.setMinPrice(rs.getInt("minPrice"));
 				dto.setPick(rs.getInt("pick"));
 				dto.setImageFileName(rs.getString("imageFileName"));
 
