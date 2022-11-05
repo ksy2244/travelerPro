@@ -371,7 +371,7 @@ function printphoto(data){
 		
 		out += "<div class='company-photo'>";
 		out += "	<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>";		
-		out += "		<img alt='' src='"+imageFileName+"'>";
+		out += "		<img alt='' src='${pageContext.request.contextPath}/uploads/ceo/'"+imageFileName+"'>";
 		out += "	</a>";
 		out += "	<div class='company-name'>";
 		out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";

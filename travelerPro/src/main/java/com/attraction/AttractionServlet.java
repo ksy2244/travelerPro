@@ -25,9 +25,7 @@ public class AttractionServlet extends TravelServlet {
 			list(req, resp);
 		}  else if (uri.indexOf("content.do") != -1) {
 			content(req, resp);
-		} else if (uri.indexOf("article.do") != -1) {
-			article(req, resp);
-		} else if (uri.indexOf("map.do") != -1) {
+		}  else if (uri.indexOf("map.do") != -1) {
 			map(req, resp); 
 		} else if (uri.indexOf("surroundcompany.do") != -1) {
 			surroundcompany(req, resp);
@@ -75,9 +73,6 @@ public class AttractionServlet extends TravelServlet {
 		forward(req, resp, "/WEB-INF/views/attraction/content.jsp");
 	}
 	
-	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	}
 	protected void map(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {

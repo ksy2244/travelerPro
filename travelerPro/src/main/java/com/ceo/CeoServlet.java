@@ -48,8 +48,6 @@ public class CeoServlet extends TravelServlet {
 			recognitionSubmit(req, resp);
 		} else if (uri.indexOf("paylist.do") != -1) {
 			payList(req, resp);
-		} else if (uri.indexOf("room.do") != -1) {
-			room(req, resp);
 		} else if (uri.indexOf("reservation.do") != -1) {
 			reservation(req, resp);
 		} else if (uri.indexOf("reservationarticle.do") != -1) {
@@ -305,10 +303,6 @@ public class CeoServlet extends TravelServlet {
 		}
 
 		forward(req, resp, "/WEB-INF/views/ceo/paylist.jsp");
-	}
-
-	protected void room(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 	}
 
 	protected void reservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

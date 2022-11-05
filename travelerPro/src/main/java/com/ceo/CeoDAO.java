@@ -85,6 +85,12 @@ public class CeoDAO {
 				} catch (Exception e2) {
 				}
 			}
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
 		}
 
 	}
