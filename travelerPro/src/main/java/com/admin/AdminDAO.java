@@ -581,7 +581,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*) "
 					+ " FROM memberQ "
-					+ " WHERE answer = 1 ";
+					+ " WHERE answer = 0 ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
