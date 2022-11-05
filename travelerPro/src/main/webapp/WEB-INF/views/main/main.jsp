@@ -378,7 +378,7 @@ function printphoto(data){
 		
 		out += "<div class='company-photo'>";
 		out += "	<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>";		
-		out += "		<img alt='' src='${pageContext.request.contextPath}/uploads/ceo/'"+imageFileName+"'>";
+		out += "		<img alt='' src='${pageContext.request.contextPath}/uploads/ceo/"+imageFileName+"'>";
 		out += "	</a>";
 		out += "	<div class='company-name'>";
 		out += "		<a href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum="+companyNum+"'>"+companyName+"</a>";
@@ -525,7 +525,6 @@ $(function(){
 					<div class="map-image">
 						<img alt="지도"
 							src="${pageContext.request.contextPath}/resources/images/map.png">
-						<!-- <img alt="지도" src="resources/images/exmarker.png"> -->
 					</div>
 					<div class="region-button">
 						<button class="seoul" type="submit"
