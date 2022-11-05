@@ -15,9 +15,9 @@
 	height: 200px;
 }
 
-.card .img {
-	width: 200px;
-	height: 200px;
+.img {
+	width: 200px !important;
+	height: 230px !important;
 	margin-left: 100px;
 }
 
@@ -148,7 +148,7 @@ div card {
 									onclick="location.href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum=${dto.companyNum}'">
 									<img
 										src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
-										class="img" style="width: 200px; height: 200px;">
+										class="img">
 									<div class="card-body">
 										<div class="card-title company">${dto.companyName}</div>
 										<c:choose>

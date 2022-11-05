@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>TRAVELER</title>
 <jsp:include page="/layout/staticHeader.jsp"/>
 
 <style type="text/css">

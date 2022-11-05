@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>admin</title>
+<title>TRAVELER</title>
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 

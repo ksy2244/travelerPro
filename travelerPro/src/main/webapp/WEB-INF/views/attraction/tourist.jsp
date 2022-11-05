@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>attraction</title>
+<title>TRAVELER</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
