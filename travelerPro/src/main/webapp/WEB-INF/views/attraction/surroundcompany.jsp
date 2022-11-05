@@ -15,11 +15,11 @@
 	height: 200px;
 }
 
-.card .img {
+/* .card .img {
 	width: 200px;
 	height: 230px; 
 	margin-left: 100px;
-}
+} */
 
 div card {
 	/* margin-left: 100px; */
@@ -138,8 +138,7 @@ div card {
 			</div>
 			<div class="body-main">
 				<div class="row row-cols-auto">
-					<c:forEach var="dto" items="${list}" varStatus="status" begin="1"
-						end="3">
+					<c:forEach var="dto" items="${list}" varStatus="status" begin="1" end="3">
 						<div class="row row-cols-1 row-cols-md-3 g-4">
 							<div class="card-group"
 								style="width: 300px; height: 300px; margin: auto;">
@@ -148,7 +147,7 @@ div card {
 									onclick="location.href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum=${dto.companyNum}'">
 									<img
 										src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
-										class="img">
+										class="img" style="width: 200px; height: 200px; margin-left: 100px;">
 									<div class="card-body">
 										<div class="card-title company">${dto.companyName}</div>
 										<c:choose>
