@@ -18,8 +18,8 @@ public void insertRoom(RoomDTO dto)throws SQLException{
 	String sql;
 	
 	try {
-		sql="INSERT INTO room(roomNum, roomName, roomInfo, price, discountRate, headCount, companyNum, roomState)"
-				+ " VALUES(room_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, 0) ";
+		sql="INSERT INTO room(roomNum, roomName, roomInfo, price, discountRate, headCount, companyNum )"
+				+ " VALUES(room_seq.NEXTVAL, ?, ?, ?, ?, ?, ? ) ";
 		
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1,dto.getRoomName());
