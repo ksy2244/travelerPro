@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>TRAVELER</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -278,7 +279,7 @@ function printAreaBasedList(data) {
       <span class="gap"></span>
       <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=대구'">#대구</button></span>
       <span class="gap"></span>
-      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=4&region=광주'">#광주</button></span>
+      <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=5&region=광주'">#광주</button></span>
       <br>
       <span><button type="button" class="btn btn-light mb-3" onclick="location.href='${pageContext.request.contextPath}/attraction/list.do?areacode=7&region=울산'">#울산</button></span>
       <span class="gap"></span>

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TRAVELER</title>
-
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <style type="text/css">
 .body-container {
@@ -179,7 +179,7 @@ $(function() {
 
 						</div>
 				
-					<div class="page-navigation paging">${dataPickCount == 0 ? "조회할 찜이 없습니다." : ""}
+					<div class="page-navigation paging">${dataCount == 0 ? "조회할 찜이 없습니다." : ""}
 					</div>
 
 				</div>

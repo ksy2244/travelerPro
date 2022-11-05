@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>travler</title>
+<title>TRAVELER</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>TRAVELER</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <style type="text/css">
 .body-contain {
 	width: 100%;

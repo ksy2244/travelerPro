@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CEO</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title3.png" />
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 

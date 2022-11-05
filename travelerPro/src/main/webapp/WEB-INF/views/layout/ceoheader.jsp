@@ -54,7 +54,7 @@
 		      <c:if test="${not empty sessionScope.member}">
 		      		<li class="nav-item dropdown">
 		          		<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-		          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-right: 20px; margin-top: 6px;">
+		          		 style="font-family: 'GmarketSans'; font-size: 25px; margin-right: 40px; margin-top: 6px;">
 		            	업체 관리
 		         	 	</a>
 		          		<ul class="dropdown-menu">
@@ -62,17 +62,12 @@
 			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/main.do" style="font-family: 'GmarketSans';">업체리스트</a></li>
 			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/paylist.do" style="font-family: 'GmarketSans';">매출리스트</a></li>
 			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/reservation.do" style="font-family: 'GmarketSans';">예약 정보</a></li>
-			            	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ceo/qna.do" style="font-family: 'GmarketSans';">1:1 문의</a></li>
 		         	 	</ul>
 		        	</li>
 		        	
 			        <li class="nav-item text-white">
 			          	<a class="nav-link text-white" href="${pageContext.request.contextPath}/member/logout.do" title="로그아웃"
-			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 20px;">로그아웃</a>
-			        </li>
-			        <li class="nav-item text-white">
-			          	<a class="nav-link text-white" href="*" title="마이페이지"
-			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 150px;">마이페이지</a>
+			          		style="font-family: 'GmarketSans'; font-size: 25px; margin-top: 6px; margin-right: 200px;">로그아웃</a>
 			        </li>
 		      </c:if>
 	    	</ul>

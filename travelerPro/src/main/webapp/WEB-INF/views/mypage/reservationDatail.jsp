@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>TRAVELER</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title2.png" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 <link rel="stylesheet"
@@ -80,7 +81,7 @@
 		<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	</header>
 
-	<div class="container">
+	<div class="container mt-5">
 		<div class="body-container">
 			<div class="body-title">
 				<div class="shadowBox" style="width: 1100px; height: 900px;">
