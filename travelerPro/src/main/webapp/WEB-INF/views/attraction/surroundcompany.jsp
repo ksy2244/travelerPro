@@ -17,7 +17,7 @@
 
 .card .img {
 	width: 200px;
-	height: 230px;
+	height: 230px; 
 	margin-left: 100px;
 }
 
