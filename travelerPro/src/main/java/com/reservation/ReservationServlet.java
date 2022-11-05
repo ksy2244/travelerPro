@@ -306,12 +306,10 @@ public class ReservationServlet extends TravelServlet {
 			ReservationDAO dao = new ReservationDAO();
 			companyDto = dao.readCompany(companyNum);
 
-			String addr = companyDto.getAddr();
-			String addrDetail = companyDto.getAddrDetail();
+			String address = companyDto.getAddr();
+
 			String companyName = companyDto.getCompanyName();
 			String companyInfo = dao.map(companyNum);
-
-			String address = addr + " " + addrDetail;
 
 			req.setAttribute("companyInfo", companyInfo);
 			req.setAttribute("address", address);
@@ -417,19 +415,16 @@ public class ReservationServlet extends TravelServlet {
 			String[] endSplit = req.getParameter("end_date").split("-");
 			String end = endSplit[1] + endSplit[2];
 
-
 			// 예약 번호 = 예약 시작일 + 예약 종료일 + 업체 번호 + 객실 번호
 			String reservationCode = start + end + Integer.toString(companyNum) + Integer.toString(roomNum);
 			long reservationNum = (Long.parseLong(reservationCode));
-			
-			System.out.println(reservationNum + "dfsdfsdfsdfdsfsfsdfs");
 
+			System.out.println(reservationNum + "dfsdfsdfsdfdsfsfsdfs");
 
 			System.out.println("결제 번호");
 			dto.setRoomNum(roomNum);
 			dto.setReservationNum(reservationNum);
 			System.out.println(dto.getReservationNum());
-
 
 			dto.setStart_date(req.getParameter("start_date"));
 			dto.setEnd_date(req.getParameter("end_date"));
@@ -444,7 +439,6 @@ public class ReservationServlet extends TravelServlet {
 			dto.setRealUserTel(req.getParameter("realUserTel"));
 
 			dao.insertReservation(dto);
-			
 
 			// 쿠폰 사용했다면 나의 쿠폰 테이블에 추가
 			if (couponNum != 0) {
