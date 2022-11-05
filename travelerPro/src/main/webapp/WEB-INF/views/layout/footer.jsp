@@ -74,7 +74,7 @@
 	        <li class="nav-item"><a class="text-reset" href="${pageContext.request.contextPath}/ceo/main.do"><i class="fa-solid fa-house-user fa-2x"></i></a></li>
         </c:if>
         <c:if test="${sessionScope.member.userRoll == 99 }">
-	        <li class="nav-item"><a class="text-reset" href="${pageContext.request.contextPath}//main.do"><i class="fa-solid fa-user-secret fa-2x"></i></a></li>
+	        <li class="nav-item"><a class="text-reset" href="${pageContext.request.contextPath}/admin/main.do"><i class="fa-solid fa-user-secret fa-2x"></i></a></li>
         </c:if>
    </ul>
 </div>
