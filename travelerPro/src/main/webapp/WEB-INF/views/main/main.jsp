@@ -324,6 +324,17 @@ body {
 	font-weight: bold;
 	padding-left: 100px;
 }
+
+.main-image {
+	position: relative;
+}
+
+.main-image-text {
+    top: 0px;
+    left: 210px;;
+    color: white;
+    font-size: 
+ }
 </style>
 
 <script type="text/javascript">
@@ -519,62 +530,17 @@ $(function(){
 	</header>
 	<main class="container pt-5">
 		<div class="body-container">
-			<div id="carouselExampleCaptions" class="carousel slide"
-				data-bs-ride="false">
-				<div class="carousel-indicators">
-					<button type="button" data-bs-target="#carouselExampleCaptions"
-						data-bs-slide-to="0" class="active" aria-current="true"
-						aria-label="Slide 1"></button>
-					<button type="button" data-bs-target="#carouselExampleCaptions"
-						data-bs-slide-to="1" aria-label="Slide 2"></button>
-					<button type="button" data-bs-target="#carouselExampleCaptions"
-						data-bs-slide-to="2" aria-label="Slide 3"></button>
-				</div>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/fall.png"
-							class="d-block w-100" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h2 style="opacity: 1">
-								<strong>가을 정취를 느낄 수 있는 서울의 단풍</strong>
-							</h2>
-							<p>Some representative placeholder content for the first
-								slide.</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/flower.png"
-							class="d-block w-100" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Second slide label</h5>
-							<p>Some representative placeholder content for the second
-								slide.</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/green.png"
-							class="d-block w-100" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Third slide label</h5>
-							<p>Some representative placeholder content for the third
-								slide.</p>
-						</div>
-					</div>
-				</div>
-				<button class="carousel-control-prev" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
+		<div class="main-image">
+			<img
+				src="${pageContext.request.contextPath}/resources/images/main.jpg"
+				class="d-block w-100" alt="..." style="height: 700px;">
+			<div class="carousel-caption d-none d-md-block">
+				<h1 class="main-image-text" style="opacity: 1; font-family: 'GmarketSans';">
+					TRAVELER와 여행 어때요?
+				</h1>
 			</div>
+		</div>
+			
 			<div class="box">
 				<div class="map-title">
 					<div>지금 필요한 여행 정보</div>

@@ -18,7 +18,7 @@
 .card .img {
 	width: 200px;
 	height: 200px;
-	border-radius: 20%;
+	margin-left: 100px;
 }
 
 div card {
@@ -46,35 +46,30 @@ div card {
 .company {
 	font-weight: bold;
 	font-size: 17px;
-	margin-left: 4rem;
+	margin-left: 100px;
 }
 
 .png {
 	width: 18px;
 	margin-left: 22px;
-	margin-top: 10px;
 }
 
 .pick {
 	color: #787878;
-	margin-left: auto;
+	margin-left: 80px;
 	margin-top:35px;
 	
 }
 
 .review {
 	color: #787878;
-	margin-left: auto;
-	margin-top:10px;
-	
-
+	margin-left: 80px;
 }
 
 .star {
 	color: #FFBB00;
 	float: left;
-	
-	
+	margin-left: 100px;
 }
 
 .bold {
@@ -131,6 +126,7 @@ div card {
 .card {
 	height: 400px;
 }
+
 </style>
 
 </head>
@@ -152,7 +148,7 @@ div card {
 									onclick="location.href='${pageContext.request.contextPath}/reservation/roomInfo.do?companyNum=${dto.companyNum}'">
 									<img
 										src="${pageContext.request.contextPath}/uploads/ceo/${dto.imageFileName}"
-										class="card-img-top img">
+										class="img" style="width: 200px; height: 200px;">
 									<div class="card-body">
 										<div class="card-title company">${dto.companyName}</div>
 										<c:choose>
@@ -161,7 +157,7 @@ div card {
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
-													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}
+													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (${dto.reviewCount})
 														</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 4.0}">
@@ -170,70 +166,64 @@ div card {
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate}</span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 3.5}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
-													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold"></span></span>
+													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 3.0}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate} </span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 2.5}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}
-														${dto.reviewCount}</span></span>
+														${dto.reviewCount} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 2.0}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate}</span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 1.5}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
-													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate}
+													class="fa-solid fa-star fa-lg"></i>&nbsp;<span class="bold">${dto.starRate} (${dto.reviewCount})
 												</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 1.0}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i><i
 													class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate} </span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 0.5}">
 												<span class="star"><i class="fa-solid fa-star fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate} </span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:when test="${dto.starRate > 0}">
 												<span class="star"><i
 													class="fa-solid fa-star-half fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate} </span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:when>
 											<c:otherwise>
 												<span class="star"><i
 													class="fa-regular fa-star fa-lg"></i>&nbsp;<span
-													class="bold">${dto.starRate} </span></span>
+													class="bold">${dto.starRate} (${dto.reviewCount})</span></span>
 											</c:otherwise>
 										</c:choose>
 										<div class="pick">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/icon/pick.png"
-												class="png">&nbsp;${dto.pick}
+												class="png">&nbsp;<span class="pick-text">${dto.pick}</span>
 										</div>
-										<div class="review">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/icon/review.png"
-												class="png">&nbsp;${dto.reviewCount}
-										</div>
-
-
+										
 									</div>
 								</div>
 							</div>
