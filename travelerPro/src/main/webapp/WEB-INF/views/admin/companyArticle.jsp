@@ -172,7 +172,23 @@ $(function(){
 							<td colspan="2" valign="top" height="250">
 								<div class="fs-5 fw-bold">시설/서비스</div>
 								<br>
-								${dto.amenities}
+								<c:set var="serviceList" value="${dto.amenities}"></c:set>
+							<c:forEach var="service" items="${serviceList}">
+									<c:choose>
+										<c:when test="${service == 1}">와이파이&nbsp;/ </c:when>
+										<c:when test="${service == 2}">애견동반&nbsp;/ </c:when>
+										<c:when test="${service == 3}">개별 바베큐&nbsp;/ </c:when>
+										<c:when test="${service == 4}">수영장&nbsp;/ </c:when>
+										<c:when test="${service == 5}">주차 가능&nbsp;/ </c:when>
+										<c:when test="${service == 6}">상비약&nbsp;/ </c:when>
+										<c:when test="${service == 7}">기본 양념&nbsp;/ </c:when>
+										<c:when test="${service == 8}">매점&편의점&nbsp;/ </c:when>
+										<c:when test="${service == 9}">조식 운영&nbsp;/ </c:when>
+										<c:when test="${service == 10}">운동장&nbsp;/ </c:when> 
+										<c:otherwise><p>기타</p></c:otherwise> 
+										
+							</c:choose>
+							</c:forEach>
 							</td>
 						</tr>
 						

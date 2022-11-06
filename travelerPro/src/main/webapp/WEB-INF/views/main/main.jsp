@@ -93,88 +93,88 @@ body {
 }
 
 .region-button .seoul {
-	left: 1000px;
-	top: 1100px;
-}
-
-.region-button .incheon {
-	left: 950px;
-	top: 1150px;
-}
-
-.region-button .sejeong {
-	left: 970px;
+	left: 900px;
 	top: 1230px;
 }
 
-.region-button .guynggi {
-	left: 1000px;
-	top: 1170px;
+.region-button .incheon {
+	left: 840px;
+	top: 1220px;
 }
 
-.region-button .gangwon {
-	left: 1150px;
-	top: 1090px;
-}
-
-.region-button .daejeon {
-	left: 970px;
-	top: 1330px;
-}
-
-.region-button .daegu {
-	left: 1150px;
+.region-button .sejeong {
+	left: 880px;
 	top: 1380px;
 }
 
+.region-button .guynggi {
+	left: 880px;
+	top: 1300px;
+}
+
+.region-button .gangwon {
+	left: 1050px;
+	top: 1200px;
+}
+
+.region-button .daejeon {
+	left: 910px;
+	top: 1480px;
+}
+
+.region-button .daegu {
+	left: 1080px;
+	top: 1490px;
+}
+
 .region-button .wulsan {
-	left: 1180px;
-	top: 1460px;
+	left: 1120px;
+	top: 1580px;
 }
 
 .region-button .busan {
-	left: 1130px;
-	top: 1500px;
+	left: 1080px;
+	top: 1600px;
 }
 
 .region-button .gwangju {
-	left: 1000px;
-	top: 1450px;
+	left: 870px;
+	top: 1600px;
 }
 
 .region-button .chungbuk {
-	left: 1050px;
-	top: 1300px;
+	left: 950px;
+	top: 1350px;
 }
 
 .region-button .chungnam {
-	left: 900px;
-	top: 1300px;
+	left: 820px;
+	top: 1410px;
 }
 
 .region-button .gyungbuk {
-	left: 1190px;
-	top: 1320px;
+	left: 1100px;
+	top: 1420px;
 }
 
 .region-button .gyungnam {
-	left: 1080px;
-	top: 1430px;
+	left: 980px;
+	top: 1580px;
 }
 
 .region-button .jeonbuk {
-	left: 930px;
-	top: 1400px;
+	left: 850px;
+	top: 1530px;
 }
 
 .region-button .jeonnam {
-	left: 900px;
-	top: 1500px;
+	left: 800px;
+	top: 1650px;
 }
 
 .region-button .jeju {
-	left: 820px;
-	top: 1700px;
+	left: 720px;
+	top: 1770px;
 }
 
 .click {
