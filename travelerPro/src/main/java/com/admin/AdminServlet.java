@@ -119,9 +119,13 @@ public class AdminServlet extends TravelServlet {
 		String cp = req.getContextPath();
 
 		try {
+			String page = req.getParameter("page");
 			int current_page = 1;
+			if (page != null) {
+				current_page = Integer.parseInt(page);
+			}
 
-			int dataCount = dao.userDataCount();
+			int dataCount = dao.companyDataCount();
 
 			int size = 15;
 			int total_page = util.pageCount(dataCount, size);

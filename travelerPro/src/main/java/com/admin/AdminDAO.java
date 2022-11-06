@@ -350,7 +350,7 @@ public class AdminDAO {
 		try {
 			sql = "SELECT COUNT(*) "
 					+ " FROM company "
-					+ " WHERE approval = 0 AND approval = 1";
+					+ " WHERE approval = 0 OR approval = 1";
 			
 			pstmt = conn.prepareStatement(sql);
 
