@@ -333,7 +333,7 @@ body {
     left: 210px;;
     color: white;
     font-size: 50px;
-    text-shadow: 2px 2px gray;
+    text-shadow: 1px 1px black;
  }
 </style>
 
@@ -387,7 +387,6 @@ function printphoto(data){
 		out += "<br>"
 		out += "	<div class='company-price'>"+minPrice+"원</div>";
 		out += "</div>";
-		
 	}
 	$(".company-content").html(out);
 	
@@ -509,7 +508,7 @@ $(function(){
 				class="d-block w-100" alt="..." style="height: 700px;">
 			<div class="carousel-caption d-none d-md-block">
 				<h1 class="main-image-text" style="opacity: 1; font-family: 'GmarketSans';">
-					TRAVELER와 여행 어때요?
+					오늘 TRAVELER와 여행 어때요?
 				</h1>
 			</div>
 		</div>

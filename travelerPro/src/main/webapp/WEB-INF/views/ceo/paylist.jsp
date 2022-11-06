@@ -10,7 +10,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title3.png" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
-th{font-size:19px;} 
+th{font-size:17px;} 
  
 td{ padding: 15px;
 font-size: 16px; 
@@ -45,6 +45,10 @@ font-size: 16px;
 
 #point:hover{background-color:#FF9000;}
 
+.all {
+	font-weight: bold;
+	font-size: 25px;
+}
 </style>
 
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
@@ -64,7 +68,7 @@ font-size: 16px;
 			
 			<div class="body-main">
 		        <div class="row board-list-header">	        	
-		           <div><h3 align="center">총 매출: ${sales} 원</h3></div>
+		           <div class="all" align="center">총 매출&nbsp;&nbsp; ${sales} 원</div>
 		            <div class="col-auto me-auto">
 		            	${dataCount}개 (${page}/${total_page} 페이지)
 		            </div>
