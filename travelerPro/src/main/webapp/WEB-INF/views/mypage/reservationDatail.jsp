@@ -132,7 +132,8 @@
 						<p class="reservationContent">
 							예약 금액 <span class="rightContent">${dto.totalPrice}원</span>
 						</p>
-						<p class="reservationContent">
+						<c:if test="${dto.sales!=0}">
+							<p class="reservationContent">
 							총 할인 금액 <span class="rightContent">-${dto.sales}원</span>
 						</p>
 						<p class="couponContent">${dto.couponName}
@@ -146,6 +147,12 @@
 								</c:otherwise>
 							</c:choose>
 						</p>
+						</c:if>
+						<c:if test="${dto.sales==0}">
+							<p class="reservationContent">
+							총 할인 금액 <span class="rightContent">${dto.sales}원</span>
+							</p>
+						</c:if>
 					</div>
 					<hr>
 					<br>

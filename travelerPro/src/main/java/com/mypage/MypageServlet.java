@@ -280,12 +280,20 @@ public class MypageServlet extends TravelServlet {
 				resp.sendRedirect(cp + "/member/login.do");
 				return;
 			}
+			
 
 			long reservationNum = Long.parseLong(req.getParameter("reservationNum"));
 
 			// System.out.println(info.getUserId());
 			ReservationDTO dto = new ReservationDTO();
-			dto = dao.reservationDetail(reservationNum);
+			
+			if(dao.reservationDetailCoupon(info.getUserId(), reservationNum) == reservationNum) {
+				dto = dao.reservationDetailNoCoupon(reservationNum);
+			} else {
+				dto = dao.reservationDetail(reservationNum);
+			}
+			
+			
 			System.out.println(reservationNum);
 
 			// JSP로 전달할 속성

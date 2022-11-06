@@ -526,5 +526,91 @@ public class MypageDAO {
 		return dto;
 	}
 	
+	public ReservationDTO reservationDetailNoCoupon(long reservationNum) {
+		ReservationDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT realUserName, realUserTel, totalPrice, paymentPrice, userName, tel  "
+					+ " FROM reservation r "
+					+ " JOIN member m ON r.userId = m.userId "
+					+ " WHERE r.reservationNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, reservationNum);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ReservationDTO();
+				dto.setRealUserName(rs.getString("realUserName")); // 예약자 이름
+				dto.setRealUserTel(rs.getString("realUserTel")); // 예약자 전화번호
+				dto.setTotalPrice(rs.getInt("totalPrice")); // 업체 지정 금액
+				dto.setPaymentPrice(rs.getInt("paymentPrice")); // 실제 지불한 금액
+				dto.setUserName(rs.getString("userName"));
+				dto.setTel(rs.getString("tel"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return dto;
+	}
+	
+	public Long reservationDetailCoupon(String userId, long reservationNum) {
+		long result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+
+		try {
+			sql = "SELECT reservationNum FROM reservation WHERE totalPrice-paymentPrice <= 0 AND userId = ? AND reservationNum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setLong(2, reservationNum);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getLong(1);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+		return result;
+	}
+	
 
 }
