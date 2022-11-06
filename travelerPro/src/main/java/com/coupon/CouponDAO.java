@@ -94,7 +94,7 @@ public class CouponDAO {
 			sql = "SELECT couponNum, couponName, couponRate, couponPrice, content, "
 					+ " TO_CHAR(start_date, 'YYYY-MM-DD') start_date, end_date "
 					+ " FROM coupon "
-					+ " ORDER BY couponNum DESC "
+					+ " ORDER BY end_date "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 			
 			pstmt = conn.prepareStatement(sql);

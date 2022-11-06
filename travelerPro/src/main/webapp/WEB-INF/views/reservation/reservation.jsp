@@ -361,7 +361,7 @@ input[type=checkbox] {
 						<br>
 						
 						<p class="card-text">
-						<p class="address" style="font-size: 20px;">
+						<p class="address" style="font-size: 20px; width: 1000px;">
 							<i class="fa-solid fa-location-dot">&nbsp;</i> ${dto.addr} 기준
 							${dto.addrDetail}
 						</p>
