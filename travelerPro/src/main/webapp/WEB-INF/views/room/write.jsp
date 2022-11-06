@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CEO</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title3.png" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 .body-container {
@@ -46,17 +47,17 @@
 	color: black;
 }
 
-.basic {
+#basic {
 	background-color: #6C757D;
 }
 
-.basic:hover{background-color:#7689A5;}
+#basic:hover{background-color: #7689A5;}
 
-.bold {
+#bold {
 	background-color: #1687A7;
 }
 
-.bold:hover{background-color:#1696A7;}
+#bold:hover{background-color: #1696A7;}
 
 .gray {
 	color: #787878;
@@ -177,17 +178,17 @@ $(function(){
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-person-square"></i> 객실등록 </h3>
+				<h3> 객실 등록 </h3>
 			</div>
 			<div class="alert alert-info" role="alert">
-		        <i class="bi bi-person-check-fill"></i> 객실상세정보를 입력해 주세요
+		         객실 상세 정보를 입력해 주세요
 		    </div>
 			<div class="body-main">
 				<form name="roomForm" method="post" enctype="multipart/form-data"
 					onsubmit="return submitContents(this);">
-					<table class="table  write-form mt-5">
+					<table class="table table-borderless write-form mt-5">
 						<tr>
-							<td class="table-light col-sm-2" scope="row">객실명</td>
+							<td class="col-sm-2" scope="row">객실명</td>
 							<td>
 								<input type="text" name="roomName" class="form-control" value="${dto.roomName}">
 							</td>
@@ -195,14 +196,14 @@ $(function(){
 	        		
 						
 						<tr>
-							<td class="table-light col-sm-2" scope="row">객실정보</td>
+							<td class="col-sm-2" scope="row">객실정보</td>
 							<td>
 								<textarea name="roomInfo" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.roomInfo}</textarea>
 							</td>
 						</tr>
 						 
 						<tr>
-							<td class="table-light col-sm-2" scope="row">가격</td>
+							<td class="col-sm-2" scope="row">가격</td>
 							<td>
 								<input type="text" name="price" class="form-control" value="${dto.price}">
 							</td>
@@ -210,7 +211,7 @@ $(function(){
 						
 						
 						<tr>
-							<td class="table-light col-sm-2" scope="row">할인율</td>
+							<td class="col-sm-2" scope="row">할인율</td>
 							<td>
 								<input type="text" name="discountRate" class="form-control" value="${dto.discountRate}">
 							</td>
@@ -218,14 +219,14 @@ $(function(){
 						
 						
 						<tr>
-							<td class="table-light col-sm-2" scope="row">인원수</td>
+							<td class="col-sm-2" scope="row">인원수</td>
 							<td>
 								<input type="text" name="headCount" class="form-control" value="${dto.headCount}">
 							</td>
 						</tr>
 										
 						<tr>
-							<td class="table-light col-sm-2" scope="row">이미지</td>
+							<td class="col-sm-2" scope="row">이미지</td>
 							<td>
 								<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
 								<input type="file" name="selectFile" accept="image/*" multiple="multiple" style="display: none;" class="form-control">
@@ -234,7 +235,7 @@ $(function(){
 						
 						<c:if test="${mode=='update'}">
 							<tr>
-								<td class="table-light col-sm-2" scope="row">등록이미지</td>
+								<td class="col-sm-2" scope="row">등록이미지</td>
 								<td> 
 									<div class="img-box">
 										<c:forEach var="vo" items="${listFile}">
@@ -250,9 +251,9 @@ $(function(){
 					
 					<div class="row mb-3">
 				        <div class="text-center">
-								<button type="submit" class="btn btn-dark" id="bold" >${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-								<button type="reset" class="btn btn-dark" id="bold">다시입력</button>
-								<button type="button" class="btn btn-dark" id="bold" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="submit" class="btn text-white" id="bold" >${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="reset" class="btn text-white" id="basic">다시입력</button>
+								<button type="button" class="btn text-white" id="basic" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<input  type="hidden" name="companyNum" value="${companyNum}">
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="roomNum" value="${dto.roomNum}">

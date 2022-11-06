@@ -7,12 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CEO</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title3.png" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp" />
 
 <style type="text/css">
-th{font-size: 20px;}
+th{font-size: 16px;}
 
 
 .body-container {
@@ -54,7 +55,7 @@ th{font-size: 20px;}
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3>  객실관리 </h3>
+				<h3>  객실 관리 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -105,7 +106,7 @@ th{font-size: 20px;}
 						<button type="button" class="btn text-white" id="basic" onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">새로고침</button>
 					</div>
 					<div class="col text-end">
-						<button type="button" class="btn text-white" id="point" onclick="location.href='${pageContext.request.contextPath}/room/write.do?companyNum=${companyNum}';">객실등록</button>
+						<button type="button" class="btn text-white" id="point" onclick="location.href='${pageContext.request.contextPath}/room/write.do?companyNum=${companyNum}';"><i class="fa-solid fa-bed"></i> 객실등록</button>
 					</div>
 				</div>
 

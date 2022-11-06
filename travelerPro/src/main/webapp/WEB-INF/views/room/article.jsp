@@ -6,15 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CEO</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/title3.png" />
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader_admin.jsp" />
 <style type="text/css">
-td.tt{font-size: 30px;}
+td.tt{font-size: 25px; font-weight: bold;}
 
 td{ padding: 15px;
-font-size: 20px;
+font-size: 16px;
 }
+
+.basic {
+	background-color: #6C757D;
+}
+
+.basic:hover{background-color:#7689A5;}
 </style>
 <script type="text/javascript">
 function deleteroom() {
@@ -36,7 +43,7 @@ function deleteroom() {
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3> 객실 </h3>
+				<h3> 객실 상세 정보</h3>
 			</div>
 			
 			<div class="body-main">
@@ -45,7 +52,7 @@ function deleteroom() {
 					<thead>
 						<tr>
 							<td colspan="2" align="center" class=tt>
-								객실명:${dto.roomName}
+								${dto.roomName}
 							</td>
 						</tr>
 					</thead>
@@ -75,17 +82,17 @@ function deleteroom() {
 						</tr>
 						<tr>
 							<td align="left">
-								가&nbsp;&nbsp;격 : ${dto.price}
+								가&nbsp;격 : ${dto.price}
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
-								할&nbsp;&nbsp;인&nbsp;&nbsp;률 : ${dto.discountRate}
+								할&nbsp;인&nbsp;률 : ${dto.discountRate}
 							</td>
 						</tr>
 						<tr>
 							<td align="left">
-								인&nbsp;&nbsp;원&nbsp;&nbsp;수 : ${dto.headCount}
+								인&nbsp;원&nbsp;수 : ${dto.headCount}
 							</td>
 						</tr>
 						
@@ -97,12 +104,12 @@ function deleteroom() {
 				<table class="table table-borderless">
 					<tr>
 						<td width="50%">
-							<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?roomNum=${dto.roomNum}&page=${page}&companyNum=${companyNum}';">수정</button>
-							<button type="button" class="btn btn-primary"  onclick="deleteroom();">삭제</button>
+							<button type="button" class="btn basic text-white"  onclick="location.href='${pageContext.request.contextPath}/room/update.do?roomNum=${dto.roomNum}&page=${page}&companyNum=${companyNum}';">수정</button>
+							<button type="button" class="btn basic text-white"  onclick="deleteroom();">삭제</button>
 						</td>
 						
 						<td class="text-end">
-							<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">리스트</button>
+							<button type="button" class="btn basic text-white"  onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${companyNum}';">리스트</button>
 						</td>
 					</tr>
 				</table>
