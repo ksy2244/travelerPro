@@ -105,14 +105,20 @@
 								<c:if test="${dto.approval == 1}">
 									<td class="blue">완료</td>
 								</c:if>
+								<c:if test="${dto.approval == 2}">
+									<td class="red">거절</td>
+								</c:if>
 								<c:choose>
 									<c:when test="${dto.approval ==1}">
 									<td>
 										<a onclick="location.href='${pageContext.request.contextPath}/room/list.do?companyNum=${dto.companyNum}'"><img src="../resources/images/icon-plus.png" alt="상세 정보 확인" class="png"></a>
 									</td>
 									</c:when>
-									<c:otherwise>
+									<c:when test="${dto.approval == 0 }">
 										<td class="gray">승인을 기다려주세요</td>
+									</c:when>
+									<c:otherwise>
+										<td class="gray">승인이 거절되었습니다</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
