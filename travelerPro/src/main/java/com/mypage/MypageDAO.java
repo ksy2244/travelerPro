@@ -27,7 +27,7 @@ public class MypageDAO {
 					+ " TO_CHAR(start_date, 'YYYY.MM.DD') start_date, end_date " + " FROM coupon "
 					+ " WHERE end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
 					+ " AND couponNum NOT IN(SELECT c.couponNum FROM coupon c JOIN myCoupon m ON c.couponNum = m.couponNum WHERE userId = ?) "
-					+ " ORDER BY couponNum DESC " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
+					+ " ORDER BY end_date " + " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ";
 
 			pstmt = conn.prepareStatement(sql);
 
