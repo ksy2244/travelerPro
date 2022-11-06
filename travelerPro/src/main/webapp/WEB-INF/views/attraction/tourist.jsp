@@ -57,13 +57,13 @@ ul {
 }
 
 .area-tag {
-   float: left;
+   float: right;
    position: fixed;
    top: 200px;
    width: 380px;
    height: 500px;
    text-align: center;
-   margin-left: 1650px; 
+   margin-left: 1500px; 
    box-shadow: 8px 8px gray;
    font-family: 'GmarketSans';
    background: #D4F4FA;

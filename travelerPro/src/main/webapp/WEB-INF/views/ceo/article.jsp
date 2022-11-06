@@ -25,7 +25,6 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/ceo.js"></script>
 <script type="text/javascript">
-/* <c:if test="${sessionScope.member.userId==dto.userId}"> */
 function deleteCeo() {
      if(confirm("해당업체를 삭제 하시겠습니까 ? ")) {
 	    let query = "companyNum=${dto.companyNum}&page=${page}";
@@ -33,7 +32,6 @@ function deleteCeo() {
     	location.href = url;
      }
 }
-</c:if>
 
 function imageViewer(src) {
 	const $model = $("#myDialogModal .modal-body");

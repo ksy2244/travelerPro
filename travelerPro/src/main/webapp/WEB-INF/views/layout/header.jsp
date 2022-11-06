@@ -74,7 +74,7 @@
 	      	
 	      	<c:if test="${not empty sessionScope.member}">
 	      		<li class="nav-item">
-		          		<a class="nav-link text-white" href="'${pageContext.request.contextPath}/attraction/list.do?areacode=1&region=서울'" title=""
+		          		<a class="nav-link text-white" href="${pageContext.request.contextPath}/attraction/list.do?areacode=1&region=서울" title=""
 		          		 style="font-family: 'GmarketSans'; font-size: 23px; margin-right: 50px;">관광지</a>
 		        </li>
 		    	<li class="nav-item">

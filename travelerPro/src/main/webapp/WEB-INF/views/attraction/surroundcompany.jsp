@@ -139,7 +139,7 @@ div card {
 			</div>
 			<div class="body-main">
 				<div class="row row-cols-auto">
-					<c:forEach var="dto" items="${list}" varStatus="status" begin="1" end="3">
+					<c:forEach var="dto" items="${list}" varStatus="status">
 						<div class="row row-cols-1 row-cols-md-3 g-4">
 							<div class="card-group"
 								style="width: 300px; height: 300px; margin: auto;">

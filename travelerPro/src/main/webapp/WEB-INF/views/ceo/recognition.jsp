@@ -85,50 +85,10 @@
 <script src="${pageContext.request.contextPath}/resources/js/ceo.js"></script>
 <script type="text/javascript">
 function companyOk() {
-	const f = document.companyForm;
-	
-/*  	if(!f.companyName.vlaue){
-		f.companyName.focus();
-		return false;
-	}
-	if(!f.userId.vlaue){
-		f.companyName.focus();
-		return false;
-	}
-	if(!f.regionName.vlaue){
-		f.companyName.focus();
-		return false;
-	}
-	if(!f.guide.vlaue){
-		f.companyName.focus();
-		return false;
-	}
-	if(!f.companyInfo.vlaue){
-		f.companyName.focus();
-		return false;
-	}
-	if(!f.notice.vlaue){
-		f.companyName.focus();
-		return false;
-	}  */
-
-		
+	const f = document.companyForm;	
 	f.action = "${pageContext.request.contextPath}/ceo/${mode}_ok.do"; 
 	f.submit();
-	
 }
- 
-<c:if test="${mode=='update'}">
-function deleteFile(fileNum) {
-	if(! confirm("이미지를 삭제 하시겠습니까 ?")) {
-		return;
-	}
-	
-	let query = "companyNum=${dto.companyNum}&fileNum=" + fileNum + "&page=${page}";
-	let url = "${pageContext.request.contextPath}/ceo/delete.do?" + query;
-	location.href = url;
-}
-</c:if>
 
 $(function(){
 	var sel_files = [];

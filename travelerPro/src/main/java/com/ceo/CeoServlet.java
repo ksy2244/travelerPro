@@ -72,7 +72,7 @@ public class CeoServlet extends TravelServlet {
 			insertReply(req, resp);
 		} else if (uri.indexOf("listAnswer.do") != -1) {
 			listAnswer(req, resp);
-		}
+		} 
 	}
 
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

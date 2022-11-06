@@ -98,7 +98,9 @@
 	padding-left: 4px;
 	margin-right: 25px;
 }
-
+/*  main {
+	height: 2500px;
+} */
 
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0662433c3f6d691c3d739417758f655c&libraries=services"></script>
@@ -240,11 +242,14 @@ $(function(){
 		} else if (tab == "2") {
 			map();
 		} else if (tab == "3") {
+			$(".body-main").css({
+				"height":"2500px"
+			});
 			let selector = "#nav-"+tab;
 			let url= "${pageContext.request.contextPath}/attraction/surroundcompany.do";
 			let a = addr.split(" ");
 			if( a && a[0] ) {
-				let query="addr="+encodeURIComponent(a[0])+"&tmp="+new Date().getTime();
+				let query="addr="+encodeURIComponent(a[0]);
 				$(selector).load(url+"?"+query);
 			}
 		}
@@ -262,7 +267,7 @@ $(function(){
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 </header>
 
-<main class="pt-5">
+<main class="pt-5 body-main">
 	<div class="container">
 	<div class="body-containerMain">
 		<div class="attraction-title"></div>
