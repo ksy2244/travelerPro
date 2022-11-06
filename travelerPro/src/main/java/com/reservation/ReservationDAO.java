@@ -476,18 +476,17 @@ public class ReservationDAO {
 	public ReserveRoomDTO listSelectRoom(int roomNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		StringBuilder sb = new StringBuilder();
 		ReserveRoomDTO dto = new ReserveRoomDTO();
+		String  sql = "";
 
 		try {
-			sb.append(" SELECT roomNum, roomName, roomInfo, price, discountRate, headCount, r.companyNum, "
-					+ " companyName, companyTel, companyInfo, amenities, guide, notice, checkInTime, checkOutTime, addr, addrDetail, zip ");
-			sb.append(" FROM room r");
-			sb.append(" LEFT OUTER JOIN company c ");
-			sb.append(" ON r.companyNum = c.companyNum ");
-			sb.append(" WHERE roomNum = ? ");
+			sql = " SELECT r.roomNum, roomName, roomInfo, price, discountRate, headCount, r.companyNum,  "
+					+ " companyName, companyTel, companyInfo, amenities, guide, notice, checkInTime, checkOutTime, addr, addrDetail, zip,  imageFileName "
+					+ " FROM room r " 
+					+ "	LEFT OUTER JOIN company c   ON r.companyNum = c.companyNum "
+					+ "	JOIN mainRoomImage mr ON mr.roomNum = r.roomNum " + " WHERE r.roomNum = ? ";
 
-			pstmt = conn.prepareStatement(sb.toString());
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, roomNum);
 			rs = pstmt.executeQuery();
 
@@ -510,6 +509,7 @@ public class ReservationDAO {
 				dto.setAddr(rs.getString("addr"));
 				dto.setAddrDetail(rs.getString("addrDetail"));
 				dto.setZip(rs.getInt("zip"));
+				dto.setImageFileName(rs.getString("imageFileName"));
 
 			}
 
@@ -538,7 +538,7 @@ public class ReservationDAO {
 	public void insertReservation(ReservationDTO dto) throws SQLException {
 		PreparedStatement pstmt = null;
 		String sql;
-		
+
 		try {
 
 			sql = " INSERT INTO reservation" + "(reservationNum, start_date, end_date, realHeadCount, totalPrice, "
@@ -854,7 +854,6 @@ public class ReservationDAO {
 					+ " WHERE c.companyNum = r.companyNum)  AND ROWNUM <= 5 " + "ORDER BY starRate DESC, pick DESC  ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-		
 
 			while (rs.next()) {
 				ReserveCompanyDTO dto = new ReserveCompanyDTO();
@@ -1063,9 +1062,8 @@ public class ReservationDAO {
 
 		return list;
 	}
-	
-	
-	public String companyImg (int companyNum) {
+
+	public String companyImg(int companyNum) {
 		String result = "";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1074,8 +1072,7 @@ public class ReservationDAO {
 		try {
 			sql = " SELECT DISTINCT cf.imageFileName AS companyImg FROM roomFile rf "
 					+ " JOIN room r ON rf.roomNum = r.roomNum "
-					+ " JOIN companyFile cf ON cf.companyNum = r.companyNum "
-					+ " WHERE cf.companyNum = ?  "; 
+					+ " JOIN companyFile cf ON cf.companyNum = r.companyNum " + " WHERE cf.companyNum = ?  ";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -1106,6 +1103,5 @@ public class ReservationDAO {
 
 		return result;
 	}
-
 
 }

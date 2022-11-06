@@ -350,8 +350,8 @@ input[type=checkbox] {
 		<div class="container">
 			<div class="body-container">
 				<br><br><br>
-				<span class="pb-5">
-					<img src="${pageContext.request.contextPath}/resources/images/room.jpg" style="width: 1100px; margin-left: 105px;">
+				<span class="pb-5">				
+					<img src="${pageContext.request.contextPath}/uploads/room/${dto.imageFileName}" style="width: 1100px; margin-left: 105px;">
 				</span>
 				<div class="shadowBox" style="width: 1100px; height: 1200px;">  
 					<div class="shadowBoxContent" style="padding: 40px">
