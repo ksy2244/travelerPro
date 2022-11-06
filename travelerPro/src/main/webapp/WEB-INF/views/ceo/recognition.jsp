@@ -387,7 +387,7 @@ $(function(){
 								</div>
 							</div>
 						</div>
-
+			
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="addr1">주소</label>
 							<div class="col-sm-10">
@@ -401,27 +401,31 @@ $(function(){
 								</div>
 							</div>
 						</div>
+						<br>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">업체
 								정보</label>
 							<textarea class="form-control" name="companyInfo"
 								id="companyInfo" rows="3" placeholder="위치·주차·교통 등을 상세히 기입해 주세요.">${dto.companyInfo}</textarea>
 						</div>
-						
+						<br>
+						<br>
 						<div class="checkList">
-						<label for="exampleFormControlTextarea1" class="form-label">서비스 유형 : </label>
+						<label for="exampleFormControlTextarea1" class="form-label">서비스 유형</label><br>
 							<c:forEach var="vo" items="${list}">
-								<label>${vo.serviceName} <input type="checkbox"
+								<label>&nbsp;&nbsp;&nbsp;${vo.serviceName} &nbsp;<input type="checkbox"
 									value="${vo.serviceNum}" name="checkList" /></label>
 							</c:forEach>
 						</div>
-
-
+						<br>
+						<br>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">안내</label>
 							<textarea class="form-control" name="guide" id="guide" rows="3"
 								placeholder="숙소 소개를 상세히 기입해 주세요.">${dto.guide}</textarea>
 						</div>
+						<br>
+						<br>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">예약
 								공지</label>
@@ -432,12 +436,12 @@ $(function(){
 						<div class="row mb-3">
 							<div class="text-center">
 								<button type="button" name="sendButton"
-									class="btn bold text-white" onclick="companyOk();">${mode=='update'? '수정완료':'승인받기'}&nbsp;<i
+									class="btn bold text-white" onclick="companyOk();">${mode=='update'? '수정완료':'승인요청'}&nbsp;<i
 										class="bi bi-check2"></i>
 								</button>
 								<button type="reset" class="btn basic text-white">다시입력</button>
 								<button type="button" class="btn basic text-white"
-									onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">${mode=='update'?'수정취소':'승인취소'}&nbsp;<i
+									onclick="location.href='${pageContext.request.contextPath}/ceo/main.do';">${mode=='update'?'수정취소':'요청취소'}&nbsp;<i
 										class="bi bi-x"></i>
 								</button>
 								<input type="hidden" name="userIdValid" id="userIdValid"
