@@ -41,7 +41,7 @@
 			</td>
 		</tr>
 		<tr class='list-header content'>
-			<td colspan='2' valign='top' class="pt-5 pb-5 ps-3">${vo.content}</td>
+			<td colspan='4' valign='top' class="pt-5 pb-5 ps-3">${vo.content}</td>
 		</tr>
 
 	</c:forEach>
