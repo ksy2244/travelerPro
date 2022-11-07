@@ -123,8 +123,11 @@
 											<c:when test="${dto.gap == 0}">
 												쿠폰이 오늘 만료됩니다.
 											</c:when>
-											<c:otherwise>
+											<c:when test="${dto.gap > 0}">
 												쿠폰이 ${dto.gap}일 남았습니다.
+											</c:when>
+											<c:otherwise>
+												쿠폰이 만료되었습니다.
 											</c:otherwise>
 										</c:choose>
 									</td>

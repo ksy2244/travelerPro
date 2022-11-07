@@ -382,6 +382,10 @@ public class ReservationServlet extends TravelServlet {
 			System.out.println(gap);
 
 			int paymentPrice = dto.getRoomPrice();
+			
+			if(dto.getDiscountRate() != 0) {
+				paymentPrice = paymentPrice - (paymentPrice * dto.getDiscountRate() /100);
+			}
 
 			req.setAttribute("gap", gap);
 			req.setAttribute("dto", dto);
